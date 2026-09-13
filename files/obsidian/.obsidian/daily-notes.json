@@ -1,0 +1,6 @@
+{
+  "autorun": false,
+  "folder": "01 Memory/Daily",
+  "format": "YYYY-MM-DD",
+  "template": "Templates/Daily Memory"
+}

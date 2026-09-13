@@ -1,0 +1,11 @@
+{
+  "accentColor": "#6D4AFF",
+  "baseFontSize": 16,
+  "cssTheme": "",
+  "enabledCssSnippets": [
+    "safedealz"
+  ],
+  "interfaceFontFamily": "Inter",
+  "nativeMenus": true,
+  "textFontFamily": "Inter"
+}

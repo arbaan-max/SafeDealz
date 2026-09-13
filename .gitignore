@@ -1,0 +1,41 @@
+# Secrets and local environment
+**/.env
+**/.env.*
+!**/.env.example
+**/*.pem
+**/*.key
+**/*.p12
+**/*.jks
+**/google-services.json
+**/GoogleService-Info.plist
+
+# Node.js
+**/node_modules/
+**/dist/
+**/coverage/
+**/.npm/
+
+# Flutter and Dart
+**/.dart_tool/
+**/build/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+
+# IDE and operating-system state
+**/.idea/
+**/.vscode/
+**/*.iml
+**/.DS_Store
+
+# Obsidian machine-specific state
+files/obsidian/.obsidian/cache/
+files/obsidian/.obsidian/workspace.json
+files/obsidian/.obsidian/workspace-mobile.json
+files/obsidian/.trash/
+
+# Logs and temporary files
+**/*.log
+**/*.tmp
+**/*.swp

@@ -1,0 +1,20 @@
+:root {
+  --safedealz-purple: #6d4aff;
+  --safedealz-sky: #38bdf8;
+}
+
+.theme-light,
+.theme-dark {
+  --interactive-accent: var(--safedealz-purple);
+  --interactive-accent-hover: #5937ec;
+  --text-accent: var(--safedealz-purple);
+  --text-accent-hover: var(--safedealz-sky);
+}
+
+.callout[data-callout="important"] {
+  --callout-color: 109, 74, 255;
+}
+
+.markdown-rendered table {
+  width: 100%;
+}

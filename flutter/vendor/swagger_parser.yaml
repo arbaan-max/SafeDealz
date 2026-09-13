@@ -1,0 +1,12 @@
+swagger_parser:
+  # Synced from the backend contract by make -f files/Makefile generate-api.
+  schema_path: swagger/swagger.json
+  output_directory: lib/data/api
+  language: dart
+  json_serializer: freezed
+  root_client: true
+  root_client_name: RestClient
+  export_file: true
+  put_clients_in_folder: true
+  enums_to_json: true
+  unknown_enum_value: true
