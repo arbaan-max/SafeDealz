@@ -266,11 +266,11 @@ Each phase excludes later-phase features and unapproved architecture changes. AP
 - Status: Planned
 - Dependencies: P22
 - Screens: —
-- Scope: Complete screen inventory, purple/sky-blue themes, responsive layouts and accessible interaction states.
+- Scope: Complete screen inventory using the client-approved sky-blue theme, responsive layouts and accessible interaction states. Purple may remain in the prototype as a comparison preview but is not a production implementation target.
 - API, data and client impact: Connect all approved routes and contract clients; fix integration gaps without adding scope.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
 - Tasks: P23.1 — define contracts/data and acceptance cases; P23.2 — deliver scoped functionality/evidence; P23.3 — verify integration and synchronize completion records.
-- Completion gate: Every catalogued screen reachable; mobile widget/navigation and admin browser tests cover loading/empty/error states, both themes and nested back navigation.
+- Completion gate: Every catalogued screen reachable; mobile widget/navigation and admin browser tests cover loading/empty/error states, the sky-blue production theme and nested back navigation.
 
 ## P24 — End-to-end and resilience
 

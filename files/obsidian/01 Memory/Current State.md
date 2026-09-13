@@ -15,6 +15,7 @@ updated: 2026-09-13
 - P01, the React admin foundation, is the next planned phase.
 - Product feature implementation has not started.
 - Deployment is outside the roadmap.
+- Sky blue is the client-approved final primary theme across every application.
 
 ## Repository layout
 
@@ -46,6 +47,7 @@ safeDealz/
 - `backend/openapi/openapi.json` is the canonical API contract.
 - `make -f files/Makefile check-p00` regenerates clients and runs the Phase 00 checks.
 - The complete four-folder project is managed by one Git repository with `origin` set to the SafeDealz GitHub repository.
+- Theme foundation: `#0369A1` primary action, white on primary, `#38BDF8` supporting sky highlight, and `#E0F2FE` sky tint; purple is secondary only.
 
 ## Next action
 

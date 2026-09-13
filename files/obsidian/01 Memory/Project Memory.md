@@ -21,6 +21,7 @@ SafeDealz is a device trade-in auction platform with Store Manager, Vendor, Diag
 - Refresh checks authoritative account status. Inactive manager and vendor accounts are logged out without a retry loop.
 - Every implementation updates its task, implementation status, phase status, tests, and applicable contracts or design files.
 - The entire SafeDealz folder is one Git repository; do not initialize separate repositories inside backend, Flutter apps, files, or React admin.
+- Sky blue is the final client-approved primary theme. Purple is secondary and must not regain primary-action ownership.
 
 ## Canonical references
 

@@ -24,7 +24,7 @@ Source filenames: `SafeDealz_Platform_Overview.pptx.pdf`, `TEKRIO_Phonorange_Par
 
 | Topic | Current rule |
 |---|---|
-| Brand | SafeDealz; sky blue and purple |
+| Brand | SafeDealz; client-approved sky blue primary with restrained purple secondary accents |
 | Applications | Three mobile apps (Store Manager, Vendor, Android Diagnostics) and one Super Admin web interface; no customer app |
 | Organization | Parent chain contains branches; each branch has multiple manager logins |
 | Vendor assignments | One vendor account can access multiple assigned branches across multiple chains |
@@ -67,7 +67,7 @@ This draft includes Login and authenticated password changes, operational disput
 
 ## 2. Design direction and skill application
 
-**Design Read:** Reading this as an operational trading product for store managers, vendors, and administrators, with a clear, trustworthy sky-blue and purple language, leaning toward functional minimalism and familiar app navigation.
+**Design Read:** Reading this as an operational trading product for store managers, vendors, and administrators, with a clear, trustworthy sky-blue primary language, restrained purple accents, functional minimalism, and familiar app navigation.
 
 **Mode:** New visual design using reference workflows. Preserve the useful device-capture sequence and prototype viewing format; replace the reference green palette and cramped screenshots.
 
@@ -75,7 +75,7 @@ This draft includes Login and authenticated password changes, operational disput
 
 ### UI UX Pro Max first
 
-Local design-system query: `B2B marketplace dashboard`, with variance 3, motion 2, density 5. The result supported Minimalism & Swiss Style, clear grids, functional spacing, readable contrast, and Plus Jakarta Sans. Its marketing hero, proof-logo and sales-CTA sections were irrelevant to these authenticated apps and are not adopted. The suggested navy/blue palette is replaced by the owner's sky-blue/purple direction. Its scroll-reveal suggestion is also omitted because transaction screens need stable content.
+Local design-system query: `B2B marketplace dashboard`, with variance 3, motion 2, density 5. The result supported Minimalism & Swiss Style, clear grids, functional spacing, readable contrast, and Plus Jakarta Sans. Its marketing hero, proof-logo and sales-CTA sections were irrelevant to these authenticated apps and are not adopted. A later targeted sky-blue accessibility search supported a darker action shade with a lighter sky family for surfaces. The client's final sky-blue decision supersedes the earlier purple-primary direction. Scroll reveal remains omitted because transaction screens need stable content.
 
 Targeted query `error summary validation` returned focusable error summaries with field links and persistent inline errors. Adopt both. The skill's mobile pre-delivery rules inform touch targets, safe areas, feedback and readable forms.
 
@@ -83,7 +83,7 @@ Targeted query `error summary validation` returned focusable error summaries wit
 
 Taste explicitly excludes native mobile, dense admin UI and multistep forms as its primary scope. UI UX Pro Max therefore leads the product patterns. Apply Taste's relevant transferable checks to typography, spacing, consistent shapes, restrained motion, readable buttons, clear copy and full empty/loading/error states. Do not import landing-page hero rules, decorative asymmetry, stock marketing photography, or bans on useful operational tables.
 
-Two brand colors are intentional and owner-requested. Purple owns primary actions; sky blue owns supporting visual emphasis. Semantic success/error colors remain permitted because they communicate actual state. No neon glows, gradient text, glass panels, decorative counters or random status dots.
+Sky blue is the client-approved primary family across all applications. The darker sky action token provides accessible white-text buttons and focus states; bright sky blue supports highlights and tinted surfaces. Purple remains a restrained secondary accent for selected non-primary illustrations or charts and never replaces the sky-blue action hierarchy. Semantic success/error colors remain permitted because they communicate actual state. No neon glows, gradient text, glass panels, decorative counters or random status dots.
 
 ### Visual tokens
 
@@ -93,21 +93,22 @@ Two brand colors are intentional and owner-requested. Purple owns primary action
 | `surface` | `#FCFCFF` | Cards, sheets, forms |
 | `text-primary` | `#192238` | Titles, main body, amounts |
 | `text-secondary` | `#526079` | Labels, descriptions, metadata |
-| `brand-purple` | `#6D38C7` | Primary buttons, active navigation |
-| `purple-hover` | `#592BA8` | Hover/pressed primary actions |
-| `purple-soft` | `#F0EAFE` | Selected backgrounds and rewards accents |
-| `brand-sky` | `#38BDF8` | Supporting highlights with dark text; not white small text |
+| `brand-sky-action` | `#0369A1` | Primary buttons, active navigation, links and focus controls |
+| `sky-hover` | `#075985` | Hover/pressed primary actions |
+| `brand-sky` | `#38BDF8` | Bright supporting highlights with dark text; not white small text |
 | `sky-ink` | `#075985` | Blue text and meaningful blue icons |
-| `sky-soft` | `#E9F7FE` | Live auction/info panels |
+| `sky-soft` | `#E0F2FE` | Selected backgrounds, live auction and information panels |
+| `brand-purple` | `#6D38C7` | Restrained secondary accent only |
+| `purple-soft` | `#F0EAFE` | Optional secondary illustration/chart tint |
 | `border-subtle` | `#DCE2EE` | Decorative separators |
 | `control-border` | `#7A879E` | Input/control boundaries |
 | `success` / `success-soft` | `#166534` / `#EAF7EF` | Paid, completed |
 | `warning` / `warning-soft` | `#92400E` / `#FFF4DF` | Expiry, action required |
 | `danger` / `danger-soft` | `#B42318` / `#FDEEEB` | Errors, cancellation |
-| `on-primary` | `#FCFCFF` | Text on solid purple |
-| `focus` | `#6D38C7` | 2px outline with 2px offset |
+| `on-primary` | `#FFFFFF` | Text on `brand-sky-action` |
+| `focus` | `#0369A1` | 2px outline with 2px offset |
 
-Use semantic tokens, not per-screen color overrides. Sky-blue fills carry dark `sky-ink` or `text-primary` text. Purple is not a substitute for error or warning meaning. Ordinary text must reach 4.5:1; meaningful icons and control boundaries 3:1. Final rendered combinations must be checked during HTML implementation.
+Use semantic tokens, not per-screen color overrides. Bright sky-blue fills carry dark `sky-ink` or `text-primary` text. The darker `brand-sky-action` carries white text. Purple is not a substitute for primary, error, or warning meaning. Ordinary text must reach 4.5:1; meaningful icons and control boundaries 3:1. Final rendered combinations must be checked during implementation.
 
 - Font: Plus Jakarta Sans, weights 400/500/600/700, with system sans-serif fallback. Self-host assets for the final prototype where practical.
 - Mobile title: 24/32px; section title: 18/26px; body/input: 16/24px; metadata: 13/20px; amount: 30/38px. Admin page title: 28/36px; tables: 14/22px.
@@ -116,7 +117,7 @@ Use semantic tokens, not per-screen color overrides. Sky-blue fills carry dark `
 - Shape scale: controls 10px, cards 16px, sheets 24px at top corners, status chips pill-shaped. Documented roles keep these consistent.
 - Controls: 48px minimum touch height; primary form actions 52px. Icons: Phosphor outline, 20px inline and 24px navigation. Text labels accompany navigation icons.
 - Cards group one device, wallet summary, or confirmation. Ordinary settings use rows; admin data uses tables, not a card for every cell.
-- Shadows only for dialogs, popovers and elevated navigation; subtle purple-gray tint. List cards use borders.
+- Shadows only for dialogs, popovers and elevated navigation; subtle blue-gray tint. List cards use borders.
 - Motion: 100ms press feedback, 160ms menu transitions, 220ms sheet transitions. No celebratory animation during payment. Respect reduced motion; never animate amount/countdown width.
 - Layers: content 0, sticky bars 10, dropdown 20, backdrop 30, modal 40, transient notices 50. Keep focus above sticky controls.
 
@@ -420,7 +421,7 @@ Recent devices
 [Home]       [Devices]       [Rewards]   [Account]
 ```
 
-An expiring actionable offer outranks routine statistics. No incentive card or customer payout number. Sky-blue informational panels support the purple New trade-in action without competing with the offer's urgency.
+An expiring actionable offer outranks routine statistics. No incentive card or customer payout number. Sky-blue informational panels support the darker sky-blue New trade-in action without competing with the offer's urgency.
 
 ### Vendor Bid / V04
 
@@ -449,7 +450,7 @@ Device header, then a fixed-position-in-layout acceptance countdown, final offer
 
 ### Vendor Wallet / V07
 
-Available to bid is the dominant amount on a purple-tinted surface. Reserved and Payments processing appear below with explanatory labels. Add money is the primary action. Ledger rows use explicit Reserve/Release/Paid labels and +/- movements rather than color alone. No cash-out CTA.
+Available to bid is the dominant amount on a sky-blue-tinted surface. Reserved and Payments processing appear below with explanatory labels. Add money is the primary action. Ledger rows use explicit Reserve/Release/Paid labels and +/- movements rather than color alone. No cash-out CTA.
 
 ### Admin Auction / A11
 
@@ -726,7 +727,7 @@ A20 permits whole-minute bidding durations from 1–30 and manager acceptance du
 
 ### Prototype theme control
 
-The client-preview header includes a Theme dropdown beside the All Screens / Interactive Flow control. Purple is the default. Sky Blue changes the global primary, hover, focus, active-navigation, selected-control, card-tint, chart and authentication accent tokens across Store Manager, Vendor and Super Admin screens. The selected theme remains active while navigating between apps and screens and is independent of Reset Demo. The Sky Blue primary uses a darker accessible action color with white button text, while light blue is reserved for tinted surfaces.
+The client-approved production theme is Sky Blue across Store Manager, Vendor, Diagnostics, Admin, and Super Admin. The prototype opens in Sky Blue by default. Its Theme dropdown retains Purple only as a comparison preview for client review; Purple is not an implementation target. Sky Blue controls the global primary, hover, focus, active-navigation, selected-control, card-tint, chart and authentication tokens. The darker `#0369A1` action color uses white button text, while brighter `#38BDF8` is reserved for highlights and tinted surfaces.
 
 ### Login and device entry refinement
 

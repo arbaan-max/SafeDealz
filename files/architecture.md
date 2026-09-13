@@ -77,6 +77,8 @@ P00 proved that swagger_parser emits Retrofit clients and Freezed DTOs, while se
 
 Each Flutter app owns ApiConfig and DioFactory under lib/core/network. The factory supplies the API base URL, JSON headers and ten-second connection/send/receive timeouts to generated Retrofit clients. API_BASE_URL passed with dart-define overrides defaults; Android emulator defaults to 10.0.2.2 and host/iOS development defaults to localhost. P02 adds authenticated interceptors after its secure refresh design is approved.
 
+The client-approved application theme uses sky blue as the primary family everywhere. Use `#0369A1` for accessible primary actions and focus, `#38BDF8` for bright supporting highlights, `#E0F2FE` for selected/tinted surfaces, and purple only as a restrained secondary accent. Flutter, React admin, Diagnostics, prototypes and project-facing visual configuration must share these semantic tokens.
+
 The verified P00 generator set is retrofit 4.8.0, retrofit_generator 9.7.0, freezed/freezed_annotation 2.x, json_serializable 6.9.x and the compatible build_runner resolution. These versions are intentionally pinned: newer Freezed generated classes failed analysis with the current parser, while Retrofit 4.9+ added a parser enum unsupported by retrofit_generator 9.7. Upgrade only as a dedicated tested task.
 
 ## Tests required early

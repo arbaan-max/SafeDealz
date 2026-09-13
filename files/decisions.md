@@ -62,6 +62,12 @@ Status: Implemented, 2026-09-13.
 
 The complete SafeDealz folder is one Git repository connected to the arbaan-max/SafeDealz GitHub repository. Backend, all three Flutter applications, project files and Obsidian memory, and React admin are versioned together. Nested Git repositories are prohibited. Local environment files, dependencies, build output, IDE state, and machine-specific Obsidian workspace files are ignored.
 
+## DEC-016 — Client-approved sky-blue theme
+
+Status: Confirmed and implemented, 2026-09-13.
+
+Sky blue is the final primary theme for Store Manager, Vendor, Diagnostics, Admin, and Super Admin. Use `#0369A1` for accessible primary actions and focus, white for content on that action color, `#38BDF8` for bright supporting highlights, and `#E0F2FE` for selected or tinted surfaces. Purple is a restrained secondary accent. The prototype may retain a Purple comparison option, but it opens in Sky Blue and production clients implement Sky Blue as the primary theme.
+
 ## DEC-008 — Security gates and inactive-session logout
 
 Status: Confirmed by owner, 2026-09-13.

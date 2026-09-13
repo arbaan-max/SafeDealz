@@ -1,18 +1,19 @@
 :root {
-  --safedealz-purple: #6d4aff;
+  --safedealz-sky-action: #0369a1;
   --safedealz-sky: #38bdf8;
+  --safedealz-purple-accent: #6d38c7;
 }
 
 .theme-light,
 .theme-dark {
-  --interactive-accent: var(--safedealz-purple);
-  --interactive-accent-hover: #5937ec;
-  --text-accent: var(--safedealz-purple);
-  --text-accent-hover: var(--safedealz-sky);
+  --interactive-accent: var(--safedealz-sky-action);
+  --interactive-accent-hover: #075985;
+  --text-accent: var(--safedealz-sky-action);
+  --text-accent-hover: #075985;
 }
 
 .callout[data-callout="important"] {
-  --callout-color: 109, 74, 255;
+  --callout-color: 3, 105, 161;
 }
 
 .markdown-rendered table {

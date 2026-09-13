@@ -18,6 +18,7 @@ Completed: 2026-09-13
 - Consolidated the repository root to backend, flutter, files and react. Centralized all project Markdown under files and reserved react/admin for P01.
 - Added a portable Obsidian vault at files/obsidian with project memory, templates and relative navigation across all four top-level folders.
 - Configured the complete SafeDealz folder as one Git repository with a root ignore policy and GitHub origin.
+- Applied the client-approved sky-blue primary theme to all three Flutter foundations, native splash configuration, the HTML prototype default, Obsidian and planning/design records.
 
 ## Acceptance results
 
@@ -29,6 +30,7 @@ Completed: 2026-09-13
 - [x] Security-guide conflicts and scoped-role architecture are recorded.
 - [x] Four-folder layout verified and all project-owned Markdown centralized under files.
 - [x] Obsidian configuration parses, vault links resolve, and no machine-specific project path is stored in the vault.
+- [ ] Sky-blue primary tokens and prototype default verified after the client theme amendment.
 
 ## Verification evidence
 

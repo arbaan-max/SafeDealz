@@ -15,3 +15,4 @@ tags:
 - Centralized project Markdown under files.
 - Created this portable Obsidian vault for local project memory.
 - Initialized one Git repository for the complete SafeDealz project, configured the GitHub origin, and excluded secrets and generated local dependencies.
+- Recorded the client's final sky-blue theme decision and applied it to Flutter, prototype, Obsidian, and canonical project documents.
