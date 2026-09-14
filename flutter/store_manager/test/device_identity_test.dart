@@ -116,6 +116,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Battery health'), findsOneWidget);
     expect(find.text('RAM'), findsNothing);
+    await tester.ensureVisible(find.text('Android'));
     await tester.tap(find.text('Apple'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Android').last);

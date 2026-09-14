@@ -11,8 +11,8 @@ updated: 2026-09-14
 
 ## Active gate
 
-- P00 through P25 are complete.
-- Visual HTML match continues as P26–P28; handover is P29. Not authorized until the owner starts P26.
+- P00 through P26 are complete.
+- Visual HTML match continues as P27–P28; handover is P29. Not authorized until the owner starts P27.
 - Deployment is outside the roadmap.
 - Sky blue is the client-approved final primary theme across every application.
 - A single-phase command stops after that phase; an explicit inclusive range stops after its final named phase.
@@ -77,7 +77,8 @@ safeDealz/
 - P23 cross-app experience is complete; `make -f files/Makefile check-p23` is the P23 regression command.
 - P24 end-to-end/resilience is complete; `make -f files/Makefile check-p24` is the P24 regression command. Sequential Android debug APKs passed 2026-09-14.
 - P25 Admin HTML visual match is complete; `make -f files/Makefile check-p25` is the P25 regression command. All Admin rows in screen-match.md are Updated.
+- P26 Store Manager HTML visual match is complete; `make -f files/Makefile check-p26` is the P26 regression command. All Store Manager rows in screen-match.md are Updated.
 
 ## Next action
 
-Stop. P25 is complete. Do not start P26.
+Stop. P26 is complete. Do not start P27.

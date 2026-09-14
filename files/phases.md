@@ -1,6 +1,6 @@
 # SafeDealz implementation phases
 
-Admin-first development-only roadmap; P00–P25 are complete. Visual HTML match continues as P26–P28 and is not authorized until the owner starts P26. Development handover is P29. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
+Admin-first development-only roadmap; P00–P26 are complete. Visual HTML match continues as P27–P28 and is not authorized until the owner starts P27. Development handover is P29. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
 
 Each phase is split into three small or medium tasks: `.1` contract/data or decision preparation, `.2` implementation or feasibility evidence, `.3` integration/testing and documentation. Create numbered task files from [the template](tasks/TASK_TEMPLATE.md) when work is selected, rather than creating empty task files now. Split further when a task cannot be reviewed independently. These task IDs are roadmap identifiers, not existing files.
 
@@ -298,7 +298,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P26 — Store Manager HTML visual match
 
-- Status: Planned
+- Status: Complete — TASK-028
 - Dependencies: P25
 - Screens: S01, S04, M01–M24
 - Scope: Run Store Manager on the emulator beside the matching mobile HTML frames. Mark each screen **Same** or restyle it and mark **Updated**. Login S01 is compared to the HTML Store Manager/Vendor login frame.

@@ -15,7 +15,7 @@ test('catalogued admin screens, nested back, empty and error states stay on the 
   await page.route('**/rewards/overview', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { totals: { issuedPoints: 0 }, policy: { redemptionScope: 'branch_only' } } }) }));
   await page.route('**/notifications/history', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/tickets', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
-  await page.route('**/reports', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { auctionConversion: { started: 0, accepted: 0 }, paidValuePaise: 0 } }) }));
+  await page.route((url) => url.pathname.endsWith('/reports'), (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { auctionConversion: { started: 0, accepted: 0 }, paidValuePaise: 0 } }) }));
   await page.route('**/audit', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/auth/sessions', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [{ id: 's1', clientType: 'web', current: true }] }) }));
   await page.route('**/settings', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { biddingMinutes: 3, acceptanceMinutes: 10 } }) }));

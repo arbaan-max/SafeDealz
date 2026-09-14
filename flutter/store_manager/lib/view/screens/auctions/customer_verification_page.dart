@@ -148,7 +148,7 @@ class _CustomerVerificationPageState extends State<CustomerVerificationPage> {
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : ListView(
+          : SdScrollBody(
               children: [
                 const SdSteps(current: 4),
                 Text('Verify the customer', style: Theme.of(context).textTheme.titleLarge),
@@ -190,19 +190,28 @@ class _CustomerVerificationPageState extends State<CustomerVerificationPage> {
                   child: Text(_portraitCaptured ? 'Portrait captured' : 'Capture portrait'),
                 ),
                 const SizedBox(height: 12),
-                const Text('Purchased device'),
-                SegmentedButton<PurchasedDevicePlatform>(
-                  segments: const [
-                    ButtonSegment(value: PurchasedDevicePlatform.apple, label: Text('Apple')),
-                    ButtonSegment(value: PurchasedDevicePlatform.android, label: Text('Android')),
+                const Text('Purchased device', style: TextStyle(fontWeight: FontWeight.w800)),
+                const SizedBox(height: 8),
+                const SdFieldLabel('Device type'),
+                SdChoiceRow<PurchasedDevicePlatform>(
+                  options: const [
+                    (PurchasedDevicePlatform.apple, 'Apple'),
+                    (PurchasedDevicePlatform.android, 'Android'),
                   ],
-                  selected: {_platform},
-                  onSelectionChanged: (value) => setState(() {
-                    _platform = value.first;
+                  selected: _platform,
+                  onSelected: (value) => setState(() {
+                    _platform = value;
                     if (_platform == PurchasedDevicePlatform.apple) _ram = null;
                   }),
                 ),
-                TextField(controller: _model, decoration: const InputDecoration(labelText: 'Model')),
+                const SizedBox(height: 12),
+                const SdFieldLabel('Model'),
+                TextField(
+                  key: const Key('purchased-model'),
+                  controller: _model,
+                  decoration: const InputDecoration(labelText: 'Model'),
+                ),
+                const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
                   initialValue: storages.contains(_storage) ? _storage : null,
                   decoration: const InputDecoration(labelText: 'Storage'),
@@ -211,15 +220,18 @@ class _CustomerVerificationPageState extends State<CustomerVerificationPage> {
                   ],
                   onChanged: (value) => setState(() => _storage = value),
                 ),
-                if (_platform == PurchasedDevicePlatform.android)
+                if (_platform == PurchasedDevicePlatform.android) ...[
+                  const SizedBox(height: 12),
+                  const SdFieldLabel('RAM'),
                   DropdownButtonFormField<String>(
                     initialValue: rams.contains(_ram) ? _ram : null,
-                    decoration: const InputDecoration(labelText: 'RAM'),
+                    decoration: const InputDecoration(hintText: 'Select RAM'),
                     items: [
                       for (final value in rams) DropdownMenuItem(value: value, child: Text(value)),
                     ],
                     onChanged: (value) => setState(() => _ram = value),
                   ),
+                ],
                 TextField(controller: _imei1, decoration: const InputDecoration(labelText: 'IMEI 1')),
                 TextField(controller: _imei2, decoration: const InputDecoration(labelText: 'IMEI 2')),
                 TextButton(

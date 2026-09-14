@@ -232,7 +232,7 @@ class _OfferPageState extends State<OfferPage> {
             ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : ListView(
+          : SdScrollBody(
               children: [
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
@@ -254,19 +254,14 @@ class _OfferPageState extends State<OfferPage> {
                       children: [
                         const Text('Offer to your store', style: TextStyle(fontSize: 12, color: Color(0xFF526079))),
                         Text(formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise), style: const TextStyle(fontSize: 37, fontWeight: FontWeight.w800)),
-                        Text(open ? 'Accept within the remaining time' : 'Acceptance window ended'),
+                        Text(open ? 'Time left to decide' : 'Acceptance window ended'),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
                   Text(vendor['displayName']?.toString() ?? 'Winning vendor', style: const TextStyle(fontWeight: FontWeight.w800)),
                   SdCard(
-                    child: Column(
-                      children: [
-                        SdDetailRow('Final offer', formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise)),
-                        SdDetailRow('Platform fee', formatPaise(round.winnerBid?.feePaise)),
-                      ],
-                    ),
+                    child: SdDetailRow('Platform fee', formatPaise(round.winnerBid?.feePaise)),
                   ),
                   const SizedBox(height: 12),
                   SdDetailRow('Payout account', device['branchName']?.toString() ?? 'Store business account'),

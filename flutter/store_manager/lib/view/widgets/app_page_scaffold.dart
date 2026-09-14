@@ -113,8 +113,8 @@ class AppPageScaffold extends StatelessWidget {
           : Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (actionBar != null) SdActionBar(child: actionBar!),
-                if (bottomNavigationBar != null) bottomNavigationBar!,
+                ?(actionBar == null ? null : SdActionBar(child: actionBar!)),
+                ?bottomNavigationBar,
               ],
             ),
     );

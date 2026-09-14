@@ -38,6 +38,7 @@ class _RedeemReceiptPageState extends State<RedeemReceiptPage> {
   Widget build(BuildContext context) {
     return AppPageScaffold(
       title: 'Redemption receipt',
+      showBell: false,
       actionBar: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -56,8 +57,9 @@ class _RedeemReceiptPageState extends State<RedeemReceiptPage> {
             ),
         ],
       ),
-      body: ListView(
+      body: SdScrollBody(
         children: [
+          const SdNotice('Apply this discount in the store billing software. SafeDealz does not change the bill.'),
           const SdStatusOrb(icon: Icons.check_circle_outline, tone: 'green'),
           const Text('Rewards redeemed', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
@@ -78,9 +80,6 @@ class _RedeemReceiptPageState extends State<RedeemReceiptPage> {
           Text('${_row?.points ?? 0} pts · ₹${((_row?.discountPaise ?? 0) / 100).toStringAsFixed(0)} off'),
           Text('Invoice ${_row?.invoiceNumber ?? ''}'),
           Text('Remaining ${_row?.remainingPoints ?? 0} pts'),
-          const SizedBox(height: 12),
-          const SdNotice('Apply this discount in the store billing software. SafeDealz does not change the bill.'),
-          Text(_row?.reminder ?? 'Apply this discount in the store billing software. SafeDealz does not change the bill.'),
         ],
       ),
     );

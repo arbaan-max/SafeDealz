@@ -438,6 +438,21 @@ class SdMediaSlot extends StatelessWidget {
   }
 }
 
+class SdScrollBody extends StatelessWidget {
+  const SdScrollBody({super.key, required this.children});
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: children,
+      ),
+    );
+  }
+}
+
 class SdQuietButton extends StatelessWidget {
   const SdQuietButton({super.key, required this.label, required this.onPressed});
   final String label;
@@ -447,6 +462,69 @@ class SdQuietButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, color: AppTheme.muted)),
+    );
+  }
+}
+
+class SdFieldLabel extends StatelessWidget {
+  const SdFieldLabel(this.text, {super.key});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppTheme.ink)),
+    );
+  }
+}
+
+class SdChoiceRow<T> extends StatelessWidget {
+  const SdChoiceRow({
+    super.key,
+    required this.options,
+    required this.selected,
+    required this.onSelected,
+  });
+  final List<(T, String)> options;
+  final T selected;
+  final ValueChanged<T> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        for (var i = 0; i < options.length; i++)
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: i == options.length - 1 ? 0 : 8),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => onSelected(options[i].$1),
+                  borderRadius: BorderRadius.circular(11),
+                  child: Container(
+                    height: 44,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: selected == options[i].$1 ? AppTheme.selected : AppTheme.surface,
+                      border: Border.all(
+                        color: selected == options[i].$1 ? AppTheme.skyBlue : const Color(0xFFCFD6E3),
+                      ),
+                      borderRadius: BorderRadius.circular(11),
+                    ),
+                    child: Text(
+                      options[i].$2,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: selected == options[i].$1 ? AppTheme.skyHover : AppTheme.ink,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

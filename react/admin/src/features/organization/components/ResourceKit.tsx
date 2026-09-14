@@ -2,6 +2,9 @@ import { type FormEvent, type ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, MoreHorizontal } from 'lucide-react';
 
+/* Shared kit: page chrome plus CSV helper used by list screens. */
+/* eslint-disable react-refresh/only-export-components */
+
 export function ResourcePage({ title, lede, action, backTo, backLabel, children }: {
   title: string; lede?: string; action?: ReactNode; backTo?: string; backLabel?: string; children: ReactNode;
 }) {

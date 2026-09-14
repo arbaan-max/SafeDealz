@@ -16,7 +16,7 @@ export function VendorListPage() {
   const [status, setStatus] = useState('All statuses');
   const [error, setError] = useState<string | null>(null);
   const load = () => void api.listVendors().then(setVendors).catch((caught: Error) => setError(caught.message));
-  useEffect(() => { load(); }, [api]);
+  useEffect(() => { load(); }, [api]); // eslint-disable-line react-hooks/exhaustive-deps -- list vendors on first paint
   const visible = useMemo(() => vendors.filter((vendor) => {
     const haystack = `${vendor.displayName} ${vendor.email}`.toLowerCase();
     if (query && !haystack.includes(query.toLowerCase())) return false;

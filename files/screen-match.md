@@ -2,7 +2,7 @@
 
 Compare each live screen to the matching frame in [design.html](design.html). Behavior and fields stay in [design.md](design.md). Appearance follows the HTML.
 
-Do not start Store Manager/Vendor/Diagnostics visual match until the owner authorizes P26.
+Do not start Vendor/Diagnostics visual match until the owner authorizes P27.
 
 ## How to mark a row
 
@@ -49,32 +49,32 @@ Compare Admin in the desktop browser against HTML desktop frames. Compare Store 
 
 | Screen | HTML title | Status | Notes |
 | --- | --- | --- | --- |
-| S01 | Login | Pending | Shared HTML login; Store Manager app |
-| S04 | Notifications | Pending | Manager inbox |
-| M01 | Home | Pending | |
-| M02 | Devices | Pending | |
-| M03 | Device identity | Pending | |
-| M04 | Physical inspection | Pending | |
-| M05 | Capture device | Pending | |
-| M06 | Camera and preview | Pending | |
-| M07 | Scan diagnostic result | Pending | |
-| M08 | Customer verification | Pending | |
-| M09 | Device summary | Pending | |
-| M10 | Live auction | Pending | |
-| M11 | Highest offer | Pending | |
-| M12 | Accept confirmation | Pending | |
-| M13 | Payment status | Pending | |
-| M14 | Deal detail | Pending | |
-| M15 | Needs re-auction | Pending | |
-| M16 | Device history | Pending | |
-| M17 | Pickup confirmation | Pending | |
-| M18 | Rewards lookup | Pending | |
-| M19 | All redemptions | Pending | |
-| M20 | Redeem rewards | Pending | |
-| M21 | Redemption confirmation | Pending | |
-| M22 | Redemption receipt | Pending | |
-| M23 | Report issue | Pending | |
-| M24 | Account | Pending | |
+| S01 | Login | Updated | Welcome back, Email address, password eye, admin-created notice |
+| S04 | Notifications | Updated | Inbox list, Mark all read, Today/Earlier |
+| M01 | Home | Updated | Brand header, Hello, New trade-in, stats, 4-tab nav |
+| M02 | Devices | Updated | Search, HTML chips, New trade-in action |
+| M03 | Device identity | Updated | Steps, Apple/Android radios, RAM/battery rules |
+| M04 | Physical inspection | Updated | Step copy, Back/Continue action bar |
+| M05 | Capture device | Updated | Media slots, Continue action |
+| M06 | Camera and preview | Updated | Capture surface, demo ready |
+| M07 | Scan diagnostic result | Updated | QR import card |
+| M08 | Customer verification | Updated | KYC + purchased device identity |
+| M09 | Device summary | Updated | Specs, inspection, diagnostics cards |
+| M10 | Live auction | Updated | Countdown, Cancel auction |
+| M11 | Highest offer | Updated | Timer, Accept/Rebid/Decline |
+| M12 | Accept confirmation | Updated | Payout instruction copy |
+| M13 | Payment status | Updated | Processing/Refresh, no approve |
+| M14 | Deal detail | Updated | Amount card, pickup path |
+| M15 | Needs re-auction | Updated | Reason + Review & restart |
+| M16 | Device history | Updated | Timeline rows |
+| M17 | Pickup confirmation | Updated | Vendor OTP, Confirm handover |
+| M18 | Rewards lookup | Updated | Branch badge, Find customer |
+| M19 | All redemptions | Updated | Branch list rows |
+| M20 | Redeem rewards | Updated | Invoice/category/discount |
+| M21 | Redemption confirmation | Updated | OTP, Verify & redeem |
+| M22 | Redemption receipt | Updated | Billing-software notice |
+| M23 | Report issue | Updated | Tell us what happened, Submit issue |
+| M24 | Account | Updated | Store manager, masked bank, Logout only here |
 
 ## P27 — Vendor (Flutter)
 

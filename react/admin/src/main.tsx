@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 
 import { App } from './app/App';
 import { AppProviders } from './app/providers/AppProviders';
+import './firebase';
 import './shared/styles/tokens.css';
 import './shared/styles/global.css';
 

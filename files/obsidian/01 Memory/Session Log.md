@@ -88,3 +88,5 @@ tags:
 - Recorded DEC-025: HTML visual-match phases P25 Admin, P26 Store Manager, P27 Vendor, P28 Diagnostics; handover moved to P29.
 - Owner authorized P25 only. Completed P25: React admin restyled to design.html (A00–A24, S04). All P25 rows marked Updated. Stopped before P26.
 - P25 verification: React 31/31 and 3/3 Chromium; Flutter 39/39, 30/30, 15/15; backend 42/42; OpenAPI unchanged.
+- Owner authorized P26. Completed P26: Store Manager restyled to design.html (S01, S04, M01–M24). `GET /branches` allowed for store_manager with masked account. All P26 rows marked Updated. Stopped before P27.
+- P26 verification: Flutter 39/39, 30/30, 15/15; React 34/34 and 3/3 Chromium; backend 42/42; OpenAPI unchanged.

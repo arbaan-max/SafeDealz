@@ -48,7 +48,14 @@ class _RedeemOtpPageState extends State<RedeemOtpPage> {
     try {
       final row = await rewards.confirm(widget.id, _otp.text.trim());
       if (!mounted) return;
-      context.goNamed(redeemReceiptRoute, pathParameters: {'id': row.id ?? widget.id});
+      final receiptId = (row.id ?? widget.id).trim();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        context.goNamed(
+          redeemReceiptRoute,
+          pathParameters: {'id': receiptId.isEmpty ? widget.id : receiptId},
+        );
+      });
     } catch (error) {
       if (!mounted) return;
       setState(() { _busy = false; _error = apiErrorMessage(error); });
@@ -61,7 +68,7 @@ class _RedeemOtpPageState extends State<RedeemOtpPage> {
       title: 'Redemption confirmation',
       onBack: () => Navigator.maybeOf(context)?.maybePop(),
       actionBar: FilledButton(onPressed: _busy ? null : _verify, child: Text(_busy ? 'Verifying…' : 'Verify & redeem')),
-      body: ListView(
+      body: SdScrollBody(
         children: [
           const SdStatusOrb(icon: Icons.verified_user_outlined),
           const Text('Confirm with the customer', textAlign: TextAlign.center, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
