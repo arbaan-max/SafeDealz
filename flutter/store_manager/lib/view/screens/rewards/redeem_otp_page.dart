@@ -6,6 +6,7 @@ import 'package:safedealz_store_manager/core/route/routes.dart';
 import 'package:safedealz_store_manager/data/api/models/redemption.dart';
 import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class RedeemOtpPage extends StatefulWidget {
   const RedeemOtpPage({super.key, required this.id});
@@ -57,20 +58,34 @@ class _RedeemOtpPageState extends State<RedeemOtpPage> {
   @override
   Widget build(BuildContext context) {
     return AppPageScaffold(
-      title: 'Confirm redemption',
+      title: 'Redemption confirmation',
+      onBack: () => Navigator.maybeOf(context)?.maybePop(),
+      actionBar: FilledButton(onPressed: _busy ? null : _verify, child: Text(_busy ? 'Verifying…' : 'Verify & redeem')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
+          const SdStatusOrb(icon: Icons.verified_user_outlined),
+          const Text('Confirm with the customer', textAlign: TextAlign.center, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 8),
+          const Text('Enter the OTP sent to the registered mobile number.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF526079))),
+          const SizedBox(height: 16),
           if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+          SdCard(
+            child: Column(
+              children: [
+                SdDetailRow('Invoice', _row?.invoiceNumber ?? ''),
+                SdDetailRow('Discount', '₹${((_row?.discountPaise ?? 0) / 100).toStringAsFixed(0)}'),
+                SdDetailRow('Points used', '${_row?.points ?? 0} pts'),
+              ],
+            ),
+          ),
           Text('Discount ₹${((_row?.discountPaise ?? 0) / 100).toStringAsFixed(0)} · ${_row?.points ?? 0} pts · invoice ${_row?.invoiceNumber ?? ''}'),
+          const SizedBox(height: 12),
           TextField(
             key: const Key('redeem-otp'),
             controller: _otp,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'Customer OTP'),
           ),
-          const SizedBox(height: 16),
-          FilledButton(onPressed: _busy ? null : _verify, child: Text(_busy ? 'Verifying…' : 'Verify & redeem')),
         ],
       ),
     );

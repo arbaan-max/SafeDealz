@@ -39,6 +39,6 @@ test('A11 shows the bid table', async () => {
   document.cookie = 'sd_csrf=c';
   const router = createMemoryRouter([{ path: '/auctions/:id', element: <AuctionDetailPage /> }], { initialEntries: ['/auctions/a1'] });
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
-  expect(await screen.findByRole('heading', { name: 'Auction detail' })).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: 'Device and auction detail' })).toBeInTheDocument();
   expect(await screen.findByText(/committed/)).toBeInTheDocument();
 });

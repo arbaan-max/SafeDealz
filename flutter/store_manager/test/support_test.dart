@@ -31,9 +31,9 @@ void main() {
       ),
     );
     await tester.pump();
-    expect(find.text('Report issue'), findsOneWidget);
+    expect(find.text('Tell us what happened'), findsOneWidget);
     await tester.enterText(find.byType(TextField), 'Payout is still processing.');
-    await tester.tap(find.text('Submit ticket'));
+    await tester.tap(find.text('Submit issue'));
     await tester.pump();
     await tester.pump();
     expect(find.text('Ticket saved'), findsOneWidget);

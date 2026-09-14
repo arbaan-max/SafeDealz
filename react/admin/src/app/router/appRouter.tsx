@@ -11,6 +11,7 @@ import { ManagerListPage } from '../../features/organization/pages/ManagerListPa
 import { ManagerFormPage } from '../../features/organization/pages/ManagerFormPage';
 import { VendorListPage } from '../../features/organization/pages/VendorListPage';
 import { VendorFormPage } from '../../features/organization/pages/VendorFormPage';
+import { VendorViewPage } from '../../features/organization/pages/VendorViewPage';
 import { VendorWalletPage } from '../../features/organization/pages/VendorWalletPage';
 import { SettingsPage } from '../../features/organization/pages/SettingsPage';
 import { PaymentListPage } from '../../features/organization/pages/PaymentListPage';
@@ -54,8 +55,9 @@ export const appRouter = createBrowserRouter([
         { path: 'managers/:id', element: <RoleGate roles={['super_admin', 'admin']}><ManagerFormPage /></RoleGate> },
         { path: 'vendors', element: <RoleGate roles={['super_admin', 'admin']}><VendorListPage /></RoleGate> },
         { path: 'vendors/new', element: <RoleGate roles={['super_admin', 'admin']}><VendorFormPage /></RoleGate> },
-        { path: 'vendors/:id', element: <RoleGate roles={['super_admin', 'admin']}><VendorFormPage /></RoleGate> },
+        { path: 'vendors/:id/edit', element: <RoleGate roles={['super_admin', 'admin']}><VendorFormPage /></RoleGate> },
         { path: 'vendors/:id/wallet', element: <RoleGate roles={['super_admin', 'admin']}><VendorWalletPage /></RoleGate> },
+        { path: 'vendors/:id', element: <RoleGate roles={['super_admin', 'admin']}><VendorViewPage /></RoleGate> },
         { path: 'payments', element: <RoleGate roles={['super_admin', 'admin']}><PaymentListPage /></RoleGate> },
         { path: 'payments/:id', element: <RoleGate roles={['super_admin', 'admin']}><PaymentDetailPage /></RoleGate> },
         { path: 'auctions', element: <RoleGate roles={['super_admin', 'admin']}><AuctionListPage /></RoleGate> },

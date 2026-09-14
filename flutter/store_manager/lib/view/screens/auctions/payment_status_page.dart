@@ -8,6 +8,7 @@ import 'package:safedealz_store_manager/data/api/models/payment_instruction_stat
 import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class PaymentStatusPage extends StatefulWidget {
   const PaymentStatusPage({super.key, required this.dealId});
@@ -76,35 +77,61 @@ class _PaymentStatusPageState extends State<PaymentStatusPage> {
   Widget build(BuildContext context) {
     final payment = _deal?.paymentInstruction;
     final canRetry = payment?.status == PaymentInstructionStatus.needsAttention;
+    final heading = switch (payment?.status) {
+      PaymentInstructionStatus.paid => 'Payment completed',
+      PaymentInstructionStatus.needsAttention => 'Payment needs attention',
+      PaymentInstructionStatus.awaitingCustomerVerification => 'Payment started',
+      _ => 'Payment processing',
+    };
     return AppPageScaffold(
       title: 'Payment status',
+      actionBar: payment?.status == PaymentInstructionStatus.paid
+          ? FilledButton(
+              onPressed: () => context.goNamed(dealDetailRoute, pathParameters: {'id': widget.dealId}),
+              child: const Text('View deal'),
+            )
+          : OutlinedButton(onPressed: _busy ? null : _load, child: const Text('Refresh')),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.all(16),
               children: [
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-                Text(_statusLabel(payment?.status), style: Theme.of(context).textTheme.headlineSmall),
+                SdStatusOrb(
+                  icon: payment?.status == PaymentInstructionStatus.paid
+                      ? Icons.check_circle_outline
+                      : payment?.status == PaymentInstructionStatus.needsAttention
+                          ? Icons.warning_amber_outlined
+                          : Icons.account_balance_outlined,
+                  tone: payment?.status == PaymentInstructionStatus.paid
+                      ? 'green'
+                      : payment?.status == PaymentInstructionStatus.needsAttention
+                          ? 'amber'
+                          : 'sky',
+                ),
+                Text(heading, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+                Text(_statusLabel(payment?.status), style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
                 const SizedBox(height: 8),
-                Text('Store amount ${formatPaise(payment?.amountPaise)}'),
-                Text('Platform fee ${formatPaise(payment?.feePaise)}'),
-                Text(payment?.beneficiaryName ?? ''),
-                Text(payment?.accountNumberMasked ?? ''),
-                Text(payment?.ifsc ?? ''),
-                if ((payment?.providerTransferId ?? '').isNotEmpty)
-                  Text('Provider ${payment!.providerTransferId}'),
+                SdCard(
+                  child: Column(
+                    children: [
+                      const Text('Store payout', style: TextStyle(fontSize: 12, color: Color(0xFF526079))),
+                      Text(formatPaise(payment?.amountPaise), style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800)),
+                      Text(payment?.beneficiaryName ?? ''),
+                      Text(payment?.accountNumberMasked ?? ''),
+                      Text(payment?.ifsc ?? ''),
+                      Text('Store amount ${formatPaise(payment?.amountPaise)}'),
+                      Text('Platform fee ${formatPaise(payment?.feePaise)}'),
+                      if ((payment?.providerTransferId ?? '').isNotEmpty)
+                        Text('Provider ${payment!.providerTransferId}'),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 12),
                 const Text('Payout starts automatically after verification. There is no approve-payout step.'),
                 if (payment?.status == PaymentInstructionStatus.unknown)
                   const Text('Unknown provider outcome. Super Admin must reconcile before retry.'),
-                const SizedBox(height: 24),
-                OutlinedButton(onPressed: _busy ? null : _load, child: const Text('Refresh')),
-                if (payment?.status == PaymentInstructionStatus.paid)
-                  FilledButton(
-                    onPressed: () => context.goNamed(dealDetailRoute, pathParameters: {'id': widget.dealId}),
-                    child: const Text('View deal'),
-                  ),
+                const SizedBox(height: 16),
                 if (canRetry)
                   FilledButton(
                     onPressed: _busy ? null : _retry,

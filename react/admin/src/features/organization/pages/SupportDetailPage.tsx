@@ -1,8 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { useOrganizationApi, type SupportTicket } from '../api/organizationApi';
-import { Field, ResourcePage } from '../components/ResourceKit';
+import { Field, ResourcePage, StatusBadge } from '../components/ResourceKit';
 
 export function SupportDetailPage() {
   const { id } = useParams();
@@ -29,34 +29,37 @@ export function SupportDetailPage() {
     setNote('');
   };
   return (
-    <ResourcePage
-      title="Support case"
-      lede="Chronological notes stay with the ticket. Resolution does not refund, retry payout or change ledgers."
-      action={<Link className="back-link" to="/support">Back to support</Link>}
-    >
+    <ResourcePage title="Support case" lede="Chronological notes stay with the ticket. Resolution does not refund, retry payout or change ledgers." backTo="/support" backLabel="Back to support">
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       {ticket ? (
-        <>
-          <p><strong>{ticket.status}</strong> · {ticket.creatorRole} · {ticket.reasonCode?.replaceAll('_', ' ')}</p>
-          <p>{ticket.subjectType} {ticket.subjectId}</p>
-          <ul>
-            {(ticket.notes ?? []).map((entry) => (
-              <li key={entry.id || entry.createdAt}>{entry.authorRole}: {entry.body}</li>
-            ))}
-          </ul>
-          <form className="resource-form" onSubmit={(event) => void addNote(event)}>
-            <Field label="Add note"><input value={note} onChange={(event) => setNote(event.target.value)} required /></Field>
-            <button className="login-button" type="submit" disabled={busy}>Save note</button>
-          </form>
-          <p>
-            {account?.id ? (
-              <button className="text-button" type="button" disabled={busy} onClick={() => void run(() => api.assignTicket(ticket.id!, account.id!))}>Assign to me</button>
-            ) : null}
-            {ticket.status !== 'resolved' ? (
-              <button className="login-button" type="button" disabled={busy} onClick={() => void run(() => api.updateTicketStatus(ticket.id!, 'resolved', 'Resolved without changing financial history.'))}>Resolve</button>
-            ) : null}
-          </p>
-        </>
+        <div className="admin-grid">
+          <div className="card">
+            <div className="between">
+              <h2>SUP-{String(ticket.id || '').slice(-4).toUpperCase()}</h2>
+              <StatusBadge tone={ticket.status === 'resolved' ? 'green' : ticket.status === 'investigating' ? 'amber' : 'sky'}>{ticket.status?.replaceAll('_', ' ')}</StatusBadge>
+            </div>
+            <div className="detail"><span>Raised by</span><strong>{ticket.creatorRole?.replaceAll('_', ' ')}</strong></div>
+            <div className="detail"><span>Type</span><strong>{ticket.reasonCode?.replaceAll('_', ' ')}</strong></div>
+            <div className="detail"><span>Reference</span><strong>{ticket.subjectType} {ticket.subjectId}</strong></div>
+            <div className="gap" />
+            <div className="row-actions">
+              {account?.id ? <button className="btn small secondary" type="button" disabled={busy} onClick={() => void run(() => api.assignTicket(ticket.id!, account.id!))}>Assign to me</button> : null}
+              {ticket.status !== 'resolved' ? <button className="btn small" type="button" disabled={busy} onClick={() => void run(() => api.updateTicketStatus(ticket.id!, 'resolved', 'Resolved without changing financial history.'))}>Resolve</button> : null}
+            </div>
+          </div>
+          <div className="card">
+            <h3>Notes</h3>
+            <div className="timeline">
+              {(ticket.notes ?? []).map((entry) => (
+                <div className="timeline-row" key={entry.id || entry.createdAt}><span><strong>{entry.authorRole}</strong><small>{entry.body}</small></span></div>
+              ))}
+            </div>
+            <form onSubmit={(event) => void addNote(event)}>
+              <Field label="Add note"><input value={note} onChange={(event) => setNote(event.target.value)} required /></Field>
+              <button className="btn small" type="submit" disabled={busy}>Save note</button>
+            </form>
+          </div>
+        </div>
       ) : null}
     </ResourcePage>
   );

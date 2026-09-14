@@ -7,6 +7,7 @@ import 'package:safedealz_store_manager/data/api/models/customer_rewards.dart';
 import 'package:safedealz_store_manager/data/api/models/redemption_write.dart';
 import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class RedeemPage extends StatefulWidget {
   const RedeemPage({super.key, required this.phone});
@@ -75,12 +76,17 @@ class _RedeemPageState extends State<RedeemPage> {
     final points = discountPaise <= 0 ? 0 : discountPaise ~/ 50;
     return AppPageScaffold(
       title: 'Redeem rewards',
+      onBack: () => context.goNamed(redemptionsRoute),
+      actionBar: FilledButton(onPressed: _busy ? null : _continue, child: Text(_busy ? 'Saving…' : 'Continue')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
+          Text('Apply a reward discount', style: Theme.of(context).textTheme.titleLarge),
+          Text('${_record?.customerName ?? widget.phone} / ${balance?.pointsBalance ?? 0} points available', style: const TextStyle(color: Color(0xFF526079))),
+          const SizedBox(height: 16),
           if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
           Text('Available ${balance?.pointsBalance ?? 0} pts'),
           TextField(controller: _invoice, decoration: const InputDecoration(labelText: 'Invoice number')),
+          const SizedBox(height: 12),
           DropdownButtonFormField<String>(
             initialValue: _category,
             decoration: const InputDecoration(labelText: 'Eligible category'),
@@ -90,12 +96,22 @@ class _RedeemPageState extends State<RedeemPage> {
             ],
             onChanged: (value) => setState(() => _category = value ?? 'accessories'),
           ),
+          const SizedBox(height: 12),
           TextField(controller: _bill, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Bill amount (₹)'), onChanged: (_) => setState(() {})),
+          const SizedBox(height: 12),
           TextField(controller: _discount, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Discount amount (₹)'), onChanged: (_) => setState(() {})),
+          const SizedBox(height: 12),
+          SdCard(
+            tint: true,
+            child: Column(
+              children: [
+                SdDetailRow('Points to use', '$points points'),
+                SdDetailRow('Remaining after redemption', '${(balance?.pointsBalance ?? 0) - points} points'),
+              ],
+            ),
+          ),
           Text('Uses $points pts. Remaining ${(balance?.pointsBalance ?? 0) - points} pts.'),
-          const SizedBox(height: 16),
-          FilledButton(onPressed: _busy ? null : _continue, child: Text(_busy ? 'Saving…' : 'Continue')),
-          TextButton(onPressed: () => context.goNamed(redemptionsRoute), child: const Text('Back to all redemptions')),
+          const SdNotice('Apply the same discount in your existing billing software after redemption.'),
         ],
       ),
     );

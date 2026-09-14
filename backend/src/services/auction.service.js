@@ -4,7 +4,7 @@ import { countRoundsForDevice, createAuctionRound, findAuctionById, findLiveRoun
 import { getOrCreateSettings, saveSettings } from '../repositories/platform-settings.repository.js';
 import { findBidById, findBidByKey, findVendorBid, listBidsForVendor, listBidsForRound, createBid, saveBid } from '../repositories/bid.repository.js';
 import { findDeviceById, saveDevice } from '../repositories/device.repository.js';
-import { findAccountById } from '../repositories/account.repository.js';
+import { findAccountById, listAccounts } from '../repositories/account.repository.js';
 import { createDeal, findDealById, findDealByRound, findDealByDevice, listDeals, saveDeal, createPaymentInstruction, findPaymentByDeal, savePaymentInstruction } from '../repositories/deal.repository.js';
 import { findBranchById } from '../repositories/branch.repository.js';
 import { listAssignments } from '../repositories/store-assignment.repository.js';
@@ -206,7 +206,7 @@ export const readAuction = async (actor, id) => {
   const device = await findDeviceById(round.deviceId);
   const branch = await findBranchById(round.branchId);
   const extras = {
-    device: device ? { id: String(device.id), model: device.model, storage: device.storage, platform: device.platform, status: device.status } : null,
+    device: device ? { id: String(device.id), model: device.model, storage: device.storage, platform: device.platform, status: device.status, imei1: device.imei1, imei2: device.imei2, batteryHealth: device.batteryHealth, ram: device.ram } : null,
     branch: branch ? { id: String(branch.id), name: branch.name, code: branch.code } : null,
   };
   if (actor.role === 'vendor') {
@@ -229,7 +229,13 @@ export const listVisibleAuctions = async (actor, query = {}) => {
   } else if (!scope.all) {
     filter.branchId = { $in: scope.branchIds };
   }
-  return (await listAuctions(filter)).map((round) => presentAuction(round, actor));
+  return Promise.all((await listAuctions(filter)).map(async (round) => {
+    const [device, branch] = await Promise.all([findDeviceById(round.deviceId), findBranchById(round.branchId)]);
+    return presentAuction(round, actor, {
+      device: device ? { id: String(device.id), model: device.model, storage: device.storage, platform: device.platform, status: device.status } : null,
+      branch: branch ? { id: String(branch.id), name: branch.name, code: branch.code } : null,
+    });
+  }));
 };
 
 export const cancelAuction = async (actor, id, body) => {
@@ -671,8 +677,14 @@ export const markDealPickup = async (actor, id) => {
 
 export const listAuctionBids = async (actor, id) => {
   if (actor.role === 'vendor') throw new ApiError(403, 'FORBIDDEN', 'Vendors can only view their own bid.');
-  const round = await requireManagerRound(actor, id);
-  return (await listBidsForRound(round.id)).map(publicBid);
+  const round = await findAuctionById(requireObjectId(id, 'auction id'));
+  if (!round) throw new ApiError(404, 'NOT_FOUND', 'Auction was not found.');
+  const scope = await loadScope(actor);
+  assertBranchInScope(scope, round.branchId);
+  const bids = await listBidsForRound(round.id);
+  const vendors = await listAccounts({ _id: { $in: bids.map((bid) => bid.vendorAccountId) } });
+  const names = Object.fromEntries(vendors.map((vendor) => [String(vendor.id), vendor.displayName || vendor.email]));
+  return bids.map((bid) => ({ ...publicBid(bid), vendorName: names[String(bid.vendorAccountId)] || 'Vendor' }));
 };
 
 export const sendDealOtp = async (actor, id) => {

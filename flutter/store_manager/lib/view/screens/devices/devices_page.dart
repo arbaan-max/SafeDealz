@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:safedealz_store_manager/bloc/auth/auth_bloc.dart';
 import 'package:safedealz_store_manager/bloc/devices/devices_bloc.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
-import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
-import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/device_flow.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
 
 class DevicesPage extends StatelessWidget {
-  const DevicesPage({super.key, this.initialFilter = 'draft'});
+  const DevicesPage({super.key, this.initialFilter = 'all'});
   final String initialFilter;
+
+  static const chips = <(String, String)>[
+    ('all', 'All'),
+    ('draft', 'Drafts'),
+    ('live', 'Live'),
+    ('offers', 'Offers ready'),
+    ('reauction', 'Needs re-auction'),
+    ('pickup', 'Awaiting pickup'),
+    ('picked', 'Picked up'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,49 +32,26 @@ class DevicesPage extends StatelessWidget {
       ),
       child: AppPageScaffold(
         title: 'Devices',
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.read<AuthBloc>().add(const AuthLogoutRequested());
-              context.goNamed(loginRoute);
-            },
-            child: const Text('Logout'),
-          ),
-        ],
+        padBody: true,
         bottomNavigationBar: const ManagerBottomNav(index: 1),
+        actionBar: FilledButton.icon(
+          onPressed: () => context.goNamed(deviceNewRoute),
+          icon: const Icon(Icons.add),
+          label: const Text('New trade-in'),
+        ),
         body: BlocBuilder<DevicesBloc, DevicesState>(
           builder: (context, state) {
             final filter = state is DevicesReady ? state.filter : initialFilter;
             return Column(
               children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  child: Row(
-                    children: [
-                      for (final chip in const [
-                        ('draft', 'Drafts'),
-                        ('all', 'All'),
-                        ('inspecting', 'Inspecting'),
-                        ('ready', 'Ready for auction'),
-                        ('live', 'Live'),
-                        ('offers', 'Offers ready'),
-                        ('reauction', 'Needs re-auction'),
-                        ('pickup', 'Awaiting pickup'),
-                        ('picked', 'Picked up'),
-                      ])
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: FilterChip(
-                            label: Text(chip.$2),
-                            selected: filter == chip.$1,
-                            onSelected: (_) => context.read<DevicesBloc>().add(
-                                  DevicesFilterChanged(chip.$1),
-                                ),
-                          ),
-                        ),
-                    ],
-                  ),
+                SdSearchField(
+                  hint: 'Search model or IMEI',
+                  onChanged: (value) => context.read<DevicesBloc>().add(DevicesSearchChanged(value)),
+                ),
+                SdChipBar(
+                  chips: chips,
+                  selected: filter,
+                  onSelected: (value) => context.read<DevicesBloc>().add(DevicesFilterChanged(value)),
                 ),
                 Expanded(child: _body(context, state)),
               ],
@@ -86,41 +72,20 @@ class DevicesPage extends StatelessWidget {
     final devices = (state as DevicesReady).devices;
     if (devices.isEmpty) {
       return const Padding(
-        padding: EdgeInsets.all(24),
+        padding: EdgeInsets.only(top: 12),
         child: Text('No devices in this filter.'),
       );
     }
     return ListView(
-      padding: const EdgeInsets.all(16),
       children: [
         for (final device in devices)
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text('${device.model} / ${device.storage}'),
-            subtitle: Text('${device.platform.json ?? device.status} · ${device.status}'),
-            onTap: () async {
-              if (device.status == 'draft') {
-                context.goNamed(deviceEditRoute, pathParameters: {'id': device.id});
-              } else if (device.status == 'inspecting') {
-                context.goNamed(inspectionRoute, pathParameters: {'id': device.id});
-              } else if (device.status == 'live') {
-                final rounds = await context.read<AuctionRepository>().listAuctions(deviceId: device.id, status: 'live');
-                if (!context.mounted || rounds.isEmpty) return;
-                context.goNamed(liveAuctionRoute, pathParameters: {'id': rounds.first.id});
-              } else if (device.status == 'awaiting_acceptance') {
-                final rounds = await context.read<AuctionRepository>().listAuctions(deviceId: device.id, status: 'awaiting_acceptance');
-                if (!context.mounted || rounds.isEmpty) return;
-                context.goNamed(offerRoute, pathParameters: {'id': rounds.first.id});
-              } else if (device.status == 'needs_reauction') {
-                final rounds = await context.read<AuctionRepository>().listAuctions(deviceId: device.id, status: 'needs_reauction');
-                if (!context.mounted || rounds.isEmpty) return;
-                context.goNamed(reauctionRoute, pathParameters: {'id': rounds.first.id});
-              } else if (device.status == 'awaiting_pickup' || device.status == 'picked_up') {
-                final deals = await context.read<DealRepository>().listDeals(deviceId: device.id);
-                if (!context.mounted || deals.isEmpty) return;
-                context.goNamed(dealDetailRoute, pathParameters: {'id': deals.first.id});
-              }
-            },
+          SdDeviceCard(
+            title: device.model,
+            subtitle: '${device.storage} / ${deviceStatusLabel(device.status)}',
+            status: deviceStatusLabel(device.status),
+            footerLabel: deviceCardFooter(device.status).$1,
+            footerValue: deviceCardFooter(device.status).$2,
+            onTap: () => openDeviceRecord(context, device),
           ),
       ],
     );

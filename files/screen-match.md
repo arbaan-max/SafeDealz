@@ -2,7 +2,7 @@
 
 Compare each live screen to the matching frame in [design.html](design.html). Behavior and fields stay in [design.md](design.md). Appearance follows the HTML.
 
-Do not start this work until the owner authorizes P25 (or an inclusive range through a later visual-match phase).
+Do not start Store Manager/Vendor/Diagnostics visual match until the owner authorizes P26.
 
 ## How to mark a row
 
@@ -18,32 +18,32 @@ Compare Admin in the desktop browser against HTML desktop frames. Compare Store 
 
 | Screen | HTML title | Status | Notes |
 | --- | --- | --- | --- |
-| A00 | Super Admin Login | Pending | |
-| A01 | Overview | Pending | |
-| A02 | Chains | Pending | |
-| A03 | Chain form | Pending | |
-| A04 | Branches | Pending | |
-| A05 | Branch onboarding/detail | Pending | |
-| A06 | Managers | Pending | |
-| A07 | Manager onboarding/edit | Pending | |
-| A08 | Vendors | Pending | |
-| A09 | Vendor onboarding/edit | Pending | |
-| A10 | Auctions/devices | Pending | |
-| A11 | Device and auction detail | Pending | |
-| A12 | Payments | Pending | |
-| A13 | Payment detail | Pending | |
-| A14 | Vendor wallet detail | Pending | |
-| A15 | Rewards overview | Pending | |
-| A16 | Customer branch rewards | Pending | |
-| A17 | Reward policy | Pending | |
-| A18 | Support cases | Pending | |
-| A19 | Reports | Pending | |
-| A20 | Settings | Pending | |
-| A21 | Audit log | Pending | |
-| A22 | Account/session settings | Pending | |
-| A23 | Admins | Pending | |
-| A24 | Admin create/edit | Pending | |
-| S04 | Notifications (admin) | Pending | Admin history/compose |
+| A00 | Super Admin Login | Updated | Split intro + Super Admin Login |
+| A01 | Overview | Updated | Paid today, week chart, recent auctions |
+| A02 | Chains | Updated | Search, export, row opens record, 3-dot edit |
+| A03 | Chain form | Updated | Card + two-column form |
+| A04 | Branches | Updated | Search, export, row opens record, 3-dot edit |
+| A05 | Branch onboarding/detail | Updated | Card form |
+| A06 | Managers | Updated | Search, export, row opens record, 3-dot edit |
+| A07 | Manager onboarding/edit | Updated | Card form |
+| A08 | Vendors | Updated | Search, export, row opens view, 3-dot edit/wallet |
+| A09 | Vendor onboarding/edit | Updated | Card form |
+| A10 | Auctions/devices | Updated | Device/branch columns, row opens detail |
+| A11 | Device and auction detail | Updated | Media, specs, current round, bids |
+| A12 | Payments | Updated | Reference/store/vendor columns, row opens detail |
+| A13 | Payment detail | Updated | Amount card + attempts timeline |
+| A14 | Vendor wallet detail | Updated | Stat tiles |
+| A15 | Rewards overview | Updated | Stat tiles |
+| A16 | Customer branch rewards | Updated | Shared admin chrome |
+| A17 | Reward policy | Updated | Card form |
+| A18 | Support cases | Updated | Search, export, row opens case |
+| A19 | Reports | Updated | Period filters, branch table, file download |
+| A20 | Settings | Updated | Auction timers only; integration card removed |
+| A21 | Audit log | Updated | Store names, no ObjectIds |
+| A22 | Account/session settings | Updated | Confirm password, 30-day session, no revoke |
+| A23 | Admins | Updated | Shared admin chrome + badges |
+| A24 | Admin create/edit | Updated | Card form |
+| S04 | Notifications (admin) | Updated | Compose card + history; bell in top bar |
 
 ## P26 — Store Manager (Flutter)
 

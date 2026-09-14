@@ -31,7 +31,7 @@ SafeDealz is a device trade-in auction platform with Store Manager, Vendor, Diag
 - React uses an HttpOnly refresh cookie with CSRF and memory-only access token. Store Manager/Vendor use platform secure storage and terminally reset to Login on inactive/replayed sessions.
 - Cloudflare R2 is the private object store for evidence, bills and KYC media; P07 introduces the backend-authorized signed-media adapter.
 - Razorpay is the vendor wallet recharge gateway; P11 credits the ledger only from verified, idempotently processed backend payment evidence.
-- After P24, HTML visual match is P25 Admin, P26 Store Manager, P27 Vendor, P28 Diagnostics; development handover is P29. Mark each screen Same or Updated in screen-match.md.
+- After P24, HTML visual match is P25 Admin (complete), P26 Store Manager, P27 Vendor, P28 Diagnostics; development handover is P29. Mark each screen Same or Updated in screen-match.md. Do not start P26 until authorized.
 
 ## Canonical references
 

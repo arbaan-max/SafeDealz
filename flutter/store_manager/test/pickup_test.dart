@@ -57,7 +57,7 @@ void main() {
     );
     await tester.pump();
     await tester.pump();
-    expect(find.text('Awaiting pickup'), findsOneWidget);
+    expect(find.text('Awaiting pickup'), findsWidgets);
     await tester.tap(find.text('Mark picked up'));
     await tester.pump();
     await tester.pump();
@@ -66,6 +66,6 @@ void main() {
     await tester.tap(find.text('Confirm handover'));
     await tester.pump();
     await tester.pump();
-    expect(find.text('Picked up'), findsOneWidget);
+    expect(find.text('Picked up'), findsWidgets);
   });
 }

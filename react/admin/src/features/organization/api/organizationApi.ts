@@ -109,7 +109,23 @@ export type PaymentInstruction = {
   ifsc?: string;
   providerTransferId?: string;
   providerStatus?: string;
+  branchName?: string;
+  vendorName?: string;
+  deviceName?: string;
+  dealReference?: string;
   attempts?: PaymentAttempt[];
+};
+
+export type AuctionDevice = {
+  id?: string;
+  model?: string;
+  storage?: string;
+  platform?: string;
+  status?: string;
+  imei1?: string;
+  imei2?: string;
+  batteryHealth?: number;
+  ram?: string;
 };
 
 export type AuctionRound = {
@@ -119,6 +135,11 @@ export type AuctionRound = {
   roundNumber?: number;
   highestAmountPaise?: number;
   declineReason?: string;
+  closesAt?: string;
+  opensAt?: string;
+  device?: AuctionDevice | null;
+  branch?: { id?: string; name?: string; code?: string } | null;
+  winnerVendor?: { id?: string; displayName?: string; email?: string } | null;
 };
 
 export type BidRow = {
@@ -127,6 +148,10 @@ export type BidRow = {
   feePaise?: number;
   status?: string;
   vendorAccountId?: string;
+  vendorName?: string;
+  basePaise?: number;
+  cosmeticDeductionPaise?: number;
+  batteryDeductionPaise?: number;
 };
 
 export type AuctionSettings = {
@@ -235,7 +260,27 @@ export type OverviewMetrics = {
   awaitingAcceptance?: number;
   paymentExceptions?: number;
   completedValuePaise?: number;
+  paidTodayPaise?: number;
+  weeklyPaidPaise?: number[];
+  recentAuctions?: {
+    id: string;
+    device?: string;
+    storage?: string;
+    branch?: string;
+    status?: string;
+    highestAmountPaise?: number;
+    roundNumber?: number;
+  }[];
   needsAttention?: { kind?: string; id?: string; label?: string }[];
+};
+
+export type ReportBranchRow = {
+  branchId?: string;
+  branchName?: string;
+  auctions?: number;
+  paidDeals?: number;
+  rewardsRedeemedPaise?: number;
+  invoices?: number;
 };
 
 export type ReportTotals = {
@@ -247,14 +292,18 @@ export type ReportTotals = {
   rewardIssuedPoints?: number;
   rewardRedeemedPoints?: number;
   billingReconciliation?: { paidValuePaise?: number; rewardOutstandingValuePaise?: number };
+  branches?: ReportBranchRow[];
 };
 
 export type AuditRow = {
   id?: string;
   actorRole?: string;
+  actorName?: string;
   action?: string;
   entityType?: string;
   entityId?: string;
+  storeName?: string;
+  objectLabel?: string;
   createdAt?: string;
 };
 

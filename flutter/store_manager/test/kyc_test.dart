@@ -87,7 +87,7 @@ void main() {
     );
     await tester.pump();
     await tester.pump();
-    expect(find.text('Accept offer'), findsOneWidget);
+    expect(find.text('Accept confirmation'), findsOneWidget);
     expect(find.textContaining('payout instruction'), findsOneWidget);
     await tester.tap(find.text('Confirm'));
     await tester.pump();
@@ -134,7 +134,6 @@ void main() {
     await tester.enterText(find.widgetWithText(TextField, 'Model'), 'Pixel 8');
     await tester.tap(find.text('Android'));
     await tester.pumpAndSettle();
-    await tester.scrollUntilVisible(find.text('Complete verification'), 400, scrollable: find.byType(Scrollable).first);
     await tester.tap(find.text('Complete verification'));
     await tester.pump();
     await tester.pump();

@@ -1,45 +1,48 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useOrganizationApi, type AuditRow } from '../api/organizationApi';
-import { DataTable, Field, ResourcePage } from '../components/ResourceKit';
+import { DataTable, ListTools, ResourcePage, downloadCsv } from '../components/ResourceKit';
 
 const recordHref = (row: AuditRow) => {
   if (row.entityType === 'payment_instruction' || row.entityType === 'payment') return `/payments/${row.entityId}`;
   if (row.entityType === 'auction_round' || row.entityType === 'auction') return `/auctions/${row.entityId}`;
   if (row.entityType === 'support_ticket') return `/support/${row.entityId}`;
+  if (row.entityType === 'branch') return `/branches/${row.entityId}`;
   return '';
+};
+
+const when = (value?: string) => {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 };
 
 export function AuditPage() {
   const api = useOrganizationApi();
+  const navigate = useNavigate();
   const [rows, setRows] = useState<AuditRow[]>([]);
-  const [action, setAction] = useState('');
-  const [entityType, setEntityType] = useState('');
+  const [query, setQuery] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const load = (query?: Record<string, string>) => void api.listAudit(query).then(setRows).catch((caught: Error) => setError(caught.message));
   useEffect(() => {
     void api.listAudit().then(setRows).catch((caught: Error) => setError(caught.message));
   }, [api]);
+  const visible = useMemo(() => rows.filter((row) => `${row.actorName} ${row.action} ${row.storeName} ${row.objectLabel}`.toLowerCase().includes(query.toLowerCase())), [query, rows]);
   return (
-    <ResourcePage title="Audit log" lede="Read-only trail of who performed an important action, what changed, when it happened and which record was affected. Restricted fields stay redacted." action={<Link className="back-link" to="/overview">Back to overview</Link>}>
+    <ResourcePage title="Audit log" lede="This is a read-only security history. It shows who performed an important action, what changed, and which store it happened at.">
       {error ? <p className="form-error" role="alert">{error}</p> : null}
-      <form className="resource-form" onSubmit={(event) => { event.preventDefault(); load({ action, entityType }); }}>
-        <Field label="Action"><input value={action} onChange={(event) => setAction(event.target.value)} /></Field>
-        <Field label="Record type"><input value={entityType} onChange={(event) => setEntityType(event.target.value)} /></Field>
-        <button className="login-button" type="submit">Apply filters</button>
-      </form>
+      <div className="notice" role="note">Use this log to investigate mistakes or disputes. Object names the store or record, never a raw database id.</div>
+      <ListTools placeholder="Search actor or action" query={query} onQuery={setQuery} onExport={() => downloadCsv('safedealz-audit.csv', [['Time', 'Actor', 'Action', 'Object'], ...visible.map((row) => [when(row.createdAt), row.actorName || row.actorRole || '', row.action || '', row.storeName || row.objectLabel || ''])])} />
       <DataTable
-        headers={['When', 'Actor', 'Action', 'Record']}
+        headers={['Time', 'Actor', 'Action', 'Object']}
         empty="No audit events."
-        rows={rows.map((row) => {
-          const href = recordHref(row);
-          return [
-            row.createdAt || '—',
-            row.actorRole || '—',
-            row.action || '—',
-            href ? <Link to={href}>{row.entityType} {row.entityId}</Link> : `${row.entityType} ${row.entityId}`,
-          ];
-        })}
+        onRowClick={(index) => { const href = recordHref(visible[index]); if (href) navigate(href); }}
+        rows={visible.map((row) => [
+          when(row.createdAt),
+          row.actorName || row.actorRole || '—',
+          row.action || '—',
+          row.storeName || row.objectLabel || '—',
+        ])}
       />
     </ResourcePage>
   );

@@ -1,6 +1,6 @@
 # SafeDealz implementation phases
 
-Admin-first development-only roadmap; P00–P24 are complete. Visual HTML match is planned as P25–P28 and is not authorized until the owner starts it. Development handover is P29. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
+Admin-first development-only roadmap; P00–P25 are complete. Visual HTML match continues as P26–P28 and is not authorized until the owner starts P26. Development handover is P29. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
 
 Each phase is split into three small or medium tasks: `.1` contract/data or decision preparation, `.2` implementation or feasibility evidence, `.3` integration/testing and documentation. Create numbered task files from [the template](tasks/TASK_TEMPLATE.md) when work is selected, rather than creating empty task files now. Split further when a task cannot be reviewed independently. These task IDs are roadmap identifiers, not existing files.
 
@@ -287,7 +287,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P25 — Admin HTML visual match
 
-- Status: Planned
+- Status: Complete — TASK-027
 - Dependencies: P24
 - Screens: A00–A24, S04 (admin)
 - Scope: Run React admin in the browser beside [design.html](design.html). For each listed screen, if the live UI matches the HTML frame mark it **Same** in [screen-match.md](screen-match.md); if it does not, restyle that screen to match the HTML and mark it **Updated**.

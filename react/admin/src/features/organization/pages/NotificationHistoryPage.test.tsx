@@ -26,6 +26,6 @@ test('S04 lists delivery history and can send a vendor broadcast', async () => {
   expect(await screen.findByText('Payout paid')).toBeInTheDocument();
   await user.type(screen.getByLabelText('Title'), 'Pickup hours');
   await user.type(screen.getByLabelText('Message'), 'Stores open 10–7.');
-  await user.click(screen.getByRole('button', { name: 'Send broadcast' }));
+  await user.click(screen.getByRole('button', { name: 'Send notification' }));
   expect(await screen.findByText('Payout paid')).toBeInTheDocument();
 });

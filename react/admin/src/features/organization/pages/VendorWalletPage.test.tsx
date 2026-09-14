@@ -25,7 +25,8 @@ test('A14 shows Super Admin ledger amounts', async () => {
   const router = createMemoryRouter([{ path: '/vendors/:id/wallet', element: <VendorWalletPage /> }], { initialEntries: ['/vendors/v1/wallet'] });
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
   expect(await screen.findByRole('heading', { name: 'Vendor wallet' })).toBeInTheDocument();
-  expect(await screen.findByText(/Available ₹100/)).toBeInTheDocument();
+  expect(await screen.findByText('Available')).toBeInTheDocument();
+  expect((await screen.findAllByText('₹100')).length).toBeGreaterThan(0);
   expect(await screen.findByText('Reserve')).toBeInTheDocument();
 });
 
@@ -43,6 +44,7 @@ test('A14 hides amounts for Admin', async () => {
   document.cookie = 'sd_csrf=c';
   const router = createMemoryRouter([{ path: '/vendors/:id/wallet', element: <VendorWalletPage /> }], { initialEntries: ['/vendors/v1/wallet'] });
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
-  expect(await screen.findByText(/Available Hidden/)).toBeInTheDocument();
+  expect(await screen.findByText('Available')).toBeInTheDocument();
+  expect((await screen.findAllByText('Hidden')).length).toBeGreaterThan(0);
   expect(await screen.findByText('Ledger is hidden for this role.')).toBeInTheDocument();
 });

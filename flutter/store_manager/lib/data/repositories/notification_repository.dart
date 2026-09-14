@@ -4,6 +4,7 @@ import 'package:safedealz_store_manager/data/api/models/notification.dart' as ap
 abstract interface class NotificationRepository {
   Future<List<api.Notification>> listInbox();
   Future<api.Notification> markRead(String id);
+  Future<void> markAllRead();
 }
 
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -15,6 +16,16 @@ class NotificationRepositoryImpl implements NotificationRepository {
 
   @override
   Future<api.Notification> markRead(String id) async => (await _client.markNotificationRead(id: id)).data;
+
+  @override
+  Future<void> markAllRead() async {
+    final rows = await listInbox();
+    for (final row in rows) {
+      if (row.id != null && row.readAt == null) {
+        await markRead(row.id!);
+      }
+    }
+  }
 }
 
 class MemoryNotificationRepository implements NotificationRepository {
@@ -33,5 +44,10 @@ class MemoryNotificationRepository implements NotificationRepository {
   Future<api.Notification> markRead(String id) async {
     rows = rows.map((row) => row.id == id ? row.copyWith(readAt: DateTime.now()) : row).toList();
     return rows.firstWhere((row) => row.id == id);
+  }
+
+  @override
+  Future<void> markAllRead() async {
+    rows = rows.map((row) => row.copyWith(readAt: row.readAt ?? DateTime.now())).toList();
   }
 }

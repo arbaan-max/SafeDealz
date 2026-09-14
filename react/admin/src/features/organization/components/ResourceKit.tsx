@@ -1,6 +1,6 @@
 import { type FormEvent, type ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, MoreHorizontal } from 'lucide-react';
 
 export function ResourcePage({ title, lede, action, backTo, backLabel, children }: {
   title: string; lede?: string; action?: ReactNode; backTo?: string; backLabel?: string; children: ReactNode;
@@ -26,16 +26,56 @@ export function StatusBadge({ tone = 'sky', children }: { tone?: 'sky' | 'green'
   return <span className={`badge badge-${tone}`}>{children}</span>;
 }
 
-export function DataTable({ headers, rows, empty }: { headers: string[]; rows: ReactNode[][]; empty: string }) {
+export function DataTable({ headers, rows, empty, onRowClick }: {
+  headers: string[]; rows: ReactNode[][]; empty: string; onRowClick?: (index: number) => void;
+}) {
   if (!rows.length) return <p className="empty-state" role="status">{empty}</p>;
   return (
     <div className="table-wrap">
       <table>
         <thead><tr>{headers.map((header) => <th key={header}>{header}</th>)}</tr></thead>
-        <tbody>{rows.map((row, index) => <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody>
+        <tbody>
+          {rows.map((row, index) => (
+            <tr key={index} className={onRowClick ? 'clickable-row' : undefined} onClick={onRowClick ? () => onRowClick(index) : undefined}>
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex} onClick={onRowClick && cellIndex === row.length - 1 ? (event) => event.stopPropagation() : undefined}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
+}
+
+export function ListTools({ placeholder, query, onQuery, onExport, children }: {
+  placeholder: string; query: string; onQuery(value: string): void; onExport(): void; children?: ReactNode;
+}) {
+  return (
+    <div className="admin-tools">
+      <div className="search"><input value={query} onChange={(event) => onQuery(event.target.value)} placeholder={placeholder} aria-label={placeholder} /></div>
+      {children}
+      <button className="btn small secondary" type="button" onClick={onExport}>Export</button>
+    </div>
+  );
+}
+
+export function RowMenu({ label = 'More actions', children }: { label?: string; children: ReactNode }) {
+  return (
+    <details className="row-menu" onClick={(event) => event.stopPropagation()}>
+      <summary className="iconbtn" aria-label={label}><MoreHorizontal size={16} /></summary>
+      <div className="row-menu-panel">{children}</div>
+    </details>
+  );
+}
+
+export function downloadCsv(filename: string, rows: Array<Array<string | number>>) {
+  const csv = rows.map((row) => row.map((cell) => `"${String(cell).replaceAll('"', '""')}"`).join(',')).join('\n');
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  link.download = filename;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 500);
 }
 
 export function ResourceForm({ title, backTo, backLabel, error, onSubmit, children, busy, extraActions }: {

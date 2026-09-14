@@ -5,7 +5,7 @@
 | Item | Value |
 | --- | --- |
 | Parent phase | P25 |
-| Status | In progress |
+| Status | Done |
 | Areas | Admin web |
 | Design screens | A00–A24, S04 (admin) |
 
@@ -39,7 +39,7 @@ Run React admin beside [design.html](../design.html). Mark each Admin screen **S
 
 ### API contract
 
-- Unchanged.
+- Unchanged (OpenAPI v0.22.0).
 
 ### Backend and MongoDB
 
@@ -47,28 +47,30 @@ Run React admin beside [design.html](../design.html). Mark each Admin screen **S
 
 ### Flutter, web, or Diagnostics
 
-- React admin visual alignment with design.html sky-blue admin frames.
+- React admin restyled to HTML admin chrome: split A00, left nav + workspace bar, Plus Jakarta Sans, cards/tables/stats.
 
 ## Acceptance criteria
 
-- [ ] Every P25 row in screen-match.md is Same or Updated.
-- [ ] Login has no remember/signup/forgot-password.
-- [ ] `make -f files/Makefile check-p25` passes.
-- [ ] Stop after P25.
+- [x] Every P25 row in screen-match.md is Same or Updated.
+- [x] Login has no remember/signup/forgot-password.
+- [x] `make -f files/Makefile check-p25` passes.
+- [x] Stop after P25.
 
 ## Tests to write before or with implementation
 
 | ID | Layer | Scenario | Expected result | Automated/manual | Result |
 | --- | --- | --- | --- | --- | --- |
-| TC-001 | React unit | A00 credentials and password eye | Email/password, no recovery | Automated | Not run |
-| TC-002 | Playwright | Catalogued admin screens stay reachable on sky-blue | Headings and empty/error states | Automated | Not run |
-| TC-003 | Manual | Each HTML admin frame vs live UI | Same or Updated | Manual | Not run |
+| TC-001 | React unit | A00 credentials and password eye | Email address, password eye, no recovery | Automated | Passed |
+| TC-002 | Playwright | Catalogued admin screens stay reachable on sky-blue | Headings and empty/error states | Automated | Passed |
+| TC-003 | Manual | Each HTML admin frame vs live UI | Updated after restyle | Manual | Passed |
 
 ## Verification commands and results
 
 | Command/check | Result | Notes |
 | --- | --- | --- |
-| Not run | Not run | Fill during implementation |
+| `cd react/admin && npm test` | Pass | 31/31 |
+| `cd react/admin && npm run test:e2e` | Pass | 3/3 Chromium |
+| `make -f files/Makefile check-p25` | Pass | React 31/31 + 3/3; Flutter 39/39, 30/30, 15/15; backend 42/42 |
 
 ## Deferred broad verification
 
@@ -78,7 +80,7 @@ Run React admin beside [design.html](../design.html). Mark each Admin screen **S
 
 ## Files changed
 
-- Fill after implementation.
+- Admin shell, login, tokens, ResourceKit, overview/reports/account/settings/notifications and list/form pages; screen-match register; TASK-027.
 
 ## Risks and follow-ups
 
@@ -86,20 +88,20 @@ Run React admin beside [design.html](../design.html). Mark each Admin screen **S
 
 ## Completion
 
-- Completed date:
-- Final result:
+- Completed date: 2026-09-14
+- Final result: Admin HTML visual match. All P25 rows marked Updated.
 - Next task: None — stop after P25.
 
 ## Mandatory documentation synchronization
 
-- [ ] Current task: actual files, criteria, status and next action updated.
-- [ ] implementation.md: task register, test evidence and next action updated.
-- [ ] plan.md and phases.md: phase progress and completed task IDs updated.
-- [ ] Conditional files reviewed: decisions, design.md + design.html, OpenAPI/generated clients, testing/run instructions, backend plan pointer, setup/deployment notes. Record each as Updated or Not applicable with reason.
-- [ ] Authorization boundary honored; work stopped after the recorded phase/task, or continued only within the recorded inclusive range.
+- [x] Current task: actual files, criteria, status and next action updated.
+- [x] implementation.md: task register, test evidence and next action updated.
+- [x] plan.md and phases.md: phase progress and completed task IDs updated.
+- [x] Conditional files: decisions Not applicable (DEC-025 already recorded); design.md/html Not applicable (visual follow, no behavior change); OpenAPI Not applicable; testing.md already lists check-p25; backend plan pointer updated; setup Not applicable.
+- [x] Authorization boundary honored; stopped after P25.
 
 ## Security acceptance
 
-- [ ] Visual-only; do not weaken login, role gates, or session revoke.
-- [ ] Existing auth/e2e authorization checks still pass.
-- [ ] Record outcomes before Done.
+- [x] Visual-only; login still has no recovery/signup; Admin role still cannot open Admins (Playwright).
+- [x] Existing auth/e2e authorization checks pass.
+- [x] Recorded in this task.

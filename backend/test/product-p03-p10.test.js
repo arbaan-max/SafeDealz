@@ -103,6 +103,12 @@ test('P04 Store Manager onboarding stays inside Admin scope and supports mobile 
   const managerToken = mobile.body.data.accessToken;
   const me = await request(app).get('/api/v1/auth/me').set(as(managerToken));
   assert.deepEqual(me.body.data.assignedBranchIds, [a.id]);
+  const managerBranches = await request(app).get('/api/v1/branches').set(as(managerToken));
+  assert.equal(managerBranches.status, 200, managerBranches.text);
+  assert.equal(managerBranches.body.data.length, 1);
+  assert.equal(managerBranches.body.data[0].id, a.id);
+  assert.equal(managerBranches.body.data[0].accountNumberMasked, '•••• 1111');
+  assert.equal(managerBranches.body.data[0].accountNumber, undefined);
   const escalateManager = await request(app).post('/api/v1/managers').set(as(managerToken)).send({ displayName: 'Hack', email: 'hack-mgr@safedealz.test', password, branchId: a.id });
   assert.equal(escalateManager.status, 403);
   const escalateAdmin = await request(app).post('/api/v1/admins').set(as(managerToken)).send({ displayName: 'Hack', email: 'hack-admin@safedealz.test', password, assignedBranchIds: [a.id] });

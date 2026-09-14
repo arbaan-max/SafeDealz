@@ -18,9 +18,10 @@ final class DevicesFailed extends DevicesState {
 }
 
 final class DevicesReady extends DevicesState {
-  const DevicesReady({required this.filter, required this.devices});
+  const DevicesReady({required this.filter, required this.devices, this.query = ''});
   final String filter;
   final List<Device> devices;
+  final String query;
   @override
-  List<Object?> get props => [filter, devices];
+  List<Object?> get props => [filter, devices, query];
 }

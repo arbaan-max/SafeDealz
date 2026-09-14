@@ -7,7 +7,7 @@ import { LoginPage } from './LoginPage';
 test('shows only the approved credentials and in-field password control', async () => {
   const router = createMemoryRouter([{ path: '/login', element: <LoginPage /> }], { initialEntries: ['/login'] });
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
-  expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
+  expect(screen.getByRole('textbox', { name: 'Email address' })).toBeInTheDocument();
   const password = screen.getByLabelText('Password');
   expect(password).toHaveAttribute('type', 'password');
   expect(screen.getByRole('button', { name: 'Login' })).toBeInTheDocument();

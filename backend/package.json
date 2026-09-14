@@ -11,7 +11,10 @@
     "start": "node server.js",
     "test": "NODE_ENV=test node --test",
     "test:watch": "NODE_ENV=test node --test --watch",
-    "check:r2": "node tool/r2_check.js"
+    "check:r2": "node tool/r2_check.js",
+    "seed:dummy": "node tool/seed_dummy.js",
+    "seed:dummy:clear": "node tool/seed_dummy.js --clear",
+    "seed:dummy:reset": "node tool/seed_dummy.js --reset"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1131.0",

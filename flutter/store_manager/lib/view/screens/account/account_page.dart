@@ -4,10 +4,15 @@ import 'package:go_router/go_router.dart';
 import 'package:safedealz_store_manager/bloc/auth/auth_bloc.dart';
 import 'package:safedealz_store_manager/core/network/api_error_message.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
+import 'package:safedealz_store_manager/core/utils/read_maybe.dart';
+import 'package:safedealz_store_manager/core/utils/theme.dart';
 import 'package:safedealz_store_manager/data/api/models/account_summary.dart';
+import 'package:safedealz_store_manager/data/api/models/branch.dart';
 import 'package:safedealz_store_manager/data/repositories/account_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/profile_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/store_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
 
 class AccountPage extends StatefulWidget {
@@ -19,9 +24,11 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   AccountSummary? _account;
+  Branch? _branch;
   String? _error;
   String? _message;
   bool _loading = true;
+  bool _changing = false;
   final _current = TextEditingController();
   final _next = TextEditingController();
 
@@ -29,9 +36,22 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final accounts = context.read<AccountRepository>();
+      final stores = maybeRead<StoreRepository>(context);
       try {
-        final account = await context.read<AccountRepository>().currentAccount();
-        if (mounted) setState(() { _account = account; _loading = false; });
+        final account = await accounts.currentAccount();
+        Branch? branch;
+        try {
+          final branches = await stores?.listAssignedBranches() ?? const <Branch>[];
+          if (branches.isNotEmpty) {
+            final assigned = account.assignedBranchIds ?? const <String>[];
+            branch = branches.firstWhere(
+              (item) => assigned.isEmpty || assigned.contains(item.id),
+              orElse: () => branches.first,
+            );
+          }
+        } catch (_) {}
+        if (mounted) setState(() { _account = account; _branch = branch; _loading = false; });
       } catch (error) {
         if (mounted) setState(() { _error = apiErrorMessage(error); _loading = false; });
       }
@@ -45,51 +65,88 @@ class _AccountPageState extends State<AccountPage> {
     super.dispose();
   }
 
+  Future<void> _changePassword() async {
+    setState(() { _error = null; _message = null; _changing = true; });
+    try {
+      await context.read<ProfileRepository>().changePassword(_current.text, _next.text);
+      if (mounted) setState(() { _message = 'Password changed.'; _changing = false; });
+    } catch (error) {
+      if (mounted) setState(() { _error = apiErrorMessage(error); _changing = false; });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final account = _account;
+    final name = account == null
+        ? ''
+        : ((account.displayName ?? '').trim().isEmpty ? account.email : account.displayName!);
     return AppPageScaffold(
       title: 'Account',
-      onBack: () => GoRouter.maybeOf(context)?.goNamed(homeRoute),
       bottomNavigationBar: const ManagerBottomNav(index: 3),
+      actionBar: OutlinedButton.icon(
+        onPressed: () {
+          context.read<AuthBloc>().add(const AuthLogoutRequested());
+          context.goNamed(loginRoute);
+        },
+        icon: const Icon(Icons.logout),
+        label: const Text('Logout'),
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.all(16),
               children: [
                 if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-                if (_message != null) Text(_message!),
-                if (account != null) ...[
-                  Text(account.displayName ?? account.email),
-                  Text(account.email),
-                  Text((account.assignedBranchIds ?? []).isEmpty ? 'No store assigned' : 'Assigned store ready'),
-                  const Text('Bank details are masked. Contact your administrator to change payout setup.'),
-                ],
+                if (_message != null) Text(_message!, style: const TextStyle(color: Color(0xFF166534))),
+                Center(
+                  child: Column(
+                    children: [
+                      SdAvatar(initialsFor(name), large: true),
+                      const SizedBox(height: 12),
+                      Text(name, style: Theme.of(context).textTheme.headlineMedium),
+                      const SizedBox(height: 4),
+                      const Text('Store manager', style: TextStyle(color: AppTheme.muted)),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (account != null)
+                  SdCard(
+                    child: Column(
+                      children: [
+                        SdDetailRow('Email', account.email),
+                        SdDetailRow('Branch', branchLabel(_branch).isEmpty ? 'No store assigned' : branchLabel(_branch)),
+                        SdDetailRow(
+                          'Business bank',
+                          _branch?.accountNumberMasked?.isNotEmpty == true
+                              ? _branch!.accountNumberMasked!
+                              : 'Masked. Contact your administrator to change payout setup.',
+                        ),
+                      ],
+                    ),
+                  ),
                 const SizedBox(height: 16),
                 TextField(controller: _current, obscureText: true, decoration: const InputDecoration(labelText: 'Current password')),
+                const SizedBox(height: 12),
                 TextField(controller: _next, obscureText: true, decoration: const InputDecoration(labelText: 'New password')),
-                FilledButton(
-                  onPressed: () async {
-                    setState(() { _error = null; _message = null; });
-                    try {
-                      await context.read<ProfileRepository>().changePassword(_current.text, _next.text);
-                      if (mounted) setState(() => _message = 'Password changed.');
-                    } catch (error) {
-                      if (mounted) setState(() => _error = apiErrorMessage(error));
-                    }
-                  },
-                  child: const Text('Change password'),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  onPressed: _changing ? null : _changePassword,
+                  icon: const Icon(Icons.lock_outline),
+                  label: Text(_changing ? 'Saving…' : 'Change password'),
                 ),
-                TextButton(
-                  onPressed: () => context.goNamed(notificationsRoute),
-                  child: const Text('Notifications'),
+                const SizedBox(height: 8),
+                SdListRow(
+                  icon: Icons.notifications_outlined,
+                  title: 'Notifications',
+                  subtitle: 'Auction and payment updates',
+                  onTap: () => context.goNamed(notificationsRoute),
                 ),
-                TextButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(const AuthLogoutRequested());
-                    context.goNamed(loginRoute);
-                  },
-                  child: const Text('Logout'),
+                SdListRow(
+                  icon: Icons.headset_mic_outlined,
+                  title: 'Contact support',
+                  subtitle: 'Get help with a transaction',
+                  onTap: () => context.goNamed(reportIssueRoute),
                 ),
               ],
             ),

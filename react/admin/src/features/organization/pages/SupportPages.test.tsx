@@ -25,7 +25,7 @@ test('A18 lists manager and vendor tickets without a create control', async () =
   const router = createMemoryRouter([{ path: '/', element: <SupportListPage /> }]);
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
   expect(await screen.findByRole('heading', { name: 'Support' })).toBeInTheDocument();
-  expect(await screen.findByText('vendor')).toBeInTheDocument();
+  expect(await screen.findByText('Vendor')).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /create ticket|new ticket/i })).not.toBeInTheDocument();
 });
 

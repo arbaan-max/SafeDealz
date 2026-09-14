@@ -19,34 +19,26 @@ export function SettingsPage() {
   return (
     <ResourcePage title="Settings" lede="These values apply when a new auction round starts.">
       {error ? <p className="form-error" role="alert">{error}</p> : null}
-      <div className="admin-grid">
-        <form className="card" onSubmit={(event) => {
-          event.preventDefault();
-          if (!canWrite) { setError('Only Super Admin can change auction timers.'); return; }
-          void api.updateSettings({ biddingMinutes, acceptanceMinutes }).then((saved) => {
-            setBiddingMinutes(saved.biddingMinutes);
-            setAcceptanceMinutes(saved.acceptanceMinutes);
-          }).catch((caught: Error) => setError(caught.message));
-        }}>
-          <h3>Auction timers</h3>
-          <p className="muted">Changing a setting does not shorten or extend an auction that is already running.</p>
-          <div className="form-grid">
-            <Field label="Vendor bidding window (minutes)">
-              <input type="number" min={1} max={30} value={biddingMinutes} onChange={(event) => setBiddingMinutes(Number(event.target.value))} required readOnly={!canWrite} />
-            </Field>
-            <Field label="Manager acceptance window (minutes)">
-              <input type="number" min={1} max={60} value={acceptanceMinutes} onChange={(event) => setAcceptanceMinutes(Number(event.target.value))} required readOnly={!canWrite} />
-            </Field>
-          </div>
-          <button className="btn small" type="submit">Save timer settings</button>
-        </form>
-        <div className="card">
-          <h3>Integration readiness</h3>
-          <div className="detail"><span>Payments</span><span className="badge badge-amber">Demo mode</span></div>
-          <div className="detail"><span>SMS</span><span className="badge badge-amber">Demo mode</span></div>
-          <div className="detail"><span>Media capture</span><span className="badge badge-gray">Configured</span></div>
+      <form className="card form-card" style={{ maxWidth: 820 }} onSubmit={(event) => {
+        event.preventDefault();
+        if (!canWrite) { setError('Only Super Admin can change auction timers.'); return; }
+        void api.updateSettings({ biddingMinutes, acceptanceMinutes }).then((saved) => {
+          setBiddingMinutes(saved.biddingMinutes);
+          setAcceptanceMinutes(saved.acceptanceMinutes);
+        }).catch((caught: Error) => setError(caught.message));
+      }}>
+        <h3>Auction timers</h3>
+        <div className="form-grid">
+          <Field label="Vendor bidding window (minutes)">
+            <input type="number" min={1} max={30} value={biddingMinutes} onChange={(event) => setBiddingMinutes(Number(event.target.value))} required readOnly={!canWrite} />
+          </Field>
+          <Field label="Manager acceptance window (minutes)">
+            <input type="number" min={1} max={60} value={acceptanceMinutes} onChange={(event) => setAcceptanceMinutes(Number(event.target.value))} required readOnly={!canWrite} />
+          </Field>
         </div>
-      </div>
+        <button className="btn small" type="submit">Save timer settings</button>
+        <div className="notice" role="note">Changing a setting does not shorten or extend an auction that is already running.</div>
+      </form>
     </ResourcePage>
   );
 }

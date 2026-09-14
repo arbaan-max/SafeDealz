@@ -14,6 +14,7 @@ import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/data/services/imei_scan_adapter.dart';
 import 'package:safedealz_store_manager/data/services/kyc_capture_adapter.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class CustomerVerificationPage extends StatefulWidget {
   const CustomerVerificationPage({
@@ -140,20 +141,31 @@ class _CustomerVerificationPageState extends State<CustomerVerificationPage> {
     final verified = _deal?.status == DealStatus.verified;
     return AppPageScaffold(
       title: 'Customer verification',
+      showBell: false,
+      actionBar: FilledButton(
+        onPressed: _busy || verified ? null : _submit,
+        child: Text(verified ? 'Verified' : _busy ? 'Submitting…' : 'Complete verification'),
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.all(16),
               children: [
+                const SdSteps(current: 4),
+                Text('Verify the customer', style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 8),
+                const Text('The offer is accepted and payment processing has started. Complete verification to release the payout.', style: TextStyle(color: Color(0xFF526079))),
+                const SizedBox(height: 16),
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 if (_done != null) Text(_done!),
                 TextField(controller: _name, decoration: const InputDecoration(labelText: 'Customer name')),
+                const SizedBox(height: 12),
                 TextField(
                   controller: _phone,
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(labelText: 'Phone'),
                 ),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
@@ -162,6 +174,7 @@ class _CustomerVerificationPageState extends State<CustomerVerificationPage> {
                     TextButton(onPressed: _sendOtp, child: Text(_otpSent ? 'Resend OTP' : 'Send OTP')),
                   ],
                 ),
+                const SizedBox(height: 8),
                 TextButton(
                   onPressed: () async {
                     final ok = await _capture.captureId();
@@ -219,11 +232,6 @@ class _CustomerVerificationPageState extends State<CustomerVerificationPage> {
                     });
                   },
                   child: const Text('Scan IMEIs'),
-                ),
-                const SizedBox(height: 16),
-                FilledButton(
-                  onPressed: _busy || verified ? null : _submit,
-                  child: Text(verified ? 'Verified' : _busy ? 'Submitting…' : 'Complete verification'),
                 ),
               ],
             ),

@@ -2,6 +2,8 @@ import { createOutboxEvent } from '../repositories/outbox-event.repository.js';
 import { findBidById } from '../repositories/bid.repository.js';
 import { findDealById, findPaymentById, findPaymentByTransferId, listPayments, saveDeal, savePaymentInstruction } from '../repositories/deal.repository.js';
 import { findDeviceById, saveDevice } from '../repositories/device.repository.js';
+import { findBranchById } from '../repositories/branch.repository.js';
+import { findAccountById } from '../repositories/account.repository.js';
 import { ApiError } from '../utils/api-error.js';
 import { duplicateError, requireObjectId } from '../utils/ids.js';
 import { assertBranchInScope, loadScope } from './scope.service.js';
@@ -158,10 +160,30 @@ export const listVisiblePayments = async (actor) => {
   const scope = await loadScope(actor);
   const filter = scope.all ? {} : { branchId: { $in: scope.branchIds } };
   const rows = await listPayments(filter);
-  return rows.map(presentPayment);
+  return Promise.all(rows.map(async (row) => {
+    const [branch, deal] = await Promise.all([findBranchById(row.branchId), findDealById(row.dealId)]);
+    const vendor = deal ? await findAccountById(deal.vendorAccountId) : null;
+    const device = deal ? await findDeviceById(deal.deviceId) : null;
+    return {
+      ...presentPayment(row),
+      branchName: branch?.name || '',
+      vendorName: vendor?.displayName || vendor?.email || '',
+      deviceName: device?.model || '',
+    };
+  }));
 };
 
-export const readPayment = async (actor, id) => presentPayment(await requirePayment(actor, id));
+export const readPayment = async (actor, id) => {
+  const row = await requirePayment(actor, id);
+  const [branch, deal] = await Promise.all([findBranchById(row.branchId), findDealById(row.dealId)]);
+  const vendor = deal ? await findAccountById(deal.vendorAccountId) : null;
+  return {
+    ...presentPayment(row),
+    branchName: branch?.name || '',
+    vendorName: vendor?.displayName || vendor?.email || '',
+    dealReference: row.providerTransferId || (deal ? `SD-${String(deal.id).slice(-4).toUpperCase()}` : ''),
+  };
+};
 
 export const retryPayment = async (actor, id) => {
   const instruction = await requirePayment(actor, id);

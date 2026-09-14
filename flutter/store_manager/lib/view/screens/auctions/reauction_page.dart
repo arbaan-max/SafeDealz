@@ -7,6 +7,7 @@ import 'package:safedealz_store_manager/data/api/models/auction_round.dart';
 import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
 import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class ReauctionPage extends StatefulWidget {
   const ReauctionPage({super.key, required this.auctionId});
@@ -61,16 +62,58 @@ class _ReauctionPageState extends State<ReauctionPage> {
         : const <String, dynamic>{};
     return AppPageScaffold(
       title: 'Needs re-auction',
+      actionBar: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          FilledButton(
+            onPressed: _busy ? null : _restart,
+            child: Text(_busy ? 'Starting…' : 'Review & restart'),
+          ),
+          const SizedBox(height: 8),
+          SdQuietButton(
+            label: 'Cancel listing',
+            onPressed: _busy
+                ? null
+                : () async {
+                    final round = _round;
+                    if (round == null) return;
+                    try {
+                      await context.read<AuctionRepository>().cancelAuction(round.id, 'Canceled from re-auction screen');
+                      if (!mounted) return;
+                      context.goNamed(devicesRoute);
+                    } catch (error) {
+                      if (mounted) setState(() => _error = apiErrorMessage(error));
+                    }
+                  },
+          ),
+        ],
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.all(16),
               children: [
+                const SdStatusOrb(icon: Icons.autorenew, tone: 'amber'),
+                const Text('Ready for another round', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
+                const SizedBox(height: 8),
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 if (round != null) ...[
-                  Text(device['model']?.toString() ?? 'Device'),
-                  Text(round.declineReason?.isNotEmpty == true ? round.declineReason! : 'No bids received'),
+                  Text(device['model']?.toString() ?? 'Device', textAlign: TextAlign.center),
+                  Text(round.declineReason?.isNotEmpty == true ? round.declineReason! : 'No bids received', textAlign: TextAlign.center),
+                  SdCard(
+                    child: Column(
+                      children: [
+                        SdDetailRow('Device', device['model']?.toString() ?? 'Device'),
+                        SdDetailRow('Completed rounds', '${round.roundNumber}'),
+                        SdDetailRow(
+                          'Last highest offer',
+                          (round.highestAmountPaise ?? 0) == 0
+                              ? 'No bids received'
+                              : formatPaise(round.highestAmountPaise),
+                        ),
+                      ],
+                    ),
+                  ),
                   Text('Round ${round.roundNumber}'),
                   Text(
                     (round.highestAmountPaise ?? 0) == 0
@@ -78,10 +121,10 @@ class _ReauctionPageState extends State<ReauctionPage> {
                         : 'Last highest offer ${formatPaise(round.highestAmountPaise)}',
                   ),
                   const Text('Device evidence is retained. The customer is not collected yet.'),
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: _busy ? null : _restart,
-                    child: Text(_busy ? 'Starting…' : 'Review & restart'),
+                  const SdNotice('Reuse device checks and evidence. Customer details are not required to restart. Every vendor may submit one new bid in the new round.'),
+                  OutlinedButton(
+                    onPressed: () => context.goNamed(deviceHistoryRoute, pathParameters: {'id': round.deviceId}),
+                    child: const Text('View previous rounds'),
                   ),
                 ],
               ],

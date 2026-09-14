@@ -12,6 +12,7 @@ import 'package:safedealz_store_manager/data/api/models/auction_round_status.dar
 import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
 import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class OfferPage extends StatefulWidget {
   const OfferPage({super.key, required this.auctionId});
@@ -212,39 +213,64 @@ class _OfferPageState extends State<OfferPage> {
         : const <String, dynamic>{};
     return AppPageScaffold(
       title: 'Highest offer',
+      showBell: false,
+      actionBar: round == null
+          ? null
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                FilledButton(
+                  onPressed: open
+                      ? () => context.goNamed(offerAcceptRoute, pathParameters: {'id': round.id})
+                      : null,
+                  child: const Text('Accept'),
+                ),
+                const SizedBox(height: 8),
+                OutlinedButton(onPressed: open ? _rebid : null, child: const Text('Rebid')),
+                SdQuietButton(label: 'Decline', onPressed: open ? _decline : null),
+              ],
+            ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.all(16),
               children: [
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 if (round != null) ...[
-                  Text(device['model']?.toString() ?? 'Device'),
-                  Text(
-                    open ? 'Accept within $mm:$ss' : 'Acceptance window ended',
-                    style: Theme.of(context).textTheme.headlineSmall,
+                  Row(
+                    children: [
+                      const SdStatusBadge('Selected offer'),
+                      const Spacer(),
+                      Text(open ? 'Accept within $mm:$ss' : 'Acceptance window ended', style: const TextStyle(fontWeight: FontWeight.w700)),
+                    ],
                   ),
-                  Text(formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise)),
-                  Text(vendor['displayName']?.toString() ?? 'Winning vendor'),
-                  Text('Platform fee ${formatPaise(round.winnerBid?.feePaise)}'),
+                  const SizedBox(height: 12),
+                  Text(device['model']?.toString() ?? 'Device', style: Theme.of(context).textTheme.headlineMedium),
+                  Text('${device['storage'] ?? ''}'),
+                  const SizedBox(height: 16),
+                  SdCard(
+                    tint: true,
+                    child: Column(
+                      children: [
+                        const Text('Offer to your store', style: TextStyle(fontSize: 12, color: Color(0xFF526079))),
+                        Text(formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise), style: const TextStyle(fontSize: 37, fontWeight: FontWeight.w800)),
+                        Text(open ? 'Accept within the remaining time' : 'Acceptance window ended'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(vendor['displayName']?.toString() ?? 'Winning vendor', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  SdCard(
+                    child: Column(
+                      children: [
+                        SdDetailRow('Final offer', formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise)),
+                        SdDetailRow('Platform fee', formatPaise(round.winnerBid?.feePaise)),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SdDetailRow('Payout account', device['branchName']?.toString() ?? 'Store business account'),
                   const Text('Payout uses the branch business account. No customer KYC yet.'),
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: open
-                        ? () => context.goNamed(offerAcceptRoute, pathParameters: {'id': round.id})
-                        : null,
-                    child: const Text('Accept'),
-                  ),
-                  const SizedBox(height: 8),
-                  FilledButton.tonal(
-                    onPressed: open ? _rebid : null,
-                    child: const Text('Rebid'),
-                  ),
-                  TextButton(
-                    onPressed: open ? _decline : null,
-                    child: const Text('Decline'),
-                  ),
                 ],
               ],
             ),

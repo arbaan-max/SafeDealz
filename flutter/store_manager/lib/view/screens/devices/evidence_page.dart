@@ -8,6 +8,7 @@ import 'package:safedealz_store_manager/data/api/models/catalog.dart';
 import 'package:safedealz_store_manager/data/repositories/catalog_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class EvidencePage extends StatefulWidget {
   const EvidencePage({super.key, required this.deviceId});
@@ -93,28 +94,39 @@ class _EvidencePageState extends State<EvidencePage> {
     ];
     return AppPageScaffold(
       title: 'Capture device',
+      actionBar: FilledButton(
+        onPressed: _saving ? null : _finish,
+        child: const Text('Continue'),
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.all(16),
               children: [
+                Row(
+                  children: [
+                    Expanded(child: Text('Capture the device', style: Theme.of(context).textTheme.titleLarge)),
+                    SdStatusBadge('${_ready.length}/7 ready', tone: 'green'),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Text('One rotation video and six clear angles.', style: TextStyle(color: Color(0xFF526079))),
+                const SizedBox(height: 16),
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 for (final slot in slots)
-                  ListTile(
-                    title: Text(slot.$2),
-                    subtitle: Text(_ready.contains(slot.$1) ? 'Captured' : 'Tap to capture'),
-                    trailing: Text(_ready.contains(slot.$1) ? 'Retake' : 'Capture'),
-                    onTap: () => GoRouter.maybeOf(context)?.goNamed(
-                      cameraRoute,
-                      pathParameters: {'id': widget.deviceId, 'purpose': slot.$1},
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: SdMediaSlot(
+                      label: slot.$2,
+                      wide: slot.$1 == 'rotation',
+                      ready: _ready.contains(slot.$1),
+                      onTap: () => GoRouter.maybeOf(context)?.goNamed(
+                        cameraRoute,
+                        pathParameters: {'id': widget.deviceId, 'purpose': slot.$1},
+                      ),
                     ),
                   ),
-                const SizedBox(height: 24),
-                FilledButton(
-                  onPressed: _saving ? null : _finish,
-                  child: const Text('Continue'),
-                ),
+                const SdNotice('Use the camera on your phone. No gallery uploads. Front photo should show the screen on if it works.'),
               ],
             ),
     );

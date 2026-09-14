@@ -1,20 +1,32 @@
+import mongoose from 'mongoose';
 import { AuctionRound } from '../models/auction-round.model.js';
 import { Bid } from '../models/bid.model.js';
 import { Branch } from '../models/branch.model.js';
+import { Chain } from '../models/chain.model.js';
 import { Deal } from '../models/deal.model.js';
+import { Device } from '../models/device.model.js';
 import { PaymentInstruction } from '../models/payment-instruction.model.js';
 import { RewardLedger } from '../models/reward-ledger.model.js';
 import { WalletLedger } from '../models/wallet-ledger.model.js';
 import { listAssignments } from '../repositories/store-assignment.repository.js';
 import { listAuditEvents } from '../repositories/audit-event.repository.js';
 import { listBranches } from '../repositories/branch.repository.js';
+import { listAccounts } from '../repositories/account.repository.js';
 import { ApiError } from '../utils/api-error.js';
 import { loadScope } from './scope.service.js';
+
+const objectIds = (ids) => ids.map((id) => new mongoose.Types.ObjectId(String(id)));
+
+const endOfDay = (value) => {
+  const date = new Date(value);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(value))) date.setHours(23, 59, 59, 999);
+  return date;
+};
 
 const periodFilter = (query, field = 'createdAt') => {
   const filter = {};
   if (query.from) filter[field] = { ...(filter[field] || {}), $gte: new Date(query.from) };
-  if (query.to) filter[field] = { ...(filter[field] || {}), $lte: new Date(query.to) };
+  if (query.to) filter[field] = { ...(filter[field] || {}), $lte: endOfDay(query.to) };
   return filter;
 };
 
@@ -39,20 +51,39 @@ export const readOverview = async (actor) => {
     throw new ApiError(403, 'FORBIDDEN', 'Overview is limited to Admin accounts.');
   }
   const { branchIds, scope } = await scopedBranches(actor);
-  const branchFilter = scope.all ? {} : { branchId: { $in: branchIds } };
-  const [liveAuctions, awaitingAcceptance, paymentExceptions, paid, branches] = await Promise.all([
+  const ids = objectIds(branchIds);
+  const branchFilter = scope.all ? {} : { branchId: { $in: ids } };
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+  const weekStart = new Date(startOfDay);
+  weekStart.setDate(weekStart.getDate() - 6);
+  const [liveAuctions, awaitingAcceptance, paymentExceptions, paid, paidToday, weekPaid, branches, recentRounds] = await Promise.all([
     AuctionRound.countDocuments({ status: 'live', ...branchFilter }),
     AuctionRound.countDocuments({ status: 'awaiting_acceptance', ...branchFilter }),
     PaymentInstruction.countDocuments({ status: { $in: ['needs_attention', 'unknown'] }, ...branchFilter }),
     PaymentInstruction.find({ status: 'paid', ...branchFilter }),
-    listBranches(scope.all ? {} : { _id: { $in: branchIds } }),
+    PaymentInstruction.find({ status: 'paid', ...branchFilter, createdAt: { $gte: startOfDay } }),
+    PaymentInstruction.find({ status: 'paid', ...branchFilter, createdAt: { $gte: weekStart } }),
+    listBranches(scope.all ? {} : { _id: { $in: ids } }),
+    AuctionRound.find(branchFilter).sort({ opensAt: -1 }).limit(5),
   ]);
   const completedValuePaise = paid.reduce((sum, row) => sum + (row.amountPaise || 0), 0);
+  const paidTodayPaise = paidToday.reduce((sum, row) => sum + (row.amountPaise || 0), 0);
+  const weeklyPaidPaise = Array.from({ length: 7 }, (_, index) => {
+    const day = new Date(weekStart);
+    day.setDate(weekStart.getDate() + index);
+    const next = new Date(day);
+    next.setDate(day.getDate() + 1);
+    return weekPaid.filter((row) => row.createdAt >= day && row.createdAt < next).reduce((sum, row) => sum + (row.amountPaise || 0), 0);
+  });
+  const devices = await Device.find({ _id: { $in: recentRounds.map((row) => row.deviceId) } });
+  const deviceMap = Object.fromEntries(devices.map((row) => [String(row.id), row]));
+  const branchMap = Object.fromEntries(branches.map((row) => [String(row.id), row]));
   const needsAttention = [
     ...((await PaymentInstruction.find({ status: { $in: ['needs_attention', 'unknown'] }, ...branchFilter }).limit(20)).map((row) => ({
       kind: 'payment', id: String(row.id), label: `Payment ${row.status.replaceAll('_', ' ')}`,
     }))),
-    ...branches.filter((branch) => !(branch.beneficiaryName && branch.accountNumber && branch.ifsc)).map((branch) => ({
+    ...branches.filter((branch) => !(branch.beneficiaryName && branch.ifsc)).map((branch) => ({
       kind: 'branch_setup', id: String(branch.id), label: `${branch.name} payout details incomplete`,
     })),
   ];
@@ -61,6 +92,21 @@ export const readOverview = async (actor) => {
     awaitingAcceptance,
     paymentExceptions,
     completedValuePaise,
+    paidTodayPaise,
+    weeklyPaidPaise,
+    recentAuctions: recentRounds.map((round) => {
+      const device = deviceMap[String(round.deviceId)];
+      const branch = branchMap[String(round.branchId)];
+      return {
+        id: String(round.id),
+        device: device?.model || 'Device',
+        storage: device?.storage || '',
+        branch: branch?.name || '',
+        status: round.status,
+        highestAmountPaise: round.highestAmountPaise || 0,
+        roundNumber: round.roundNumber,
+      };
+    }),
     needsAttention,
   };
 };
@@ -71,9 +117,10 @@ export const readReports = async (actor, query = {}) => {
   }
   const { branchIds } = await scopedBranches(actor, query);
   const created = periodFilter(query);
-  const branchFilter = { branchId: { $in: branchIds } };
-  const vendorIds = (await listAssignments({ branchId: { $in: branchIds }, kind: 'vendor', active: true })).map((row) => row.accountId);
-  const [started, acceptedDeals, paid, pickups, walletRows, earnRows, redeemRows] = await Promise.all([
+  const ids = objectIds(branchIds);
+  const branchFilter = { branchId: { $in: ids } };
+  const vendorIds = (await listAssignments({ branchId: { $in: ids }, kind: 'vendor', active: true })).map((row) => row.accountId);
+  const [started, acceptedDeals, paid, pickups, walletRows, earnRows, redeemRows, branches, chains] = await Promise.all([
     AuctionRound.countDocuments({ ...branchFilter, ...created }),
     Deal.find({ ...branchFilter, ...created }),
     PaymentInstruction.find({ status: 'paid', ...branchFilter, ...created }),
@@ -81,6 +128,8 @@ export const readReports = async (actor, query = {}) => {
     WalletLedger.find({ type: { $in: ['credit', 'commit', 'settle'] }, vendorAccountId: { $in: vendorIds }, ...created }),
     RewardLedger.find({ type: 'earn', ...branchFilter, ...created }),
     RewardLedger.find({ type: 'redeem', ...branchFilter, ...created }),
+    listBranches({ _id: { $in: ids } }),
+    Chain.find({}),
   ]);
   const accepted = acceptedDeals.length;
   const paidValuePaise = paid.reduce((sum, row) => sum + (row.amountPaise || 0), 0);
@@ -89,6 +138,27 @@ export const readReports = async (actor, query = {}) => {
   const rewardIssuedPoints = earnRows.reduce((sum, row) => sum + (row.points || 0), 0);
   const rewardRedeemedPoints = redeemRows.reduce((sum, row) => sum + (row.points || 0), 0);
   const outstandingValuePaise = earnRows.reduce((sum, row) => sum + (row.valuePaise || 0), 0) - redeemRows.reduce((sum, row) => sum + (row.valuePaise || 0), 0);
+  const chainNames = Object.fromEntries(chains.map((chain) => [String(chain.id), chain.name]));
+  const startedByBranch = await AuctionRound.aggregate([
+    { $match: { ...branchFilter, ...created } },
+    { $group: { _id: '$branchId', auctions: { $sum: 1 } } },
+  ]);
+  const auctionMap = Object.fromEntries(startedByBranch.map((row) => [String(row._id), row.auctions]));
+  const branchRows = branches.map((branch) => {
+    const key = String(branch.id);
+    const paidDeals = paid.filter((row) => String(row.branchId) === key).length;
+    const redeemed = redeemRows.filter((row) => String(row.branchId) === key).reduce((sum, row) => sum + (row.valuePaise || 0), 0);
+    const invoices = redeemRows.filter((row) => String(row.branchId) === key && row.invoiceNumber).length
+      + paid.filter((row) => String(row.branchId) === key).length;
+    return {
+      branchId: key,
+      branchName: `${chainNames[String(branch.chainId)] || 'Store'} / ${branch.name}`,
+      auctions: auctionMap[key] || 0,
+      paidDeals,
+      rewardsRedeemedPaise: redeemed,
+      invoices,
+    };
+  });
   return {
     auctionConversion: { started, accepted, rate: started ? accepted / started : 0 },
     acceptedValuePaise,
@@ -98,6 +168,7 @@ export const readReports = async (actor, query = {}) => {
     rewardIssuedPoints,
     rewardRedeemedPoints,
     billingReconciliation: { paidValuePaise, rewardOutstandingValuePaise: Math.max(0, outstandingValuePaise) },
+    branches: branchRows,
   };
 };
 
@@ -130,16 +201,38 @@ export const listAudit = async (actor, query = {}) => {
   const filter = {};
   if (query.action) filter.action = query.action;
   if (query.entityType) filter.entityType = query.entityType;
-  if (!scope.all) filter.storeId = { $in: scope.branchIds };
+  if (!scope.all) filter.storeId = { $in: objectIds(scope.branchIds) };
   const rows = await listAuditEvents(filter);
+  const [stores, actors] = await Promise.all([
+    listBranches({ _id: { $in: rows.map((row) => row.storeId).filter(Boolean) } }),
+    listAccounts({ _id: { $in: rows.map((row) => row.actorId).filter(Boolean) } }),
+  ]);
+  const chains = await Chain.find({ _id: { $in: stores.map((row) => row.chainId).filter(Boolean) } });
+  const chainNames = Object.fromEntries(chains.map((chain) => [String(chain.id), chain.name]));
+  const storeMap = Object.fromEntries(stores.map((row) => {
+    const chain = chainNames[String(row.chainId)];
+    return [String(row.id), chain ? `${chain} / ${row.name}` : row.name];
+  }));
+  const actorMap = Object.fromEntries(actors.map((row) => [String(row.id), row.displayName || row.email]));
+  const objectLabel = (row) => {
+    const meta = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+    if (meta.objectLabel) return String(meta.objectLabel);
+    if (meta.device) return String(meta.device);
+    if (row.storeId && storeMap[String(row.storeId)]) return storeMap[String(row.storeId)];
+    if (row.entityType === 'settings') return 'Platform settings';
+    return row.entityType?.replaceAll('_', ' ') || 'Record';
+  };
   return rows.map((row) => ({
     id: String(row.id),
     actorId: String(row.actorId),
+    actorName: actorMap[String(row.actorId)] || row.actorRole,
     actorRole: row.actorRole,
-    action: row.action,
+    action: row.action.replace(/^dummy-seed-/, ''),
     entityType: row.entityType,
     entityId: row.entityId,
     storeId: row.storeId ? String(row.storeId) : '',
+    storeName: row.storeId ? (storeMap[String(row.storeId)] || '') : '',
+    objectLabel: objectLabel(row),
     createdAt: row.createdAt,
     metadata: row.metadata && typeof row.metadata === 'object'
       ? Object.fromEntries(Object.entries(row.metadata).filter(([key]) => !/otp|kyc|password|accountNumber/i.test(key)))

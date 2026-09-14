@@ -23,8 +23,8 @@ const start = async () => {
     process.stdout.write(`MongoDB not connected: ${error.message}\n`);
   }
 
-  const server = app.listen(env.port, () => {
-    process.stdout.write(`SafeDealz API listening on port ${env.port}\n`);
+  const server = app.listen(env.port, '127.0.0.1', () => {
+    process.stdout.write(`SafeDealz API listening on http://127.0.0.1:${env.port}\n`);
     process.stdout.write(`Swagger JSON: ${swaggerUrl}\n`);
   });
 

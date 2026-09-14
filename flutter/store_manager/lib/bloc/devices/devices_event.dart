@@ -19,3 +19,10 @@ final class DevicesFilterChanged extends DevicesEvent {
   @override
   List<Object?> get props => [filter];
 }
+
+final class DevicesSearchChanged extends DevicesEvent {
+  const DevicesSearchChanged(this.query);
+  final String query;
+  @override
+  List<Object?> get props => [query];
+}

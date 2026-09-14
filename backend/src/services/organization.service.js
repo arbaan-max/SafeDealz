@@ -84,7 +84,7 @@ export const updateVisibleChain = async (actor, id, body) => {
 
 export const listVisibleBranches = async (actor) => {
   const scope = await loadScope(actor);
-  const branches = await listBranches(scopedBranchFilter(scope), { withAccount: actor.role === 'super_admin' });
+  const branches = await listBranches(scopedBranchFilter(scope), { withAccount: actor.role === 'super_admin' || actor.role === 'store_manager' });
   return branches.map((branch) => publicBranch(branch, { revealAccount: actor.role === 'super_admin' }));
 };
 

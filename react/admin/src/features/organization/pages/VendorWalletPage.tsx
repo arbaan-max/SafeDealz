@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { useOrganizationApi, type WalletDetail } from '../api/organizationApi';
 import { ResourcePage } from '../components/ResourceKit';
@@ -26,13 +26,19 @@ export function VendorWalletPage() {
   return (
     <ResourcePage
       title="Vendor wallet"
-      lede={superAdmin ? 'Immutable paise ledger. Available, reserved and processing never come from the client.' : 'Admin can confirm the vendor exists. Global balances stay Super Admin-only.'}
-      action={<Link className="back-link" to="/vendors">Back to vendors</Link>}
+      lede={superAdmin ? 'Balances are derived from recorded money movements. No arbitrary balance-edit control is provided.' : 'Admin can confirm the vendor exists. Global balances stay Super Admin-only.'}
+      backTo="/vendors"
+      backLabel="Back to vendors"
     >
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       {wallet ? (
         <>
-          <p>Available {rupees(wallet.availablePaise)} · Reserved {rupees(wallet.reservedPaise)} · Recharge processing {rupees(wallet.processingPaise)} · Payments processing {rupees(wallet.paymentsProcessingPaise)}</p>
+          <div className="admin-stats">
+            <div className="stat"><span>Available</span><strong>{rupees(wallet.availablePaise)}</strong></div>
+            <div className="stat"><span>Reserved</span><strong>{rupees(wallet.reservedPaise)}</strong></div>
+            <div className="stat"><span>Processing</span><strong>{rupees(wallet.processingPaise)}</strong></div>
+            <div className="stat"><span>Currency</span><strong>INR</strong></div>
+          </div>
           {(wallet.reservations ?? []).length ? (
             <ul>
               {(wallet.reservations ?? []).map((hold) => (

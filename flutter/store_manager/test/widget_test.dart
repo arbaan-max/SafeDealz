@@ -11,8 +11,9 @@ void main() {
     await tester.pumpWidget(const SafeDealzApp());
     await tester.pumpAndSettle();
 
-    expect(find.text('SafeDealz Store Manager'), findsOneWidget);
-    expect(find.text('Login'), findsNWidgets(2));
+    expect(find.text('Welcome back'), findsOneWidget);
+    expect(find.text('Login to your store account.'), findsOneWidget);
+    expect(find.text('Login'), findsOneWidget);
     expect(find.textContaining('Forgot'), findsNothing);
     expect(find.textContaining('Remember'), findsNothing);
     expect(find.byTooltip('Show password'), findsOneWidget);

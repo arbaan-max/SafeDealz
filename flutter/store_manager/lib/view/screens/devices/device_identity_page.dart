@@ -13,6 +13,7 @@ import 'package:safedealz_store_manager/data/repositories/device_repository.dart
 import 'package:safedealz_store_manager/data/api/models/catalog.dart';
 import 'package:safedealz_store_manager/data/services/imei_scan_adapter.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class DeviceIdentityPage extends StatefulWidget {
   const DeviceIdentityPage({super.key, this.deviceId, this.scanAdapter});
@@ -152,80 +153,47 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
   @override
   Widget build(BuildContext context) {
     return AppPageScaffold(
-      title: widget.deviceId == null ? 'New trade-in' : 'Resume draft',
+      title: 'Device identity',
+      showBell: false,
+      onBack: () => GoRouter.maybeOf(context)?.goNamed(homeRoute),
+      actionBar: FilledButton(
+        onPressed: _saving || _branchId == null ? null : _save,
+        child: Text(_saving ? 'Saving…' : 'Continue'),
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : Form(
               key: _form,
               child: ListView(
-                padding: const EdgeInsets.all(16),
                 children: [
+                  const SdSteps(current: 1),
+                  Text('Meet the device', style: Theme.of(context).textTheme.headlineMedium),
+                  const SizedBox(height: 8),
+                  const Text('Start with the phone’s identity.', style: TextStyle(color: Color(0xFF526079))),
+                  const SizedBox(height: 23),
                   if (_error != null)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      child: Text(
-                        _error!,
-                        style: TextStyle(color: Theme.of(context).colorScheme.error),
-                      ),
+                      child: Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                     ),
-                  DropdownButtonFormField<DeviceCreatePlatform>(
-                    key: ValueKey(_platform),
-                    initialValue: _platform,
-                    decoration: const InputDecoration(
-                      labelText: 'Platform',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: DeviceCreatePlatform.apple,
-                        child: Text('Apple'),
-                      ),
-                      DropdownMenuItem(
-                        value: DeviceCreatePlatform.android,
-                        child: Text('Android'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      if (value == null) return;
-                      setState(() {
-                        _platform = value;
-                        if (value == DeviceCreatePlatform.apple) _ram = null;
-                        if (value == DeviceCreatePlatform.android) {
-                          _battery.clear();
-                        }
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16),
                   TextFormField(
                     controller: _model,
-                    decoration: const InputDecoration(
-                      labelText: 'Model',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'Device name / model'),
                     validator: (value) =>
-                        value != null && value.trim().isNotEmpty
-                            ? null
-                            : 'Enter the device model.',
+                        value != null && value.trim().isNotEmpty ? null : 'Enter the device model.',
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _imei1,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'IMEI 1',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'IMEI 1'),
                     validator: _imei,
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _imei2,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'IMEI 2',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'IMEI 2'),
                     validator: _imei,
                   ),
                   const SizedBox(height: 8),
@@ -235,37 +203,46 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
                     label: const Text('Scan IMEIs'),
                   ),
                   const SizedBox(height: 16),
+                  const Text('Device type', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 8),
+                  SegmentedButton<DeviceCreatePlatform>(
+                    segments: const [
+                      ButtonSegment(value: DeviceCreatePlatform.apple, label: Text('Apple')),
+                      ButtonSegment(value: DeviceCreatePlatform.android, label: Text('Android')),
+                    ],
+                    selected: {_platform},
+                    onSelectionChanged: (value) {
+                      setState(() {
+                        _platform = value.first;
+                        if (_platform == DeviceCreatePlatform.apple) _ram = null;
+                        if (_platform == DeviceCreatePlatform.android) _battery.clear();
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 8),
                   DropdownButtonFormField<String>(
                     key: ValueKey(_storage),
                     initialValue: _storage,
-                    decoration: const InputDecoration(
-                      labelText: 'Storage',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'Storage'),
                     items: [
                       for (final size in _catalog?.storages ?? const <String>[])
                         DropdownMenuItem(value: size, child: Text(size)),
                     ],
                     onChanged: (value) => setState(() => _storage = value),
-                    validator: (value) =>
-                        value == null ? 'Select a storage size.' : null,
+                    validator: (value) => value == null ? 'Select a storage size.' : null,
                   ),
                   if (_platform == DeviceCreatePlatform.android) ...[
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
                       key: ValueKey(_ram),
                       initialValue: _ram,
-                      decoration: const InputDecoration(
-                        labelText: 'RAM',
-                        border: OutlineInputBorder(),
-                      ),
+                      decoration: const InputDecoration(labelText: 'RAM'),
                       items: [
                         for (final size in _catalog?.rams ?? const <String>[])
                           DropdownMenuItem(value: size, child: Text(size)),
                       ],
                       onChanged: (value) => setState(() => _ram = value),
-                      validator: (value) =>
-                          value == null ? 'Select a RAM size.' : null,
+                      validator: (value) => value == null ? 'Select a RAM size.' : null,
                     ),
                   ],
                   if (_platform == DeviceCreatePlatform.apple) ...[
@@ -273,10 +250,7 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
                     TextFormField(
                       controller: _battery,
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'Battery health',
-                        border: OutlineInputBorder(),
-                      ),
+                      decoration: const InputDecoration(labelText: 'Battery health'),
                       validator: (value) {
                         final health = int.tryParse(value?.trim() ?? '');
                         if (health == null || health < 1 || health > 100) {
@@ -286,11 +260,6 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
                       },
                     ),
                   ],
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: _saving || _branchId == null ? null : _save,
-                    child: Text(_saving ? 'Saving…' : 'Continue'),
-                  ),
                 ],
               ),
             ),

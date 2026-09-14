@@ -39,7 +39,8 @@ test('A15 lists branch reward totals and customer lookup', async () => {
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
   expect(await screen.findByRole('heading', { name: 'Rewards' })).toBeInTheDocument();
   expect(await screen.findByText('Indiranagar')).toBeInTheDocument();
-  expect(screen.getByText(/Outstanding 800 pts/)).toBeInTheDocument();
+  expect(screen.getByText('Outstanding points')).toBeInTheDocument();
+  expect(screen.getAllByText('800 pts').length).toBeGreaterThan(0);
   await user.type(screen.getByLabelText(/Customer phone/i), '9876543210');
   await user.click(screen.getByRole('button', { name: 'Find customer' }));
   expect(await screen.findByText('Customer')).toBeInTheDocument();

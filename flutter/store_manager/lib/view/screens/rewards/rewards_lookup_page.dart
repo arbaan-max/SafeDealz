@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safedealz_store_manager/core/network/api_error_message.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
+import 'package:safedealz_store_manager/core/utils/read_maybe.dart';
 import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/store_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
 
 class RewardsLookupPage extends StatefulWidget {
@@ -17,6 +20,19 @@ class RewardsLookupPage extends StatefulWidget {
 class _RewardsLookupPageState extends State<RewardsLookupPage> {
   final _phone = TextEditingController();
   String? _error;
+  String _branch = 'This branch';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        final stores = maybeRead<StoreRepository>(context);
+        final branches = await stores?.listAssignedBranches() ?? const [];
+        if (mounted && branches.isNotEmpty) setState(() => _branch = branchLabel(branches.first));
+      } catch (_) {}
+    });
+  }
 
   @override
   void dispose() {
@@ -45,23 +61,42 @@ class _RewardsLookupPageState extends State<RewardsLookupPage> {
   @override
   Widget build(BuildContext context) {
     return AppPageScaffold(
-      title: 'Rewards',
+      title: 'Rewards lookup',
       bottomNavigationBar: const ManagerBottomNav(index: 2),
+      actionBar: FilledButton.icon(
+        onPressed: _find,
+        icon: const Icon(Icons.search),
+        label: const Text('Find customer'),
+      ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
-          const Text('Lookup a customer at this branch. Points cannot be redeemed elsewhere.'),
+          SdCard(
+            tint: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Row(children: [Icon(Icons.card_giftcard), SizedBox(width: 8), Text('Customer rewards', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800))]),
+                const SizedBox(height: 9),
+                const Text('Find and redeem points earned at your branch.', style: TextStyle(color: Color(0xFF526079))),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          SdStatusBadge(_branch),
+          const SizedBox(height: 12),
           if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
           TextField(
             controller: _phone,
             keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(labelText: 'Customer phone'),
+            decoration: const InputDecoration(labelText: 'Customer mobile number', hintText: 'Enter registered mobile'),
           ),
-          const SizedBox(height: 16),
-          FilledButton(onPressed: _find, child: const Text('Find customer')),
-          TextButton(
-            onPressed: () => context.goNamed(redemptionsRoute),
-            child: const Text('All redemptions'),
+          const SizedBox(height: 12),
+          SdNotice('Only points earned at $_branch can be redeemed here. Points cannot be redeemed elsewhere.'),
+          SdListRow(
+            icon: Icons.receipt_long_outlined,
+            title: 'All redemptions',
+            subtitle: 'View every redemption at this branch',
+            onTap: () => context.goNamed(redemptionsRoute),
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:safedealz_store_manager/core/route/routes.dart';
 import 'package:safedealz_store_manager/data/api/models/customer_rewards.dart';
 import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
 
 class RewardCustomerPage extends StatefulWidget {
@@ -39,25 +40,37 @@ class _RewardCustomerPageState extends State<RewardCustomerPage> {
     final balance = _record?.balances?.isNotEmpty == true ? _record!.balances!.first : null;
     return AppPageScaffold(
       title: _record?.customerName?.isNotEmpty == true ? _record!.customerName! : 'Customer rewards',
+      onBack: () => context.goNamed(redemptionsRoute),
       bottomNavigationBar: const ManagerBottomNav(index: 2),
+      actionBar: balance == null
+          ? null
+          : FilledButton(
+              onPressed: () => context.goNamed(redeemRoute, pathParameters: {'phone': widget.phone}),
+              child: const Text('Redeem rewards'),
+            ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
           if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
           if (balance == null) const Text('No rewards at this branch.'),
           if (balance != null) ...[
+            SdCard(
+              tint: true,
+              child: Column(
+                children: [
+                  Text('${balance.pointsBalance ?? 0} pts', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800)),
+                  Text('₹${((balance.outstandingValuePaise ?? 0) / 100).toStringAsFixed(0)} available'),
+                  Text(balance.branchName ?? 'This branch'),
+                ],
+              ),
+            ),
             Text('${balance.pointsBalance ?? 0} pts · ₹${((balance.outstandingValuePaise ?? 0) / 100).toStringAsFixed(0)}'),
             Text(balance.branchName ?? 'This branch'),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () => context.goNamed(redeemRoute, pathParameters: {'phone': widget.phone}),
-              child: const Text('Redeem rewards'),
-            ),
           ],
-          const SizedBox(height: 16),
-          TextButton(
-            onPressed: () => context.goNamed(redemptionsRoute),
-            child: const Text('All redemptions'),
+          SdListRow(
+            icon: Icons.receipt_long_outlined,
+            title: 'All redemptions',
+            subtitle: 'Return to the branch list',
+            onTap: () => context.goNamed(redemptionsRoute),
           ),
         ],
       ),

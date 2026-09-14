@@ -23,12 +23,14 @@ test('A20 Super Admin can save future-round timers', async () => {
   const router = createMemoryRouter([{ path: '/settings', element: <SettingsPage /> }], { initialEntries: ['/settings'] });
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
   expect(await screen.findByRole('heading', { name: 'Auction timers' })).toBeInTheDocument();
-  const bidding = await screen.findByLabelText(/Vendor bidding duration/i);
+  expect(screen.queryByText('Bid edits')).not.toBeInTheDocument();
+  expect(screen.queryByText('Pickup deadline')).not.toBeInTheDocument();
+  const bidding = await screen.findByLabelText(/Vendor bidding window/i);
   await user.clear(bidding);
   await user.type(bidding, '10');
-  const acceptance = screen.getByLabelText(/Manager acceptance duration/i);
+  const acceptance = screen.getByLabelText(/Manager acceptance window/i);
   await user.clear(acceptance);
   await user.type(acceptance, '15');
-  await user.click(screen.getByRole('button', { name: 'Save' }));
+  await user.click(screen.getByRole('button', { name: 'Save timer settings' }));
   expect(await screen.findByDisplayValue('10')).toBeInTheDocument();
 });

@@ -20,7 +20,7 @@ export const organizationRouter = Router();
 organizationRouter.get('/chains', ...guard('super_admin', 'admin'), listChains);
 organizationRouter.post('/chains', ...guard('super_admin'), postChain);
 organizationRouter.patch('/chains/:id', ...guard('super_admin'), patchChain);
-organizationRouter.get('/branches', ...guard('super_admin', 'admin'), listBranches);
+organizationRouter.get('/branches', ...guard('super_admin', 'admin', 'store_manager'), listBranches);
 organizationRouter.post('/branches', ...guard('super_admin'), postBranch);
 organizationRouter.patch('/branches/:id', ...guard('super_admin', 'admin'), patchBranch);
 organizationRouter.get('/admins', ...guard('super_admin'), getAdmins);

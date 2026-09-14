@@ -23,15 +23,20 @@ export function RewardOverviewPage() {
     <ResourcePage
       title="Rewards"
       lede="Paid deals issue 10 points per complete ₹100 of the bid excluding fee. Each point is ₹0.50 and stays at the originating branch."
-      action={<Link to="/rewards/policy">Reward policy</Link>}
+      action={<Link className="btn small secondary" to="/rewards/policy">Reward policy</Link>}
     >
       {error ? <p className="form-error" role="alert">{error}</p> : null}
-      <p>Issued {pts(overview?.totals?.issuedPoints)} · Redeemed {pts(overview?.totals?.redeemedPoints)} · Outstanding {pts(overview?.totals?.outstandingPoints)} ({rupees(overview?.totals?.outstandingValuePaise)})</p>
-      <form className="resource-form" onSubmit={lookup}>
+      <div className="admin-stats">
+        <div className="stat"><span>Issued points</span><strong>{pts(overview?.totals?.issuedPoints)}</strong></div>
+        <div className="stat"><span>Redeemed points</span><strong>{pts(overview?.totals?.redeemedPoints)}</strong></div>
+        <div className="stat"><span>Outstanding points</span><strong>{pts(overview?.totals?.outstandingPoints)}</strong></div>
+        <div className="stat"><span>Outstanding value</span><strong>{rupees(overview?.totals?.outstandingValuePaise)}</strong></div>
+      </div>
+      <form className="admin-tools" onSubmit={lookup}>
         <label className="field">Customer phone
           <input value={phone} onChange={(event) => setPhone(event.target.value)} inputMode="numeric" autoComplete="off" />
         </label>
-        <button className="login-button" type="submit">Find customer</button>
+        <button className="btn small" type="submit">Find customer</button>
       </form>
       <DataTable
         headers={['Branch', 'Issued', 'Redeemed', 'Outstanding', '']}

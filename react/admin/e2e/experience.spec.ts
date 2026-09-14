@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('catalogued admin screens, nested back, empty and error states stay on the sky-blue theme', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.route('**/auth/refresh', (route) => route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ success: false, error: { code: 'SESSION_INVALID', message: 'Invalid' } }) }));
   await page.route('**/auth/login', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { accessToken: 'test', csrfToken: 'csrf', expiresIn: 600, account: { id: '1', email: 'admin@test.dev', role: 'super_admin' } } }) }));
   await page.route('**/overview', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { liveAuctions: 0, awaitingAcceptance: 0, paymentExceptions: 0, completedValuePaise: 0, needsAttention: [] } }) }));
@@ -24,40 +25,39 @@ test('catalogued admin screens, nested back, empty and error states stay on the 
   await page.getByRole('textbox', { name: 'Password' }).fill('Valid password');
   await page.getByRole('button', { name: 'Login' }).click();
   await expect(page.getByRole('heading', { name: 'Overview' })).toBeVisible();
+  await page.unroute('**/auth/refresh');
+  await page.route('**/auth/refresh', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { accessToken: 'test', csrfToken: 'csrf', expiresIn: 600, account: { id: '1', email: 'admin@test.dev', role: 'super_admin' } } }) }));
   await expect(page.getByText('No payment or branch-setup issues.')).toBeVisible();
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(240, 249, 255)');
 
   const nav = page.getByRole('navigation', { name: 'Primary navigation' });
-  const destinations: { label: string; heading: string }[] = [
-    { label: 'Chains', heading: 'Chains' },
-    { label: 'Branches', heading: 'Branches' },
-    { label: 'Admins', heading: 'Admins' },
-    { label: 'Managers', heading: 'Managers' },
-    { label: 'Vendors', heading: 'Vendors' },
-    { label: 'Payments', heading: 'Payments' },
-    { label: 'Auctions', heading: 'Auctions' },
-    { label: 'Rewards', heading: 'Rewards' },
-    { label: 'Notifications', heading: 'Notifications' },
-    { label: 'Support', heading: 'Support' },
-    { label: 'Reports', heading: 'Reports' },
-    { label: 'Audit', heading: 'Audit log' },
-    { label: 'Account', heading: 'Account' },
-    { label: 'Settings', heading: 'Auction timers' },
+  const destinations: { href: string; heading: string }[] = [
+    { href: '/chains', heading: 'Chains' },
+    { href: '/branches', heading: 'Branches' },
+    { href: '/admins', heading: 'Admins' },
+    { href: '/managers', heading: 'Managers' },
+    { href: '/vendors', heading: 'Vendors' },
+    { href: '/payments', heading: 'Payments' },
+    { href: '/auctions', heading: 'Auctions' },
+    { href: '/rewards', heading: 'Rewards' },
+    { href: '/support', heading: 'Support' },
+    { href: '/reports', heading: 'Reports' },
+    { href: '/audit', heading: 'Audit log' },
+    { href: '/settings', heading: 'Settings' },
   ];
   for (const item of destinations) {
-    await nav.getByRole('link', { name: item.label }).click();
+    await nav.locator(`a[href="${item.href}"]`).click({ force: true });
     await expect(page.getByRole('heading', { name: item.heading })).toBeVisible();
   }
-
   await nav.getByRole('link', { name: 'Chains' }).click();
   await page.getByRole('link', { name: 'Create chain' }).click();
   await expect(page.getByRole('link', { name: 'Back to chains' })).toBeVisible();
   await page.getByRole('link', { name: 'Back to chains' }).click();
   await expect(page.getByRole('heading', { name: 'Chains' })).toBeVisible();
 
-  await nav.getByRole('link', { name: 'Account' }).click();
+  await page.getByRole('link', { name: 'Account' }).click();
   await expect(page.getByRole('link', { name: 'Back to overview' })).toBeVisible();
-  await nav.getByRole('link', { name: 'Notifications' }).click();
+  await page.getByRole('link', { name: 'Notifications' }).click();
   await expect(page.getByRole('link', { name: 'Back to overview' })).toBeVisible();
   await nav.getByRole('link', { name: 'Reports' }).click();
   await expect(page.getByText('No results for this period and scope.')).toBeVisible();

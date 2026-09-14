@@ -3,10 +3,11 @@ import { expect, test } from '@playwright/test';
 test('login and authenticated shell are navigable and responsive', async ({ page }) => {
   await page.route('**/auth/refresh', (route) => route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ success: false, error: { code: 'SESSION_INVALID', message: 'Invalid' } }) }));
   await page.route('**/auth/login', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { accessToken: 'test', csrfToken: 'csrf', expiresIn: 600, account: { id: '1', email: 'admin@test.dev', role: 'super_admin' } } }) }));
+  await page.route('**/overview', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { liveAuctions: 0, awaitingAcceptance: 0, paymentExceptions: 0, completedValuePaise: 0, needsAttention: [] } }) }));
   await page.route('**/chains', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/branches', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.goto('/login');
-  await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Super Admin Login' })).toBeVisible();
   await expect(page.getByText(/forgot password/i)).toHaveCount(0);
   await page.getByLabel('Email').fill('admin@test.dev');
   await page.getByRole('textbox', { name: 'Password' }).fill('Valid password');
@@ -29,6 +30,7 @@ test('login and authenticated shell are navigable and responsive', async ({ page
 test('Admin role cannot open the Admins workspace', async ({ page }) => {
   await page.route('**/auth/refresh', (route) => route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ success: false, error: { code: 'SESSION_INVALID', message: 'Invalid' } }) }));
   await page.route('**/auth/login', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { accessToken: 'test', csrfToken: 'csrf', expiresIn: 600, account: { id: '2', email: 'ananya@test.dev', role: 'admin' } } }) }));
+  await page.route('**/overview', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { liveAuctions: 0, awaitingAcceptance: 0, paymentExceptions: 0, completedValuePaise: 0, needsAttention: [] } }) }));
   await page.route('**/chains', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/branches', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/api/v1/managers', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));

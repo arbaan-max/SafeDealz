@@ -6,16 +6,16 @@ This is the execution dashboard. plan.md owns phase status; numbered files under
 
 | Item | Value |
 | --- | --- |
-| Completed phase | P24 — End-to-end and resilience |
-| Completed task | TASK-026 |
-| Next phase | P25 — Admin HTML visual match (not authorized) |
-| Next task | None until the owner starts P25 |
-| Product feature status | P00–P24 complete; P25–P28 HTML visual match and P29 handover are planned |
+| Completed phase | P25 — Admin HTML visual match |
+| Completed task | TASK-027 |
+| Next phase | P26 — Store Manager HTML visual match (not authorized) |
+| Next task | None until the owner starts P26 |
+| Product feature status | P00–P25 complete; P26–P28 HTML visual match and P29 handover are planned |
 | Product reference | design.md and design.html |
 | Security reference | security.md |
 | Architecture reference | architecture.md |
 
-Stop boundary: inclusive range P21–P24. **P24 is complete.** Visual HTML match is P25–P28; handover is P29. Do not start P25 until explicitly authorized. Per-screen Same/Updated marks: [screen-match.md](screen-match.md).
+Stop boundary: single phase P25. **P25 is complete. Stop. Do not start P26.** Per-screen marks: [screen-match.md](screen-match.md).
 
 Execution rule recorded on 2026-09-14: a single-phase command stops automatically after that phase; an explicit inclusive phase range may continue through its named final phase and then stops. Named tasks stop after their stated scope. Safely deferrable broad builds may run in the final authorized phase, while required feature, contract, integration, and security checks remain in the phase that introduces the behavior.
 
@@ -25,7 +25,7 @@ Client theme amendment on 2026-09-14: Sky Blue is now the confirmed primary them
 
 Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for private evidence/KYC object storage, beginning with the reusable signed-media integration in P07. Razorpay is confirmed for vendor wallet recharge in P11 using backend-created orders, verified webhooks and idempotent ledger credit.
 
-Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live screen to design.html. P25 Admin, P26 Store Manager, P27 Vendor, P28 Diagnostics. Mark each screen Same or restyle it and mark Updated in screen-match.md. Former handover P25 is now P29. Not started until the owner authorizes P25.
+Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live screen to design.html. P25 Admin is complete (TASK-027). P26 Store Manager, P27 Vendor, P28 Diagnostics remain planned. Mark each screen Same or restyle it and mark Updated in screen-match.md. Former handover P25 is now P29. Do not start P26 until the owner authorizes it.
 
 ## P03 delivered
 
@@ -417,7 +417,12 @@ Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live sc
 | TASK-019 | P17 Deal history and pickup | Backend, Flutter, React, OpenAPI | Complete | Backend 35/35; React 21/21 + 2/2 Chromium; Flutter 32/32, 25/25, 14/14 |
 | TASK-020 | P18 Reward issuance and policy | Backend, Flutter, React, OpenAPI | Complete | Backend 36/36; React 24/24 + 2/2 Chromium; Flutter 33/33, 25/25, 14/14 |
 | TASK-021 | P19 Reward redemption | Backend, Flutter, OpenAPI | Complete | Backend 37/37; React 24/24 + 2/2 Chromium; Flutter 35/35, 25/25, 14/14 |
+| TASK-022 | P20 Notifications and broadcasts | Backend, Flutter, React, OpenAPI | Complete | Backend 38/38; React 25/25 + 2/2 Chromium; Flutter 36/36, 26/26, 14/14 |
 | TASK-023 | P21 Support tickets | Backend, Flutter, React, OpenAPI | Complete | Backend 39/39; React 27/27 + 2/2 Chromium; Flutter 37/37, 27/27, 14/14 |
+| TASK-024 | P22 Admin oversight and reporting | Backend, Flutter, React, OpenAPI | Complete | Backend 40/40; React 31/31 + 2/2 Chromium; Flutter 37/37, 28/28, 14/14 |
+| TASK-025 | P23 Cross-app experience | Flutter, React, Backend | Complete | Backend 41/41; React 31/31 + 3/3 Chromium; Flutter 39/39, 30/30, 15/15 |
+| TASK-026 | P24 End-to-end and resilience | Backend, Flutter | Complete | Backend 42/42; sequential Android debug APKs |
+| TASK-027 | P25 Admin HTML visual match | Admin web | Complete | React 31/31 + 3/3 Chromium; Flutter 39/39, 30/30, 15/15; backend 42/42 |
 
 ## P02 delivered
 
@@ -503,4 +508,4 @@ Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live sc
 
 ## Next action
 
-Stop. P25–P29 are planned and not authorized. To begin visual matching, authorize P25 (Admin) or an inclusive range such as P25 through P28.
+Stop. P25 is complete. Do not start P26. Store Manager HTML match is not authorized.

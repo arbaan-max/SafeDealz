@@ -10,6 +10,7 @@ import 'package:safedealz_store_manager/data/inspection_catalog.dart';
 import 'package:safedealz_store_manager/data/repositories/catalog_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class InspectionPage extends StatefulWidget {
   const InspectionPage({super.key, required this.deviceId});
@@ -147,80 +148,73 @@ class _InspectionPageState extends State<InspectionPage> {
   @override
   Widget build(BuildContext context) {
     return AppPageScaffold(
-      title: 'Physical checks',
+      title: 'Physical inspection',
+      showBell: false,
+      onBack: _saving ? null : _back,
+      actionBar: Row(
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: _saving ? null : _back,
+              child: const Text('Back'),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: FilledButton(
+              onPressed: _saving ? null : _continue,
+              child: Text(_step == inspectionStepCount - 1 ? 'Continue to evidence' : 'Continue'),
+            ),
+          ),
+        ],
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
+          : ListView(
               children: [
-                Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.all(16),
-                    children: [
-                      Text('Step ${_step + 1} of $inspectionStepCount'),
-                      const SizedBox(height: 8),
-                      LinearProgressIndicator(value: inspectionStepCount == 0 ? 0 : (_step + 1) / inspectionStepCount),
-                      const SizedBox(height: 16),
-                      Text(_stepTitle, style: Theme.of(context).textTheme.headlineSmall),
-                      if (_step == 3 && _apple) ...[
-                        const SizedBox(height: 12),
-                        Text('Entered battery health: ${_device?.batteryHealth ?? 'Not entered'}%'),
-                        Text('Condition band: ${batteryBand(_device?.batteryHealth)}'),
-                      ],
-                      if (_error != null) ...[
-                        const SizedBox(height: 12),
-                        Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-                      ],
-                      for (final field in _fields) ...[
-                        const SizedBox(height: 16),
-                        Text(field.label, style: Theme.of(context).textTheme.titleSmall),
-                        RadioGroup<String>(
-                          groupValue: _answers[field.key],
-                          onChanged: (value) {
-                            if (value == null) return;
-                            setState(() => _answers[field.key] = value);
-                          },
-                          child: Column(
-                            children: [
-                              for (final option in field.options)
-                                RadioListTile<String>(
-                                  title: Text(option),
-                                  value: option,
-                                ),
-                            ],
+                const SdSteps(current: 2),
+                Text('Step ${_step + 1} of $inspectionStepCount'),
+                const SizedBox(height: 8),
+                LinearProgressIndicator(value: inspectionStepCount == 0 ? 0 : (_step + 1) / inspectionStepCount),
+                const SizedBox(height: 16),
+                Text(_stepTitle, style: Theme.of(context).textTheme.headlineSmall),
+                if (_step == 3 && _apple) ...[
+                  const SizedBox(height: 12),
+                  Text('Entered battery health: ${_device?.batteryHealth ?? 'Not entered'}%'),
+                  Text('Condition band: ${batteryBand(_device?.batteryHealth)}'),
+                ],
+                if (_error != null) ...[
+                  const SizedBox(height: 12),
+                  Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                ],
+                for (final field in _fields) ...[
+                  const SizedBox(height: 16),
+                  Text(field.label, style: Theme.of(context).textTheme.titleSmall),
+                  RadioGroup<String>(
+                    groupValue: _answers[field.key],
+                    onChanged: (value) {
+                      if (value == null) return;
+                      setState(() => _answers[field.key] = value);
+                    },
+                    child: Column(
+                      children: [
+                        for (final option in field.options)
+                          RadioListTile<String>(
+                            title: Text(option),
+                            value: option,
                           ),
-                        ),
                       ],
-                      if (_step == 4 && _answers['deviceAge'] != null && _answers['deviceAge'] != _exemptAge)
-                        TextButton(
-                          onPressed: () => GoRouter.maybeOf(context)?.goNamed(
-                            cameraRoute,
-                            pathParameters: {'id': widget.deviceId, 'purpose': 'bill'},
-                          ),
-                          child: const Text('Capture bill'),
-                        ),
-                    ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: _saving ? null : _back,
-                          child: const Text('Back'),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: FilledButton(
-                          onPressed: _saving ? null : _continue,
-                          child: const Text('Continue'),
-                        ),
-                      ),
-                    ],
+                ],
+                if (_step == 4 && _answers['deviceAge'] != null && _answers['deviceAge'] != _exemptAge)
+                  TextButton(
+                    onPressed: () => GoRouter.maybeOf(context)?.goNamed(
+                      cameraRoute,
+                      pathParameters: {'id': widget.deviceId, 'purpose': 'bill'},
+                    ),
+                    child: const Text('Capture bill'),
                   ),
-                ),
               ],
             ),
     );

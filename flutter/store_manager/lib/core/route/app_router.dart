@@ -53,7 +53,7 @@ final GoRouter appRouter = GoRouter(
       name: devicesRoute,
       path: '/devices',
       builder: (context, state) => DevicesPage(
-        initialFilter: state.uri.queryParameters['filter'] ?? 'draft',
+        initialFilter: state.uri.queryParameters['filter'] ?? 'all',
       ),
     ),
     GoRoute(

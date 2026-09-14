@@ -50,6 +50,7 @@ test('A13 retries a failed payout and never offers approve', async () => {
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
   expect(await screen.findByRole('heading', { name: 'Payment detail' })).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /approve/i })).not.toBeInTheDocument();
+  expect(screen.queryByRole('link', { name: 'Report issue' })).not.toBeInTheDocument();
   await user.click(await screen.findByRole('button', { name: 'Retry payout' }));
-  expect(await screen.findByText('processing')).toBeInTheDocument();
+  expect(await screen.findByText(/processing/i)).toBeInTheDocument();
 });

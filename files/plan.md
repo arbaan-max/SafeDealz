@@ -10,7 +10,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Product design specification | Available in [design.md](design.md) |
 | Interactive design reference | Available in [design.html](design.html) |
 | Phase breakdown | Prepared — see [phases.md](phases.md) |
-| Product implementation | P00–P24 complete. P25–P28 HTML visual match and P29 handover are planned and not authorized. |
+| Product implementation | P00–P25 complete. P26–P28 HTML visual match and P29 handover are planned and not authorized. |
 
 ## Project setup
 
@@ -28,7 +28,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Backend | Node.js, Express.js, MongoDB, and Mongoose |
 | API contract | OpenAPI/Swagger contract required before API-client generation |
 | Development completion goal | Complete approved scope through P29; development acceptance follows the test gates; deployment excluded |
-| Coding authorization | Inclusive range P21–P24 is complete. Stop. P25–P29 are planned and not authorized. |
+| Coding authorization | Inclusive range P21–P24 is complete. P25 is complete. Stop. P26–P29 are not authorized. |
 
 ## Product roles
 
@@ -81,7 +81,7 @@ The complete role permissions and screen behavior are defined in [design.md](des
 
 ## Phase plan
 
-The detailed roadmap is in [phases.md](phases.md). P00–P24 are complete. Update this table after every task, including when the phase remains In progress. Do not mark a phase complete until its clients, contract and tests pass.
+The detailed roadmap is in [phases.md](phases.md). P00–P25 are complete. Update this table after every task, including when the phase remains In progress. Do not mark a phase complete until its clients, contract and tests pass.
 
 | Phase | Goal | Status | Latest completed task |
 | --- | --- | --- | --- |
@@ -110,13 +110,13 @@ The detailed roadmap is in [phases.md](phases.md). P00–P24 are complete. Updat
 | P22 | Admin oversight and reporting | Complete | TASK-024 |
 | P23 | Cross-app experience verification | Complete | TASK-025 |
 | P24 | End-to-end and resilience | Complete | TASK-026 |
-| P25 | Admin HTML visual match | Planned | None |
+| P25 | Admin HTML visual match | Complete | TASK-027 |
 | P26 | Store Manager HTML visual match | Planned | None |
 | P27 | Vendor HTML visual match | Planned | None |
 | P28 | Diagnostics HTML visual match | Planned | None |
 | P29 | Development completion and handover | Planned | None |
 
-Next: P24 is complete. Visual-match work starts only when the owner authorizes P25 (or an inclusive range). Per-screen Same/Updated marks live in [screen-match.md](screen-match.md). Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
+Next: P25 is complete. Stop. Store Manager HTML match (P26) is not authorized.
 
 ## Confirmed technology and scope
 

@@ -6,6 +6,7 @@ import 'package:safedealz_store_manager/core/route/routes.dart';
 import 'package:safedealz_store_manager/data/api/models/deal.dart';
 import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class PickupPage extends StatefulWidget {
   const PickupPage({super.key, required this.dealId});
@@ -50,18 +51,41 @@ class _PickupPageState extends State<PickupPage> {
   @override
   Widget build(BuildContext context) {
     return AppPageScaffold(
-      title: 'Confirm pickup',
-      body: ListView(
-        padding: const EdgeInsets.all(16),
+      title: 'Pickup confirmation',
+      onBack: () => context.goNamed(dealDetailRoute, pathParameters: {'id': widget.dealId}),
+      actionBar: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-          const Text('Confirm physical handover at this store. There is no vendor OTP or deadline.'),
-          if (_deal != null) Text('Device ${_deal!.deviceId}'),
-          const SizedBox(height: 24),
           FilledButton(
             onPressed: _busy ? null : _confirm,
             child: Text(_busy ? 'Saving…' : 'Confirm handover'),
           ),
+          const SizedBox(height: 8),
+          OutlinedButton(
+            onPressed: () => context.goNamed(dealDetailRoute, pathParameters: {'id': widget.dealId}),
+            child: const Text('Not yet'),
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          const SdStatusOrb(icon: Icons.storefront_outlined),
+          const Text('Confirm pickup', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 8),
+          const Text('Has the device been handed to the vendor?', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF526079))),
+          const SizedBox(height: 16),
+          if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+          const Text('Confirm physical handover at this store. There is no vendor OTP or deadline.'),
+          if (_deal != null)
+            SdCard(
+              child: Column(
+                children: [
+                  SdDetailRow('Device', _deal!.deviceId),
+                  SdDetailRow('Collected by', _deal!.vendorAccountId ?? 'Vendor'),
+                ],
+              ),
+            ),
+          const SdNotice('This is the final fulfillment status. No vendor code is required.'),
         ],
       ),
     );

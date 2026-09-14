@@ -9,6 +9,7 @@ import 'package:safedealz_store_manager/data/api/models/auction_round.dart';
 import 'package:safedealz_store_manager/data/api/models/auction_round_status.dart';
 import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class LiveAuctionPage extends StatefulWidget {
   const LiveAuctionPage({super.key, required this.auctionId});
@@ -125,33 +126,64 @@ class _LiveAuctionPageState extends State<LiveAuctionPage> {
     final device = round?.device is Map ? Map<String, dynamic>.from(round!.device as Map) : const <String, dynamic>{};
     return AppPageScaffold(
       title: 'Live auction',
+      showBell: false,
+      actionBar: round == null
+          ? null
+          : FilledButton(
+              onPressed: live ? null : () => context.goNamed(offerRoute, pathParameters: {'id': round.id}),
+              child: Text(live ? 'Bidding in progress' : 'View highest offer'),
+            ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.all(16),
               children: [
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 if (round != null) ...[
-                  Text(device['model']?.toString() ?? 'Device'),
-                  Text('Round ${round.roundNumber}'),
-                  const SizedBox(height: 12),
-                  Text(
-                    live ? 'Bidding ends in $mm:$ss' : 'Bidding ended',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Text('${round.bidCount ?? 0} bids'),
-                  Text(
-                    (round.highestAmountPaise ?? 0) == 0
-                        ? 'No bids yet'
-                        : 'Highest current offer ₹${((round.highestAmountPaise ?? 0) / 100).toStringAsFixed(0)}',
-                  ),
-                  const SizedBox(height: 24),
-                  if (live)
-                    TextButton(
-                      onPressed: _cancel,
-                      child: const Text('Cancel auction'),
+                  Center(
+                    child: Column(
+                      children: [
+                        SdStatusBadge('ROUND ${round.roundNumber}'),
+                        const SizedBox(height: 12),
+                        Text(device['model']?.toString() ?? 'Device', style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
+                        Text('${device['storage'] ?? ''} / ${device['branchName'] ?? 'Store'}', style: const TextStyle(color: Color(0xFF526079))),
+                        const SizedBox(height: 16),
+                        const Text('BIDDING ENDS IN', style: TextStyle(fontSize: 11, letterSpacing: 0.8, color: Color(0xFF526079))),
+                        Text(
+                          live ? 'Bidding ends in $mm:$ss' : 'Bidding ended',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        Text('Round ${round.roundNumber}'),
+                      ],
                     ),
+                  ),
+                  const SizedBox(height: 16),
+                  SdCard(
+                    tint: true,
+                    child: Column(
+                      children: [
+                        const Text('Highest current offer', style: TextStyle(fontSize: 12, color: Color(0xFF526079))),
+                        Text(
+                          (round.highestAmountPaise ?? 0) == 0
+                              ? 'No bids yet'
+                              : 'Highest current offer ₹${((round.highestAmountPaise ?? 0) / 100).toStringAsFixed(0)}',
+                          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
+                        ),
+                        Text('${round.bidCount ?? 0} bids'),
+                        if (round.status == AuctionRoundStatus.live)
+                          TextButton(
+                            onPressed: _cancel,
+                            child: const Text('Cancel auction'),
+                          ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const SdNotice('Acceptance opens after bidding closes. The highest offer will be selected automatically.'),
+                  OutlinedButton(
+                    onPressed: () => context.goNamed(deviceHistoryRoute, pathParameters: {'id': round.deviceId}),
+                    child: const Text('View device & round history'),
+                  ),
                 ],
               ],
             ),

@@ -41,7 +41,7 @@ void main() {
     expect(appRouter.namedLocation(accountRoute), '/account');
   });
 
-  testWidgets('M24 account shows identity, back and sky-blue scaffold', (tester) async {
+  testWidgets('M24 account shows identity, logout and sky-blue scaffold', (tester) async {
     await tester.pumpWidget(
       MultiRepositoryProvider(
         providers: [
@@ -54,7 +54,8 @@ void main() {
     await tester.pump();
     await tester.pump();
     expect(find.text('Kavya'), findsOneWidget);
-    expect(find.byTooltip('Back'), findsOneWidget);
+    expect(find.text('Store manager'), findsOneWidget);
+    expect(find.byTooltip('Back'), findsNothing);
     expect(tester.widget<Scaffold>(find.byType(Scaffold)).backgroundColor, AppTheme.appBackground);
   });
 }

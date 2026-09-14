@@ -9,6 +9,7 @@ import 'package:safedealz_store_manager/core/network/dio_factory.dart';
 import 'package:safedealz_store_manager/core/network/session_interceptor.dart';
 import 'package:safedealz_store_manager/data/api/clients/auth_client.dart';
 import 'package:safedealz_store_manager/data/api/clients/operations_client.dart';
+import 'package:safedealz_store_manager/data/api/clients/organization_client.dart';
 import 'package:safedealz_store_manager/data/repositories/account_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/auth_repository.dart';
@@ -18,6 +19,7 @@ import 'package:safedealz_store_manager/data/repositories/device_repository.dart
 import 'package:safedealz_store_manager/data/repositories/notification_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/profile_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/store_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/ticket_repository.dart';
 import 'package:safedealz_store_manager/data/services/auth_service.dart';
 import 'package:safedealz_store_manager/data/services/diagnostic_qr_scan_adapter.dart';
@@ -77,6 +79,9 @@ class SafeDealzApp extends StatelessWidget {
         ),
         RepositoryProvider<TicketRepository>.value(
           value: TicketRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<StoreRepository>.value(
+          value: StoreRepositoryImpl(OrganizationClient(dio)),
         ),
         RepositoryProvider<ImeiScanAdapter>.value(
           value: const DemoImeiScanAdapter(),

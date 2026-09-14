@@ -22,6 +22,9 @@ const links: { to: string; label: string; icon: typeof ShieldCheck; roles: Accou
 ];
 
 const workspaceLabel = (pathname: string) => {
+  if (pathname.includes('/wallet')) return 'Vendor wallet detail';
+  if (pathname === '/vendors/new' || /\/vendors\/[^/]+\/edit/.test(pathname)) return 'Vendor onboarding/edit';
+  if (/^\/vendors\/[^/]+$/.test(pathname)) return 'Vendor account';
   const rules: [string, string][] = [
     ['/notifications', 'Notifications'],
     ['/account', 'Account'],

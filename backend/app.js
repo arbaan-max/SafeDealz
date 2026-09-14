@@ -38,3 +38,10 @@ export const createApp = () => {
 
   return app;
 };
+
+
+
+// cd backend
+// npm run seed:dummy          # create/update users + dummy data
+// npm run seed:dummy:clear    # delete dummy data, keep the accounts
+// npm run seed:dummy:reset    # clear dummy data, then seed again

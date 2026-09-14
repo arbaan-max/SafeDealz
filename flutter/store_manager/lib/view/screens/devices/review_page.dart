@@ -8,6 +8,7 @@ import 'package:safedealz_store_manager/data/api/models/device_platform.dart';
 import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({super.key, required this.deviceId});
@@ -56,55 +57,110 @@ class _ReviewPageState extends State<ReviewPage> {
     }
   }
 
+  String _mask(String imei) => imei.length < 4 ? imei : '•••••••••••${imei.substring(imei.length - 4)}';
+
   @override
   Widget build(BuildContext context) {
     final device = _device;
     final apple = device?.platform == DevicePlatform.apple;
     final imported = device?.status == 'ready_for_auction';
+    final needsDiagnostic = device != null && !apple && !imported;
     return AppPageScaffold(
-      title: 'Device review',
-      body: _loading
-          ? const Center(child: CircularProgressIndicator())
-          : ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                if (_error != null)
-                  Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-                if (device != null) ...[
-                  Text('${device.model} · ${device.storage}'),
-                  Text('IMEI 1: ${device.imei1}'),
-                  Text('IMEI 2: ${device.imei2}'),
-                  const SizedBox(height: 16),
-                  const Text('Store manager inspection'),
-                  Text(device.inspection?.complete == true ? 'Complete' : 'In progress'),
-                  const SizedBox(height: 12),
-                  const Text('Device Diagnostics report'),
-                  Text(
-                    apple
-                        ? 'Not applicable'
-                        : imported
-                            ? 'Imported'
-                            : 'Pending',
-                  ),
-                  const SizedBox(height: 24),
-                  if (apple)
-                    FilledButton(
-                      onPressed: imported ? _startAuction : null,
-                      child: const Text('Review and start auction'),
-                    )
-                  else if (!imported)
-                    FilledButton(
+      title: 'Device summary',
+      showBell: false,
+      actionBar: device == null
+          ? null
+          : apple
+              ? FilledButton(
+                  onPressed: imported ? _startAuction : null,
+                  child: const Text('Review and start auction'),
+                )
+              : !imported
+                  ? FilledButton(
                       onPressed: () => context.goNamed(
                         diagnosticScanRoute,
                         pathParameters: {'id': widget.deviceId},
                       ),
                       child: const Text('Continue to diagnostics'),
                     )
-                  else
-                    FilledButton(
+                  : FilledButton(
                       onPressed: _startAuction,
                       child: const Text('Start auction'),
                     ),
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              children: [
+                const SdSteps(current: 5),
+                Text('Review device', style: Theme.of(context).textTheme.headlineMedium),
+                const SizedBox(height: 8),
+                const Text('Confirm the identity, condition and evidence before vendors set the price.', style: TextStyle(color: Color(0xFF526079))),
+                const SizedBox(height: 18),
+                if (_error != null)
+                  Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                if (device != null) ...[
+                  SdCard(
+                    child: Column(
+                      children: [
+                        SdDetailRow('Model', device.model),
+                        SdDetailRow('Storage', device.storage),
+                        SdDetailRow('IMEI 1', _mask(device.imei1)),
+                        SdDetailRow('IMEI 2', _mask(device.imei2)),
+                        if (apple)
+                          SdDetailRow('Battery health', '${device.batteryHealth ?? '—'}%')
+                        else
+                          SdDetailRow('RAM', device.ram ?? '—'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SdCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Store manager inspection', style: TextStyle(fontWeight: FontWeight.w800)),
+                        const SizedBox(height: 8),
+                        Text(device.inspection?.complete == true ? 'Complete' : 'In progress'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SdCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Device Diagnostics report', style: TextStyle(fontWeight: FontWeight.w800)),
+                        const SizedBox(height: 8),
+                        Text(apple ? 'Not applicable' : imported ? 'Imported' : 'Pending'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SdCard(
+                    child: Column(
+                      children: [
+                        SdDetailRow('Device media', '${device.media?.length ?? 0}/7 items'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SdNotice(
+                    apple
+                        ? 'Customer details are collected only after an offer is accepted.'
+                        : needsDiagnostic
+                            ? 'The separate Android Diagnostics report will be imported before auction. Your manual inspection answers are retained.'
+                            : 'No store price is generated. Vendors submit one immutable bid; you then accept the highest offer.',
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => context.goNamed(deviceEditRoute, pathParameters: {'id': device.id}),
+                          child: const Text('Edit identity'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ],
             ),
