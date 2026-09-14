@@ -107,3 +107,11 @@ Status: Confirmed by owner, 2026-09-14.
 Cloudflare R2 is the private object store for device evidence, videos, bills and later KYC media. P07 introduces the reusable backend storage adapter and signed media flow; later media phases reuse it. R2 credentials remain backend-only, objects are private, and every signed upload/download requires record and scope authorization.
 
 Razorpay is the vendor wallet recharge gateway. P11 implements backend-created Razorpay Orders, Flutter Checkout, signature-verified webhooks, idempotent wallet credit and reconciliation. The wallet is never credited from a client success callback. Razorpay recharge does not by itself decide the separate store-payout rail planned in P16.
+
+## DEC-021 — Authorized P03–P10 range and provider live tests
+
+Status: Confirmed by owner, 2026-09-14.
+
+Implement P03 through P10 inclusive, then run a separate P00–P10 regression. Live Cloudflare R2 and Razorpay tests wait until after that range. Razorpay checkout remains a P11 feature. After every completed phase, update the task file, implementation.md, plan.md, phases.md and Obsidian current-state/session log before starting the next phase in the range.
+
+Owner follow-up on 2026-09-14: complete P03 and stop. P04 is not authorized by that instruction.

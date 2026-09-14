@@ -1,9 +1,15 @@
 import { createContext, type PropsWithChildren, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { ApiError } from '../../shared/api/apiClient';
+import { apiClient, ApiError } from '../../shared/api/apiClient';
+import { requestWithSingleRefresh } from './api/sessionRequest';
 import { loginAdmin, logoutAdmin, refreshAdmin, type Account } from './api/authApi';
 
 type AuthState = { status: 'checking' | 'anonymous' | 'authenticated'; account: Account | null; accessToken: string | null; message: string | null };
-type AuthValue = AuthState & { login(email: string, password: string): Promise<void>; logout(): Promise<void>; refresh(): Promise<string | null> };
+type AuthValue = AuthState & {
+  login(email: string, password: string): Promise<void>;
+  logout(): Promise<void>;
+  refresh(): Promise<string | null>;
+  request<T>(path: string, init?: RequestInit): Promise<T>;
+};
 const AuthContext = createContext<AuthValue | null>(null);
 const cookie = (name: string) => document.cookie.split('; ').find((item) => item.startsWith(`${name}=`))?.split('=').slice(1).join('=') ?? null;
 
@@ -31,7 +37,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
     if (state.accessToken) await logoutAdmin(state.accessToken).catch(() => undefined);
     terminal();
   }, [state.accessToken, terminal]);
-  const value = useMemo(() => ({ ...state, login, logout, refresh }), [state, login, logout, refresh]);
+  const request = useCallback(async <T,>(path: string, init: RequestInit = {}) => {
+    if (!state.accessToken) throw new ApiError(401, 'AUTH_REQUIRED', 'Authentication is required.');
+    return requestWithSingleRefresh(
+      (token) => apiClient.request<T>(path, { ...init, headers: { Authorization: `Bearer ${token}`, ...init.headers } }),
+      state.accessToken,
+      refresh,
+      terminal,
+    );
+  }, [refresh, state.accessToken, terminal]);
+  const value = useMemo(() => ({ ...state, login, logout, refresh, request }), [state, login, logout, refresh, request]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 

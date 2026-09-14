@@ -18,7 +18,7 @@ export const createApp = () => {
     if (request.get('origin') === env.allowedWebOrigin) {
       response.set('Access-Control-Allow-Origin', env.allowedWebOrigin);
       response.set('Access-Control-Allow-Credentials', 'true');
-      response.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+      response.set('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
       response.set('Access-Control-Allow-Headers', 'Authorization,Content-Type,X-CSRF-Token');
       response.set('Vary', 'Origin');
     }

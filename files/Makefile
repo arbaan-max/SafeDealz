@@ -1,4 +1,4 @@
-.PHONY: generate-api check-flutter test-backend check-react check-p00 check-p01 check-p02
+.PHONY: generate-api check-flutter test-backend check-react check-p00 check-p01 check-p02 check-p03
 
 REPOSITORY_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 
@@ -25,3 +25,5 @@ check-p02: generate-api check-react check-flutter test-backend
 	cd $(REPOSITORY_ROOT)/backend && npm audit --audit-level=high
 	cd $(REPOSITORY_ROOT)/flutter/store_manager && flutter build apk --debug
 	cd $(REPOSITORY_ROOT)/flutter/vendor && flutter build apk --debug
+
+check-p03: generate-api check-react check-flutter test-backend

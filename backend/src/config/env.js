@@ -28,4 +28,19 @@ export const env = Object.freeze({
   refreshTokenDays: Number.parseInt(process.env.REFRESH_TOKEN_DAYS ?? '30', 10),
   allowedWebOrigin: process.env.ALLOWED_WEB_ORIGIN ?? 'http://localhost:4173',
   secureCookies: nodeEnv === 'production',
+  r2: Object.freeze({
+    accountId: process.env.R2_ACCOUNT_ID ?? '',
+    accessKeyId: process.env.R2_ACCESS_KEY_ID ?? '',
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY ?? '',
+    bucket: process.env.R2_BUCKET ?? '',
+    endpoint: process.env.R2_ENDPOINT ?? '',
+    region: process.env.R2_REGION ?? 'auto',
+    signTtlSeconds: Number.parseInt(process.env.R2_SIGN_TTL_SECONDS ?? '60', 10),
+  }),
+  razorpay: Object.freeze({
+    keyId: process.env.RAZORPAY_KEY_ID ?? '',
+    keySecret: process.env.RAZORPAY_KEY_SECRET ?? '',
+    webhookSecret: process.env.RAZORPAY_WEBHOOK_SECRET ?? '',
+  }),
+  diagnosticQrSecret: secret('DIAGNOSTIC_QR_SECRET', 'local-diagnostic-qr-secret-change-me-32'),
 });

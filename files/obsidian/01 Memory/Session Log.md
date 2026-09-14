@@ -30,3 +30,6 @@ tags:
 - Verified Mongo-backed account/IP throttling, parallel attempts, refresh rotation/replay, CSRF, inactive accounts and malformed tokens.
 - P02 gate passed: backend 19/19, React 10/10 plus Chromium/build, mobile 4/4 each, Diagnostics 3/3, clean analysis/audits, and both Android debug builds; stopped before P03.
 - Confirmed Cloudflare R2 for private evidence/KYC media in P07 and Razorpay Orders/Checkout plus verified webhook wallet credit in P11; provider code remains deferred to its planned phase.
+- Owner authorized P03–P10 plus a post-range regression; live R2/Razorpay tests last.
+- Completed P03: chain/branch/Admin assignment APIs, OpenAPI v0.3.0, React A02–A05/A23/A24, design.html A23/A24, store-scope tests. Stopped before P04 as instructed.
+- P03 verification: backend 23/23; React 12/12 and 2/2 Chromium; Flutter 5/5, 5/5, 4/4.

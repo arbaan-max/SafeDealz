@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:safedealz_store_manager/core/network/dio_factory.dart';
 import 'package:safedealz_store_manager/data/api/clients/system_client.dart';
+import 'package:safedealz_store_manager/data/api/clients/organization_client.dart';
 import 'package:safedealz_store_manager/data/api/clients/auth_client.dart';
 import 'package:safedealz_store_manager/data/api/models/client_type.dart';
 import 'package:safedealz_store_manager/data/api/models/login_audience.dart';
@@ -42,6 +43,14 @@ void main() {
     );
     expect(response.data.account.role.toJson(), 'store_manager');
     expect(response.data.refreshToken, 'refresh');
+  });
+
+  test('generated organization client deserializes scoped chain lists', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _ChainAdapter();
+    final response = await OrganizationClient(dio).listChains();
+    expect(response.success, isTrue);
+    expect(response.data.single.code, 'PAI');
   });
 }
 
@@ -83,6 +92,28 @@ final class _AuthAdapter implements HttpClientAdapter {
     );
     return ResponseBody.fromString(
       '{"success":true,"data":{"accessToken":"access","refreshToken":"refresh","expiresIn":600,"account":{"id":"1","email":"manager@test.dev","role":"store_manager"}}}',
+      200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _ChainAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'GET');
+    expect(options.uri.path, '/v1/chains');
+    return ResponseBody.fromString(
+      '{"success":true,"data":[{"id":"1","name":"PAI","code":"PAI","active":true,"branchCount":1}]}',
       200,
       headers: <String, List<String>>{
         Headers.contentTypeHeader: <String>[Headers.jsonContentType],

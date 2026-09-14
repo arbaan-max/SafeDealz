@@ -75,7 +75,7 @@ Read [security.md](security.md) before implementing APIs or authentication clien
 - In backend: npm test and npm audit --audit-level=high.
 - In React admin: `npm run check` for ESLint, Vitest, production build and Playwright Chromium; `npm audit --audit-level=high` for dependency review.
 - From the repository root after P01: `make -f files/Makefile check-p01` for generated-client reproducibility, React checks, all Flutter analysis/tests and backend tests.
-- From the repository root after P02: `make -f files/Makefile check-p02` adds dependency audits and Store Manager/Vendor Android debug builds to the complete authentication regression gate.
+- From the repository root after P03: `make -f files/Makefile check-p03` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
 
 P00 ran all commands above successfully, including Android debug builds for all three apps. The backend test suite has four passing tests/subtests, including the canonical Swagger JSON route. Future phases add feature-specific tests rather than relying on these smoke checks.
 

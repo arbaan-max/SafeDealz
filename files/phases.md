@@ -1,6 +1,6 @@
 # SafeDealz implementation phases
 
-Admin-first development-only roadmap; the P00 foundation is complete and product feature implementation has not started. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
+Admin-first development-only roadmap; P00–P03 are complete and P04 has not started. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
 
 Each phase is split into three small or medium tasks: `.1` contract/data or decision preparation, `.2` implementation or feasibility evidence, `.3` integration/testing and documentation. Create numbered task files from [the template](tasks/TASK_TEMPLATE.md) when work is selected, rather than creating empty task files now. Split further when a task cannot be reviewed independently. These task IDs are roadmap identifiers, not existing files.
 
@@ -45,7 +45,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P03 — Super Admin, Admin and assigned stores
 
-- Status: Planned
+- Status: Complete — TASK-004
 - Dependencies: P02
 - Screens: A02,A03,A04,A05; new A23 (Admins), A24 (Admin create/edit and store assignments)
 - Scope: Build admin-account APIs and React pages first, chain/branch CRUD and explicit Admin-to-store assignments. Only Super Admin creates/edits/deactivates Admins and changes their store scope.

@@ -396,6 +396,8 @@ All admin screens use a 240px left navigation, 64px header, breadcrumb, scope fi
 | A20 | Settings: editable vendor bidding and manager acceptance durations, provider readiness and SMS templates | Save bidding duration from 1–30 minutes and acceptance duration from 1–60 minutes; new values apply to future rounds | Invalid duration, saved, integration not configured, template preview |
 | A21 | Read-only audit log explaining who performed an important action, what changed, when it happened and which record was affected | Filter; open affected record for investigation | No matches, restricted fields redacted |
 | A22 | Account/session settings: admin email, password, sessions, security options | Change password; revoke session; logout | Validation, completed, A00 redirect |
+| A23 | Admins (Super Admin only): name, email, assigned store count and active status | Create/edit -> A24 | Empty, inactive, Super Admin only |
+| A24 | Admin create/edit (Super Admin only): name, contact, email, initial credential, active status and assigned-store selection | Save -> A23 | No stores assigned, duplicate email, saved |
 
 Initial credential setup is an implementation choice for review: prefer an expiring password-setup invitation for the admin-created email; if temporary passwords are required, force change on first login. Email/password authentication remains the selected method. Never display stored passwords.
 
@@ -722,7 +724,7 @@ CRUD dialogs and form modes are variants of the existing screen IDs. There are 7
 
 ### Navigation, notifications and timing refinement
 
-M04 shows an in-screen Back control to M03 and hides its notification icon so the manager can focus on the condition form. The account-lock dropdown is removed. Admin child screens show a visible Back control to their parent list or overview: A03→A02, A05→A04, A07→A06, A09→A08, A11→A10, A13→A12, A14→A08, A16/A17→A15, A22→A01 and S04→A01.
+M04 shows an in-screen Back control to M03 and hides its notification icon so the manager can focus on the condition form. The account-lock dropdown is removed. Admin child screens show a visible Back control to their parent list or overview: A03→A02, A05→A04, A24→A23, A07→A06, A09→A08, A11→A10, A13→A12, A14→A08, A16/A17→A15, A22→A01 and S04→A01.
 
 Vendor notifications contain only eligible offer alerts, winning-offer decisions and pickup confirmation for the corresponding won device. Admin S04 contains all system, store, vendor and administrator notification events, with sender, audience, category, delivery-state and search filters. Super Admin can compose a notification for all users, all stores, all vendors, a specific store or a specific vendor. Each sent notification is added to the delivery history.
 
@@ -801,6 +803,6 @@ Collect device age once: Below 3 months; 3 to below 6 months; 6 to below 11 mont
 
 This amendment supersedes earlier references that treat all administrative users as globally privileged. Super Admin and Admin share the React interface; Store Manager, Vendor and Diagnostics remain Flutter apps. Only Super Admin can create/manage Admin accounts and assign their branches. Admin menus, records, filters, details, counts, exports and notifications are restricted to assigned branches and permitted operations. Empty scope grants no branch access. Existing sensitive KYC ownership restrictions remain unchanged. See [architecture.md](architecture.md) and [security.md](security.md).
 
-New planned screens: A23 — Admin list (Super Admin only); A24 — Admin create/edit, active status and assigned-store selection (Super Admin only). A00 login routes both administrative roles into their permitted React experience. Existing A-series screens use scoped views for Admin where allowed; platform-wide settings, global wallet data and administrative-role controls remain Super Admin-only.
+New screens: A23 — Admin list (Super Admin only); A24 — Admin create/edit, active status and assigned-store selection (Super Admin only). A00 login routes both administrative roles into their permitted React experience. Existing A-series screens use scoped views for Admin where allowed; platform-wide settings, global wallet data and administrative-role controls remain Super Admin-only.
 
-Prototype synchronization pending: design.html currently predates this role addition. P03 must add A23/A24 and demonstrate scoped navigation before implementing these React screens. Do not claim the existing prototype demonstrates the new role.
+Prototype synchronization: design.html includes A23/A24 navigation, forms and Super Admin-only assignment copy.

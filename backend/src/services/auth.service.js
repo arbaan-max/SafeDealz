@@ -1,5 +1,7 @@
 import { env } from '../config/env.js';
 import { findAccountForLogin, findActiveAccountById } from '../repositories/account.repository.js';
+import { loadScope } from './scope.service.js';
+import { publicAccount } from '../utils/presenters.js';
 import { createSession, findActiveSessionByFamily, findSessionForRefresh, revokeSessionFamily, rotateSession } from '../repositories/session.repository.js';
 import { ApiError } from '../utils/api-error.js';
 import { clearAccountFailures, assertLoginAllowed, recordLoginFailure } from './login-throttle.service.js';
@@ -22,7 +24,7 @@ const issueFor = async (account, clientType) => {
     accessToken: await signAccessToken({ accountId: account.id, role: account.role, familyId }),
     refreshToken: `${familyId}.${secret}`,
     expiresIn: env.accessTokenMinutes * 60,
-    account: { id: account.id, email: account.email, role: account.role },
+    account: publicAccount(account),
   };
 };
 
@@ -67,7 +69,7 @@ export const refresh = async (refreshToken, clientType) => {
     accessToken: await signAccessToken({ accountId: account.id, role: account.role, familyId }),
     refreshToken: `${familyId}.${nextSecret}`,
     expiresIn: env.accessTokenMinutes * 60,
-    account: { id: account.id, email: account.email, role: account.role },
+    account: publicAccount(account),
   };
 };
 
@@ -80,5 +82,6 @@ export const getSessionAccount = async (accountId, familyId) => {
     throw new ApiError(401, 'ACCOUNT_INACTIVE', 'Your account is inactive. Contact your administrator.');
   }
   if (!session || String(session.accountId) !== String(accountId)) throw new ApiError(401, 'SESSION_INVALID', 'Session is invalid or expired.');
-  return { id: account.id, email: account.email, role: account.role };
+  const scope = await loadScope({ id: account.id, role: account.role });
+  return publicAccount(account, { assignedBranchIds: scope.all ? [] : scope.branchIds, allStores: scope.all });
 };

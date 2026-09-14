@@ -11,9 +11,9 @@ updated: 2026-09-14
 
 ## Active gate
 
-- P00 through P02 are complete.
-- P03, Super Admin/Admin/store CRUD and assigned-store scope, is next but is not authorized.
-- Product feature implementation has not started.
+- P00 through P03 are complete.
+- P04 Store Manager onboarding is next and is not authorized.
+- Draft backend routes for later phases exist and are not complete phases.
 - Deployment is outside the roadmap.
 - Sky blue is the client-approved final primary theme across every application.
 - A single-phase command stops after that phase; an explicit inclusive range stops after its final named phase.
@@ -58,4 +58,4 @@ safeDealz/
 
 ## Next action
 
-Wait for the owner's explicit instruction to start P03. Create its task before implementing administrative CRUD and store assignment scope.
+Wait for the owner to authorize P04.

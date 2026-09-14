@@ -15,6 +15,11 @@ class AccountSummary with _$AccountSummary {
     required String id,
     required String email,
     required AccountRole role,
+    String? displayName,
+    String? phone,
+    bool? active,
+    List<String>? assignedBranchIds,
+    bool? allStores,
   }) = _AccountSummary;
   
   factory AccountSummary.fromJson(Map<String, Object?> json) => _$AccountSummaryFromJson(json);

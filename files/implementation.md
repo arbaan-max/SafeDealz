@@ -6,16 +6,16 @@ This is the execution dashboard. plan.md owns phase status; numbered files under
 
 | Item | Value |
 | --- | --- |
-| Completed phase | P02 — Role authentication APIs and login clients |
-| Completed task | TASK-003 |
-| Next phase | P03 — Super Admin, Admin and assigned stores |
-| Next task | Not created; wait for explicit P03 authorization |
-| Product feature status | Authentication complete; administrative CRUD and store assignments not started |
+| Completed phase | P03 — Super Admin, Admin and assigned stores |
+| Completed task | TASK-004 |
+| Next phase | P04 — Store Manager onboarding APIs and React pages |
+| Next task | Not created; wait for explicit P04 authorization |
+| Product feature status | Authentication and Admin/store assignments complete; manager onboarding not started |
 | Product reference | design.md and design.html |
 | Security reference | security.md |
 | Architecture reference | architecture.md |
 
-Stop boundary: P02 is complete. P03 has not started and is not authorized.
+Stop boundary: P03 is complete. P04 has not started and is not authorized. The earlier P03–P10 range was narrowed by the owner to complete P03 and stop.
 
 Execution rule recorded on 2026-09-14: a single-phase command stops automatically after that phase; an explicit inclusive phase range may continue through its named final phase and then stops. Named tasks stop after their stated scope. Safely deferrable broad builds may run in the final authorized phase, while required feature, contract, integration, and security checks remain in the phase that introduces the behavior.
 
@@ -23,7 +23,24 @@ P00 amendment completed on 2026-09-13: aligned all three Flutter pubspecs and sw
 
 Client theme amendment on 2026-09-14: Sky Blue is now the confirmed primary theme. The interactive prototype defaults to Sky Blue, all three Flutter foundations use the shared sky action and `#F0F9FF` scaffold-background colors, native splash colors match, Obsidian uses the same accent, and the design/architecture/phase records define Purple only as a restrained secondary or prototype comparison accent. P01, P05, P06 and P08 now require reusable page-surface components so future background changes remain centralized.
 
-Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for private evidence/KYC object storage, beginning with the reusable signed-media integration in P07. Razorpay is confirmed for vendor wallet recharge in P11 using backend-created orders, verified webhooks and idempotent ledger credit. No provider code was added because P03 remains the next authorized phase boundary.
+Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for private evidence/KYC object storage, beginning with the reusable signed-media integration in P07. Razorpay is confirmed for vendor wallet recharge in P11 using backend-created orders, verified webhooks and idempotent ledger credit.
+
+## P03 delivered
+
+- Super Admin chain and branch CRUD; Admin reads only assigned branches.
+- Super Admin-only Admin accounts (A23/A24) with explicit branch assignments; empty assignment yields no stores.
+- Server-side `STORE_SCOPE_DENIED` for unassigned branch writes; Admin cannot create Admins.
+- OpenAPI v0.3.0; generated Flutter OrganizationClient; React Overview, Chains, Branches and Admins pages.
+- design.html A23/A24 added before React implementation.
+
+## P03 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | 23/23 tests including P03 isolation |
+| OpenAPI | v0.3.0 generated in all three Flutter apps |
+| React | ESLint; 12/12 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 5/5, Vendor 5/5, Diagnostics 4/4; analysis clean |
 
 ## Task register
 
@@ -34,6 +51,7 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | TASK-001 | P00 Flutter/backend bootstrap | Flutter, Backend, OpenAPI | Complete | Flutter analyze/test/APK builds, codegen, backend tests and audit passed |
 | TASK-002 | P01 React admin foundation | React, Backend, Integration | Complete | React 7/7, browser 1/1, backend 8/8, Flutter 3/3 per app, audits clean |
 | TASK-003 | P02 role authentication | Backend, React, Flutter, Security | Complete | Backend 19/19; React 10/10 + browser; Flutter 4/4 mobile, diagnostics 3/3; builds/audits pass |
+| TASK-004 | P03 Admin/store assignments | Backend, Admin web, OpenAPI | Complete | Backend 23/23; React 12/12 + 2/2 Chromium; Flutter 5/5, 5/5, 4/4 |
 
 ## P02 delivered
 

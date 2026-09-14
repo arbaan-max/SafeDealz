@@ -108,7 +108,7 @@ After synchronization, stop at the recorded authorization boundary. A completed 
 
 ## Current gate
 
-P00 is complete in [TASK-001](tasks/TASK-001-architecture-readiness.md). The next planned phase is P01, the React admin foundation. Create and approve its task before implementation; do not repeat P00.
+P00–P03 are complete. [TASK-004](tasks/TASK-004-admin-store-assignments.md) finished Super Admin/Admin store assignments. The owner then instructed a P03-only stop; do not start P04 until explicitly authorized.
 
 ## Mandatory security checks
 

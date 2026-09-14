@@ -1,0 +1,44 @@
+import { Router } from 'express';
+import { getAdmins, getAssignedStores, listBranches, listChains, patchAdmin, patchBranch, patchChain, postAdmin, postBranch, postChain } from '../controllers/organization.controller.js';
+import { getManagers, getVendors, patchManager, patchVendor, postManager, postVendor } from '../controllers/staff.controller.js';
+import { getDevice, getDevices, patchDevice, postDevice, postDiagnosticImport, postMediaComplete, postMediaDownload, postMediaSign, putInspection } from '../controllers/device.controller.js';
+import { getMyWallet, getVendorWallet, getWallets, postWalletCredit, postWalletRelease, postWalletReserve } from '../controllers/wallet.controller.js';
+import { requireAuthentication } from '../middlewares/auth.middleware.js';
+import { requireRoles } from '../middlewares/authorize.middleware.js';
+
+const guard = (...roles) => [requireAuthentication, requireRoles(...roles)];
+
+export const organizationRouter = Router();
+organizationRouter.get('/chains', ...guard('super_admin', 'admin'), listChains);
+organizationRouter.post('/chains', ...guard('super_admin'), postChain);
+organizationRouter.patch('/chains/:id', ...guard('super_admin'), patchChain);
+organizationRouter.get('/branches', ...guard('super_admin', 'admin'), listBranches);
+organizationRouter.post('/branches', ...guard('super_admin'), postBranch);
+organizationRouter.patch('/branches/:id', ...guard('super_admin', 'admin'), patchBranch);
+organizationRouter.get('/admins', ...guard('super_admin'), getAdmins);
+organizationRouter.post('/admins', ...guard('super_admin'), postAdmin);
+organizationRouter.patch('/admins/:id', ...guard('super_admin'), patchAdmin);
+organizationRouter.get('/managers', ...guard('super_admin', 'admin'), getManagers);
+organizationRouter.post('/managers', ...guard('super_admin', 'admin'), postManager);
+organizationRouter.patch('/managers/:id', ...guard('super_admin', 'admin'), patchManager);
+organizationRouter.get('/vendors', ...guard('super_admin', 'admin'), getVendors);
+organizationRouter.post('/vendors', ...guard('super_admin', 'admin'), postVendor);
+organizationRouter.patch('/vendors/:id', ...guard('super_admin', 'admin'), patchVendor);
+
+export const operationsRouter = Router();
+operationsRouter.get('/assigned-stores', ...guard('vendor'), getAssignedStores);
+operationsRouter.get('/devices', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), getDevices);
+operationsRouter.post('/devices', ...guard('store_manager', 'super_admin'), postDevice);
+operationsRouter.get('/devices/:id', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), getDevice);
+operationsRouter.patch('/devices/:id', ...guard('store_manager', 'super_admin'), patchDevice);
+operationsRouter.put('/devices/:id/inspection', ...guard('store_manager', 'super_admin'), putInspection);
+operationsRouter.post('/devices/:id/media/sign', ...guard('store_manager', 'super_admin'), postMediaSign);
+operationsRouter.post('/devices/:id/media/complete', ...guard('store_manager', 'super_admin'), postMediaComplete);
+operationsRouter.post('/devices/:id/media/download', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), postMediaDownload);
+operationsRouter.post('/diagnostic-imports', ...guard('store_manager', 'super_admin'), postDiagnosticImport);
+operationsRouter.get('/wallets/me', ...guard('vendor'), getMyWallet);
+operationsRouter.get('/wallets', ...guard('super_admin'), getWallets);
+operationsRouter.get('/wallets/:vendorId', ...guard('super_admin', 'admin', 'vendor'), getVendorWallet);
+operationsRouter.post('/wallets/:vendorId/credits', ...guard('super_admin'), postWalletCredit);
+operationsRouter.post('/wallets/reservations', ...guard('super_admin', 'vendor'), postWalletReserve);
+operationsRouter.post('/wallets/releases', ...guard('super_admin', 'vendor'), postWalletRelease);

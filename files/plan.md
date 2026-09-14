@@ -10,7 +10,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Product design specification | Available in [design.md](design.md) |
 | Interactive design reference | Available in [design.html](design.html) |
 | Phase breakdown | Prepared — see [phases.md](phases.md) |
-| Product implementation | P00–P02 complete; authentication implemented, administrative features not started |
+| Product implementation | P00–P03 complete; P04 Store Manager onboarding not started |
 
 ## Project setup
 
@@ -28,7 +28,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Backend | Node.js, Express.js, MongoDB, and Mongoose |
 | API contract | OpenAPI/Swagger contract required before API-client generation |
 | Development completion goal | Complete approved scope through P25; development acceptance follows the test gates; deployment excluded |
-| Coding authorization | P02 completed. P03 is not authorized; wait for the owner's instruction. |
+| Coding authorization | P03 completed and stopped. P04 is not authorized. |
 
 ## Product roles
 
@@ -47,7 +47,7 @@ The complete role permissions and screen behavior are defined in [design.md](des
 | Capability | Design status | Implementation status |
 | --- | --- | --- |
 | Authentication and account status enforcement | Defined | Complete — TASK-003 |
-| Chain, branch, manager, and vendor administration | Defined | Not started |
+| Chain, branch, manager, and vendor administration | Defined | Chain/branch/Admin assignments complete — TASK-004; manager and vendor onboarding not started |
 | Store Manager device intake and evidence | Defined | Not started |
 | Manual condition inspection | Defined | Not started |
 | Android Diagnostics and signed result-QR import | Defined | Not started |
@@ -81,14 +81,14 @@ The complete role permissions and screen behavior are defined in [design.md](des
 
 ## Phase plan
 
-The detailed roadmap is in [phases.md](phases.md). P00 is complete; later phases remain Planned. Each phase contains contract/data, implementation, and verification tasks. Update this table after every task, including when the phase remains In progress.
+The detailed roadmap is in [phases.md](phases.md). P00–P03 are complete. Update this table after every task, including when the phase remains In progress. Do not mark a phase complete until its clients, contract and tests pass.
 
 | Phase | Goal | Status | Latest completed task |
 | --- | --- | --- | --- |
 | P00 | Flutter projects and backend bootstrap | Complete | TASK-001 |
 | P01 | React admin foundation and shared test tooling | Complete | TASK-002 |
 | P02 | Role authentication APIs and React login | Complete | TASK-003 |
-| P03 | Super Admin, Admin and assigned stores | Planned | None |
+| P03 | Super Admin, Admin and assigned stores | Complete | TASK-004 |
 | P04 | Store Manager onboarding APIs and React pages | Planned | None |
 | P05 | Vendor onboarding APIs and React pages | Planned | None |
 | P06 | Device identity | Planned | None |
@@ -112,7 +112,7 @@ The detailed roadmap is in [phases.md](phases.md). P00 is complete; later phases
 | P24 | End-to-end and resilience | Planned | None |
 | P25 | Development completion and handover | Planned | None |
 
-Next: [TASK-001 — Flutter/backend bootstrap](tasks/TASK-001-architecture-readiness.md). Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
+Next: wait for the owner to authorize P04. Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
 
 ## Confirmed technology and scope
 

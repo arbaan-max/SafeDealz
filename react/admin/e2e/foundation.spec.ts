@@ -3,14 +3,17 @@ import { expect, test } from '@playwright/test';
 test('login and authenticated shell are navigable and responsive', async ({ page }) => {
   await page.route('**/auth/refresh', (route) => route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ success: false, error: { code: 'SESSION_INVALID', message: 'Invalid' } }) }));
   await page.route('**/auth/login', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { accessToken: 'test', csrfToken: 'csrf', expiresIn: 600, account: { id: '1', email: 'admin@test.dev', role: 'super_admin' } } }) }));
+  await page.route('**/chains', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
+  await page.route('**/branches', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.goto('/login');
   await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();
   await expect(page.getByText(/forgot password/i)).toHaveCount(0);
   await page.getByLabel('Email').fill('admin@test.dev');
   await page.getByRole('textbox', { name: 'Password' }).fill('Valid password');
   await page.getByRole('button', { name: 'Login' }).click();
-  await expect(page.getByRole('heading', { name: 'Admin foundation' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Overview' })).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Admins' })).toBeVisible();
   await page.setViewportSize({ width: 375, height: 812 });
   await expect(page.locator('main')).toBeVisible();
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(240, 249, 255)');
@@ -19,4 +22,22 @@ test('login and authenticated shell are navigable and responsive', async ({ page
   await expect(page.locator('main')).toBeVisible();
   await page.evaluate(() => document.documentElement.style.setProperty('--app-background', 'rgb(224, 242, 254)'));
   await expect(page.locator('.page-surface')).toHaveCSS('background-color', 'rgb(224, 242, 254)');
+});
+
+test('Admin role cannot open the Admins workspace', async ({ page }) => {
+  await page.route('**/auth/refresh', (route) => route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ success: false, error: { code: 'SESSION_INVALID', message: 'Invalid' } }) }));
+  await page.route('**/auth/login', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { accessToken: 'test', csrfToken: 'csrf', expiresIn: 600, account: { id: '2', email: 'ananya@test.dev', role: 'admin' } } }) }));
+  await page.route('**/chains', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
+  await page.route('**/branches', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
+  await page.goto('/login');
+  await page.getByLabel('Email').fill('ananya@test.dev');
+  await page.getByRole('textbox', { name: 'Password' }).fill('Valid password');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByRole('heading', { name: 'Overview' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Admins' })).toHaveCount(0);
+  await page.context().addCookies([{ name: 'sd_csrf', value: 'csrf', url: 'http://127.0.0.1:4173/' }]);
+  await page.unroute('**/auth/refresh');
+  await page.route('**/auth/refresh', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { accessToken: 'test', csrfToken: 'csrf', expiresIn: 600, account: { id: '2', email: 'ananya@test.dev', role: 'admin' } } }) }));
+  await page.goto('/admins');
+  await expect(page.getByRole('heading', { name: 'Access denied' })).toBeVisible();
 });
