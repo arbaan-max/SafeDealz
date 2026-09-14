@@ -10,7 +10,7 @@ _$DiagnosticImportResponseImpl _$$DiagnosticImportResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$DiagnosticImportResponseImpl(
   success: json['success'] as bool,
-  data: Data6.fromJson(json['data'] as Map<String, dynamic>),
+  data: Data10.fromJson(json['data'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$$DiagnosticImportResponseImplToJson(

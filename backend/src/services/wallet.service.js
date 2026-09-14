@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { createLedgerEntry, createReservation, createWallet, findLedgerByKey, findReservationByKey, findWalletById, findWalletByVendor, listHeldReservations, listLedger, listWallets, saveReservation, saveWallet } from '../repositories/wallet.repository.js';
+import { createLedgerEntry, createReservation, createWallet, findLedgerByKey, findReservationByKey, findWalletById, findWalletByVendor, listHeldReservations, listLedger, listWallets, saveReservation, saveWallet, sumCommittedReservations } from '../repositories/wallet.repository.js';
+import { sumPendingRecharges } from '../repositories/wallet-recharge.repository.js';
 import { findAccountById } from '../repositories/account.repository.js';
 import { listAssignments } from '../repositories/store-assignment.repository.js';
 import { ApiError } from '../utils/api-error.js';
@@ -128,6 +129,61 @@ export const releaseReservation = async ({ idempotencyKey, actorId, actor }) => 
   });
 };
 
+export const commitReservation = async ({ idempotencyKey, actorId }) => {
+  const key = requireKey(idempotencyKey);
+  return mongoose.connection.transaction(async (session) => {
+    const reservation = await findReservationByKey(key, session);
+    if (!reservation) throw new ApiError(404, 'NOT_FOUND', 'Reservation was not found.');
+    if (reservation.status === 'committed') return { wallet: await findWalletById(reservation.walletId, session), reservation, replayed: true };
+    if (reservation.status !== 'held') throw new ApiError(409, 'CONFLICT', 'This reservation cannot be committed.');
+    const commitKey = `${key}:commit`;
+    const existing = await findLedgerByKey(commitKey, session);
+    const wallet = await findWalletById(reservation.walletId, session);
+    if (existing) {
+      reservation.status = 'committed';
+      await saveReservation(reservation, session);
+      return { wallet, reservation, replayed: true };
+    }
+    wallet.reservedPaise -= reservation.amountPaise;
+    if (wallet.reservedPaise < 0) throw new ApiError(409, 'INSUFFICIENT_FUNDS', 'Available wallet balance is too low.');
+    await saveWallet(wallet, session);
+    await createLedgerEntry({
+      walletId: wallet.id, vendorAccountId: wallet.vendorAccountId, type: 'commit', amountPaise: reservation.amountPaise,
+      availableAfterPaise: wallet.availablePaise, reservedAfterPaise: wallet.reservedPaise,
+      idempotencyKey: commitKey, reason: 'bid_committed', actorId, referenceId: String(reservation.id),
+    }, session);
+    reservation.status = 'committed';
+    await saveReservation(reservation, session);
+    return { wallet, reservation, replayed: false };
+  });
+};
+
+export const settleReservation = async ({ idempotencyKey, actorId }) => {
+  const key = requireKey(idempotencyKey);
+  return mongoose.connection.transaction(async (session) => {
+    const reservation = await findReservationByKey(key, session);
+    if (!reservation) throw new ApiError(404, 'NOT_FOUND', 'Reservation was not found.');
+    if (reservation.status === 'settled') return { wallet: await findWalletById(reservation.walletId, session), reservation, replayed: true };
+    if (reservation.status !== 'committed') throw new ApiError(409, 'CONFLICT', 'This reservation cannot be settled.');
+    const settleKey = `${key}:settle`;
+    const existing = await findLedgerByKey(settleKey, session);
+    const wallet = await findWalletById(reservation.walletId, session);
+    if (existing) {
+      reservation.status = 'settled';
+      await saveReservation(reservation, session);
+      return { wallet, reservation, replayed: true };
+    }
+    await createLedgerEntry({
+      walletId: wallet.id, vendorAccountId: wallet.vendorAccountId, type: 'settle', amountPaise: reservation.amountPaise,
+      availableAfterPaise: wallet.availablePaise, reservedAfterPaise: wallet.reservedPaise,
+      idempotencyKey: settleKey, reason: 'payout_settled', actorId, referenceId: String(reservation.id),
+    }, session);
+    reservation.status = 'settled';
+    await saveReservation(reservation, session);
+    return { wallet, reservation, replayed: false };
+  });
+};
+
 export const readVendorWallet = async (actor, vendorId) => {
   const scope = await loadScope(actor);
   const targetId = vendorId ? requireObjectId(vendorId, 'vendor id') : actor.id;
@@ -146,8 +202,10 @@ export const readVendorWallet = async (actor, vendorId) => {
   const hideBalances = actor.role === 'admin';
   const ledger = hideBalances ? [] : await listLedger(wallet.id);
   const reservations = hideBalances ? [] : await listHeldReservations(wallet.id);
+  const processingPaise = hideBalances ? undefined : await sumPendingRecharges(vendor.id);
+  const paymentsProcessingPaise = hideBalances ? undefined : await sumCommittedReservations(wallet.id);
   return {
-    ...publicWallet(wallet, { hideBalances }),
+    ...publicWallet(wallet, { hideBalances, processingPaise, paymentsProcessingPaise }),
     ledger: ledger.map(publicLedger),
     reservations: reservations.map(publicHold),
   };

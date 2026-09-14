@@ -10,7 +10,7 @@ _$MediaCompleteResponseImpl _$$MediaCompleteResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$MediaCompleteResponseImpl(
   success: json['success'] as bool,
-  data: Data4.fromJson(json['data'] as Map<String, dynamic>),
+  data: Data8.fromJson(json['data'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$$MediaCompleteResponseImplToJson(

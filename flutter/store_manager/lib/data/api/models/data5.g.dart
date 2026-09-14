@@ -6,15 +6,8 @@ part of 'data5.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Data5Impl _$$Data5ImplFromJson(Map<String, dynamic> json) => _$Data5Impl(
-  objectKey: json['objectKey'] as String?,
-  download: json['download'] == null
-      ? null
-      : SignedUrl.fromJson(json['download'] as Map<String, dynamic>),
-);
+_$Data5Impl _$$Data5ImplFromJson(Map<String, dynamic> json) =>
+    _$Data5Impl(sent: json['sent'] as bool?, stub: json['stub'] as bool?);
 
 Map<String, dynamic> _$$Data5ImplToJson(_$Data5Impl instance) =>
-    <String, dynamic>{
-      'objectKey': instance.objectKey,
-      'download': instance.download,
-    };
+    <String, dynamic>{'sent': instance.sent, 'stub': instance.stub};

@@ -11,13 +11,12 @@ updated: 2026-09-14
 
 ## Active gate
 
-- P00 through P10 are complete.
-- P11 Wallet recharge is next and is not authorized.
-- Draft backend routes for later phases exist and are not complete phases.
+- P00 through P20 are complete.
+- The authorized P16–P20 range has stopped. Do not start P21.
 - Deployment is outside the roadmap.
 - Sky blue is the client-approved final primary theme across every application.
 - A single-phase command stops after that phase; an explicit inclusive range stops after its final named phase.
-- Cloudflare R2 is confirmed for private media storage beginning in P07; Razorpay is confirmed for vendor wallet recharge in P11.
+- Cloudflare R2 is confirmed for private media storage beginning in P07; Razorpay recharge in P11 uses stub orders and HMAC.
 
 ## Repository layout
 
@@ -63,7 +62,18 @@ safeDealz/
 - P08 local Diagnostics D01–D07, AppPageScaffold and diagnostic-surface tokens are complete; `make -f files/Makefile check-p08` is the P08 regression command.
 - P09 signed diagnostic QR (D08), Store Manager scan/import (M07) and review cards (M09) are complete; `make -f files/Makefile check-p09` is the P09 regression command.
 - P10 personal vendor wallet ledger, reservations and React A14 are complete; `make -f files/Makefile check-p10` is the P10 regression command.
+- P11 Razorpay wallet recharge (HMAC webhook, V08/V09) is complete; `make -f files/Makefile check-p11` is the P11 regression command.
+- P12 auction lifecycle (M10/A20) is complete; `make -f files/Makefile check-p12` is the P12 regression command.
+- P13 vendor bidding (V01–V06/V13) is complete; `make -f files/Makefile check-p13` is the P13 regression command.
+- P14 offer decision (M11/M15) is complete; `make -f files/Makefile check-p14` is the P14 regression command.
+
+- P15 accept/KYC (M08/M12) is complete; `make -f files/Makefile check-p15` is the P15 regression command.
+- P16 payout/reconciliation (M13/A12/A13) is complete; `make -f files/Makefile check-p16` is the P16 regression command.
+- P17 deal history/pickup (M14/M16/M17/V12/A10/A11) is complete; `make -f files/Makefile check-p17` is the P17 regression command.
+- P18 reward issuance (A15/A16/A17) is complete; `make -f files/Makefile check-p18` is the P18 regression command.
+- P19 reward redemption (M18–M22) is complete; `make -f files/Makefile check-p19` is the P19 regression command.
+- P20 notifications (S04) is complete; `make -f files/Makefile check-p20` is the P20 regression command. Sequential Android debug APKs (Store Manager, Vendor, Diagnostics) passed 2026-09-14.
 
 ## Next action
 
-Wait for the owner to authorize P11.
+None. Stop after P20. Wait for an explicit command before P21.

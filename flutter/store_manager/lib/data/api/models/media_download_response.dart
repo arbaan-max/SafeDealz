@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'data5.dart';
+import 'data9.dart';
 
 part 'media_download_response.freezed.dart';
 part 'media_download_response.g.dart';
@@ -13,7 +13,7 @@ part 'media_download_response.g.dart';
 class MediaDownloadResponse with _$MediaDownloadResponse {
   const factory MediaDownloadResponse({
     required bool success,
-    required Data5 data,
+    required Data9 data,
   }) = _MediaDownloadResponse;
   
   factory MediaDownloadResponse.fromJson(Map<String, Object?> json) => _$MediaDownloadResponseFromJson(json);

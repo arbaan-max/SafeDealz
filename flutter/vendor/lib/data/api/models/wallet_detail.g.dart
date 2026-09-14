@@ -13,6 +13,8 @@ _$WalletDetailImpl _$$WalletDetailImplFromJson(Map<String, dynamic> json) =>
       availablePaise: (json['availablePaise'] as num?)?.toInt(),
       reservedPaise: (json['reservedPaise'] as num?)?.toInt(),
       processingPaise: (json['processingPaise'] as num?)?.toInt(),
+      paymentsProcessingPaise: (json['paymentsProcessingPaise'] as num?)
+          ?.toInt(),
       currency: json['currency'] as String?,
       ledger: (json['ledger'] as List<dynamic>?)
           ?.map((e) => WalletLedgerEntry.fromJson(e as Map<String, dynamic>))
@@ -29,6 +31,7 @@ Map<String, dynamic> _$$WalletDetailImplToJson(_$WalletDetailImpl instance) =>
       'availablePaise': instance.availablePaise,
       'reservedPaise': instance.reservedPaise,
       'processingPaise': instance.processingPaise,
+      'paymentsProcessingPaise': instance.paymentsProcessingPaise,
       'currency': instance.currency,
       'ledger': instance.ledger,
       'reservations': instance.reservations,

@@ -11,6 +11,8 @@ import 'package:safedealz_vendor/data/api/clients/operations_client.dart';
 import 'package:safedealz_vendor/data/api/models/client_type.dart';
 import 'package:safedealz_vendor/data/api/models/login_audience.dart';
 import 'package:safedealz_vendor/data/api/models/login_request.dart';
+import 'package:safedealz_vendor/data/api/models/wallet_recharge_write.dart';
+import 'package:safedealz_vendor/data/api/models/bid_write.dart';
 
 void main() {
   test('DioFactory applies the shared API configuration', () {
@@ -77,6 +79,29 @@ void main() {
     expect(response.data.availablePaise, 10000);
     expect(response.data.ledger?.single.type?.json, 'credit');
     expect(response.data.reservations, isEmpty);
+  });
+
+  test('generated operations client deserializes a wallet recharge', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _RechargeAdapter();
+    final response = await OperationsClient(dio).createWalletRecharge(
+      body: const WalletRechargeWrite(amountPaise: 50000, idempotencyKey: 'rzp-1'),
+    );
+    expect(response.data.orderId, 'order_test_1');
+    expect(response.data.status.json, 'pending');
+    expect(response.data.clientAcknowledged, isFalse);
+  });
+
+  test('generated operations client posts a typed auction bid', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _BidAdapter();
+    final response = await OperationsClient(dio).placeAuctionBid(
+      id: 'a1',
+      body: const BidWrite(amountPaise: 800000, idempotencyKey: 'bid-1'),
+    );
+    expect(response.data.feePaise, 64000);
+    expect(response.data.totalPaise, 864000);
+    expect(response.data.status.json, 'submitted');
   });
 }
 
@@ -207,6 +232,51 @@ final class _WalletAdapter implements HttpClientAdapter {
     return ResponseBody.fromString(
       '{"success":true,"data":{"id":"w1","vendorAccountId":"v1","availablePaise":10000,"reservedPaise":0,"processingPaise":0,"currency":"INR","ledger":[{"id":"l1","type":"credit","amountPaise":10000,"availableAfterPaise":10000,"reservedAfterPaise":0,"reason":"seed"}],"reservations":[]}}',
       200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _RechargeAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'POST');
+    expect(options.uri.path, '/v1/wallets/recharges');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"r1","vendorAccountId":"v1","amountPaise":50000,"orderId":"order_test_1","status":"pending","keyId":"rzp_test_local","clientAcknowledged":false}}',
+      201,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _BidAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'POST');
+    expect(options.uri.path, '/v1/auctions/a1/bids');
+    expect((options.data as BidWrite).toJson()['amountPaise'], 800000);
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"b1","roundId":"a1","deviceId":"d1","vendorAccountId":"v1","amountPaise":800000,"feePaise":64000,"feeRate":0.08,"totalPaise":864000,"status":"submitted"}}',
+      201,
       headers: <String, List<String>>{
         Headers.contentTypeHeader: <String>[Headers.jsonContentType],
       },

@@ -1,6 +1,6 @@
 # SafeDealz implementation phases
 
-Admin-first development-only roadmap; P00–P10 are complete and P11 has not started. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
+Admin-first development-only roadmap; P00–P20 are complete. The authorized P16–P20 range has stopped; do not start P21. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
 
 Each phase is split into three small or medium tasks: `.1` contract/data or decision preparation, `.2` implementation or feasibility evidence, `.3` integration/testing and documentation. Create numbered task files from [the template](tasks/TASK_TEMPLATE.md) when work is selected, rather than creating empty task files now. Split further when a task cannot be reviewed independently. These task IDs are roadmap identifiers, not existing files.
 
@@ -133,51 +133,51 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P11 — Wallet recharge
 
-- Status: Planned
+- Status: Complete — TASK-013
 - Dependencies: P10
 - Screens: V08,V09
 - Scope: Razorpay wallet recharge checkout, pending/success/failure and provider reconciliation.
 - API, data and client impact: Backend-created Razorpay Orders, Flutter Razorpay Checkout adapter, verified webhook signatures, provider payment/order IDs and unique wallet-credit records. Credentials remain server-side; client success never credits the wallet.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P11.1 — define contracts/data and acceptance cases; P11.2 — deliver scoped functionality/evidence; P11.3 — verify integration and synchronize completion records.
+- Tasks: P11.1–P11.3 completed together in TASK-013: recharge contracts, HMAC webhook, V08/V09 and documentation.
 - Completion gate: Razorpay test-mode checkout succeeds; invalid signatures are rejected; duplicate/out-of-order webhooks credit once; client success alone never credits; failed, cancelled and unknown payments reconcile safely.
 
 ## P12 — Auction lifecycle and settings
 
-- Status: Planned
+- Status: Complete — TASK-014
 - Dependencies: P09,P03
 - Screens: M10,A20
 - Scope: Server-driven start/close, assigned vendor eligibility and future-round timer configuration.
 - API, data and client impact: Round snapshots, scheduler recovery, authoritative timestamps and event delivery; defaults 3/10 minutes.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P12.1 — define contracts/data and acceptance cases; P12.2 — deliver scoped functionality/evidence; P12.3 — verify integration and synchronize completion records.
+- Tasks: P12.1–P12.3 completed together in TASK-014: auction contracts, start/tick/cancel, M10/A20 and documentation.
 - Completion gate: Duplicate start blocked; close survives worker restart; no simultaneous rounds; settings change future rounds only; notification events emitted.
 
 ## P13 — Vendor bidding and fee holds
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P10,P12
 - Screens: V01,V02,V03,V04,V05,V06,V13
 - Scope: Assigned auction discovery, media, independent report cards, bid calculator and immutable confirmation.
 - API, data and client impact: Reserve final bid plus fee atomically; <=20k 8%, >20k to30k 7%, >30k 6%; snapshot rounded fee.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P13.1 — define contracts/data and acceptance cases; P13.2 — deliver scoped functionality/evidence; P13.3 — verify integration and synchronize completion records.
+- Tasks: P13.1–P13.3 completed together in TASK-015: bid contracts, fee holds, V01–V06/V13 and documentation.
 - Completion gate: Boundary and rounding tests; insufficient total balance rejected; concurrent submissions and one bid per vendor/round enforced; competitor bids hidden.
 
 ## P14 — Offer decision and re-auction
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P13
 - Screens: M11,M15
 - Scope: Highest offer, acceptance window, decline reasons and rebid expectation dialog.
 - API, data and client impact: Deterministic highest/earliest winner; release losing holds; expiry/decline/rebid release bid and fee; new immutable round.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P14.1 — define contracts/data and acceptance cases; P14.2 — deliver scoped functionality/evidence; P14.3 — verify integration and synchronize completion records.
+- Tasks: P14.1–P14.3 completed together in TASK-016: winner selection, decline/rebid/expiry, M11/M15 and documentation.
 - Completion gate: Fake-clock deadline races, ties, no bids and duplicate rebid tested; Other requires reason; no pre-acceptance customer KYC.
 
 ## P15 — Acceptance and customer verification
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P14
 - Screens: M08,M12
 - Scope: Accept creates backend payment instruction immediately; then customer KYC and purchased device form.
@@ -188,7 +188,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P16 — Payout and reconciliation
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P15,P11
 - Screens: M13,A12,A13
 - Scope: Automatic store-business payout after required verification, status/retry and reconciliation.
@@ -199,7 +199,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P17 — Deal history and pickup
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P16
 - Screens: M14,M16,M17,V12,A10,A11
 - Scope: Device/round timeline, separate inspection and diagnostic cards, vendor store location and final pickup.
@@ -210,7 +210,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P18 — Reward issuance and policy
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P16
 - Screens: A15,A16,A17
 - Scope: Paid-deal reward creation, customer ledger and branch reward policy.
@@ -221,7 +221,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P19 — Reward redemption
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P18
 - Screens: M18,M19,M20,M21,M22
 - Scope: Lookup, all redemptions, customer history, partial redemption, invoice and receipt.
@@ -232,7 +232,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P20 — Notifications and broadcasts
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P17,P19
 - Screens: S04
 - Scope: Role-specific notification inbox and admin filtered history/targeted broadcasts.

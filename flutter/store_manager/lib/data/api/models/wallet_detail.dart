@@ -18,6 +18,7 @@ class WalletDetail with _$WalletDetail {
     int? availablePaise,
     int? reservedPaise,
     int? processingPaise,
+    int? paymentsProcessingPaise,
     String? currency,
     List<WalletLedgerEntry>? ledger,
     List<WalletHold>? reservations,

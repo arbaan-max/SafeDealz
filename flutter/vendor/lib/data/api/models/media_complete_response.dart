@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'data4.dart';
+import 'data8.dart';
 
 part 'media_complete_response.freezed.dart';
 part 'media_complete_response.g.dart';
@@ -13,7 +13,7 @@ part 'media_complete_response.g.dart';
 class MediaCompleteResponse with _$MediaCompleteResponse {
   const factory MediaCompleteResponse({
     required bool success,
-    required Data4 data,
+    required Data8 data,
   }) = _MediaCompleteResponse;
   
   factory MediaCompleteResponse.fromJson(Map<String, Object?> json) => _$MediaCompleteResponseFromJson(json);

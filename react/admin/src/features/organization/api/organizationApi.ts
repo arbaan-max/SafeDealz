@@ -84,9 +84,135 @@ export type WalletDetail = {
   availablePaise?: number;
   reservedPaise?: number;
   processingPaise?: number;
+  paymentsProcessingPaise?: number;
   currency?: string;
   ledger?: WalletLedgerEntry[];
   reservations?: WalletHold[];
+};
+
+export type PaymentAttempt = {
+  at?: string;
+  event?: string;
+  status?: string;
+  note?: string;
+};
+
+export type PaymentInstruction = {
+  id?: string;
+  dealId?: string;
+  branchId?: string;
+  status?: string;
+  amountPaise?: number;
+  feePaise?: number;
+  beneficiaryName?: string;
+  accountNumberMasked?: string;
+  ifsc?: string;
+  providerTransferId?: string;
+  providerStatus?: string;
+  attempts?: PaymentAttempt[];
+};
+
+export type AuctionRound = {
+  id: string;
+  deviceId?: string;
+  status?: string;
+  roundNumber?: number;
+  highestAmountPaise?: number;
+  declineReason?: string;
+};
+
+export type BidRow = {
+  id: string;
+  amountPaise?: number;
+  feePaise?: number;
+  status?: string;
+  vendorAccountId?: string;
+};
+
+export type AuctionSettings = {
+  biddingMinutes: number;
+  acceptanceMinutes: number;
+};
+
+export type RewardPolicy = {
+  id?: string;
+  version?: number;
+  earnPointsPerHundredRupees?: number;
+  pointValuePaise?: number;
+  eligibleCategories?: string[];
+  expiryDays?: number;
+  redemptionScope?: string;
+  chainRedemptionEnabled?: boolean;
+  multiBranchRedemptionEnabled?: boolean;
+  futureScopesInactive?: boolean;
+  note?: string;
+};
+
+export type RewardPolicyBundle = {
+  current: RewardPolicy;
+  versions: RewardPolicy[];
+};
+
+export type RewardBranchTotal = {
+  branchId?: string;
+  branchName?: string;
+  issuedPoints?: number;
+  redeemedPoints?: number;
+  outstandingPoints?: number;
+  issuedValuePaise?: number;
+  redeemedValuePaise?: number;
+  outstandingValuePaise?: number;
+};
+
+export type RewardOverview = {
+  branches?: RewardBranchTotal[];
+  totals?: RewardBranchTotal;
+  policy?: RewardPolicy;
+};
+
+export type RewardBalance = {
+  id?: string;
+  customerPhone?: string;
+  customerName?: string;
+  branchId?: string;
+  branchName?: string;
+  pointsBalance?: number;
+  issuedPoints?: number;
+  redeemedPoints?: number;
+  outstandingValuePaise?: number;
+  redeemableAtThisBranch?: boolean;
+};
+
+export type RewardLedgerEntry = {
+  id?: string;
+  type?: string;
+  points?: number;
+  valuePaise?: number;
+  balanceAfter?: number;
+  branchId?: string;
+  dealId?: string;
+  invoiceNumber?: string;
+  policyVersion?: number;
+  reason?: string;
+  createdAt?: string;
+};
+
+export type CustomerRewards = {
+  phone?: string;
+  customerName?: string;
+  balances?: RewardBalance[];
+  entries?: RewardLedgerEntry[];
+};
+
+export type InboxNotification = {
+  id?: string;
+  title?: string;
+  body?: string;
+  category?: string;
+  audience?: string;
+  status?: string;
+  recipientRole?: string;
+  createdAt?: string;
 };
 
 export function useOrganizationApi() {
@@ -111,6 +237,22 @@ export function useOrganizationApi() {
       linkVendor: (body: Record<string, unknown>) => request<VendorAccount>('/vendors/links', json('POST', body)),
       updateVendor: (id: string, body: Record<string, unknown>) => request<VendorAccount>(`/vendors/${id}`, json('PATCH', body)),
       getVendorWallet: (vendorId: string) => request<WalletDetail>(`/wallets/${vendorId}`),
+      getSettings: () => request<AuctionSettings>('/settings'),
+      updateSettings: (body: AuctionSettings) => request<AuctionSettings>('/settings', json('PATCH', body)),
+      listPayments: () => request<PaymentInstruction[]>('/payments'),
+      getPayment: (id: string) => request<PaymentInstruction>(`/payments/${id}`),
+      retryPayment: (id: string) => request<PaymentInstruction>(`/payments/${id}/retry`, json('POST', {})),
+      reconcilePayment: (id: string, outcome: 'processed' | 'failed') => request<PaymentInstruction>(`/payments/${id}/reconcile`, json('POST', { outcome })),
+      listAuctions: () => request<AuctionRound[]>('/auctions'),
+      getAuction: (id: string) => request<AuctionRound>(`/auctions/${id}`),
+      listAuctionBids: (id: string) => request<BidRow[]>(`/auctions/${id}/bids`),
+      getRewardOverview: (branchId?: string) => request<RewardOverview>(`/rewards/overview${branchId ? `?branchId=${encodeURIComponent(branchId)}` : ''}`),
+      getCustomerRewards: (phone: string) => request<CustomerRewards>(`/rewards/customers/${encodeURIComponent(phone)}`),
+      getRewardPolicy: () => request<RewardPolicyBundle>('/rewards/policy'),
+      publishRewardPolicy: (body: Partial<RewardPolicy>) => request<RewardPolicyBundle>('/rewards/policy', json('POST', body)),
+      listNotificationHistory: () => request<InboxNotification[]>('/notifications/history'),
+      broadcastNotification: (body: { audience: string; title: string; body: string; category?: string; branchId?: string; accountId?: string }) =>
+        request<{ campaignId: string; delivered: number }>('/notifications/broadcasts', json('POST', body)),
     };
   }, [request]);
 }

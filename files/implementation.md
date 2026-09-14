@@ -6,16 +6,16 @@ This is the execution dashboard. plan.md owns phase status; numbered files under
 
 | Item | Value |
 | --- | --- |
-| Completed phase | P10 — Wallet ledger |
-| Completed task | TASK-012 |
-| Next phase | P11 — Wallet recharge |
-| Next task | Not created; wait for explicit P11 authorization |
-| Product feature status | Intake through signed QR import and personal vendor wallet ledger complete; Razorpay recharge and auctions not started |
+| Completed phase | P20 — Notifications and broadcasts |
+| Completed task | TASK-022 |
+| Next phase | P21 — Support management |
+| Next task | None — stop after P20 |
+| Product feature status | P16–P20 complete; P21 not started |
 | Product reference | design.md and design.html |
 | Security reference | security.md |
 | Architecture reference | architecture.md |
 
-Stop boundary: P10 is complete. P11 has not started and is not authorized.
+Stop boundary: inclusive range P16–P20. **P20 is complete. Do not start P21.**
 
 Execution rule recorded on 2026-09-14: a single-phase command stops automatically after that phase; an explicit inclusive phase range may continue through its named final phase and then stops. Named tasks stop after their stated scope. Safely deferrable broad builds may run in the final authorized phase, while required feature, contract, integration, and security checks remain in the phase that introduces the behavior.
 
@@ -78,6 +78,176 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | Flutter | Store Manager 20/20, Vendor 9/9, Diagnostics 14/14; analysis clean |
 | Complete gate | `make -f files/Makefile generate-api`, React check, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
 | Android APK | Deferred: qr_flutter is Dart-only |
+
+## P20 delivered
+
+- Paid payout and pickup events create role-specific in-app notifications once. Admin S04 lists delivery history and can broadcast to all users, stores, vendors, one store or one vendor.
+- Unauthenticated inbox is 401. External delivery uses the in-process test provider. OpenAPI v0.20.0.
+
+## P20 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 38/38 including duplicate event suppression, vendor broadcast targeting and 401 before login |
+| OpenAPI | v0.20.0 generated in all three Flutter apps |
+| React | Passed 25/25 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 36/36, Vendor 26/26, Diagnostics 14/14; analysis clean |
+| Android APK | Passed sequentially 2026-09-14: Store Manager, Vendor, Diagnostics |
+
+## P19 delivered
+
+- Managers look up a customer at their branch, quote a partial discount, send a stub OTP bound to branch/invoice/amount, and debit points once.
+- Expired OTP, other-branch lookup, over-bill and insufficient points are rejected. Receipt reminds staff to apply the discount in billing software.
+- M18–M22. OpenAPI v0.19.0.
+
+## P19 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 37/37 including bound OTP, replay debit and other-branch 404 |
+| OpenAPI | v0.19.0 generated in all three Flutter apps |
+| React | Passed 24/24 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 35/35, Vendor 25/25, Diagnostics 14/14; analysis clean |
+| Android APK | Deferred to P20 |
+
+## P18 delivered
+
+- Paid payouts issue 10 points per complete ₹100 of the bid excluding fee. Each point is ₹0.50. Duplicate processed webhooks credit the ledger once.
+- Rewards stay on the originating branch. Chain and multi-branch redemption remain inactive. Policy versions snapshot onto each earn entry.
+- React A15/A16/A17. OpenAPI v0.18.0.
+
+## P18 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 36/36 including once-only issue, other-branch empty lookup and inactive chain scope |
+| OpenAPI | v0.18.0 generated in all three Flutter apps |
+| React | Passed 24/24 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 33/33, Vendor 25/25, Diagnostics 14/14; analysis clean |
+| Android APK | Deferred to P20 |
+
+## P17 delivered
+
+- Originating store marks pickup after paid payout. Replay returns the same picked-up deal. Vendors read their own deal without KYC and cannot mark pickup.
+- M14/M17/M16, Vendor V12, React A10/A11. OpenAPI v0.17.0.
+
+## P17 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 35/35 including pickup idempotency and vendor 403 |
+| OpenAPI | v0.17.0 generated in all three Flutter apps |
+| React | Passed 21/21 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 32/32, Vendor 25/25, Diagnostics 14/14; analysis clean |
+| Android APK | Deferred to P20 |
+
+## P16 delivered
+
+- KYC automatically submits a stub store payout. HMAC webhook `payout.processed` settles committed funds once, marks the deal paid and the device awaiting pickup.
+- Failed payouts stay needs-attention with funds committed. Unknown outcomes require Super Admin/Admin reconcile before retry. No approve-payout action.
+- M13 payment status; React A12/A13. OpenAPI v0.16.0. `paymentsProcessingPaise` is committed unsettled holds; `processingPaise` remains recharge pending.
+
+## P16 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 34/34 including duplicate paid replay, unknown-before-retry and vendor 403 |
+| OpenAPI | v0.16.0 generated in all three Flutter apps |
+| React | Passed 19/19 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 31/31, Vendor 24/24, Diagnostics 14/14; analysis clean |
+| Complete gate | generate-api, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred to P20 |
+
+## P15 delivered
+
+- Accept claims the offer once, commits bid plus fee, and creates a payment instruction in awaiting-customer-verification.
+- M12 Confirm posts accept; M08 collects name, stub OTP `123456`, ID/portrait adapters and a separate purchased-device identity.
+- Vendor GET deal is 403. Provider transfer waits for KYC. OpenAPI v0.15.0.
+
+## P15 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 33/33 including accept replay, vendor 403, OTP/RAM/IMEI validation and expiry race |
+| OpenAPI | v0.15.0 generated in all three Flutter apps |
+| React | Passed 17/17 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 29/29, Vendor 24/24, Diagnostics 14/14; analysis clean |
+| Complete gate | generate-api, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred to P20: parallel Gradle debug builds stalled and were aborted |
+
+## P14 delivered
+
+- Close selects the highest bid, using earliest `createdAt` on a tie; losers’ bid+fee holds are released.
+- No bids or expired/declined/rebidded offers move the device to needs-reauction; Other decline requires text.
+- Rebid records a positive expectation and starts a new immutable round from current settings.
+- Store Manager M11 acceptance countdown and M15 restart; no customer KYC.
+- OpenAPI v0.14.0 generated clients.
+
+## P14 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 32/32 including ties, Other-required, duplicate rebid and fake-clock expiry |
+| OpenAPI | v0.14.0 generated in all three Flutter apps |
+| React | Passed 17/17 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 26/26, Vendor 24/24, Diagnostics 14/14; analysis clean |
+| Complete gate | generate-api, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred to P15 |
+
+## P13 delivered
+
+- Vendor bid plus rounded platform fee reserved atomically (≤₹20k 8%, >₹20k–₹30k 7%, >₹30k 6%).
+- One immutable bid per vendor per round; idempotency replay returns 200; insufficient total 409.
+- Vendors never receive `highestAmountPaise` or competitor bids; `ownBid` is caller-only.
+- Vendor V01 live queue, V02 device cards, V04/V05 calculator, V06 confirmation, V13 my bids.
+- OpenAPI v0.13.0 generated clients.
+
+## P13 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 31/31 including fee bands, one-bid, insufficient funds and hidden competitor amounts |
+| OpenAPI | v0.13.0 generated in all three Flutter apps |
+| React | Passed 17/17 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 22/22, Vendor 24/24, Diagnostics 14/14; analysis clean |
+| Complete gate | generate-api already at v0.13.0; React check, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred to P15 |
+
+## P12 delivered
+
+- Server-timed auction start with snapshot bidding/acceptance minutes, cancel with reason, and `POST /auctions/tick` close that survives a second tick after a clock jump.
+- Duplicate live start returns 409; settings 1–30 / 1–60 minutes change future rounds only.
+- Store Manager M10 countdown; React A20 Super Admin timers.
+- OpenAPI v0.12.0 generated clients.
+
+## P12 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 30/30 including duplicate start, future-round settings and close replay |
+| OpenAPI | v0.12.0 generated in all three Flutter apps |
+| React | Passed 17/17 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 22/22, Vendor 17/17, Diagnostics 14/14; analysis clean |
+| Complete gate | generate-api, React check, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred to P15 |
+
+## P11 delivered
+
+- Backend-created Razorpay Orders (stub `order_test_*` without live credentials) and HMAC-SHA256 webhook verification on the raw body.
+- Client acknowledge never credits; `processingPaise` follows pending recharges; `payment.captured` credits once via `razorpay:{paymentId}`; failed then capture still credits.
+- Vendor V08 amount + injectable `RazorpayCheckoutAdapter`; V09 pending/confirmed/failed; Add money enabled.
+- OpenAPI v0.11.0 generated clients.
+
+## P11 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 29/29 including HMAC reject, ack without credit, failed-then-capture, replay |
+| OpenAPI | v0.11.0 generated in all three Flutter apps |
+| React | Passed 16/16 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 20/20, Vendor 17/17, Diagnostics 14/14; analysis clean |
+| Complete gate | generate-api, React check, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred to P15: Dart checkout adapter, no native plugin |
 
 ## P10 delivered
 
@@ -173,7 +343,17 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | TASK-005 | P04 Store Manager onboarding | Backend, Admin web, OpenAPI | Complete | Backend 24/24; React 13/13 + 2/2 Chromium; Flutter 6/6, 6/6, 5/5 |
 | TASK-006 | P05 Vendor onboarding | Backend, Admin web, Flutter, OpenAPI | Complete | Backend 25/25; React 14/14 + 2/2 Chromium; Flutter 6/6, 9/9, 5/5 |
 | TASK-007 | P06 Device identity | Backend, Flutter, OpenAPI | Complete | Backend 26/26; React 14/14 + 2/2 Chromium; Flutter 11/11, 9/9, 5/5 |
-| TASK-008 | P07 Manual inspection and evidence | Backend, Flutter, OpenAPI | Complete | Backend 27/27; React 14/14 + 2/2 Chromium; Flutter 15/15, 9/9, 5/5 |
+| TASK-012 | P10 Wallet ledger | Backend, Flutter, Admin web, OpenAPI | Complete | Backend 28/28; React 16/16 + 2/2 Chromium; Flutter 20/20, 13/13, 14/14 |
+| TASK-013 | P11 Wallet recharge | Backend, Flutter, OpenAPI | Complete | Backend 29/29; React 16/16 + 2/2 Chromium; Flutter 20/20, 17/17, 14/14 |
+| TASK-014 | P12 Auction lifecycle | Backend, Flutter, Admin web, OpenAPI | Complete | Backend 30/30; React 17/17 + 2/2 Chromium; Flutter 22/22, 17/17, 14/14 |
+| TASK-015 | P13 Vendor bidding | Backend, Flutter, OpenAPI | Complete | Backend 31/31; React 17/17 + 2/2 Chromium; Flutter 22/22, 24/24, 14/14 |
+| TASK-016 | P14 Offer decision | Backend, Flutter, OpenAPI | Complete | Backend 32/32; React 17/17 + 2/2 Chromium; Flutter 26/26, 24/24, 14/14 |
+| TASK-017 | P15 Acceptance and KYC | Backend, Flutter, OpenAPI | Complete | Backend 33/33; React 17/17 + 2/2 Chromium; Flutter 29/29, 24/24, 14/14 |
+| TASK-018 | P16 Payout and reconciliation | Backend, Flutter, React, OpenAPI | Complete | Backend 34/34; React 19/19 + 2/2 Chromium; Flutter 31/31, 24/24, 14/14 |
+| TASK-019 | P17 Deal history and pickup | Backend, Flutter, React, OpenAPI | Complete | Backend 35/35; React 21/21 + 2/2 Chromium; Flutter 32/32, 25/25, 14/14 |
+| TASK-020 | P18 Reward issuance and policy | Backend, Flutter, React, OpenAPI | Complete | Backend 36/36; React 24/24 + 2/2 Chromium; Flutter 33/33, 25/25, 14/14 |
+| TASK-021 | P19 Reward redemption | Backend, Flutter, OpenAPI | Complete | Backend 37/37; React 24/24 + 2/2 Chromium; Flutter 35/35, 25/25, 14/14 |
+| TASK-022 | P20 Notifications and broadcasts | Backend, Flutter, React, OpenAPI | Complete | Backend 38/38; React 25/25 + 2/2 Chromium; Flutter 36/36, 26/26, 14/14; sequential Android debug APKs passed |
 
 ## P02 delivered
 
@@ -259,4 +439,4 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 
 ## Next action
 
-Wait for explicit P11 authorization. When authorized, create its task before implementing Razorpay wallet recharge; do not begin it automatically.
+Stop after P20. Do not start P21.

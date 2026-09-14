@@ -21,9 +21,10 @@ Data6 _$Data6FromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Data6 {
-  String? get id => throw _privateConstructorUsedError;
-  String? get deviceId => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
+  int? get closedCount => throw _privateConstructorUsedError;
+  List<AuctionRound>? get closed => throw _privateConstructorUsedError;
+  int? get expiredCount => throw _privateConstructorUsedError;
+  List<AuctionRound>? get expired => throw _privateConstructorUsedError;
 
   /// Serializes this Data6 to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +40,12 @@ abstract class $Data6CopyWith<$Res> {
   factory $Data6CopyWith(Data6 value, $Res Function(Data6) then) =
       _$Data6CopyWithImpl<$Res, Data6>;
   @useResult
-  $Res call({String? id, String? deviceId, String? status});
+  $Res call({
+    int? closedCount,
+    List<AuctionRound>? closed,
+    int? expiredCount,
+    List<AuctionRound>? expired,
+  });
 }
 
 /// @nodoc
@@ -57,24 +63,29 @@ class _$Data6CopyWithImpl<$Res, $Val extends Data6>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? deviceId = freezed,
-    Object? status = freezed,
+    Object? closedCount = freezed,
+    Object? closed = freezed,
+    Object? expiredCount = freezed,
+    Object? expired = freezed,
   }) {
     return _then(
       _value.copyWith(
-            id: freezed == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            deviceId: freezed == deviceId
-                ? _value.deviceId
-                : deviceId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            status: freezed == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as String?,
+            closedCount: freezed == closedCount
+                ? _value.closedCount
+                : closedCount // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            closed: freezed == closed
+                ? _value.closed
+                : closed // ignore: cast_nullable_to_non_nullable
+                      as List<AuctionRound>?,
+            expiredCount: freezed == expiredCount
+                ? _value.expiredCount
+                : expiredCount // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            expired: freezed == expired
+                ? _value.expired
+                : expired // ignore: cast_nullable_to_non_nullable
+                      as List<AuctionRound>?,
           )
           as $Val,
     );
@@ -89,7 +100,12 @@ abstract class _$$Data6ImplCopyWith<$Res> implements $Data6CopyWith<$Res> {
   ) = __$$Data6ImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String? deviceId, String? status});
+  $Res call({
+    int? closedCount,
+    List<AuctionRound>? closed,
+    int? expiredCount,
+    List<AuctionRound>? expired,
+  });
 }
 
 /// @nodoc
@@ -106,24 +122,29 @@ class __$$Data6ImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? deviceId = freezed,
-    Object? status = freezed,
+    Object? closedCount = freezed,
+    Object? closed = freezed,
+    Object? expiredCount = freezed,
+    Object? expired = freezed,
   }) {
     return _then(
       _$Data6Impl(
-        id: freezed == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        deviceId: freezed == deviceId
-            ? _value.deviceId
-            : deviceId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        status: freezed == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as String?,
+        closedCount: freezed == closedCount
+            ? _value.closedCount
+            : closedCount // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        closed: freezed == closed
+            ? _value._closed
+            : closed // ignore: cast_nullable_to_non_nullable
+                  as List<AuctionRound>?,
+        expiredCount: freezed == expiredCount
+            ? _value.expiredCount
+            : expiredCount // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        expired: freezed == expired
+            ? _value._expired
+            : expired // ignore: cast_nullable_to_non_nullable
+                  as List<AuctionRound>?,
       ),
     );
   }
@@ -132,21 +153,44 @@ class __$$Data6ImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Data6Impl implements _Data6 {
-  const _$Data6Impl({this.id, this.deviceId, this.status});
+  const _$Data6Impl({
+    this.closedCount,
+    final List<AuctionRound>? closed,
+    this.expiredCount,
+    final List<AuctionRound>? expired,
+  }) : _closed = closed,
+       _expired = expired;
 
   factory _$Data6Impl.fromJson(Map<String, dynamic> json) =>
       _$$Data6ImplFromJson(json);
 
   @override
-  final String? id;
+  final int? closedCount;
+  final List<AuctionRound>? _closed;
   @override
-  final String? deviceId;
+  List<AuctionRound>? get closed {
+    final value = _closed;
+    if (value == null) return null;
+    if (_closed is EqualUnmodifiableListView) return _closed;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
-  final String? status;
+  final int? expiredCount;
+  final List<AuctionRound>? _expired;
+  @override
+  List<AuctionRound>? get expired {
+    final value = _expired;
+    if (value == null) return null;
+    if (_expired is EqualUnmodifiableListView) return _expired;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Data6(id: $id, deviceId: $deviceId, status: $status)';
+    return 'Data6(closedCount: $closedCount, closed: $closed, expiredCount: $expiredCount, expired: $expired)';
   }
 
   @override
@@ -154,15 +198,23 @@ class _$Data6Impl implements _Data6 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Data6Impl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.deviceId, deviceId) ||
-                other.deviceId == deviceId) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.closedCount, closedCount) ||
+                other.closedCount == closedCount) &&
+            const DeepCollectionEquality().equals(other._closed, _closed) &&
+            (identical(other.expiredCount, expiredCount) ||
+                other.expiredCount == expiredCount) &&
+            const DeepCollectionEquality().equals(other._expired, _expired));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, deviceId, status);
+  int get hashCode => Object.hash(
+    runtimeType,
+    closedCount,
+    const DeepCollectionEquality().hash(_closed),
+    expiredCount,
+    const DeepCollectionEquality().hash(_expired),
+  );
 
   /// Create a copy of Data6
   /// with the given fields replaced by the non-null parameter values.
@@ -180,19 +232,22 @@ class _$Data6Impl implements _Data6 {
 
 abstract class _Data6 implements Data6 {
   const factory _Data6({
-    final String? id,
-    final String? deviceId,
-    final String? status,
+    final int? closedCount,
+    final List<AuctionRound>? closed,
+    final int? expiredCount,
+    final List<AuctionRound>? expired,
   }) = _$Data6Impl;
 
   factory _Data6.fromJson(Map<String, dynamic> json) = _$Data6Impl.fromJson;
 
   @override
-  String? get id;
+  int? get closedCount;
   @override
-  String? get deviceId;
+  List<AuctionRound>? get closed;
   @override
-  String? get status;
+  int? get expiredCount;
+  @override
+  List<AuctionRound>? get expired;
 
   /// Create a copy of Data6
   /// with the given fields replaced by the non-null parameter values.

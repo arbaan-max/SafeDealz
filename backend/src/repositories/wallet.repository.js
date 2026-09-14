@@ -16,5 +16,9 @@ export const createReservation = (attributes, session) => (
   session ? WalletReservation.create([attributes], { session }).then((rows) => rows[0]) : WalletReservation.create(attributes)
 );
 export const findReservationByKey = (idempotencyKey, session) => WalletReservation.findOne({ idempotencyKey }).session(session || null);
-export const listHeldReservations = (walletId) => WalletReservation.find({ walletId, status: 'held' }).sort({ createdAt: -1 });
+export const listHeldReservations = (walletId) => WalletReservation.find({ walletId, status: { $in: ['held', 'committed'] } }).sort({ createdAt: -1 });
 export const saveReservation = (reservation, session) => reservation.save(session ? { session } : undefined);
+export const sumCommittedReservations = async (walletId) => {
+  const rows = await WalletReservation.find({ walletId, status: 'committed' });
+  return rows.reduce((sum, row) => sum + row.amountPaise, 0);
+};

@@ -13,6 +13,7 @@ class ManagerBottomNav extends StatelessWidget {
       onDestinationSelected: (value) {
         if (value == 0) context.goNamed(homeRoute);
         if (value == 1) context.goNamed(devicesRoute);
+        if (value == 2) context.goNamed(rewardsLookupRoute);
       },
       destinations: const [
         NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),

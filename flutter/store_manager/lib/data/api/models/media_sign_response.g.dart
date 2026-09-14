@@ -10,7 +10,7 @@ _$MediaSignResponseImpl _$$MediaSignResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$MediaSignResponseImpl(
   success: json['success'] as bool,
-  data: Data3.fromJson(json['data'] as Map<String, dynamic>),
+  data: Data7.fromJson(json['data'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$$MediaSignResponseImplToJson(

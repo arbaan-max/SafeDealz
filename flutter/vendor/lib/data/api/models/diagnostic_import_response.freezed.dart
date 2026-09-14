@@ -24,7 +24,7 @@ DiagnosticImportResponse _$DiagnosticImportResponseFromJson(
 /// @nodoc
 mixin _$DiagnosticImportResponse {
   bool get success => throw _privateConstructorUsedError;
-  Data6 get data => throw _privateConstructorUsedError;
+  Data10 get data => throw _privateConstructorUsedError;
 
   /// Serializes this DiagnosticImportResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,9 +43,9 @@ abstract class $DiagnosticImportResponseCopyWith<$Res> {
     $Res Function(DiagnosticImportResponse) then,
   ) = _$DiagnosticImportResponseCopyWithImpl<$Res, DiagnosticImportResponse>;
   @useResult
-  $Res call({bool success, Data6 data});
+  $Res call({bool success, Data10 data});
 
-  $Data6CopyWith<$Res> get data;
+  $Data10CopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -75,7 +75,7 @@ class _$DiagnosticImportResponseCopyWithImpl<
             data: null == data
                 ? _value.data
                 : data // ignore: cast_nullable_to_non_nullable
-                      as Data6,
+                      as Data10,
           )
           as $Val,
     );
@@ -85,8 +85,8 @@ class _$DiagnosticImportResponseCopyWithImpl<
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $Data6CopyWith<$Res> get data {
-    return $Data6CopyWith<$Res>(_value.data, (value) {
+  $Data10CopyWith<$Res> get data {
+    return $Data10CopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -101,10 +101,10 @@ abstract class _$$DiagnosticImportResponseImplCopyWith<$Res>
   ) = __$$DiagnosticImportResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool success, Data6 data});
+  $Res call({bool success, Data10 data});
 
   @override
-  $Data6CopyWith<$Res> get data;
+  $Data10CopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -134,7 +134,7 @@ class __$$DiagnosticImportResponseImplCopyWithImpl<$Res>
         data: null == data
             ? _value.data
             : data // ignore: cast_nullable_to_non_nullable
-                  as Data6,
+                  as Data10,
       ),
     );
   }
@@ -154,7 +154,7 @@ class _$DiagnosticImportResponseImpl implements _DiagnosticImportResponse {
   @override
   final bool success;
   @override
-  final Data6 data;
+  final Data10 data;
 
   @override
   String toString() {
@@ -194,7 +194,7 @@ class _$DiagnosticImportResponseImpl implements _DiagnosticImportResponse {
 abstract class _DiagnosticImportResponse implements DiagnosticImportResponse {
   const factory _DiagnosticImportResponse({
     required final bool success,
-    required final Data6 data,
+    required final Data10 data,
   }) = _$DiagnosticImportResponseImpl;
 
   factory _DiagnosticImportResponse.fromJson(Map<String, dynamic> json) =
@@ -203,7 +203,7 @@ abstract class _DiagnosticImportResponse implements DiagnosticImportResponse {
   @override
   bool get success;
   @override
-  Data6 get data;
+  Data10 get data;
 
   /// Create a copy of DiagnosticImportResponse
   /// with the given fields replaced by the non-null parameter values.

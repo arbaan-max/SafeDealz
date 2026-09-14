@@ -10,10 +10,14 @@ import 'package:safedealz_vendor/core/network/session_interceptor.dart';
 import 'package:safedealz_vendor/data/api/clients/auth_client.dart';
 import 'package:safedealz_vendor/data/api/clients/operations_client.dart';
 import 'package:safedealz_vendor/data/api/clients/organization_client.dart';
+import 'package:safedealz_vendor/data/repositories/auction_repository.dart';
 import 'package:safedealz_vendor/data/repositories/auth_repository.dart';
+import 'package:safedealz_vendor/data/repositories/deal_repository.dart';
+import 'package:safedealz_vendor/data/repositories/notification_repository.dart';
 import 'package:safedealz_vendor/data/repositories/store_repository.dart';
 import 'package:safedealz_vendor/data/repositories/wallet_repository.dart';
 import 'package:safedealz_vendor/data/services/auth_service.dart';
+import 'package:safedealz_vendor/data/services/razorpay_checkout_adapter.dart';
 import 'package:safedealz_vendor/data/services/token_store.dart';
 
 class SafeDealzApp extends StatelessWidget {
@@ -45,6 +49,18 @@ class SafeDealzApp extends StatelessWidget {
         ),
         RepositoryProvider<WalletRepository>.value(
           value: WalletRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<AuctionRepository>.value(
+          value: AuctionRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<DealRepository>.value(
+          value: DealRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<NotificationRepository>.value(
+          value: NotificationRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<RazorpayCheckoutAdapter>.value(
+          value: const DemoRazorpayCheckoutAdapter(),
         ),
       ],
       child: MultiBlocProvider(

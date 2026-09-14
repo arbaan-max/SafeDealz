@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'data6.dart';
+import 'data10.dart';
 
 part 'diagnostic_import_response.freezed.dart';
 part 'diagnostic_import_response.g.dart';
@@ -13,7 +13,7 @@ part 'diagnostic_import_response.g.dart';
 class DiagnosticImportResponse with _$DiagnosticImportResponse {
   const factory DiagnosticImportResponse({
     required bool success,
-    required Data6 data,
+    required Data10 data,
   }) = _DiagnosticImportResponse;
   
   factory DiagnosticImportResponse.fromJson(Map<String, Object?> json) => _$DiagnosticImportResponseFromJson(json);

@@ -15,6 +15,7 @@ class VendorWallet with _$VendorWallet {
     int? availablePaise,
     int? reservedPaise,
     int? processingPaise,
+    int? paymentsProcessingPaise,
     String? currency,
   }) = _VendorWallet;
   

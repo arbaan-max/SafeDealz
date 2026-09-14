@@ -14,7 +14,7 @@ const deviceSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ['draft', 'inspecting', 'awaiting_diagnostics', 'ready_for_auction'],
+    enum: ['draft', 'inspecting', 'awaiting_diagnostics', 'ready_for_auction', 'live', 'awaiting_acceptance', 'needs_reauction', 'accepted', 'awaiting_pickup', 'picked_up'],
     default: 'draft',
     index: true,
   },

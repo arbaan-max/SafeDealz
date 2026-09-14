@@ -7,14 +7,20 @@ part of 'data6.dart';
 // **************************************************************************
 
 _$Data6Impl _$$Data6ImplFromJson(Map<String, dynamic> json) => _$Data6Impl(
-  id: json['id'] as String?,
-  deviceId: json['deviceId'] as String?,
-  status: json['status'] as String?,
+  closedCount: (json['closedCount'] as num?)?.toInt(),
+  closed: (json['closed'] as List<dynamic>?)
+      ?.map((e) => AuctionRound.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  expiredCount: (json['expiredCount'] as num?)?.toInt(),
+  expired: (json['expired'] as List<dynamic>?)
+      ?.map((e) => AuctionRound.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$$Data6ImplToJson(_$Data6Impl instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'deviceId': instance.deviceId,
-      'status': instance.status,
+      'closedCount': instance.closedCount,
+      'closed': instance.closed,
+      'expiredCount': instance.expiredCount,
+      'expired': instance.expired,
     };

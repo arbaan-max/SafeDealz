@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'data3.dart';
+import 'data7.dart';
 
 part 'media_sign_response.freezed.dart';
 part 'media_sign_response.g.dart';
@@ -13,7 +13,7 @@ part 'media_sign_response.g.dart';
 class MediaSignResponse with _$MediaSignResponse {
   const factory MediaSignResponse({
     required bool success,
-    required Data3 data,
+    required Data7 data,
   }) = _MediaSignResponse;
   
   factory MediaSignResponse.fromJson(Map<String, Object?> json) => _$MediaSignResponseFromJson(json);

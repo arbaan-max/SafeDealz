@@ -10,13 +10,18 @@ import 'package:safedealz_store_manager/core/network/session_interceptor.dart';
 import 'package:safedealz_store_manager/data/api/clients/auth_client.dart';
 import 'package:safedealz_store_manager/data/api/clients/operations_client.dart';
 import 'package:safedealz_store_manager/data/repositories/account_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/auth_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/catalog_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/notification_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
 import 'package:safedealz_store_manager/data/services/auth_service.dart';
 import 'package:safedealz_store_manager/data/services/diagnostic_qr_scan_adapter.dart';
 import 'package:safedealz_store_manager/data/services/evidence_capture_adapter.dart';
 import 'package:safedealz_store_manager/data/services/imei_scan_adapter.dart';
+import 'package:safedealz_store_manager/data/services/kyc_capture_adapter.dart';
 import 'package:safedealz_store_manager/data/services/token_store.dart';
 
 class SafeDealzApp extends StatelessWidget {
@@ -50,8 +55,20 @@ class SafeDealzApp extends StatelessWidget {
         RepositoryProvider<DeviceRepository>.value(
           value: DeviceRepositoryImpl(OperationsClient(dio), dio),
         ),
+        RepositoryProvider<AuctionRepository>.value(
+          value: AuctionRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<DealRepository>.value(
+          value: DealRepositoryImpl(OperationsClient(dio)),
+        ),
         RepositoryProvider<CatalogRepository>.value(
           value: CatalogRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<RewardRepository>.value(
+          value: RewardRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<NotificationRepository>.value(
+          value: NotificationRepositoryImpl(OperationsClient(dio)),
         ),
         RepositoryProvider<ImeiScanAdapter>.value(
           value: const DemoImeiScanAdapter(),
@@ -61,6 +78,9 @@ class SafeDealzApp extends StatelessWidget {
         ),
         RepositoryProvider<DiagnosticQrScanAdapter>.value(
           value: const DemoDiagnosticQrScanAdapter(),
+        ),
+        RepositoryProvider<KycCaptureAdapter>.value(
+          value: const DemoKycCaptureAdapter(),
         ),
       ],
       child: MultiBlocProvider(

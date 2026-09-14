@@ -129,3 +129,17 @@ Owner follow-up on 2026-09-14: start P08. That command authorizes P08 only; stop
 Owner follow-up on 2026-09-14: start P09 and complete it. That command authorizes P09 only; stop after P09 and do not start P10.
 
 Owner follow-up on 2026-09-14: start P10. That command authorizes P10 only; stop after P10 and do not start P11.
+
+## DEC-022 — Authorized P11–P15 range
+
+Status: Confirmed by owner, 2026-09-14.
+
+Implement P11 through P15 inclusive. After every completed phase, update the recommended Markdown files and continue automatically. Stop after P15. P16 payout/provider transfer is not authorized. Android APK builds deferred from P11 remain due at P15 when no native plugin is added. Live Razorpay stays stubbed (HMAC/order stub). Client checkout never credits the wallet.
+
+Owner follow-up on 2026-09-14: P15 product tests passed. Parallel `flutter build apk --debug` jobs stalled in Gradle and were aborted. Those deferred APKs remain due at the end of the next authorized range.
+
+## DEC-023 — Authorized P16–P20 range
+
+Status: Confirmed by owner, 2026-09-14.
+
+Implement P16 through P20 inclusive. After every completed phase, run the phase tests, update the recommended Markdown files, and continue automatically. Stop after P20. P21 is not authorized. Android debug APKs deferred from P11–P15 must run before completing P20 when no native plugin is added. Payout provider stays stubbed with HMAC webhooks; unknown outcomes must be reconciled before retry.

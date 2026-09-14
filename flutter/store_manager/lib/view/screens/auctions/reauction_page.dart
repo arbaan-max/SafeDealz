@@ -1,0 +1,91 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:safedealz_store_manager/core/network/api_error_message.dart';
+import 'package:safedealz_store_manager/core/route/routes.dart';
+import 'package:safedealz_store_manager/data/api/models/auction_round.dart';
+import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
+import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
+import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
+
+class ReauctionPage extends StatefulWidget {
+  const ReauctionPage({super.key, required this.auctionId});
+  final String auctionId;
+
+  @override
+  State<ReauctionPage> createState() => _ReauctionPageState();
+}
+
+class _ReauctionPageState extends State<ReauctionPage> {
+  AuctionRound? _round;
+  String? _error;
+  bool _loading = true;
+  bool _busy = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final auctions = context.read<AuctionRepository>();
+      try {
+        final round = await auctions.getAuction(widget.auctionId);
+        if (mounted) setState(() { _round = round; _loading = false; });
+      } catch (error) {
+        if (mounted) setState(() { _error = apiErrorMessage(error); _loading = false; });
+      }
+    });
+  }
+
+  Future<void> _restart() async {
+    final round = _round;
+    if (round == null) return;
+    setState(() => _busy = true);
+    try {
+      final next = await context.read<AuctionRepository>().startAuction(round.deviceId);
+      if (!mounted) return;
+      context.goNamed(liveAuctionRoute, pathParameters: {'id': next.id});
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        _error = apiErrorMessage(error);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final round = _round;
+    final device = round?.device is Map
+        ? Map<String, dynamic>.from(round!.device as Map)
+        : const <String, dynamic>{};
+    return AppPageScaffold(
+      title: 'Needs re-auction',
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                if (_error != null)
+                  Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                if (round != null) ...[
+                  Text(device['model']?.toString() ?? 'Device'),
+                  Text(round.declineReason?.isNotEmpty == true ? round.declineReason! : 'No bids received'),
+                  Text('Round ${round.roundNumber}'),
+                  Text(
+                    (round.highestAmountPaise ?? 0) == 0
+                        ? 'No bids received'
+                        : 'Last highest offer ${formatPaise(round.highestAmountPaise)}',
+                  ),
+                  const Text('Device evidence is retained. The customer is not collected yet.'),
+                  const SizedBox(height: 24),
+                  FilledButton(
+                    onPressed: _busy ? null : _restart,
+                    child: Text(_busy ? 'Starting…' : 'Review & restart'),
+                  ),
+                ],
+              ],
+            ),
+    );
+  }
+}

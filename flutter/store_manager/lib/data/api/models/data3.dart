@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'signed_url.dart';
+import 'auction_round.dart';
 
 part 'data3.freezed.dart';
 part 'data3.g.dart';
@@ -12,9 +12,8 @@ part 'data3.g.dart';
 @Freezed()
 class Data3 with _$Data3 {
   const factory Data3({
-    String? mediaId,
-    String? objectKey,
-    SignedUrl? upload,
+    required AuctionRound previous,
+    required AuctionRound next,
   }) = _Data3;
   
   factory Data3.fromJson(Map<String, Object?> json) => _$Data3FromJson(json);

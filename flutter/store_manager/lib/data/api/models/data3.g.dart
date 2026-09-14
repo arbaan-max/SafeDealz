@@ -7,16 +7,9 @@ part of 'data3.dart';
 // **************************************************************************
 
 _$Data3Impl _$$Data3ImplFromJson(Map<String, dynamic> json) => _$Data3Impl(
-  mediaId: json['mediaId'] as String?,
-  objectKey: json['objectKey'] as String?,
-  upload: json['upload'] == null
-      ? null
-      : SignedUrl.fromJson(json['upload'] as Map<String, dynamic>),
+  previous: AuctionRound.fromJson(json['previous'] as Map<String, dynamic>),
+  next: AuctionRound.fromJson(json['next'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$$Data3ImplToJson(_$Data3Impl instance) =>
-    <String, dynamic>{
-      'mediaId': instance.mediaId,
-      'objectKey': instance.objectKey,
-      'upload': instance.upload,
-    };
+    <String, dynamic>{'previous': instance.previous, 'next': instance.next};

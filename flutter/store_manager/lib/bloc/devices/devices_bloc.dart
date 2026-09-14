@@ -38,6 +38,11 @@ class DevicesBloc extends Bloc<DevicesEvent, DevicesState> {
         'all' => null,
         'inspecting' => 'inspecting',
         'ready' => 'ready_for_auction',
+        'live' => 'live',
+        'offers' => 'awaiting_acceptance',
+        'reauction' => 'needs_reauction',
+        'pickup' => 'awaiting_pickup',
+        'picked' => 'picked_up',
         _ => 'draft',
       };
       final items = await _devices.listDevices(status: status);

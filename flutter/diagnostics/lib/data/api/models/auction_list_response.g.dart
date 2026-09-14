@@ -1,0 +1,20 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'auction_list_response.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$AuctionListResponseImpl _$$AuctionListResponseImplFromJson(
+  Map<String, dynamic> json,
+) => _$AuctionListResponseImpl(
+  success: json['success'] as bool,
+  data: (json['data'] as List<dynamic>)
+      .map((e) => AuctionRound.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$$AuctionListResponseImplToJson(
+  _$AuctionListResponseImpl instance,
+) => <String, dynamic>{'success': instance.success, 'data': instance.data};

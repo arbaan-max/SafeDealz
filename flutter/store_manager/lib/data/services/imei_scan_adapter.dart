@@ -17,3 +17,13 @@ class DemoImeiScanAdapter implements ImeiScanAdapter {
         imei2: '012345678901235',
       );
 }
+
+class DemoPurchasedImeiScanAdapter implements ImeiScanAdapter {
+  const DemoPurchasedImeiScanAdapter();
+
+  @override
+  Future<ScannedImeis?> scan() async => const ScannedImeis(
+        imei1: '353456789012345',
+        imei2: '353456789012346',
+      );
+}

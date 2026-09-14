@@ -22,6 +22,11 @@ class HomePage extends StatelessWidget {
       child: AppPageScaffold(
         title: 'SafeDealz',
         actions: [
+          IconButton(
+            onPressed: () => context.goNamed(notificationsRoute),
+            icon: const Icon(Icons.notifications_outlined),
+            tooltip: 'Notifications',
+          ),
           TextButton(
             onPressed: () {
               context.read<AuthBloc>().add(const AuthLogoutRequested());
@@ -67,7 +72,7 @@ class HomePage extends StatelessWidget {
                   trailing: const Text('View all'),
                   onTap: () => context.goNamed(
                     devicesRoute,
-                    queryParameters: {'filter': 'all'},
+                    queryParameters: {'filter': 'offers'},
                   ),
                 ),
                 const SizedBox(height: 8),

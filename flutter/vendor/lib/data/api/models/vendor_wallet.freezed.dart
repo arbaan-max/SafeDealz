@@ -26,6 +26,7 @@ mixin _$VendorWallet {
   int? get availablePaise => throw _privateConstructorUsedError;
   int? get reservedPaise => throw _privateConstructorUsedError;
   int? get processingPaise => throw _privateConstructorUsedError;
+  int? get paymentsProcessingPaise => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
 
   /// Serializes this VendorWallet to a JSON map.
@@ -51,6 +52,7 @@ abstract class $VendorWalletCopyWith<$Res> {
     int? availablePaise,
     int? reservedPaise,
     int? processingPaise,
+    int? paymentsProcessingPaise,
     String? currency,
   });
 }
@@ -75,6 +77,7 @@ class _$VendorWalletCopyWithImpl<$Res, $Val extends VendorWallet>
     Object? availablePaise = freezed,
     Object? reservedPaise = freezed,
     Object? processingPaise = freezed,
+    Object? paymentsProcessingPaise = freezed,
     Object? currency = freezed,
   }) {
     return _then(
@@ -98,6 +101,10 @@ class _$VendorWalletCopyWithImpl<$Res, $Val extends VendorWallet>
             processingPaise: freezed == processingPaise
                 ? _value.processingPaise
                 : processingPaise // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            paymentsProcessingPaise: freezed == paymentsProcessingPaise
+                ? _value.paymentsProcessingPaise
+                : paymentsProcessingPaise // ignore: cast_nullable_to_non_nullable
                       as int?,
             currency: freezed == currency
                 ? _value.currency
@@ -124,6 +131,7 @@ abstract class _$$VendorWalletImplCopyWith<$Res>
     int? availablePaise,
     int? reservedPaise,
     int? processingPaise,
+    int? paymentsProcessingPaise,
     String? currency,
   });
 }
@@ -147,6 +155,7 @@ class __$$VendorWalletImplCopyWithImpl<$Res>
     Object? availablePaise = freezed,
     Object? reservedPaise = freezed,
     Object? processingPaise = freezed,
+    Object? paymentsProcessingPaise = freezed,
     Object? currency = freezed,
   }) {
     return _then(
@@ -171,6 +180,10 @@ class __$$VendorWalletImplCopyWithImpl<$Res>
             ? _value.processingPaise
             : processingPaise // ignore: cast_nullable_to_non_nullable
                   as int?,
+        paymentsProcessingPaise: freezed == paymentsProcessingPaise
+            ? _value.paymentsProcessingPaise
+            : paymentsProcessingPaise // ignore: cast_nullable_to_non_nullable
+                  as int?,
         currency: freezed == currency
             ? _value.currency
             : currency // ignore: cast_nullable_to_non_nullable
@@ -189,6 +202,7 @@ class _$VendorWalletImpl implements _VendorWallet {
     this.availablePaise,
     this.reservedPaise,
     this.processingPaise,
+    this.paymentsProcessingPaise,
     this.currency,
   });
 
@@ -206,11 +220,13 @@ class _$VendorWalletImpl implements _VendorWallet {
   @override
   final int? processingPaise;
   @override
+  final int? paymentsProcessingPaise;
+  @override
   final String? currency;
 
   @override
   String toString() {
-    return 'VendorWallet(id: $id, vendorAccountId: $vendorAccountId, availablePaise: $availablePaise, reservedPaise: $reservedPaise, processingPaise: $processingPaise, currency: $currency)';
+    return 'VendorWallet(id: $id, vendorAccountId: $vendorAccountId, availablePaise: $availablePaise, reservedPaise: $reservedPaise, processingPaise: $processingPaise, paymentsProcessingPaise: $paymentsProcessingPaise, currency: $currency)';
   }
 
   @override
@@ -227,6 +243,11 @@ class _$VendorWalletImpl implements _VendorWallet {
                 other.reservedPaise == reservedPaise) &&
             (identical(other.processingPaise, processingPaise) ||
                 other.processingPaise == processingPaise) &&
+            (identical(
+                  other.paymentsProcessingPaise,
+                  paymentsProcessingPaise,
+                ) ||
+                other.paymentsProcessingPaise == paymentsProcessingPaise) &&
             (identical(other.currency, currency) ||
                 other.currency == currency));
   }
@@ -240,6 +261,7 @@ class _$VendorWalletImpl implements _VendorWallet {
     availablePaise,
     reservedPaise,
     processingPaise,
+    paymentsProcessingPaise,
     currency,
   );
 
@@ -264,6 +286,7 @@ abstract class _VendorWallet implements VendorWallet {
     final int? availablePaise,
     final int? reservedPaise,
     final int? processingPaise,
+    final int? paymentsProcessingPaise,
     final String? currency,
   }) = _$VendorWalletImpl;
 
@@ -280,6 +303,8 @@ abstract class _VendorWallet implements VendorWallet {
   int? get reservedPaise;
   @override
   int? get processingPaise;
+  @override
+  int? get paymentsProcessingPaise;
   @override
   String? get currency;
 

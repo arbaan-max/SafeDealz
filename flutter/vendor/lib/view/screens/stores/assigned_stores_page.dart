@@ -20,6 +20,14 @@ class AssignedStoresPage extends StatelessWidget {
         title: 'Assigned stores',
         actions: [
           TextButton(
+            onPressed: () => context.goNamed(liveQueueRoute),
+            child: const Text('Live auctions'),
+          ),
+          TextButton(
+            onPressed: () => context.goNamed(myBidsRoute),
+            child: const Text('My bids'),
+          ),
+          TextButton(
             onPressed: () => context.goNamed(walletRoute),
             child: const Text('Wallet'),
           ),

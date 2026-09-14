@@ -5,6 +5,7 @@ import 'package:safedealz_store_manager/core/network/api_error_message.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
 import 'package:safedealz_store_manager/data/api/models/device.dart';
 import 'package:safedealz_store_manager/data/api/models/device_platform.dart';
+import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 
@@ -44,6 +45,17 @@ class _ReviewPageState extends State<ReviewPage> {
     }
   }
 
+  Future<void> _startAuction() async {
+    try {
+      final round = await context.read<AuctionRepository>().startAuction(widget.deviceId);
+      if (!mounted) return;
+      context.goNamed(liveAuctionRoute, pathParameters: {'id': round.id});
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => _error = apiErrorMessage(error));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final device = _device;
@@ -77,7 +89,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   const SizedBox(height: 24),
                   if (apple)
                     FilledButton(
-                      onPressed: imported ? () => context.goNamed(devicesRoute) : null,
+                      onPressed: imported ? _startAuction : null,
                       child: const Text('Review and start auction'),
                     )
                   else if (!imported)
@@ -90,7 +102,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     )
                   else
                     FilledButton(
-                      onPressed: () => context.goNamed(devicesRoute),
+                      onPressed: _startAuction,
                       child: const Text('Start auction'),
                     ),
                 ],

@@ -61,6 +61,7 @@ export const publicWallet = (wallet, options = {}) => ({
   vendorAccountId: String(wallet.vendorAccountId),
   availablePaise: options.hideBalances ? undefined : wallet.availablePaise,
   reservedPaise: options.hideBalances ? undefined : wallet.reservedPaise,
-  processingPaise: options.hideBalances ? undefined : 0,
+  processingPaise: options.hideBalances ? undefined : (options.processingPaise ?? 0),
+  paymentsProcessingPaise: options.hideBalances ? undefined : (options.paymentsProcessingPaise ?? 0),
   currency: 'INR',
 });

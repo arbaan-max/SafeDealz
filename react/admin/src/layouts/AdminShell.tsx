@@ -1,4 +1,4 @@
-import { Building2, LayoutDashboard, ShieldCheck, MapPin, Users, CircleUser } from 'lucide-react';
+import { Building2, LayoutDashboard, ShieldCheck, MapPin, Users, CircleUser, Settings, Banknote, Gavel, Gift, Bell } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 import { PageSurface } from '../shared/ui/PageSurface';
@@ -12,6 +12,11 @@ const links: { to: string; label: string; icon: typeof ShieldCheck; roles: Accou
   { to: '/admins', label: 'Admins', icon: ShieldCheck, roles: ['super_admin'] },
   { to: '/managers', label: 'Managers', icon: Users, roles: ['super_admin', 'admin'] },
   { to: '/vendors', label: 'Vendors', icon: CircleUser, roles: ['super_admin', 'admin'] },
+  { to: '/payments', label: 'Payments', icon: Banknote, roles: ['super_admin', 'admin'] },
+  { to: '/auctions', label: 'Auctions', icon: Gavel, roles: ['super_admin', 'admin'] },
+  { to: '/rewards', label: 'Rewards', icon: Gift, roles: ['super_admin', 'admin'] },
+  { to: '/notifications', label: 'Notifications', icon: Bell, roles: ['super_admin', 'admin'] },
+  { to: '/settings', label: 'Settings', icon: Settings, roles: ['super_admin'] },
 ];
 
 export function AdminShell() {

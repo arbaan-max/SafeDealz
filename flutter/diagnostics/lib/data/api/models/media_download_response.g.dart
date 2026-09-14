@@ -10,7 +10,7 @@ _$MediaDownloadResponseImpl _$$MediaDownloadResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$MediaDownloadResponseImpl(
   success: json['success'] as bool,
-  data: Data5.fromJson(json['data'] as Map<String, dynamic>),
+  data: Data9.fromJson(json['data'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$$MediaDownloadResponseImplToJson(

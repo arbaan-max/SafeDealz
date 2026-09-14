@@ -15,7 +15,7 @@ const imei = (value, label) => {
   if (!/^\d{15}$/.test(digits)) throw new ApiError(400, 'VALIDATION_ERROR', `${label} must be 15 digits.`);
   return digits;
 };
-const statuses = new Set(['draft', 'inspecting', 'awaiting_diagnostics', 'ready_for_auction']);
+const statuses = new Set(['draft', 'inspecting', 'awaiting_diagnostics', 'ready_for_auction', 'live', 'awaiting_acceptance', 'needs_reauction', 'accepted', 'awaiting_pickup', 'picked_up']);
 const publicDevice = (device, extras = {}) => ({
   id: String(device.id),
   branchId: String(device.branchId),

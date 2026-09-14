@@ -54,3 +54,25 @@ tags:
 - Owner authorized P10 only.
 - Completed P10: personal vendor wallet ledger, concurrent reservation safety, V07/V10/V11 and A14. Stopped before P11.
 - P10 verification: backend 28/28; React 16/16 and 2/2 Chromium; Flutter 20/20, 13/13, 14/14.
+- Owner authorized inclusive range P11–P15; stop after P15.
+- Completed P11: Razorpay stub orders, raw-body HMAC webhook, V08/V09, OpenAPI v0.11.0. Continuing to P12.
+- P11 verification: backend 29/29; React 16/16 and 2/2 Chromium; Flutter 20/20, 17/17, 14/14.
+- Completed P12: auction start/tick/cancel, M10, A20, OpenAPI v0.12.0. Continuing to P13.
+- P12 verification: backend 30/30; React 17/17 and 2/2 Chromium; Flutter 22/22, 17/17, 14/14.
+- Completed P13: vendor bids with fee holds, V01–V06/V13, OpenAPI v0.13.0. Continuing to P14.
+- P13 verification: backend 31/31; React 17/17 and 2/2 Chromium; Flutter 22/22, 24/24, 14/14.
+- Completed P14: winner/expiry/decline/rebid, M11/M15, OpenAPI v0.14.0. Continuing to P15.
+- P14 verification: backend 32/32; React 17/17 and 2/2 Chromium; Flutter 26/26, 24/24, 14/14.
+- Completed P15: accept/KYC, M12/M08, OpenAPI v0.15.0. Parallel Gradle APKs stalled; deferred to P20.
+- P15 verification: backend 33/33; React 17/17 and 2/2 Chromium; Flutter 29/29, 24/24, 14/14.
+- Owner authorized inclusive range P16–P20; stop after P20.
+- Completed P16: stub payout HMAC, M13/A12/A13, OpenAPI v0.16.0. Continuing to P17.
+- P16 verification: backend 34/34; React 19/19 and 2/2 Chromium; Flutter 31/31, 24/24, 14/14.
+- Completed P17: originating-store pickup, V12/A10/A11, OpenAPI v0.17.0. Continuing to P18.
+- P17 verification: backend 35/35; React 21/21 and 2/2 Chromium; Flutter 32/32, 25/25, 14/14.
+- Completed P18: paid-deal branch rewards, A15/A16/A17, OpenAPI v0.18.0. Continuing to P19.
+- P18 verification: backend 36/36; React 24/24 and 2/2 Chromium; Flutter 33/33, 25/25, 14/14.
+- Completed P19: bound OTP redemption, M18–M22, OpenAPI v0.19.0. Continuing to P20.
+- P19 verification: backend 37/37; React 24/24 and 2/2 Chromium; Flutter 35/35, 25/25, 14/14.
+- Completed P20: role inboxes and admin broadcasts, OpenAPI v0.20.0. Stopped before P21.
+- P20 verification: backend 38/38; React 25/25 and 2/2 Chromium; Flutter 36/36, 26/26, 14/14; sequential Android debug APKs passed (Store Manager, Vendor, Diagnostics).

@@ -24,7 +24,7 @@ MediaCompleteResponse _$MediaCompleteResponseFromJson(
 /// @nodoc
 mixin _$MediaCompleteResponse {
   bool get success => throw _privateConstructorUsedError;
-  Data4 get data => throw _privateConstructorUsedError;
+  Data8 get data => throw _privateConstructorUsedError;
 
   /// Serializes this MediaCompleteResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,9 +43,9 @@ abstract class $MediaCompleteResponseCopyWith<$Res> {
     $Res Function(MediaCompleteResponse) then,
   ) = _$MediaCompleteResponseCopyWithImpl<$Res, MediaCompleteResponse>;
   @useResult
-  $Res call({bool success, Data4 data});
+  $Res call({bool success, Data8 data});
 
-  $Data4CopyWith<$Res> get data;
+  $Data8CopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -75,7 +75,7 @@ class _$MediaCompleteResponseCopyWithImpl<
             data: null == data
                 ? _value.data
                 : data // ignore: cast_nullable_to_non_nullable
-                      as Data4,
+                      as Data8,
           )
           as $Val,
     );
@@ -85,8 +85,8 @@ class _$MediaCompleteResponseCopyWithImpl<
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $Data4CopyWith<$Res> get data {
-    return $Data4CopyWith<$Res>(_value.data, (value) {
+  $Data8CopyWith<$Res> get data {
+    return $Data8CopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -101,10 +101,10 @@ abstract class _$$MediaCompleteResponseImplCopyWith<$Res>
   ) = __$$MediaCompleteResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool success, Data4 data});
+  $Res call({bool success, Data8 data});
 
   @override
-  $Data4CopyWith<$Res> get data;
+  $Data8CopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -131,7 +131,7 @@ class __$$MediaCompleteResponseImplCopyWithImpl<$Res>
         data: null == data
             ? _value.data
             : data // ignore: cast_nullable_to_non_nullable
-                  as Data4,
+                  as Data8,
       ),
     );
   }
@@ -151,7 +151,7 @@ class _$MediaCompleteResponseImpl implements _MediaCompleteResponse {
   @override
   final bool success;
   @override
-  final Data4 data;
+  final Data8 data;
 
   @override
   String toString() {
@@ -192,7 +192,7 @@ class _$MediaCompleteResponseImpl implements _MediaCompleteResponse {
 abstract class _MediaCompleteResponse implements MediaCompleteResponse {
   const factory _MediaCompleteResponse({
     required final bool success,
-    required final Data4 data,
+    required final Data8 data,
   }) = _$MediaCompleteResponseImpl;
 
   factory _MediaCompleteResponse.fromJson(Map<String, dynamic> json) =
@@ -201,7 +201,7 @@ abstract class _MediaCompleteResponse implements MediaCompleteResponse {
   @override
   bool get success;
   @override
-  Data4 get data;
+  Data8 get data;
 
   /// Create a copy of MediaCompleteResponse
   /// with the given fields replaced by the non-null parameter values.

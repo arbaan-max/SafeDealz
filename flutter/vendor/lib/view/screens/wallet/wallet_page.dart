@@ -93,7 +93,8 @@ class _WalletPageState extends State<WalletPage> {
                       ),
                       const SizedBox(height: 12),
                       Text('Reserved ${formatPaise(wallet?.reservedPaise)}'),
-                      Text('Payments processing ${formatPaise(wallet?.processingPaise)}'),
+                      Text('Recharge processing ${formatPaise(wallet?.processingPaise)}'),
+                      Text('Payments processing ${formatPaise(wallet?.paymentsProcessingPaise)}'),
                       TextButton(
                         onPressed: () => context.goNamed(walletHoldsRoute),
                         child: const Text('View reserved funds'),
@@ -144,7 +145,7 @@ class _WalletPageState extends State<WalletPage> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: FilledButton(
-                    onPressed: null,
+                    onPressed: () => context.goNamed(walletRechargeRoute),
                     child: const Text('Add money'),
                   ),
                 ),

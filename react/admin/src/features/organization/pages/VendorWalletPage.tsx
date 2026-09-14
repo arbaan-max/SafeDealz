@@ -33,7 +33,7 @@ export function VendorWalletPage() {
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       {wallet ? (
         <>
-          <p>Available {rupees(wallet.availablePaise)} · Reserved {rupees(wallet.reservedPaise)} · Processing {rupees(wallet.processingPaise)}</p>
+          <p>Available {rupees(wallet.availablePaise)} · Reserved {rupees(wallet.reservedPaise)} · Recharge processing {rupees(wallet.processingPaise)} · Payments processing {rupees(wallet.paymentsProcessingPaise)}</p>
           {(wallet.reservations ?? []).length ? (
             <ul>
               {(wallet.reservations ?? []).map((hold) => (

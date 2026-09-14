@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const walletLedgerSchema = new mongoose.Schema({
   walletId: { type: mongoose.Schema.Types.ObjectId, ref: 'Wallet', required: true, index: true },
   vendorAccountId: { type: mongoose.Schema.Types.ObjectId, ref: 'Account', required: true, index: true },
-  type: { type: String, required: true, enum: ['credit', 'reserve', 'release', 'commit'] },
+  type: { type: String, required: true, enum: ['credit', 'reserve', 'release', 'commit', 'settle'] },
   amountPaise: { type: Number, required: true, min: 1 },
   availableAfterPaise: { type: Number, required: true, min: 0 },
   reservedAfterPaise: { type: Number, required: true, min: 0 },

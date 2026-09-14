@@ -21,8 +21,8 @@ Data5 _$Data5FromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Data5 {
-  String? get objectKey => throw _privateConstructorUsedError;
-  SignedUrl? get download => throw _privateConstructorUsedError;
+  bool? get sent => throw _privateConstructorUsedError;
+  bool? get stub => throw _privateConstructorUsedError;
 
   /// Serializes this Data5 to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,9 +38,7 @@ abstract class $Data5CopyWith<$Res> {
   factory $Data5CopyWith(Data5 value, $Res Function(Data5) then) =
       _$Data5CopyWithImpl<$Res, Data5>;
   @useResult
-  $Res call({String? objectKey, SignedUrl? download});
-
-  $SignedUrlCopyWith<$Res>? get download;
+  $Res call({bool? sent, bool? stub});
 }
 
 /// @nodoc
@@ -57,34 +55,20 @@ class _$Data5CopyWithImpl<$Res, $Val extends Data5>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? objectKey = freezed, Object? download = freezed}) {
+  $Res call({Object? sent = freezed, Object? stub = freezed}) {
     return _then(
       _value.copyWith(
-            objectKey: freezed == objectKey
-                ? _value.objectKey
-                : objectKey // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            download: freezed == download
-                ? _value.download
-                : download // ignore: cast_nullable_to_non_nullable
-                      as SignedUrl?,
+            sent: freezed == sent
+                ? _value.sent
+                : sent // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            stub: freezed == stub
+                ? _value.stub
+                : stub // ignore: cast_nullable_to_non_nullable
+                      as bool?,
           )
           as $Val,
     );
-  }
-
-  /// Create a copy of Data5
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SignedUrlCopyWith<$Res>? get download {
-    if (_value.download == null) {
-      return null;
-    }
-
-    return $SignedUrlCopyWith<$Res>(_value.download!, (value) {
-      return _then(_value.copyWith(download: value) as $Val);
-    });
   }
 }
 
@@ -96,10 +80,7 @@ abstract class _$$Data5ImplCopyWith<$Res> implements $Data5CopyWith<$Res> {
   ) = __$$Data5ImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? objectKey, SignedUrl? download});
-
-  @override
-  $SignedUrlCopyWith<$Res>? get download;
+  $Res call({bool? sent, bool? stub});
 }
 
 /// @nodoc
@@ -115,17 +96,17 @@ class __$$Data5ImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? objectKey = freezed, Object? download = freezed}) {
+  $Res call({Object? sent = freezed, Object? stub = freezed}) {
     return _then(
       _$Data5Impl(
-        objectKey: freezed == objectKey
-            ? _value.objectKey
-            : objectKey // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        download: freezed == download
-            ? _value.download
-            : download // ignore: cast_nullable_to_non_nullable
-                  as SignedUrl?,
+        sent: freezed == sent
+            ? _value.sent
+            : sent // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        stub: freezed == stub
+            ? _value.stub
+            : stub // ignore: cast_nullable_to_non_nullable
+                  as bool?,
       ),
     );
   }
@@ -134,19 +115,19 @@ class __$$Data5ImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Data5Impl implements _Data5 {
-  const _$Data5Impl({this.objectKey, this.download});
+  const _$Data5Impl({this.sent, this.stub});
 
   factory _$Data5Impl.fromJson(Map<String, dynamic> json) =>
       _$$Data5ImplFromJson(json);
 
   @override
-  final String? objectKey;
+  final bool? sent;
   @override
-  final SignedUrl? download;
+  final bool? stub;
 
   @override
   String toString() {
-    return 'Data5(objectKey: $objectKey, download: $download)';
+    return 'Data5(sent: $sent, stub: $stub)';
   }
 
   @override
@@ -154,15 +135,13 @@ class _$Data5Impl implements _Data5 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Data5Impl &&
-            (identical(other.objectKey, objectKey) ||
-                other.objectKey == objectKey) &&
-            (identical(other.download, download) ||
-                other.download == download));
+            (identical(other.sent, sent) || other.sent == sent) &&
+            (identical(other.stub, stub) || other.stub == stub));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, objectKey, download);
+  int get hashCode => Object.hash(runtimeType, sent, stub);
 
   /// Create a copy of Data5
   /// with the given fields replaced by the non-null parameter values.
@@ -179,15 +158,14 @@ class _$Data5Impl implements _Data5 {
 }
 
 abstract class _Data5 implements Data5 {
-  const factory _Data5({final String? objectKey, final SignedUrl? download}) =
-      _$Data5Impl;
+  const factory _Data5({final bool? sent, final bool? stub}) = _$Data5Impl;
 
   factory _Data5.fromJson(Map<String, dynamic> json) = _$Data5Impl.fromJson;
 
   @override
-  String? get objectKey;
+  bool? get sent;
   @override
-  SignedUrl? get download;
+  bool? get stub;
 
   /// Create a copy of Data5
   /// with the given fields replaced by the non-null parameter values.

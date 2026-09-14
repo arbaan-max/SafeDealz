@@ -4,16 +4,14 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'signed_url.dart';
-
 part 'data5.freezed.dart';
 part 'data5.g.dart';
 
 @Freezed()
 class Data5 with _$Data5 {
   const factory Data5({
-    String? objectKey,
-    SignedUrl? download,
+    bool? sent,
+    bool? stub,
   }) = _Data5;
   
   factory Data5.fromJson(Map<String, Object?> json) => _$Data5FromJson(json);

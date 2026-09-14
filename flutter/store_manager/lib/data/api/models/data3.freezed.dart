@@ -21,9 +21,8 @@ Data3 _$Data3FromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Data3 {
-  String? get mediaId => throw _privateConstructorUsedError;
-  String? get objectKey => throw _privateConstructorUsedError;
-  SignedUrl? get upload => throw _privateConstructorUsedError;
+  AuctionRound get previous => throw _privateConstructorUsedError;
+  AuctionRound get next => throw _privateConstructorUsedError;
 
   /// Serializes this Data3 to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,9 +38,10 @@ abstract class $Data3CopyWith<$Res> {
   factory $Data3CopyWith(Data3 value, $Res Function(Data3) then) =
       _$Data3CopyWithImpl<$Res, Data3>;
   @useResult
-  $Res call({String? mediaId, String? objectKey, SignedUrl? upload});
+  $Res call({AuctionRound previous, AuctionRound next});
 
-  $SignedUrlCopyWith<$Res>? get upload;
+  $AuctionRoundCopyWith<$Res> get previous;
+  $AuctionRoundCopyWith<$Res> get next;
 }
 
 /// @nodoc
@@ -58,25 +58,17 @@ class _$Data3CopyWithImpl<$Res, $Val extends Data3>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? mediaId = freezed,
-    Object? objectKey = freezed,
-    Object? upload = freezed,
-  }) {
+  $Res call({Object? previous = null, Object? next = null}) {
     return _then(
       _value.copyWith(
-            mediaId: freezed == mediaId
-                ? _value.mediaId
-                : mediaId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            objectKey: freezed == objectKey
-                ? _value.objectKey
-                : objectKey // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            upload: freezed == upload
-                ? _value.upload
-                : upload // ignore: cast_nullable_to_non_nullable
-                      as SignedUrl?,
+            previous: null == previous
+                ? _value.previous
+                : previous // ignore: cast_nullable_to_non_nullable
+                      as AuctionRound,
+            next: null == next
+                ? _value.next
+                : next // ignore: cast_nullable_to_non_nullable
+                      as AuctionRound,
           )
           as $Val,
     );
@@ -86,13 +78,19 @@ class _$Data3CopyWithImpl<$Res, $Val extends Data3>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $SignedUrlCopyWith<$Res>? get upload {
-    if (_value.upload == null) {
-      return null;
-    }
+  $AuctionRoundCopyWith<$Res> get previous {
+    return $AuctionRoundCopyWith<$Res>(_value.previous, (value) {
+      return _then(_value.copyWith(previous: value) as $Val);
+    });
+  }
 
-    return $SignedUrlCopyWith<$Res>(_value.upload!, (value) {
-      return _then(_value.copyWith(upload: value) as $Val);
+  /// Create a copy of Data3
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AuctionRoundCopyWith<$Res> get next {
+    return $AuctionRoundCopyWith<$Res>(_value.next, (value) {
+      return _then(_value.copyWith(next: value) as $Val);
     });
   }
 }
@@ -105,10 +103,12 @@ abstract class _$$Data3ImplCopyWith<$Res> implements $Data3CopyWith<$Res> {
   ) = __$$Data3ImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? mediaId, String? objectKey, SignedUrl? upload});
+  $Res call({AuctionRound previous, AuctionRound next});
 
   @override
-  $SignedUrlCopyWith<$Res>? get upload;
+  $AuctionRoundCopyWith<$Res> get previous;
+  @override
+  $AuctionRoundCopyWith<$Res> get next;
 }
 
 /// @nodoc
@@ -124,25 +124,17 @@ class __$$Data3ImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? mediaId = freezed,
-    Object? objectKey = freezed,
-    Object? upload = freezed,
-  }) {
+  $Res call({Object? previous = null, Object? next = null}) {
     return _then(
       _$Data3Impl(
-        mediaId: freezed == mediaId
-            ? _value.mediaId
-            : mediaId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        objectKey: freezed == objectKey
-            ? _value.objectKey
-            : objectKey // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        upload: freezed == upload
-            ? _value.upload
-            : upload // ignore: cast_nullable_to_non_nullable
-                  as SignedUrl?,
+        previous: null == previous
+            ? _value.previous
+            : previous // ignore: cast_nullable_to_non_nullable
+                  as AuctionRound,
+        next: null == next
+            ? _value.next
+            : next // ignore: cast_nullable_to_non_nullable
+                  as AuctionRound,
       ),
     );
   }
@@ -151,21 +143,19 @@ class __$$Data3ImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Data3Impl implements _Data3 {
-  const _$Data3Impl({this.mediaId, this.objectKey, this.upload});
+  const _$Data3Impl({required this.previous, required this.next});
 
   factory _$Data3Impl.fromJson(Map<String, dynamic> json) =>
       _$$Data3ImplFromJson(json);
 
   @override
-  final String? mediaId;
+  final AuctionRound previous;
   @override
-  final String? objectKey;
-  @override
-  final SignedUrl? upload;
+  final AuctionRound next;
 
   @override
   String toString() {
-    return 'Data3(mediaId: $mediaId, objectKey: $objectKey, upload: $upload)';
+    return 'Data3(previous: $previous, next: $next)';
   }
 
   @override
@@ -173,15 +163,14 @@ class _$Data3Impl implements _Data3 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Data3Impl &&
-            (identical(other.mediaId, mediaId) || other.mediaId == mediaId) &&
-            (identical(other.objectKey, objectKey) ||
-                other.objectKey == objectKey) &&
-            (identical(other.upload, upload) || other.upload == upload));
+            (identical(other.previous, previous) ||
+                other.previous == previous) &&
+            (identical(other.next, next) || other.next == next));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, mediaId, objectKey, upload);
+  int get hashCode => Object.hash(runtimeType, previous, next);
 
   /// Create a copy of Data3
   /// with the given fields replaced by the non-null parameter values.
@@ -199,19 +188,16 @@ class _$Data3Impl implements _Data3 {
 
 abstract class _Data3 implements Data3 {
   const factory _Data3({
-    final String? mediaId,
-    final String? objectKey,
-    final SignedUrl? upload,
+    required final AuctionRound previous,
+    required final AuctionRound next,
   }) = _$Data3Impl;
 
   factory _Data3.fromJson(Map<String, dynamic> json) = _$Data3Impl.fromJson;
 
   @override
-  String? get mediaId;
+  AuctionRound get previous;
   @override
-  String? get objectKey;
-  @override
-  SignedUrl? get upload;
+  AuctionRound get next;
 
   /// Create a copy of Data3
   /// with the given fields replaced by the non-null parameter values.

@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "SafeDealz API",
-    "version": "0.10.0"
+    "version": "0.20.0"
   },
   "servers": [
     {
@@ -1106,6 +1106,617 @@
           "401": { "$ref": "#/components/responses/ApiError" },
           "403": { "$ref": "#/components/responses/ApiError" },
           "404": { "$ref": "#/components/responses/ApiError" },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/recharges": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "createWalletRecharge",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletRechargeWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Idempotent recharge replay",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletRechargeResponse" } } }
+          },
+          "201": {
+            "description": "Razorpay order created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletRechargeResponse" } } }
+          },
+          "400": { "$ref": "#/components/responses/ApiError" },
+          "401": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/recharges/{id}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getWalletRecharge",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Recharge status",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletRechargeResponse" } } }
+          },
+          "404": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/recharges/{id}/acknowledge": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "acknowledgeWalletRecharge",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Client checkout acknowledgement without ledger credit",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletRechargeResponse" } } }
+          }
+        }
+      }
+    },
+    "/settings": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getSettings",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Auction timer settings",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionSettingsResponse" } } }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Operations"],
+        "operationId": "updateSettings",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionSettingsWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated settings",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionSettingsResponse" } } }
+          },
+          "403": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/auctions": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listAuctions",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "status", "in": "query", "schema": { "type": "string" } },
+          { "name": "deviceId", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Auction rounds",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionListResponse" } } }
+          }
+        }
+      }
+    },
+    "/auctions/tick": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "tickAuctions",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Closed expired live rounds",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionTickResponse" } } }
+          }
+        }
+      }
+    },
+    "/auctions/{id}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getAuction",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Auction round",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionResponse" } } }
+          }
+        }
+      }
+    },
+    "/auctions/{id}/cancel": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "cancelAuction",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionCancelWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Cancelled round",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionResponse" } } }
+          }
+        }
+      }
+    },
+    "/auctions/{id}/decline": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "declineAuction",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionDeclineWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Offer declined",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/auctions/{id}/rebid": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "rebidAuction",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionRebidWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "New round started",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionRebidResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/auctions/{id}/accept": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "acceptAuction",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "201": {
+            "description": "Deal created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DealResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/deals": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listDeals",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "deviceId", "in": "query", "schema": { "type": "string" } },
+          { "name": "status", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deals",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DealListResponse" } } }
+          }
+        }
+      }
+    },
+    "/deals/{id}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getDeal",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Deal",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DealResponse" } } }
+          }
+        }
+      }
+    },
+    "/deals/{id}/otp": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "sendDealOtp",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "OTP sent",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/OtpResponse" } } }
+          }
+        }
+      }
+    },
+    "/deals/{id}/verify": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "verifyDeal",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DealVerifyWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Verified deal",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DealResponse" } } }
+          }
+        }
+      }
+    },
+    "/deals/{id}/pickup": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "markDealPickup",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Picked up deal",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DealResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/payments": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listPayments",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Payment instructions",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaymentListResponse" } } }
+          }
+        }
+      }
+    },
+    "/payments/{id}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getPayment",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Payment instruction",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaymentResponse" } } }
+          }
+        }
+      }
+    },
+    "/payments/{id}/retry": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "retryPayment",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Retried payment",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaymentResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/payments/{id}/reconcile": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "reconcilePayment",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaymentReconcileWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Reconciled payment",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaymentResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/rewards/overview": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getRewardOverview",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "branchId", "in": "query", "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Branch reward totals",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RewardOverviewResponse" } } }
+          }
+        }
+      }
+    },
+    "/rewards/policy": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getRewardPolicy",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Current reward policy and versions",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RewardPolicyResponse" } } }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "publishRewardPolicy",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RewardPolicyWrite" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Published policy version",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RewardPolicyResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/rewards/customers/{phone}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getCustomerRewards",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "phone", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "branchId", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer branch reward balances",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CustomerRewardsResponse" } } }
+          }
+        }
+      }
+    },
+    "/rewards/redemptions": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listRedemptions",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "branchId", "in": "query", "schema": { "type": "string" } },
+          { "name": "status", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Branch redemptions",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RedemptionListResponse" } } }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "startRedemption",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RedemptionWrite" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Pending redemption with OTP sent",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RedemptionResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/rewards/redemptions/{id}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getRedemption",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Redemption",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RedemptionResponse" } } }
+          }
+        }
+      }
+    },
+    "/rewards/redemptions/{id}/otp": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "resendRedemptionOtp",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "OTP resent",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RedemptionResponse" } } }
+          }
+        }
+      }
+    },
+    "/rewards/redemptions/{id}/confirm": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "confirmRedemption",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RedemptionConfirmWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Redeemed receipt",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RedemptionResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listNotifications",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Current account inbox",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NotificationListResponse" } } }
+          },
+          "401": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/notifications/history": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listNotificationHistory",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "category", "in": "query", "schema": { "type": "string" } },
+          { "name": "status", "in": "query", "schema": { "type": "string" } },
+          { "name": "audience", "in": "query", "schema": { "type": "string" } },
+          { "name": "branchId", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin delivery history",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NotificationListResponse" } } }
+          }
+        }
+      }
+    },
+    "/notifications/broadcasts": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "broadcastNotification",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NotificationBroadcastWrite" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Broadcast deliveries",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NotificationBroadcastResponse" } } }
+          }
+        }
+      }
+    },
+    "/notifications/{id}/read": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "markNotificationRead",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Marked read",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NotificationResponse" } } }
+          }
+        }
+      }
+    },
+    "/auctions/{id}/bids": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listAuctionBids",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Bids for the round",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BidListResponse" } } }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "placeAuctionBid",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BidWrite" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Bid reserved",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BidResponse" } } }
+          },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/bids": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listMyBids",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Vendor bids",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BidListResponse" } } }
+          }
+        }
+      }
+    },
+    "/bids/{id}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getBid",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Bid",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BidResponse" } } }
+          }
+        }
+      }
+    },
+    "/devices/{id}/auctions": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "startDeviceAuction",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "201": {
+            "description": "Live auction started",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuctionResponse" } } }
+          },
           "409": { "$ref": "#/components/responses/ApiError" }
         }
       }
@@ -2313,6 +2924,7 @@
           "availablePaise": { "type": "integer" },
           "reservedPaise": { "type": "integer" },
           "processingPaise": { "type": "integer" },
+          "paymentsProcessingPaise": { "type": "integer" },
           "currency": { "type": "string" }
         }
       },
@@ -2320,7 +2932,7 @@
         "type": "object",
         "properties": {
           "id": { "type": "string" },
-          "type": { "type": "string", "enum": ["credit", "reserve", "release", "commit"] },
+          "type": { "type": "string", "enum": ["credit", "reserve", "release", "commit", "settle"] },
           "amountPaise": { "type": "integer" },
           "availableAfterPaise": { "type": "integer" },
           "reservedAfterPaise": { "type": "integer" },
@@ -2334,7 +2946,7 @@
         "properties": {
           "id": { "type": "string" },
           "amountPaise": { "type": "integer" },
-          "status": { "type": "string", "enum": ["held", "released", "committed"] },
+          "status": { "type": "string", "enum": ["held", "released", "committed", "settled"] },
           "reason": { "type": "string" },
           "idempotencyKey": { "type": "string" },
           "referenceId": { "type": "string" },
@@ -2349,6 +2961,7 @@
           "availablePaise": { "type": "integer" },
           "reservedPaise": { "type": "integer" },
           "processingPaise": { "type": "integer" },
+          "paymentsProcessingPaise": { "type": "integer" },
           "currency": { "type": "string" },
           "ledger": { "type": "array", "items": { "$ref": "#/components/schemas/WalletLedgerEntry" } },
           "reservations": { "type": "array", "items": { "$ref": "#/components/schemas/WalletHold" } }
@@ -2414,6 +3027,579 @@
         "required": ["idempotencyKey"],
         "properties": {
           "idempotencyKey": { "type": "string" }
+        }
+      },
+      "WalletRechargeWrite": {
+        "type": "object",
+        "required": ["amountPaise", "idempotencyKey"],
+        "properties": {
+          "amountPaise": { "type": "integer", "minimum": 100 },
+          "idempotencyKey": { "type": "string" }
+        }
+      },
+      "WalletRecharge": {
+        "type": "object",
+        "required": ["id", "vendorAccountId", "amountPaise", "orderId", "status", "keyId", "clientAcknowledged"],
+        "properties": {
+          "id": { "type": "string" },
+          "vendorAccountId": { "type": "string" },
+          "amountPaise": { "type": "integer" },
+          "orderId": { "type": "string" },
+          "paymentId": { "type": "string" },
+          "status": { "type": "string", "enum": ["pending", "confirmed", "failed"] },
+          "keyId": { "type": "string" },
+          "clientAcknowledged": { "type": "boolean" }
+        }
+      },
+      "WalletRechargeResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/WalletRecharge" }
+        }
+      },
+      "AuctionSettings": {
+        "type": "object",
+        "required": ["biddingMinutes", "acceptanceMinutes"],
+        "properties": {
+          "biddingMinutes": { "type": "integer", "minimum": 1, "maximum": 30 },
+          "acceptanceMinutes": { "type": "integer", "minimum": 1, "maximum": 60 }
+        }
+      },
+      "AuctionSettingsWrite": {
+        "type": "object",
+        "required": ["biddingMinutes", "acceptanceMinutes"],
+        "properties": {
+          "biddingMinutes": { "type": "integer", "minimum": 1, "maximum": 30 },
+          "acceptanceMinutes": { "type": "integer", "minimum": 1, "maximum": 60 }
+        }
+      },
+      "AuctionSettingsResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/AuctionSettings" }
+        }
+      },
+      "AuctionRound": {
+        "type": "object",
+        "required": ["id", "deviceId", "branchId", "roundNumber", "status", "opensAt", "closesAt"],
+        "properties": {
+          "id": { "type": "string" },
+          "deviceId": { "type": "string" },
+          "branchId": { "type": "string" },
+          "roundNumber": { "type": "integer" },
+          "status": { "type": "string", "enum": ["live", "closed", "cancelled", "awaiting_acceptance", "accepted", "needs_reauction"] },
+          "opensAt": { "type": "string", "format": "date-time" },
+          "closesAt": { "type": "string", "format": "date-time" },
+          "acceptanceDeadlineAt": { "type": "string", "format": "date-time", "nullable": true },
+          "biddingMinutes": { "type": "integer" },
+          "acceptanceMinutes": { "type": "integer" },
+          "bidCount": { "type": "integer" },
+          "highestAmountPaise": { "type": "integer" },
+          "winnerVendorAccountId": { "type": "string", "nullable": true },
+          "cancelReason": { "type": "string" },
+          "declineReason": { "type": "string" },
+          "expectedAmountPaise": { "type": "integer" },
+          "device": { "type": "object" },
+          "branch": { "type": "object" },
+          "ownBid": { "$ref": "#/components/schemas/Bid" },
+          "winnerBid": { "$ref": "#/components/schemas/Bid" },
+          "winnerVendor": { "type": "object" }
+        }
+      },
+      "AuctionResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/AuctionRound" }
+        }
+      },
+      "AuctionListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/AuctionRound" } }
+        }
+      },
+      "AuctionCancelWrite": {
+        "type": "object",
+        "required": ["reason"],
+        "properties": {
+          "reason": { "type": "string" }
+        }
+      },
+      "AuctionDeclineWrite": {
+        "type": "object",
+        "required": ["reasonCode"],
+        "properties": {
+          "reasonCode": {
+            "type": "string",
+            "enum": ["customer_declined", "price_unsatisfied", "data_backup", "other"]
+          },
+          "reason": { "type": "string" }
+        }
+      },
+      "AuctionRebidWrite": {
+        "type": "object",
+        "required": ["expectedAmountPaise"],
+        "properties": {
+          "expectedAmountPaise": { "type": "integer", "minimum": 1 }
+        }
+      },
+      "AuctionRebidResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "required": ["previous", "next"],
+            "properties": {
+              "previous": { "$ref": "#/components/schemas/AuctionRound" },
+              "next": { "$ref": "#/components/schemas/AuctionRound" }
+            }
+          }
+        }
+      },
+      "PaymentInstruction": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "dealId": { "type": "string" },
+          "branchId": { "type": "string" },
+          "status": { "type": "string", "enum": ["awaiting_customer_verification", "ready_for_transfer", "processing", "paid", "needs_attention", "unknown"] },
+          "amountPaise": { "type": "integer" },
+          "feePaise": { "type": "integer" },
+          "beneficiaryName": { "type": "string" },
+          "accountNumberMasked": { "type": "string" },
+          "ifsc": { "type": "string" },
+          "providerTransferId": { "type": "string" },
+          "providerStatus": { "type": "string" },
+          "attempts": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PaymentAttempt" }
+          }
+        }
+      },
+      "PaymentAttempt": {
+        "type": "object",
+        "properties": {
+          "at": { "type": "string", "format": "date-time" },
+          "event": { "type": "string" },
+          "status": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      },
+      "PaymentResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/PaymentInstruction" }
+        }
+      },
+      "PaymentListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/PaymentInstruction" } }
+        }
+      },
+      "PaymentReconcileWrite": {
+        "type": "object",
+        "required": ["outcome"],
+        "properties": {
+          "outcome": { "type": "string", "enum": ["processed", "failed"] }
+        }
+      },
+      "RewardPolicy": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "version": { "type": "integer" },
+          "earnPointsPerHundredRupees": { "type": "integer" },
+          "pointValuePaise": { "type": "integer" },
+          "eligibleCategories": { "type": "array", "items": { "type": "string" } },
+          "expiryDays": { "type": "integer" },
+          "redemptionScope": { "type": "string", "enum": ["branch_only", "chain", "multi_branch"] },
+          "chainRedemptionEnabled": { "type": "boolean" },
+          "multiBranchRedemptionEnabled": { "type": "boolean" },
+          "futureScopesInactive": { "type": "boolean" },
+          "effectiveFrom": { "type": "string", "format": "date-time" },
+          "note": { "type": "string" }
+        }
+      },
+      "RewardPolicyWrite": {
+        "type": "object",
+        "properties": {
+          "earnPointsPerHundredRupees": { "type": "integer", "minimum": 1 },
+          "pointValuePaise": { "type": "integer", "minimum": 1 },
+          "eligibleCategories": { "type": "array", "items": { "type": "string" } },
+          "expiryDays": { "type": "integer", "minimum": 0 },
+          "redemptionScope": { "type": "string", "enum": ["branch_only", "chain", "multi_branch"] },
+          "chainRedemptionEnabled": { "type": "boolean" },
+          "multiBranchRedemptionEnabled": { "type": "boolean" },
+          "effectiveFrom": { "type": "string", "format": "date-time" },
+          "note": { "type": "string" }
+        }
+      },
+      "RewardPolicyResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "current": { "$ref": "#/components/schemas/RewardPolicy" },
+              "versions": { "type": "array", "items": { "$ref": "#/components/schemas/RewardPolicy" } }
+            }
+          }
+        }
+      },
+      "RewardBranchTotal": {
+        "type": "object",
+        "properties": {
+          "branchId": { "type": "string" },
+          "branchName": { "type": "string" },
+          "issuedPoints": { "type": "integer" },
+          "redeemedPoints": { "type": "integer" },
+          "outstandingPoints": { "type": "integer" },
+          "issuedValuePaise": { "type": "integer" },
+          "redeemedValuePaise": { "type": "integer" },
+          "outstandingValuePaise": { "type": "integer" }
+        }
+      },
+      "RewardOverview": {
+        "type": "object",
+        "properties": {
+          "branches": { "type": "array", "items": { "$ref": "#/components/schemas/RewardBranchTotal" } },
+          "totals": { "$ref": "#/components/schemas/RewardBranchTotal" },
+          "policy": { "$ref": "#/components/schemas/RewardPolicy" }
+        }
+      },
+      "RewardOverviewResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/RewardOverview" }
+        }
+      },
+      "RewardBalance": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "customerPhone": { "type": "string" },
+          "customerName": { "type": "string" },
+          "branchId": { "type": "string" },
+          "branchName": { "type": "string" },
+          "chainId": { "type": "string" },
+          "pointsBalance": { "type": "integer" },
+          "issuedPoints": { "type": "integer" },
+          "redeemedPoints": { "type": "integer" },
+          "outstandingValuePaise": { "type": "integer" },
+          "redeemableAtThisBranch": { "type": "boolean" }
+        }
+      },
+      "RewardLedgerEntry": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string", "enum": ["earn", "redeem", "reversal"] },
+          "points": { "type": "integer" },
+          "valuePaise": { "type": "integer" },
+          "balanceAfter": { "type": "integer" },
+          "branchId": { "type": "string" },
+          "dealId": { "type": "string" },
+          "invoiceNumber": { "type": "string" },
+          "policyVersion": { "type": "integer" },
+          "earnPointsPerHundredRupees": { "type": "integer" },
+          "pointValuePaise": { "type": "integer" },
+          "reason": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "CustomerRewards": {
+        "type": "object",
+        "properties": {
+          "phone": { "type": "string" },
+          "customerName": { "type": "string" },
+          "balances": { "type": "array", "items": { "$ref": "#/components/schemas/RewardBalance" } },
+          "entries": { "type": "array", "items": { "$ref": "#/components/schemas/RewardLedgerEntry" } }
+        }
+      },
+      "CustomerRewardsResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/CustomerRewards" }
+        }
+      },
+      "Redemption": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "customerPhone": { "type": "string" },
+          "customerPhoneMasked": { "type": "string" },
+          "customerName": { "type": "string" },
+          "branchId": { "type": "string" },
+          "invoiceNumber": { "type": "string" },
+          "category": { "type": "string" },
+          "billAmountPaise": { "type": "integer" },
+          "discountPaise": { "type": "integer" },
+          "points": { "type": "integer" },
+          "remainingPoints": { "type": "integer" },
+          "remainingValuePaise": { "type": "integer" },
+          "status": { "type": "string", "enum": ["pending_otp", "redeemed"] },
+          "duplicateInvoice": { "type": "boolean" },
+          "otpRequired": { "type": "boolean" },
+          "redeemedAt": { "type": "string", "format": "date-time", "nullable": true },
+          "reminder": { "type": "string" }
+        }
+      },
+      "RedemptionWrite": {
+        "type": "object",
+        "required": ["customerPhone", "invoiceNumber", "category", "billAmountPaise", "discountPaise"],
+        "properties": {
+          "customerPhone": { "type": "string" },
+          "invoiceNumber": { "type": "string" },
+          "category": { "type": "string" },
+          "billAmountPaise": { "type": "integer", "minimum": 1 },
+          "discountPaise": { "type": "integer", "minimum": 1 },
+          "branchId": { "type": "string" }
+        }
+      },
+      "RedemptionConfirmWrite": {
+        "type": "object",
+        "required": ["otp"],
+        "properties": {
+          "otp": { "type": "string" }
+        }
+      },
+      "RedemptionResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/Redemption" }
+        }
+      },
+      "RedemptionListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/Redemption" } }
+        }
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "body": { "type": "string" },
+          "category": { "type": "string" },
+          "audience": { "type": "string" },
+          "status": { "type": "string", "enum": ["queued", "delivered", "failed"] },
+          "deepLink": { "type": "string" },
+          "branchId": { "type": "string" },
+          "campaignId": { "type": "string" },
+          "readAt": { "type": "string", "format": "date-time", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "recipientAccountId": { "type": "string" },
+          "recipientRole": { "type": "string" }
+        }
+      },
+      "NotificationListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/Notification" } }
+        }
+      },
+      "NotificationResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/Notification" }
+        }
+      },
+      "NotificationBroadcastWrite": {
+        "type": "object",
+        "required": ["audience", "title", "body"],
+        "properties": {
+          "audience": { "type": "string", "enum": ["all_users", "all_stores", "all_vendors", "store", "vendor"] },
+          "title": { "type": "string" },
+          "body": { "type": "string" },
+          "category": { "type": "string" },
+          "branchId": { "type": "string" },
+          "accountId": { "type": "string" }
+        }
+      },
+      "NotificationBroadcast": {
+        "type": "object",
+        "properties": {
+          "campaignId": { "type": "string" },
+          "delivered": { "type": "integer" },
+          "deliveries": { "type": "array", "items": { "$ref": "#/components/schemas/Notification" } }
+        }
+      },
+      "NotificationBroadcastResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/NotificationBroadcast" }
+        }
+      },
+      "PurchasedDevice": {
+        "type": "object",
+        "properties": {
+          "platform": { "type": "string", "enum": ["apple", "android"] },
+          "model": { "type": "string" },
+          "storage": { "type": "string" },
+          "ram": { "type": "string" },
+          "imei1": { "type": "string" },
+          "imei2": { "type": "string" }
+        }
+      },
+      "Deal": {
+        "type": "object",
+        "required": ["id", "auctionRoundId", "deviceId", "amountPaise", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "auctionRoundId": { "type": "string" },
+          "deviceId": { "type": "string" },
+          "branchId": { "type": "string" },
+          "vendorAccountId": { "type": "string" },
+          "bidId": { "type": "string" },
+          "amountPaise": { "type": "integer" },
+          "feePaise": { "type": "integer" },
+          "totalPaise": { "type": "integer" },
+          "status": { "type": "string", "enum": ["awaiting_customer_verification", "verified", "paid", "picked_up"] },
+          "paymentInstruction": { "$ref": "#/components/schemas/PaymentInstruction" },
+          "pickedUpAt": { "type": "string", "format": "date-time", "nullable": true },
+          "branch": { "type": "object", "additionalProperties": true },
+          "customerName": { "type": "string" },
+          "customerPhone": { "type": "string" },
+          "otpVerified": { "type": "boolean" },
+          "idCaptured": { "type": "boolean" },
+          "portraitCaptured": { "type": "boolean" },
+          "purchasedDevice": { "$ref": "#/components/schemas/PurchasedDevice" }
+        }
+      },
+      "DealResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/Deal" }
+        }
+      },
+      "DealListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/Deal" } }
+        }
+      },
+      "OtpResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "sent": { "type": "boolean" },
+              "stub": { "type": "boolean" }
+            }
+          }
+        }
+      },
+      "DealVerifyWrite": {
+        "type": "object",
+        "required": ["customerName", "customerPhone", "otp", "idCaptured", "portraitCaptured", "purchasedDevice"],
+        "properties": {
+          "customerName": { "type": "string" },
+          "customerPhone": { "type": "string" },
+          "otp": { "type": "string" },
+          "idCaptured": { "type": "boolean" },
+          "portraitCaptured": { "type": "boolean" },
+          "purchasedDevice": { "$ref": "#/components/schemas/PurchasedDevice" }
+        }
+      },
+      "AuctionTickResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "closedCount": { "type": "integer" },
+              "closed": { "type": "array", "items": { "$ref": "#/components/schemas/AuctionRound" } },
+              "expiredCount": { "type": "integer" },
+              "expired": { "type": "array", "items": { "$ref": "#/components/schemas/AuctionRound" } }
+            }
+          }
+        }
+      },
+      "BidWrite": {
+        "type": "object",
+        "required": ["amountPaise", "idempotencyKey"],
+        "properties": {
+          "amountPaise": { "type": "integer", "minimum": 1 },
+          "idempotencyKey": { "type": "string" },
+          "basePaise": { "type": "integer" },
+          "cosmeticDeductionPaise": { "type": "integer" },
+          "batteryDeductionPaise": { "type": "integer" }
+        }
+      },
+      "Bid": {
+        "type": "object",
+        "required": ["id", "roundId", "deviceId", "vendorAccountId", "amountPaise", "feePaise", "totalPaise", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "roundId": { "type": "string" },
+          "deviceId": { "type": "string" },
+          "vendorAccountId": { "type": "string" },
+          "amountPaise": { "type": "integer" },
+          "feePaise": { "type": "integer" },
+          "feeRate": { "type": "number" },
+          "totalPaise": { "type": "integer" },
+          "basePaise": { "type": "integer" },
+          "cosmeticDeductionPaise": { "type": "integer" },
+          "batteryDeductionPaise": { "type": "integer" },
+          "status": { "type": "string", "enum": ["submitted", "won", "lost", "released", "committed"] },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "BidResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/Bid" }
+        }
+      },
+      "BidListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/Bid" } }
         }
       },
       "VendorAccount": {

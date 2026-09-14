@@ -42,5 +42,8 @@ export const env = Object.freeze({
     keySecret: process.env.RAZORPAY_KEY_SECRET ?? '',
     webhookSecret: process.env.RAZORPAY_WEBHOOK_SECRET ?? '',
   }),
+  payout: Object.freeze({
+    webhookSecret: process.env.PAYOUT_WEBHOOK_SECRET ?? '',
+  }),
   diagnosticQrSecret: secret('DIAGNOSTIC_QR_SECRET', 'local-diagnostic-qr-secret-change-me-32'),
 });

@@ -7,12 +7,16 @@ import { errorHandler } from './src/middlewares/error.middleware.js';
 import { requestLog } from './src/middlewares/request-log.middleware.js';
 import { apiRouter } from './src/routes/index.js';
 import { docsRouter } from './src/routes/docs.routes.js';
+import { postRazorpayWebhook } from './src/controllers/recharge.controller.js';
+import { postPayoutWebhook } from './src/controllers/payout.controller.js';
 
 export const createApp = () => {
   const app = express();
 
   app.disable('x-powered-by');
   app.set('trust proxy', 1);
+  app.use('/api/v1/webhooks/razorpay', express.raw({ type: '*/*' }), postRazorpayWebhook);
+  app.use('/api/v1/webhooks/payout', express.raw({ type: '*/*' }), postPayoutWebhook);
   app.use(express.json({ limit: '1mb' }));
   app.use(cookieParser());
   app.use(requestLog);

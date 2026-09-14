@@ -1,4 +1,4 @@
-.PHONY: generate-api check-flutter test-backend check-react check-p00 check-p01 check-p02 check-p03 check-p04 check-p05 check-p06 check-p07 check-p08 check-p09 check-p10
+.PHONY: generate-api check-flutter test-backend check-react check-p00 check-p01 check-p02 check-p03 check-p04 check-p05 check-p06 check-p07 check-p08 check-p09 check-p10 check-p11 check-p12 check-p13 check-p14 check-p15 check-p16 check-p17 check-p18 check-p19 check-p20
 
 REPOSITORY_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 
@@ -41,3 +41,23 @@ check-p08: generate-api check-react check-flutter test-backend
 check-p09: generate-api check-react check-flutter test-backend
 
 check-p10: generate-api check-react check-flutter test-backend
+
+check-p11: generate-api check-react check-flutter test-backend
+
+check-p12: generate-api check-react check-flutter test-backend
+
+check-p13: generate-api check-react check-flutter test-backend
+
+check-p14: generate-api check-react check-flutter test-backend
+
+check-p15: generate-api check-react check-flutter test-backend
+
+check-p16: generate-api check-react check-flutter test-backend
+
+check-p17: generate-api check-react check-flutter test-backend
+
+check-p18: generate-api check-react check-flutter test-backend
+
+check-p19: generate-api check-react check-flutter test-backend
+
+check-p20: generate-api check-react check-flutter test-backend

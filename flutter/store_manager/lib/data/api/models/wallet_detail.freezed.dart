@@ -26,6 +26,7 @@ mixin _$WalletDetail {
   int? get availablePaise => throw _privateConstructorUsedError;
   int? get reservedPaise => throw _privateConstructorUsedError;
   int? get processingPaise => throw _privateConstructorUsedError;
+  int? get paymentsProcessingPaise => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
   List<WalletLedgerEntry>? get ledger => throw _privateConstructorUsedError;
   List<WalletHold>? get reservations => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $WalletDetailCopyWith<$Res> {
     int? availablePaise,
     int? reservedPaise,
     int? processingPaise,
+    int? paymentsProcessingPaise,
     String? currency,
     List<WalletLedgerEntry>? ledger,
     List<WalletHold>? reservations,
@@ -79,6 +81,7 @@ class _$WalletDetailCopyWithImpl<$Res, $Val extends WalletDetail>
     Object? availablePaise = freezed,
     Object? reservedPaise = freezed,
     Object? processingPaise = freezed,
+    Object? paymentsProcessingPaise = freezed,
     Object? currency = freezed,
     Object? ledger = freezed,
     Object? reservations = freezed,
@@ -104,6 +107,10 @@ class _$WalletDetailCopyWithImpl<$Res, $Val extends WalletDetail>
             processingPaise: freezed == processingPaise
                 ? _value.processingPaise
                 : processingPaise // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            paymentsProcessingPaise: freezed == paymentsProcessingPaise
+                ? _value.paymentsProcessingPaise
+                : paymentsProcessingPaise // ignore: cast_nullable_to_non_nullable
                       as int?,
             currency: freezed == currency
                 ? _value.currency
@@ -138,6 +145,7 @@ abstract class _$$WalletDetailImplCopyWith<$Res>
     int? availablePaise,
     int? reservedPaise,
     int? processingPaise,
+    int? paymentsProcessingPaise,
     String? currency,
     List<WalletLedgerEntry>? ledger,
     List<WalletHold>? reservations,
@@ -163,6 +171,7 @@ class __$$WalletDetailImplCopyWithImpl<$Res>
     Object? availablePaise = freezed,
     Object? reservedPaise = freezed,
     Object? processingPaise = freezed,
+    Object? paymentsProcessingPaise = freezed,
     Object? currency = freezed,
     Object? ledger = freezed,
     Object? reservations = freezed,
@@ -188,6 +197,10 @@ class __$$WalletDetailImplCopyWithImpl<$Res>
         processingPaise: freezed == processingPaise
             ? _value.processingPaise
             : processingPaise // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        paymentsProcessingPaise: freezed == paymentsProcessingPaise
+            ? _value.paymentsProcessingPaise
+            : paymentsProcessingPaise // ignore: cast_nullable_to_non_nullable
                   as int?,
         currency: freezed == currency
             ? _value.currency
@@ -215,6 +228,7 @@ class _$WalletDetailImpl implements _WalletDetail {
     this.availablePaise,
     this.reservedPaise,
     this.processingPaise,
+    this.paymentsProcessingPaise,
     this.currency,
     final List<WalletLedgerEntry>? ledger,
     final List<WalletHold>? reservations,
@@ -234,6 +248,8 @@ class _$WalletDetailImpl implements _WalletDetail {
   final int? reservedPaise;
   @override
   final int? processingPaise;
+  @override
+  final int? paymentsProcessingPaise;
   @override
   final String? currency;
   final List<WalletLedgerEntry>? _ledger;
@@ -258,7 +274,7 @@ class _$WalletDetailImpl implements _WalletDetail {
 
   @override
   String toString() {
-    return 'WalletDetail(id: $id, vendorAccountId: $vendorAccountId, availablePaise: $availablePaise, reservedPaise: $reservedPaise, processingPaise: $processingPaise, currency: $currency, ledger: $ledger, reservations: $reservations)';
+    return 'WalletDetail(id: $id, vendorAccountId: $vendorAccountId, availablePaise: $availablePaise, reservedPaise: $reservedPaise, processingPaise: $processingPaise, paymentsProcessingPaise: $paymentsProcessingPaise, currency: $currency, ledger: $ledger, reservations: $reservations)';
   }
 
   @override
@@ -275,6 +291,11 @@ class _$WalletDetailImpl implements _WalletDetail {
                 other.reservedPaise == reservedPaise) &&
             (identical(other.processingPaise, processingPaise) ||
                 other.processingPaise == processingPaise) &&
+            (identical(
+                  other.paymentsProcessingPaise,
+                  paymentsProcessingPaise,
+                ) ||
+                other.paymentsProcessingPaise == paymentsProcessingPaise) &&
             (identical(other.currency, currency) ||
                 other.currency == currency) &&
             const DeepCollectionEquality().equals(other._ledger, _ledger) &&
@@ -293,6 +314,7 @@ class _$WalletDetailImpl implements _WalletDetail {
     availablePaise,
     reservedPaise,
     processingPaise,
+    paymentsProcessingPaise,
     currency,
     const DeepCollectionEquality().hash(_ledger),
     const DeepCollectionEquality().hash(_reservations),
@@ -319,6 +341,7 @@ abstract class _WalletDetail implements WalletDetail {
     final int? availablePaise,
     final int? reservedPaise,
     final int? processingPaise,
+    final int? paymentsProcessingPaise,
     final String? currency,
     final List<WalletLedgerEntry>? ledger,
     final List<WalletHold>? reservations,
@@ -337,6 +360,8 @@ abstract class _WalletDetail implements WalletDetail {
   int? get reservedPaise;
   @override
   int? get processingPaise;
+  @override
+  int? get paymentsProcessingPaise;
   @override
   String? get currency;
   @override

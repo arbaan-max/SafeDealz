@@ -13,6 +13,8 @@ _$VendorWalletImpl _$$VendorWalletImplFromJson(Map<String, dynamic> json) =>
       availablePaise: (json['availablePaise'] as num?)?.toInt(),
       reservedPaise: (json['reservedPaise'] as num?)?.toInt(),
       processingPaise: (json['processingPaise'] as num?)?.toInt(),
+      paymentsProcessingPaise: (json['paymentsProcessingPaise'] as num?)
+          ?.toInt(),
       currency: json['currency'] as String?,
     );
 
@@ -23,5 +25,6 @@ Map<String, dynamic> _$$VendorWalletImplToJson(_$VendorWalletImpl instance) =>
       'availablePaise': instance.availablePaise,
       'reservedPaise': instance.reservedPaise,
       'processingPaise': instance.processingPaise,
+      'paymentsProcessingPaise': instance.paymentsProcessingPaise,
       'currency': instance.currency,
     };

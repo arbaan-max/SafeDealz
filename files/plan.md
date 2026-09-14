@@ -10,7 +10,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Product design specification | Available in [design.md](design.md) |
 | Interactive design reference | Available in [design.html](design.html) |
 | Phase breakdown | Prepared — see [phases.md](phases.md) |
-| Product implementation | P00–P10 complete; P11 Wallet recharge not started |
+| Product implementation | P00–P20 complete; stop. P21 is not authorized. |
 
 ## Project setup
 
@@ -28,7 +28,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Backend | Node.js, Express.js, MongoDB, and Mongoose |
 | API contract | OpenAPI/Swagger contract required before API-client generation |
 | Development completion goal | Complete approved scope through P25; development acceptance follows the test gates; deployment excluded |
-| Coding authorization | P10 completed and stopped. P11 is not authorized. |
+| Coding authorization | Inclusive range P16–P20. P15 complete; continue through P20 then stop. P21 is not authorized. |
 
 ## Product roles
 
@@ -54,9 +54,9 @@ The complete role permissions and screen behavior are defined in [design.md](des
 | Vendor assignment, auction, and immutable bidding | Defined | Not started |
 | Wallet reservation, fees, release, and recharge | Defined | Not started |
 | Offer acceptance, customer verification, and payout | Defined | Not started |
-| Pickup completion | Defined | Not started |
-| Customer rewards and redemption | Defined | Not started |
-| Notifications and support | Defined | Not started |
+| Pickup completion | Defined | Complete — TASK-019 |
+| Customer rewards and redemption | Defined | Complete — TASK-020/TASK-021 |
+| Notifications and support | Defined | Notifications complete — TASK-022; support not started |
 | Reports, settings, and audit history | Defined | Not started |
 
 ## Architecture status and later decisions
@@ -96,23 +96,23 @@ The detailed roadmap is in [phases.md](phases.md). P00–P08 are complete. Updat
 | P08 | Android diagnostic tests | Complete | TASK-009; TASK-010 catalog addendum |
 | P09 | Diagnostic QR handoff | Complete | TASK-011 |
 | P10 | Wallet ledger | Complete | TASK-012 |
-| P11 | Wallet recharge | Planned | None |
-| P12 | Auction lifecycle and settings | Planned | None |
-| P13 | Vendor bidding and fee holds | Planned | None |
-| P14 | Offer decision and re-auction | Planned | None |
-| P15 | Acceptance and customer verification | Planned | None |
-| P16 | Payout and reconciliation | Planned | None |
-| P17 | Deal history and pickup | Planned | None |
-| P18 | Reward issuance and policy | Planned | None |
-| P19 | Reward redemption | Planned | None |
-| P20 | Notifications and broadcasts | Planned | None |
+| P11 | Wallet recharge | Complete | TASK-013 |
+| P12 | Auction lifecycle and settings | Complete | TASK-014 |
+| P13 | Vendor bidding and fee holds | Complete | TASK-015 |
+| P14 | Offer decision and re-auction | Complete | TASK-016 |
+| P15 | Acceptance and customer verification | Complete | TASK-017 |
+| P16 | Payout and reconciliation | Complete | TASK-018 |
+| P17 | Deal history and pickup | Complete | TASK-019 |
+| P18 | Reward issuance and policy | Complete | TASK-020 |
+| P19 | Reward redemption | Complete | TASK-021 |
+| P20 | Notifications and broadcasts | Complete | TASK-022 |
 | P21 | Support management | Planned | None |
 | P22 | Admin oversight and reporting | Planned | None |
 | P23 | Cross-app experience verification | Planned | None |
 | P24 | End-to-end and resilience | Planned | None |
 | P25 | Development completion and handover | Planned | None |
 
-Next: wait for the owner to authorize P11. Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
+Next: P16–P20 is complete. Do not start P21 until explicitly authorized. Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
 
 ## Confirmed technology and scope
 

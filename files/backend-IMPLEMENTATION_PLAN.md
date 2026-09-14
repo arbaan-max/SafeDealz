@@ -24,10 +24,28 @@ Completed: [TASK-010 — Trade-in catalog](tasks/TASK-010-trade-in-catalog.md). 
 
 Completed: [TASK-011 — P09 Diagnostic QR handoff](tasks/TASK-011-diagnostic-qr-handoff.md). Signed import, D08/M07/M09 and OpenAPI v0.9.0 pass.
 
-Completed: [TASK-012 — P10 Wallet ledger](tasks/TASK-012-wallet-ledger.md). Transactional paise ledger, reservations and OpenAPI v0.10.0 pass.
+Completed: [TASK-013 — P11 Wallet recharge](tasks/TASK-013-wallet-recharge.md). Stub Razorpay orders, raw-body HMAC webhooks, processingPaise and OpenAPI v0.11.0 pass.
 
-No backend task is active; P11 waits for explicit authorization.
+Completed: [TASK-015 — P13 Vendor bidding](tasks/TASK-015-vendor-bidding.md). Fee-inclusive holds, one bid per round and OpenAPI v0.13.0 pass.
 
-Confirmed future integrations: P07 adds a backend-owned Cloudflare R2 adapter for private evidence media and short-lived authorized signed operations. P11 adds backend-created Razorpay recharge orders, signature-verified webhooks, reconciliation and idempotent wallet credits. Provider secrets are environment-only and neither client callbacks nor public object URLs are authoritative.
+Completed: [TASK-016 — P14 Offer decision](tasks/TASK-016-offer-decision.md). Winner selection, decline/rebid/expiry and OpenAPI v0.14.0 pass.
+
+Completed: [TASK-017 — P15 Acceptance and KYC](tasks/TASK-017-acceptance-kyc.md). Accept commits funds, KYC gates transfer and OpenAPI v0.15.0 pass.
+
+Completed: [TASK-018 — P16 Payout and reconciliation](tasks/TASK-018-payout-reconciliation.md). Stub HMAC payout, M13/A12/A13 and OpenAPI v0.16.0 pass.
+
+Completed: [TASK-019 — P17 Deal history and pickup](tasks/TASK-019-deal-pickup.md). Originating-store pickup, vendor deal read without KYC and OpenAPI v0.17.0 pass.
+
+Completed: [TASK-020 — P18 Reward issuance](tasks/TASK-020-reward-issuance.md). Paid-deal branch rewards, A15/A16/A17 and OpenAPI v0.18.0 pass.
+
+Completed: [TASK-021 — P19 Reward redemption](tasks/TASK-021-reward-redemption.md). Bound OTP debit, M18–M22 and OpenAPI v0.19.0 pass.
+
+Completed: [TASK-022 — P20 Notifications](tasks/TASK-022-notifications.md). Role inboxes, admin broadcasts and OpenAPI v0.20.0 pass.
+
+No backend task is active. Stop after P20; do not start P21.
+
+Completed: [TASK-014 — P12 Auction lifecycle](tasks/TASK-014-auction-lifecycle.md). Server-timed rounds, tick close and OpenAPI v0.12.0 pass.
+
+Confirmed future integrations: P07 adds a backend-owned Cloudflare R2 adapter for private evidence media and short-lived authorized signed operations. P11 added backend-created Razorpay recharge orders, signature-verified webhooks, reconciliation and idempotent wallet credits. Provider secrets are environment-only and neither client callbacks nor public object URLs are authoritative.
 
 Before a backend feature, point this file to its numbered task containing the concrete implementation plan, contracts, tests and approval state. Keep detailed requirements in that canonical task rather than duplicating them here. Update this pointer on task changes and record outcomes in [implementation.md](implementation.md).

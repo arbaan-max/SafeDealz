@@ -21,7 +21,7 @@ export function OverviewPage() {
         <article className="foundation-card"><h2>{counts.branches}</h2><p>Assigned branches</p></article>
         <article className="foundation-card"><h2>{auth.account?.email}</h2><p>{auth.account?.role === 'super_admin' ? 'Super Admin' : 'Admin'}</p></article>
       </div>
-      <p className="notice" role="status"><strong>No operational totals.</strong> Auction and payment metrics arrive in later phases. Start with <Link to="/chains">Chains</Link>, <Link to="/branches">Branches</Link>, <Link to="/managers">Managers</Link> or <Link to="/vendors">Vendors</Link>.</p>
+      <p className="notice" role="status"><strong>No operational totals.</strong> Review <Link to="/payments">Payments</Link> for store payout status. Start with <Link to="/chains">Chains</Link>, <Link to="/branches">Branches</Link>, <Link to="/managers">Managers</Link> or <Link to="/vendors">Vendors</Link>.</p>
     </section>
   );
 }

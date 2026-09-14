@@ -13,7 +13,7 @@ test('A14 shows Super Admin ledger amounts', async () => {
       return new Response(JSON.stringify({
         success: true,
         data: {
-          id: 'w1', vendorAccountId: 'v1', availablePaise: 10000, reservedPaise: 2500, processingPaise: 0, currency: 'INR',
+          id: 'w1', vendorAccountId: 'v1', availablePaise: 10000, reservedPaise: 2500, processingPaise: 0, paymentsProcessingPaise: 0, currency: 'INR',
           ledger: [{ id: 'l1', type: 'reserve', amountPaise: 2500, availableAfterPaise: 10000, reservedAfterPaise: 2500 }],
           reservations: [{ id: 'h1', amountPaise: 2500, status: 'held', reason: 'bid' }],
         },

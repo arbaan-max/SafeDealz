@@ -80,6 +80,16 @@ Read [security.md](security.md) before implementing APIs or authentication clien
 - From the repository root after P08: `make -f files/Makefile check-p08` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
 - From the repository root after P09: `make -f files/Makefile check-p09` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
 - From the repository root after P10: `make -f files/Makefile check-p10` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
+- From the repository root after P11: `make -f files/Makefile check-p11` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
+- From the repository root after P12: `make -f files/Makefile check-p12` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
+- From the repository root after P13: `make -f files/Makefile check-p13` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
+- From the repository root after P14: `make -f files/Makefile check-p14` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
+- From the repository root after P15: `make -f files/Makefile check-p15` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds.
+- From the repository root after P16: `make -f files/Makefile check-p16` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P20.
+- From the repository root after P17: `make -f files/Makefile check-p17` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P20.
+- From the repository root after P18: `make -f files/Makefile check-p18` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P20.
+- From the repository root after P19: `make -f files/Makefile check-p19` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P20.
+- From the repository root after P20: `make -f files/Makefile check-p20` regenerates clients and runs React, Flutter and backend tests. Sequential Android debug APKs for Store Manager, Vendor and Diagnostics passed at P20 close on 2026-09-14.
 
 P00 ran all commands above successfully, including Android debug builds for all three apps. The backend test suite has four passing tests/subtests, including the canonical Swagger JSON route. Future phases add feature-specific tests rather than relying on these smoke checks.
 

@@ -22,7 +22,7 @@ MediaSignResponse _$MediaSignResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MediaSignResponse {
   bool get success => throw _privateConstructorUsedError;
-  Data3 get data => throw _privateConstructorUsedError;
+  Data7 get data => throw _privateConstructorUsedError;
 
   /// Serializes this MediaSignResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,9 +41,9 @@ abstract class $MediaSignResponseCopyWith<$Res> {
     $Res Function(MediaSignResponse) then,
   ) = _$MediaSignResponseCopyWithImpl<$Res, MediaSignResponse>;
   @useResult
-  $Res call({bool success, Data3 data});
+  $Res call({bool success, Data7 data});
 
-  $Data3CopyWith<$Res> get data;
+  $Data7CopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -70,7 +70,7 @@ class _$MediaSignResponseCopyWithImpl<$Res, $Val extends MediaSignResponse>
             data: null == data
                 ? _value.data
                 : data // ignore: cast_nullable_to_non_nullable
-                      as Data3,
+                      as Data7,
           )
           as $Val,
     );
@@ -80,8 +80,8 @@ class _$MediaSignResponseCopyWithImpl<$Res, $Val extends MediaSignResponse>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $Data3CopyWith<$Res> get data {
-    return $Data3CopyWith<$Res>(_value.data, (value) {
+  $Data7CopyWith<$Res> get data {
+    return $Data7CopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -96,10 +96,10 @@ abstract class _$$MediaSignResponseImplCopyWith<$Res>
   ) = __$$MediaSignResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool success, Data3 data});
+  $Res call({bool success, Data7 data});
 
   @override
-  $Data3CopyWith<$Res> get data;
+  $Data7CopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -125,7 +125,7 @@ class __$$MediaSignResponseImplCopyWithImpl<$Res>
         data: null == data
             ? _value.data
             : data // ignore: cast_nullable_to_non_nullable
-                  as Data3,
+                  as Data7,
       ),
     );
   }
@@ -142,7 +142,7 @@ class _$MediaSignResponseImpl implements _MediaSignResponse {
   @override
   final bool success;
   @override
-  final Data3 data;
+  final Data7 data;
 
   @override
   String toString() {
@@ -182,7 +182,7 @@ class _$MediaSignResponseImpl implements _MediaSignResponse {
 abstract class _MediaSignResponse implements MediaSignResponse {
   const factory _MediaSignResponse({
     required final bool success,
-    required final Data3 data,
+    required final Data7 data,
   }) = _$MediaSignResponseImpl;
 
   factory _MediaSignResponse.fromJson(Map<String, dynamic> json) =
@@ -191,7 +191,7 @@ abstract class _MediaSignResponse implements MediaSignResponse {
   @override
   bool get success;
   @override
-  Data3 get data;
+  Data7 get data;
 
   /// Create a copy of MediaSignResponse
   /// with the given fields replaced by the non-null parameter values.

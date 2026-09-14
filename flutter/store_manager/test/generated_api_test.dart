@@ -13,6 +13,9 @@ import 'package:safedealz_store_manager/data/api/models/inspection_write.dart';
 import 'package:safedealz_store_manager/data/api/models/client_type.dart';
 import 'package:safedealz_store_manager/data/api/models/login_audience.dart';
 import 'package:safedealz_store_manager/data/api/models/login_request.dart';
+import 'package:safedealz_store_manager/data/api/models/auction_decline_write.dart';
+import 'package:safedealz_store_manager/data/api/models/auction_decline_write_reason_code.dart';
+import 'package:safedealz_store_manager/data/api/models/redemption_confirm_write.dart';
 
 void main() {
   test('DioFactory applies the shared API configuration', () {
@@ -105,6 +108,64 @@ void main() {
     expect(response.success, isTrue);
     expect(response.data.deviceId, 'd1');
     expect(response.data.status, 'ready_for_auction');
+  });
+
+  test('generated operations client deserializes auction start', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _AuctionAdapter();
+    final response = await OperationsClient(dio).startDeviceAuction(id: 'd1');
+    expect(response.data.roundNumber, 1);
+    expect(response.data.status.json, 'live');
+    expect(response.data.biddingMinutes, 3);
+  });
+
+  test('generated operations client posts a typed offer decline', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _DeclineAdapter();
+    final response = await OperationsClient(dio).declineAuction(
+      id: 'a1',
+      body: const AuctionDeclineWrite(
+        reasonCode: AuctionDeclineWriteReasonCode.other,
+        reason: 'Customer asked to wait',
+      ),
+    );
+    expect(response.data.status.json, 'needs_reauction');
+    expect(response.data.declineReason, 'Customer asked to wait');
+  });
+
+  test('generated operations client posts typed deal acceptance', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _AcceptAdapter();
+    final response = await OperationsClient(dio).acceptAuction(id: 'a1');
+    expect(response.data.status.json, 'awaiting_customer_verification');
+    expect(response.data.paymentInstruction?.status?.json, 'awaiting_customer_verification');
+  });
+
+  test('generated operations client gets a typed payment instruction', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _PaymentAdapter();
+    final response = await OperationsClient(dio).getPayment(id: 'pay1');
+    expect(response.data.status?.json, 'processing');
+    expect(response.data.providerTransferId, 'payout_test_1');
+  });
+
+  test('generated operations client gets typed reward overview totals', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _RewardAdapter();
+    final response = await OperationsClient(dio).getRewardOverview();
+    expect(response.data.totals?.issuedPoints, 800);
+    expect(response.data.policy?.redemptionScope?.json, 'branch_only');
+  });
+
+  test('generated operations client posts a typed redemption confirm', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _RedemptionAdapter();
+    final response = await OperationsClient(dio).confirmRedemption(
+      id: 'red1',
+      body: const RedemptionConfirmWrite(otp: '123456'),
+    );
+    expect(response.data.status?.json, 'redeemed');
+    expect(response.data.remainingPoints, 600);
   });
 }
 
@@ -280,6 +341,139 @@ final class _DiagnosticImportAdapter implements HttpClientAdapter {
     return ResponseBody.fromString(
       '{"success":true,"data":{"id":"imp1","deviceId":"d1","status":"ready_for_auction"}}',
       201,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _AuctionAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'POST');
+    expect(options.uri.path, '/v1/devices/d1/auctions');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"a1","deviceId":"d1","branchId":"b1","roundNumber":1,"status":"live","opensAt":"2026-09-14T10:00:00.000Z","closesAt":"2026-09-14T10:03:00.000Z","biddingMinutes":3,"acceptanceMinutes":10,"bidCount":0,"highestAmountPaise":0}}',
+      201,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _DeclineAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'POST');
+    expect(options.uri.path, '/v1/auctions/a1/decline');
+    expect((options.data as AuctionDeclineWrite).toJson()['reasonCode'].toString(), 'other');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"a1","deviceId":"d1","branchId":"b1","roundNumber":1,"status":"needs_reauction","opensAt":"2026-09-14T10:00:00.000Z","closesAt":"2026-09-14T10:03:00.000Z","declineReason":"Customer asked to wait"}}',
+      200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _AcceptAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'POST');
+    expect(options.uri.path, '/v1/auctions/a1/accept');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"deal1","auctionRoundId":"a1","deviceId":"d1","amountPaise":1500000,"status":"awaiting_customer_verification","paymentInstruction":{"status":"awaiting_customer_verification","accountNumberMasked":"•••• 4821"}}}',
+      201,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _PaymentAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'GET');
+    expect(options.uri.path, '/v1/payments/pay1');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"pay1","dealId":"deal1","status":"processing","amountPaise":800000,"providerTransferId":"payout_test_1"}}',
+      200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _RewardAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'GET');
+    expect(options.uri.path, '/v1/rewards/overview');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"totals":{"issuedPoints":800,"redeemedPoints":0,"outstandingPoints":800,"outstandingValuePaise":40000},"policy":{"version":1,"redemptionScope":"branch_only","futureScopesInactive":true}}}',
+      200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _RedemptionAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'POST');
+    expect(options.uri.path, '/v1/rewards/redemptions/red1/confirm');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"red1","status":"redeemed","remainingPoints":600,"discountPaise":10000,"points":200,"invoiceNumber":"INV-1"}}',
+      200,
       headers: <String, List<String>>{
         Headers.contentTypeHeader: <String>[Headers.jsonContentType],
       },

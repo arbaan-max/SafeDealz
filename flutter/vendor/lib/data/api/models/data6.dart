@@ -4,15 +4,18 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'auction_round.dart';
+
 part 'data6.freezed.dart';
 part 'data6.g.dart';
 
 @Freezed()
 class Data6 with _$Data6 {
   const factory Data6({
-    String? id,
-    String? deviceId,
-    String? status,
+    int? closedCount,
+    List<AuctionRound>? closed,
+    int? expiredCount,
+    List<AuctionRound>? expired,
   }) = _Data6;
   
   factory Data6.fromJson(Map<String, Object?> json) => _$Data6FromJson(json);

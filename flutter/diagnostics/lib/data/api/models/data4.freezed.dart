@@ -21,10 +21,8 @@ Data4 _$Data4FromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Data4 {
-  String? get id => throw _privateConstructorUsedError;
-  String? get purpose => throw _privateConstructorUsedError;
-  String? get objectKey => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
+  RewardPolicy? get current => throw _privateConstructorUsedError;
+  List<RewardPolicy>? get versions => throw _privateConstructorUsedError;
 
   /// Serializes this Data4 to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +38,9 @@ abstract class $Data4CopyWith<$Res> {
   factory $Data4CopyWith(Data4 value, $Res Function(Data4) then) =
       _$Data4CopyWithImpl<$Res, Data4>;
   @useResult
-  $Res call({String? id, String? purpose, String? objectKey, String? status});
+  $Res call({RewardPolicy? current, List<RewardPolicy>? versions});
+
+  $RewardPolicyCopyWith<$Res>? get current;
 }
 
 /// @nodoc
@@ -57,33 +57,34 @@ class _$Data4CopyWithImpl<$Res, $Val extends Data4>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? purpose = freezed,
-    Object? objectKey = freezed,
-    Object? status = freezed,
-  }) {
+  $Res call({Object? current = freezed, Object? versions = freezed}) {
     return _then(
       _value.copyWith(
-            id: freezed == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            purpose: freezed == purpose
-                ? _value.purpose
-                : purpose // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            objectKey: freezed == objectKey
-                ? _value.objectKey
-                : objectKey // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            status: freezed == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as String?,
+            current: freezed == current
+                ? _value.current
+                : current // ignore: cast_nullable_to_non_nullable
+                      as RewardPolicy?,
+            versions: freezed == versions
+                ? _value.versions
+                : versions // ignore: cast_nullable_to_non_nullable
+                      as List<RewardPolicy>?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of Data4
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RewardPolicyCopyWith<$Res>? get current {
+    if (_value.current == null) {
+      return null;
+    }
+
+    return $RewardPolicyCopyWith<$Res>(_value.current!, (value) {
+      return _then(_value.copyWith(current: value) as $Val);
+    });
   }
 }
 
@@ -95,7 +96,10 @@ abstract class _$$Data4ImplCopyWith<$Res> implements $Data4CopyWith<$Res> {
   ) = __$$Data4ImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String? purpose, String? objectKey, String? status});
+  $Res call({RewardPolicy? current, List<RewardPolicy>? versions});
+
+  @override
+  $RewardPolicyCopyWith<$Res>? get current;
 }
 
 /// @nodoc
@@ -111,30 +115,17 @@ class __$$Data4ImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? purpose = freezed,
-    Object? objectKey = freezed,
-    Object? status = freezed,
-  }) {
+  $Res call({Object? current = freezed, Object? versions = freezed}) {
     return _then(
       _$Data4Impl(
-        id: freezed == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        purpose: freezed == purpose
-            ? _value.purpose
-            : purpose // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        objectKey: freezed == objectKey
-            ? _value.objectKey
-            : objectKey // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        status: freezed == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as String?,
+        current: freezed == current
+            ? _value.current
+            : current // ignore: cast_nullable_to_non_nullable
+                  as RewardPolicy?,
+        versions: freezed == versions
+            ? _value._versions
+            : versions // ignore: cast_nullable_to_non_nullable
+                  as List<RewardPolicy>?,
       ),
     );
   }
@@ -143,23 +134,27 @@ class __$$Data4ImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Data4Impl implements _Data4 {
-  const _$Data4Impl({this.id, this.purpose, this.objectKey, this.status});
+  const _$Data4Impl({this.current, final List<RewardPolicy>? versions})
+    : _versions = versions;
 
   factory _$Data4Impl.fromJson(Map<String, dynamic> json) =>
       _$$Data4ImplFromJson(json);
 
   @override
-  final String? id;
+  final RewardPolicy? current;
+  final List<RewardPolicy>? _versions;
   @override
-  final String? purpose;
-  @override
-  final String? objectKey;
-  @override
-  final String? status;
+  List<RewardPolicy>? get versions {
+    final value = _versions;
+    if (value == null) return null;
+    if (_versions is EqualUnmodifiableListView) return _versions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Data4(id: $id, purpose: $purpose, objectKey: $objectKey, status: $status)';
+    return 'Data4(current: $current, versions: $versions)';
   }
 
   @override
@@ -167,16 +162,17 @@ class _$Data4Impl implements _Data4 {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Data4Impl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.purpose, purpose) || other.purpose == purpose) &&
-            (identical(other.objectKey, objectKey) ||
-                other.objectKey == objectKey) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.current, current) || other.current == current) &&
+            const DeepCollectionEquality().equals(other._versions, _versions));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, purpose, objectKey, status);
+  int get hashCode => Object.hash(
+    runtimeType,
+    current,
+    const DeepCollectionEquality().hash(_versions),
+  );
 
   /// Create a copy of Data4
   /// with the given fields replaced by the non-null parameter values.
@@ -194,22 +190,16 @@ class _$Data4Impl implements _Data4 {
 
 abstract class _Data4 implements Data4 {
   const factory _Data4({
-    final String? id,
-    final String? purpose,
-    final String? objectKey,
-    final String? status,
+    final RewardPolicy? current,
+    final List<RewardPolicy>? versions,
   }) = _$Data4Impl;
 
   factory _Data4.fromJson(Map<String, dynamic> json) = _$Data4Impl.fromJson;
 
   @override
-  String? get id;
+  RewardPolicy? get current;
   @override
-  String? get purpose;
-  @override
-  String? get objectKey;
-  @override
-  String? get status;
+  List<RewardPolicy>? get versions;
 
   /// Create a copy of Data4
   /// with the given fields replaced by the non-null parameter values.
