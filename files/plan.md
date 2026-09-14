@@ -10,7 +10,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Product design specification | Available in [design.md](design.md) |
 | Interactive design reference | Available in [design.html](design.html) |
 | Phase breakdown | Prepared — see [phases.md](phases.md) |
-| Product implementation | P00 foundation complete; product features not started |
+| Product implementation | P00–P02 complete; authentication implemented, administrative features not started |
 
 ## Project setup
 
@@ -28,7 +28,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Backend | Node.js, Express.js, MongoDB, and Mongoose |
 | API contract | OpenAPI/Swagger contract required before API-client generation |
 | Development completion goal | Complete approved scope through P25; development acceptance follows the test gates; deployment excluded |
-| Coding authorization | P00 authorized and completed; P01 waits for the owner's next instruction |
+| Coding authorization | P02 completed. P03 is not authorized; wait for the owner's instruction. |
 
 ## Product roles
 
@@ -46,7 +46,7 @@ The complete role permissions and screen behavior are defined in [design.md](des
 
 | Capability | Design status | Implementation status |
 | --- | --- | --- |
-| Authentication and account status enforcement | Defined | Not started |
+| Authentication and account status enforcement | Defined | Complete — TASK-003 |
 | Chain, branch, manager, and vendor administration | Defined | Not started |
 | Store Manager device intake and evidence | Defined | Not started |
 | Manual condition inspection | Defined | Not started |
@@ -68,9 +68,16 @@ The complete role permissions and screen behavior are defined in [design.md](des
 - P01: finalize compatible React libraries inside the confirmed feature-based structure.
 - Flutter Diagnostics hardware integrations and supported Android versions; Flutter is confirmed.
 - Authentication and refresh-token implementation.
-- Background jobs, realtime auction transport, notifications, storage, payments, SMS, and OTP providers.
+- Background jobs, realtime auction transport, notifications, SMS, and OTP providers. Cloudflare R2 is confirmed for private object storage in P07 and Razorpay is confirmed for vendor wallet recharge in P11; exact SDK/API versions and production credentials are selected during those phases.
 - MongoDB collection ownership, indexes, retention, and audit strategy.
 - Local/test environments, build/test CI and development secrets management; no deployment scope.
+
+## Execution authorization
+
+- One requested phase is one authorization unit and ends with an automatic stop.
+- An explicitly requested inclusive phase range may proceed continuously through its final phase and then stops.
+- Named tasks or steps stop when that exact scope is complete.
+- Verification may be scheduled across an authorized range only as allowed by [testing.md](testing.md); phase-specific tests, security gates, dependency checks, and contract validation are never skipped.
 
 ## Phase plan
 
@@ -79,8 +86,8 @@ The detailed roadmap is in [phases.md](phases.md). P00 is complete; later phases
 | Phase | Goal | Status | Latest completed task |
 | --- | --- | --- | --- |
 | P00 | Flutter projects and backend bootstrap | Complete | TASK-001 |
-| P01 | React admin foundation and shared test tooling | Planned | None |
-| P02 | Role authentication APIs and React login | Planned | None |
+| P01 | React admin foundation and shared test tooling | Complete | TASK-002 |
+| P02 | Role authentication APIs and React login | Complete | TASK-003 |
 | P03 | Super Admin, Admin and assigned stores | Planned | None |
 | P04 | Store Manager onboarding APIs and React pages | Planned | None |
 | P05 | Vendor onboarding APIs and React pages | Planned | None |

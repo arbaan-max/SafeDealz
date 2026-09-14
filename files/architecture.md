@@ -22,6 +22,12 @@ Diagnostics targets Android. Store Manager/Vendor scaffold Android and iOS. Use 
 4. Scaffold React admin in P01; then deliver authentication and admin/store/manager/vendor APIs with their React pages in P02–P05. Do not postpone React until the mobile apps are complete.
 5. Build diagnostic functionality in P08 after the manager inspection/evidence flow; P00 creates its project skeleton only. Resolve hardware and signed local QR feasibility before implementation of the relevant feature.
 
+## External service boundaries
+
+Cloudflare R2 is the object store for device evidence, rotation videos, bills and later KYC media. Buckets are private. Clients never receive permanent R2 credentials or public object URLs: the backend authorizes the record and store scope, issues short-lived signed operations, records object key/size/type/checksum, and rechecks authorization before download. Use portable repository-relative configuration documentation and environment variables for account ID, bucket, endpoint and secrets.
+
+Razorpay is the payment gateway for vendor wallet recharge. The backend creates Razorpay Orders and verifies webhook signatures before posting an idempotent wallet credit. Flutter opens Razorpay Checkout using the public key and backend order details; Razorpay secrets stay in backend environment configuration. A client checkout callback is display state only until the verified backend payment event is reconciled. Store payout/provider transfer design remains a separate P16 concern and must not be inferred from the recharge integration.
+
 ## React organization
 
 This is the project's chosen feature-based convention, not a universal React standard. Use React with TypeScript; select compatible tooling during bootstrap and record versions.
@@ -78,6 +84,8 @@ P00 proved that swagger_parser emits Retrofit clients and Freezed DTOs, while se
 Each Flutter app owns ApiConfig and DioFactory under lib/core/network. The factory supplies the API base URL, JSON headers and ten-second connection/send/receive timeouts to generated Retrofit clients. API_BASE_URL passed with dart-define overrides defaults; Android emulator defaults to 10.0.2.2 and host/iOS development defaults to localhost. P02 adds authenticated interceptors after its secure refresh design is approved.
 
 The client-approved application theme uses sky blue as the primary family everywhere. Use `#0369A1` for accessible primary actions and focus, `#38BDF8` for bright supporting highlights, `#E0F2FE` for selected/tinted surfaces, and purple only as a restrained secondary accent. Flutter, React admin, Diagnostics, prototypes and project-facing visual configuration must share these semantic tokens.
+
+Page background color is a semantic design token, initially `app-background: #F0F9FF`. React must apply it through a reusable `PageSurface` in its P01 shared shell. Each Flutter app must expose the same token through ThemeData and introduce a reusable `AppPageScaffold` when that app's first production feature shell is implemented. Individual screens must not own raw background colors, so a later theme adjustment requires changing only the token/component. Full-screen diagnostic tests and camera surfaces are explicit exceptions with their own semantic surface tokens.
 
 The verified P00 generator set is retrofit 4.8.0, retrofit_generator 9.7.0, freezed/freezed_annotation 2.x, json_serializable 6.9.x and the compatible build_runner resolution. These versions are intentionally pinned: newer Freezed generated classes failed analysis with the current parser, while Retrofit 4.9+ added a parser enum unsupported by retrofit_generator 9.7. Upgrade only as a dedicated tested task.
 

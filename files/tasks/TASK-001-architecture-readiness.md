@@ -19,6 +19,7 @@ Completed: 2026-09-13
 - Added a portable Obsidian vault at files/obsidian with project memory, templates and relative navigation across all four top-level folders.
 - Configured the complete SafeDealz folder as one Git repository with a root ignore policy and GitHub origin.
 - Applied the client-approved sky-blue primary theme to all three Flutter foundations, native splash configuration, the HTML prototype default, Obsidian and planning/design records.
+- Added the centralized `#F0F9FF` application-background token and planned reusable React/Flutter page-surface components in the first production-shell phase for each client.
 
 ## Acceptance results
 
@@ -30,7 +31,7 @@ Completed: 2026-09-13
 - [x] Security-guide conflicts and scoped-role architecture are recorded.
 - [x] Four-folder layout verified and all project-owned Markdown centralized under files.
 - [x] Obsidian configuration parses, vault links resolve, and no machine-specific project path is stored in the vault.
-- [ ] Sky-blue primary tokens and prototype default verified after the client theme amendment.
+- [x] Sky-blue primary tokens, reusable background token and prototype default verified after the client theme amendment.
 
 ## Verification evidence
 
@@ -46,6 +47,8 @@ Completed: 2026-09-13
 | Repository | Package/bundle ID inspection | Passed; Android namespace/application ID, Kotlin package and supported iOS bundle IDs match architecture.md |
 | files/obsidian | JSON, Markdown-link and path-portability validation | Passed; 9 JSON configs, 10 vault notes, 0 broken links and 0 absolute path hits |
 | Repository root | Four-folder and project-Markdown location inspection | Passed; only backend, flutter, files and react at root; all project-owned Markdown under files |
+| Repository root | Sky-blue token/default and contrast validation | Passed; prototype and all three apps match, primary/white contrast 5.93:1 |
+| Each Flutter app | flutter analyze and flutter test after theme change | Passed; zero analysis issues and three tests per app, including primary and scaffold-background assertions |
 
 ## Files and directories changed
 

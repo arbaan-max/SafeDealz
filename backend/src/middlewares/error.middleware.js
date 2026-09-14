@@ -4,12 +4,12 @@ export const errorHandler = (error, request, response, next) => {
     return;
   }
 
-  response.status(500).json({
+  if (error.retryAfter) response.set('Retry-After', String(error.retryAfter));
+  response.status(error.status ?? 500).json({
     success: false,
     error: {
-      code: 'INTERNAL_ERROR',
-      message: 'An unexpected error occurred.',
+      code: error.code ?? 'INTERNAL_ERROR',
+      message: error.status ? error.message : 'An unexpected error occurred.',
     },
   });
 };
-

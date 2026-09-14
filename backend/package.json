@@ -13,7 +13,10 @@
     "test:watch": "node --test --watch"
   },
   "dependencies": {
+    "argon2": "^0.45.1",
+    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
+    "jose": "^6.2.12",
     "mongoose": "^9.10.0"
   },
   "devDependencies": {

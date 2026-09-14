@@ -4,7 +4,19 @@
 
 // Clients
 export 'clients/system_client.dart';
+export 'clients/auth_client.dart';
 // Data classes
+export 'models/account_role.dart';
+export 'models/login_audience.dart';
+export 'models/client_type.dart';
+export 'models/account_summary.dart';
+export 'models/login_request.dart';
+export 'models/refresh_request.dart';
+export 'models/auth_data.dart';
+export 'models/auth_response.dart';
+export 'models/account_response.dart';
+export 'models/error_body.dart';
+export 'models/error_response.dart';
 export 'models/health_response.dart';
 export 'models/data.dart';
 // Root client

@@ -13,5 +13,6 @@ void main() {
     final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
     expect(app.theme?.colorScheme.primary, const Color(0xFF0369A1));
     expect(app.theme?.colorScheme.onPrimary, Colors.white);
+    expect(app.theme?.scaffoldBackgroundColor, const Color(0xFFF0F9FF));
   });
 }

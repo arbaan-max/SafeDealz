@@ -28,3 +28,4 @@ tags:
 3. Append one dated summary to [[01 Memory/Session Log]].
 4. Remove resolved scratch notes from `01 Memory/Inbox`.
 5. Confirm that new links are relative and no absolute machine path was introduced.
+6. Stop at the recorded authorization boundary. Record the next planned action without beginning it unless it falls inside an explicitly authorized inclusive phase range.

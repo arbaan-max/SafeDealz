@@ -89,7 +89,8 @@ Sky blue is the client-approved primary family across all applications. The dark
 
 | Token | Value | Use |
 |---|---|---|
-| `canvas` | `#F5F7FC` | Main app background |
+| `app-background` | `#F0F9FF` | Default sky-tinted page background, controlled centrally |
+| `canvas-neutral` | `#F5F7FC` | Optional future neutral page background token |
 | `surface` | `#FCFCFF` | Cards, sheets, forms |
 | `text-primary` | `#192238` | Titles, main body, amounts |
 | `text-secondary` | `#526079` | Labels, descriptions, metadata |
@@ -109,6 +110,8 @@ Sky blue is the client-approved primary family across all applications. The dark
 | `focus` | `#0369A1` | 2px outline with 2px offset |
 
 Use semantic tokens, not per-screen color overrides. Bright sky-blue fills carry dark `sky-ink` or `text-primary` text. The darker `brand-sky-action` carries white text. Purple is not a substitute for primary, error, or warning meaning. Ordinary text must reach 4.5:1; meaningful icons and control boundaries 3:1. Final rendered combinations must be checked during implementation.
+
+Every client must render screen backgrounds through one reusable page-surface component backed by `app-background`: a shared React `PageSurface`, and a shared Flutter `AppPageScaffold` (or equivalently named approved component) in each Flutter application. Screens must not hardcode the sky-tinted background. Changing the semantic token later must update all page backgrounds without editing individual screens. Cards, dialogs, media capture, and the Diagnostics full-screen touch surface may use their own documented semantic surface tokens.
 
 - Font: Plus Jakarta Sans, weights 400/500/600/700, with system sans-serif fallback. Self-host assets for the final prototype where practical.
 - Mobile title: 24/32px; section title: 18/26px; body/input: 16/24px; metadata: 13/20px; amount: 30/38px. Admin page title: 28/36px; tables: 14/22px.
@@ -336,8 +339,8 @@ KYC camera uses the same capture component as M06 but has its own document/portr
 | V05 | Confirm bid sheet: final amount, platform fee, total bid + fee reservation, remaining balance and one-bid/no-edit warning | Submit bid -> V06 | Submitting, concurrent balance change, round closed, duplicate retry |
 | V06 | Bid detail/confirmation: immutable amount, device/branch, reserved funds, round timeline | Back -> V01; wallet event -> V10; deal -> V12 when accepted | Submitted, Awaiting acceptance, Not selected, Expired, Payment processing, Accepted |
 | V07 | Wallet: large Available to bid, Reserved and Processing secondary, recharge action and ledger filters | Add money -> V08; entry -> V10; holds -> V11 | Zero balance, active reservations, pending recharge, history empty |
-| V08 | Add money: amount, provider handoff explanation and confirmation | Continue -> simulated provider -> V09 | Invalid amount, loading provider, canceled checkout |
-| V09 | Recharge status: amount and reference | Done -> V07; pending Refresh; failed Try again -> V08 | Pending, Confirmed, Failed; no optimistic balance credit |
+| V08 | Add money: amount, Razorpay handoff explanation and confirmation | Continue -> Razorpay Checkout -> V09 | Invalid amount, loading Razorpay, canceled checkout |
+| V09 | Razorpay recharge status: amount, order/payment reference and backend confirmation | Done -> V07; pending Refresh; failed Try again -> V08 | Pending, Confirmed, Failed; no optimistic balance credit |
 | V10 | Wallet transaction: signed movement, type, timestamps, references, linked bid/deal | Related bid -> V06; deal -> V12; Back -> V07 | Recharge, reserve, release, payment, reversal |
 | V11 | Reserved funds: list per device, branch, amount and auction/acceptance deadline | Item -> V06 | Multiple holds, no holds, updated release |
 | V12 | Purchased device: device, paid amount, branch address/contact, payment and pickup status | Open address/map; contact store; history; report issue -> V16 | Payment processing, Awaiting pickup, Picked up; no mark-picked-up control |
@@ -595,7 +598,7 @@ This is a conceptual schema to support screen and workflow design, not a finaliz
 | Wallet | Unique vendor user ID, currency, authoritative ledger reference |
 | WalletEntry | Wallet ID, signed movement/type, bid/payment/recharge reference, timestamp, idempotency identity |
 | WalletHold | Bid/wallet IDs, amount, Reserved/Released/Consumed state, terminal reason |
-| Recharge | Vendor ID, amount, provider order/payment IDs, confirmation and reconciliation state |
+| Recharge | Vendor ID, amount, Razorpay order/payment IDs, webhook confirmation and reconciliation state |
 | Deal | Unique accepted round ID, vendor/branch, accepting manager, accepted amount/time, beneficiary snapshot, pickup actor/time |
 | Payout | Unique deal reference, amount, provider identity, current state and attempt history |
 | RewardPolicy | Version, earn ratio, point value, precision, categories, expiry, scope, eligible branch set, effective time |

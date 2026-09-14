@@ -30,6 +30,18 @@ When two sources disagree, use this order:
 
 If the conflict changes scope, security, money movement, user permissions, data ownership, or architecture, record a proposed decision and obtain owner approval before implementing it.
 
+## Authorization and automatic stop boundary
+
+Interpret each owner command before creating a task:
+
+- **Single phase:** a command such as `start P01` authorizes P01 only. Complete all P01 gates and records, then stop automatically. Do not start P02 until explicitly instructed.
+- **Inclusive phase range:** a command such as `start P11 and end at P20` authorizes P11 through P20. Continue across intermediate phase boundaries after recording each completion, and stop automatically after P20.
+- **Named tasks or steps:** complete only the named scope and stop, even when the parent phase has more work.
+
+An authorized range changes pause points; it does not remove dependencies or completion gates. Required unit, widget, API, database, contract, integration, and security tests run with the phase that introduces the behavior. Broad or repeated checks such as a full `flutter build apk --debug` may be deferred to the final authorized phase only when they are not needed to validate an intermediate change and no native plugin, platform configuration, or build-system change makes an immediate build necessary. Record every deferred check in the active task and run it before completing the final phase in the range.
+
+If a deferred final check exposes an earlier regression, fix the source phase, update its records, and rerun affected gates before declaring the range complete.
+
 ## Execution workflow
 
 ### 1. Inspect
@@ -43,6 +55,7 @@ If the conflict changes scope, security, money movement, user permissions, data 
 - Find the active phase in [plan.md](plan.md).
 - If phase breakdown is still pending, prepare or refine the phase breakdown only. Do not start product code.
 - A phase must have a goal, included scope, exclusions, dependencies, acceptance criteria, API impact, Flutter impact, database impact, and verification gate.
+- Record whether the authorization covers one phase, an inclusive range, or named tasks, including the exact automatic stop boundary.
 
 ### 3. Create the task
 
@@ -90,6 +103,8 @@ Documentation synchronization is part of the task, not optional later work. Do i
 | Setup/deployment documentation | Update when configuration, migrations, environment or operational procedures change |
 
 For each conditional file, record Updated or Not applicable with a short reason in the task. Do not rewrite unrelated design files merely to mark coding complete. A completion report must name the changes, test commands and outcomes, documentation updated, remaining limitations and next task. Never count skipped, unavailable or unrun checks as passing. If blocked, record partial progress and the exact unblock action instead of marking Done.
+
+After synchronization, stop at the recorded authorization boundary. A completed single phase never implies permission to begin the next phase.
 
 ## Current gate
 

@@ -16,3 +16,17 @@ tags:
 - Created this portable Obsidian vault for local project memory.
 - Initialized one Git repository for the complete SafeDealz project, configured the GitHub origin, and excluded secrets and generated local dependencies.
 - Recorded the client's final sky-blue theme decision and applied it to Flutter, prototype, Obsidian, and canonical project documents.
+- Added the reusable semantic page-background requirement to the React, Vendor, Store Manager, and Diagnostics shell phases.
+
+## 2026-09-14
+
+- Recorded automatic stopping after each single phase or named task.
+- Added explicit inclusive-range authorization and safe final-phase scheduling for deferrable broad verification.
+- Kept P01 unstarted pending the owner's next instruction.
+- Completed P01: React admin shell, semantic PageSurface, permission/API foundations, component and Chromium test tooling.
+- Added transaction-tested backend audit/outbox persistence and the one-command P01 development gate.
+- Verified React 7/7, Chromium 1/1, backend 8/8, Flutter 3/3 per app, reproducible codegen and zero npm vulnerabilities; stopped before P02.
+- Completed P02 authentication APIs, React A00 login, and Store Manager/Vendor S01 login and secure session clients.
+- Verified Mongo-backed account/IP throttling, parallel attempts, refresh rotation/replay, CSRF, inactive accounts and malformed tokens.
+- P02 gate passed: backend 19/19, React 10/10 plus Chromium/build, mobile 4/4 each, Diagnostics 3/3, clean analysis/audits, and both Android debug builds; stopped before P03.
+- Confirmed Cloudflare R2 for private evidence/KYC media in P07 and Razorpay Orders/Checkout plus verified webhook wallet credit in P11; provider code remains deferred to its planned phase.

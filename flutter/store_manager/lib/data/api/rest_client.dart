@@ -5,8 +5,9 @@
 import 'package:dio/dio.dart';
 
 import 'clients/system_client.dart';
+import 'clients/auth_client.dart';
 
-/// SafeDealz API `v0.1.0`
+/// SafeDealz API `v0.2.0`
 class RestClient {
   RestClient(
     Dio dio, {
@@ -17,9 +18,12 @@ class RestClient {
   final Dio _dio;
   final String? _baseUrl;
 
-  static String get version => '0.1.0';
+  static String get version => '0.2.0';
 
   SystemClient? _system;
+  AuthClient? _auth;
 
   SystemClient get system => _system ??= SystemClient(_dio, baseUrl: _baseUrl);
+
+  AuthClient get auth => _auth ??= AuthClient(_dio, baseUrl: _baseUrl);
 }

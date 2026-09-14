@@ -9,6 +9,15 @@
 | Areas | Flutter / Admin web / Diagnostics / Backend / MongoDB / Integration |
 | Design screens | IDs from [../design.md](../design.md) |
 
+## Authorization boundary
+
+| Item | Value |
+| --- | --- |
+| Authorized scope | Single phase / inclusive phase range / named tasks or steps |
+| Start | PXX or task ID |
+| Automatic stop after | PXX or task ID |
+| May continue across intermediate phases | Yes only when an explicit inclusive range is recorded |
+
 ## Goal
 
 Describe one small or medium deliverable with a reviewable result.
@@ -61,6 +70,14 @@ Remove rows that genuinely do not apply and add task-specific cases. Do not begi
 | --- | --- | --- |
 | Not run | Not run | Fill during implementation |
 
+## Deferred broad verification
+
+| Check | Why it is safe to defer | Must run by | Result |
+| --- | --- | --- | --- |
+| None | — | — | — |
+
+Do not defer feature tests, security gates, contract checks, dependency checks, or builds required by this task. Use this table only when an explicit multi-phase range is authorized and [../testing.md](../testing.md) permits deferral.
+
 ## Files changed
 
 - Fill after implementation.
@@ -81,6 +98,7 @@ Remove rows that genuinely do not apply and add task-specific cases. Do not begi
 - [ ] implementation.md: task register, test evidence and next action updated.
 - [ ] plan.md and phases.md: phase progress and completed task IDs updated.
 - [ ] Conditional files reviewed: decisions, design.md + design.html, OpenAPI/generated clients, testing/run instructions, backend plan pointer, setup/deployment notes. Record each as Updated or Not applicable with reason.
+- [ ] Authorization boundary honored; work stopped after the recorded phase/task, or continued only within the recorded inclusive range.
 
 Record command, working directory, date, exit result and relevant test counts or evidence path. No credentials or customer information in evidence. Done requires all applicable criteria and tests passing, plus synchronized documentation. Blocked/partial work records the remaining action rather than a completion date.
 

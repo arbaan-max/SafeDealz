@@ -15,3 +15,4 @@ tags:
 6. Record durable context in [[01 Memory/Project Memory]]. Record confirmed product or architecture decisions in [decisions.md](../decisions.md) first.
 7. Use vault-relative wikilinks for vault notes and relative Markdown links for canonical files outside this vault.
 8. Never store passwords, access tokens, refresh tokens, private keys, customer KYC, bank information, or production secrets in this vault.
+9. Treat each completed phase as an automatic stop unless the owner explicitly authorized an inclusive phase range. Stop after the final named phase or task and record the next action without starting it.

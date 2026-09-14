@@ -8,6 +8,8 @@ Every API task must implement and test its applicable [security gates](security.
 
 Each phase excludes later-phase features and unapproved architecture changes. API and database impact below must be made concrete in the active task before coding. Every affected Flutter feature requires unit/widget tests and applicable API integration tests; admin features require browser checks. P00 and documentation-only tasks use evidence review instead of claiming product tests. Dependency completion is required before starting a phase; independent work can be scheduled separately.
 
+Phase completion is an automatic stop boundary unless the owner explicitly authorizes an inclusive phase range. Within a range, synchronize every intermediate phase and continue only through the named final phase. Broad repeat builds may run in that final phase when safely deferrable under [testing.md](testing.md); tests, security controls, contract checks, and builds required by an intermediate change remain part of that phase's gate.
+
 ## P00 — Flutter projects and backend bootstrap
 
 - Status: Complete — TASK-001
@@ -21,18 +23,18 @@ Each phase excludes later-phase features and unapproved architecture changes. AP
 
 ## P01 — React admin foundation and shared test tooling
 
-- Status: Planned
+- Status: Complete — TASK-002
 - Dependencies: P00
 - Screens: —
-- Scope: Create React admin under react/admin using the feature-based structure in architecture.md, shared layout/themes, route and permission boundaries, API adapter and component/browser test tooling. Finish cross-project contract checks and build/test CI without deployment.
+- Scope: Create React admin under react/admin using the feature-based structure in architecture.md, shared layout/themes, reusable `PageSurface` backed by the semantic `app-background` token, route and permission boundaries, API adapter and component/browser test tooling. Finish cross-project contract checks and build/test CI without deployment.
 - API, data and client impact: React app/providers/router, shared UI, feature modules and test fixtures; isolated Mongo transaction-capable test environment and backend audit/outbox foundation. Do not build fake operational dashboard totals.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
 - Tasks: P01.1 — define contracts/data and acceptance cases; P01.2 — deliver scoped functionality/evidence; P01.3 — verify integration and synchronize completion records.
-- Completion gate: Build, analyze and run sample API, Flutter widget and integration tests; verify generated-client reproducibility.
+- Completion gate: Build, analyze and run sample API, Flutter widget and integration tests; verify generated-client reproducibility; prove that changing the React `app-background` token updates every shared-shell page without individual page edits.
 
 ## P02 — Role authentication APIs and React login
 
-- Status: Planned
+- Status: Complete — TASK-003
 - Dependencies: P01
 - Screens: S01,A00,M24,V17
 - Scope: Implement super_admin, admin, store_manager and vendor authentication APIs and React login first; wire mobile login/session behavior against the same contract. Include password eye control, throttling, refresh rotation/reuse detection, revocation and active-account enforcement.
@@ -68,22 +70,22 @@ Each phase excludes later-phase features and unapproved architecture changes. AP
 - Status: Planned
 - Dependencies: P04
 - Screens: A08,A09,V15
-- Scope: Vendor account creation, safe existing-account linking and multi-chain/multi-store assignments; Flutter assigned-store view.
+- Scope: Vendor account creation, safe existing-account linking and multi-chain/multi-store assignments; Flutter assigned-store view. Introduce the Vendor app's reusable `AppPageScaffold` backed by ThemeData `app-background` as its production feature shell begins.
 - API, data and client impact: Reuse account/assignment service with vendor-specific validation. Keep one personal wallet per vendor; assignments never split or duplicate it.
 - Security gate: Admin may manage links only to assigned stores. Global vendor account status/credentials and cross-store financial visibility remain Super Admin-only. Do not leak an existing vendor's other store relationships through lookup or duplicate errors.
 - Tasks: P05.1 — vendor contracts/ownership tests; P05.2 — API and React pages plus Flutter store view; P05.3 — multi-chain isolation and regression tests/documentation.
-- Completion gate: Vendor assignment is limited to authorized stores and visible correctly in the vendor app; Admin cannot affect another Admin's store or inspect global wallet balances.
+- Completion gate: Vendor assignment is limited to authorized stores and visible correctly in the vendor app; Admin cannot affect another Admin's store or inspect global wallet balances; Vendor feature pages inherit their background from the shared scaffold/token with no raw screen background colors.
 
 ## P06 — Device identity
 
 - Status: Planned
 - Dependencies: P05
 - Screens: M01,M02,M03
-- Scope: Device drafts, list filters, dual editable IMEI capture, Apple and Android fields.
+- Scope: Device drafts, list filters, dual editable IMEI capture, Apple and Android fields. Introduce the Store Manager app's reusable `AppPageScaffold` backed by ThemeData `app-background` as its production feature shell begins.
 - API, data and client impact: Draft ownership, identity validation and camera scan adapter; Apple storage/battery health, Android RAM 4/6/8/12/24 only.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
 - Tasks: P06.1 — define contracts/data and acceptance cases; P06.2 — deliver scoped functionality/evidence; P06.3 — verify integration and synchronize completion records.
-- Completion gate: Conditional required fields, scan correction, duplicates and draft resume tested; Apple has no RAM selector.
+- Completion gate: Conditional required fields, scan correction, duplicates and draft resume tested; Apple has no RAM selector; Manager feature pages inherit their background from the shared scaffold/token with no raw screen background colors.
 
 ## P07 — Manual inspection and evidence
 
@@ -91,21 +93,21 @@ Each phase excludes later-phase features and unapproved architecture changes. AP
 - Dependencies: P06
 - Screens: M04,M05,M06
 - Scope: Complete manual form on both platforms and live capture of six images plus one rotation video.
-- API, data and client impact: Separate inspection/evidence records; age bands, mandatory bill below 11 months, private media upload contracts.
+- API, data and client impact: Separate inspection/evidence records; age bands and mandatory bill below 11 months. Store live-captured images, rotation videos and bills in a private Cloudflare R2 bucket through backend-issued short-lived signed upload/download requests; persist only object metadata and keys in MongoDB.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
 - Tasks: P07.1 — define contracts/data and acceptance cases; P07.2 — deliver scoped functionality/evidence; P07.3 — verify integration and synchronize completion records.
-- Completion gate: All form steps remain editable despite diagnostics; required bill and seven captures enforced; permissions, retake and interrupted upload tested; no RGB inspection.
+- Completion gate: All form steps remain editable despite diagnostics; required bill and seven captures enforced; permissions, retake, interrupted R2 upload, expired signatures and unauthorized media access tested; no RGB inspection.
 
 ## P08 — Android diagnostic tests
 
 - Status: Planned
 - Dependencies: P07
 - Screens: D01,D02,D03,D04,D05,D06,D07
-- Scope: Flutter Android Diagnostics app: local diagnostic workflow, hardware tests, full-screen touch dots and report review; native Android bridges only where hardware access requires them.
+- Scope: Flutter Android Diagnostics app: local diagnostic workflow, hardware tests, full-screen touch dots and report review; native Android bridges only where hardware access requires them. Introduce its reusable `AppPageScaffold` for ordinary pages; full-screen test surfaces use separate semantic diagnostic tokens.
 - API, data and client impact: Local result schema and hardware adapters; no customer data or transfer before final import.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
 - Tasks: P08.1 — define contracts/data and acceptance cases; P08.2 — deliver scoped functionality/evidence; P08.3 — verify integration and synchronize completion records.
-- Completion gate: Physical-device checks plus automated state tests: permissions, unsupported hardware, 120 dots, percentage, retries and explicit submission; never fabricate a passing result.
+- Completion gate: Physical-device checks plus automated state tests: permissions, unsupported hardware, 120 dots, percentage, retries and explicit submission; never fabricate a passing result; ordinary pages inherit the reusable background token while test surfaces use explicit diagnostic tokens.
 
 ## P09 — Diagnostic QR handoff
 
@@ -134,11 +136,11 @@ Each phase excludes later-phase features and unapproved architecture changes. AP
 - Status: Planned
 - Dependencies: P10
 - Screens: V08,V09
-- Scope: Recharge checkout, pending/success/failure and provider reconciliation.
-- API, data and client impact: Sandbox provider adapter, verified webhooks and unique credit records.
+- Scope: Razorpay wallet recharge checkout, pending/success/failure and provider reconciliation.
+- API, data and client impact: Backend-created Razorpay Orders, Flutter Razorpay Checkout adapter, verified webhook signatures, provider payment/order IDs and unique wallet-credit records. Credentials remain server-side; client success never credits the wallet.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
 - Tasks: P11.1 — define contracts/data and acceptance cases; P11.2 — deliver scoped functionality/evidence; P11.3 — verify integration and synchronize completion records.
-- Completion gate: Duplicate/out-of-order webhooks credit once; client success alone never credits; failed and unknown payments handled.
+- Completion gate: Razorpay test-mode checkout succeeds; invalid signatures are rejected; duplicate/out-of-order webhooks credit once; client success alone never credits; failed, cancelled and unknown payments reconcile safely.
 
 ## P12 — Auction lifecycle and settings
 

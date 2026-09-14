@@ -2,6 +2,14 @@
 
 Every task must define applicable tests before coding and record actual results in its task file and [implementation.md](implementation.md).
 
+## Verification scheduling across an authorized phase range
+
+Run checks in the phase that introduces the behavior when they validate business logic, API contracts, authorization, security, database constraints, generated-client compatibility, state transitions, UI behavior, or a dependency needed by a later phase. A phase cannot pass by moving these checks to a later phase.
+
+Broad repeat verification may be deferred to the final phase of an explicitly authorized range when an earlier phase already has sufficient targeted evidence. Examples include repeated full clean builds, all-app regression sweeps, and cross-project build checks. `flutter build apk --debug` may be deferred only when the phase changes no native plugin, platform configuration, application identifier, generated platform code, or build-system setting, and analyze plus relevant tests provide adequate intermediate evidence.
+
+Every deferred check must be listed in the task with its reason and final target phase. The final authorized phase must run the complete deferred list before it can be marked complete. A failure reopens the phase that introduced the defect and requires its affected checks to pass again.
+
 ## Backend and API
 
 - Unit-test business rules in services and pure utilities.
@@ -11,6 +19,8 @@ Every task must define applicable tests before coding and record actual results 
 - Test standard success, validation failure, unauthorized, forbidden, not found, conflict, expiry, retry, and provider-failure responses.
 - Verify the implementation against the OpenAPI contract.
 - Test idempotency for wallet movements, bid submission, acceptance, payout instructions, webhooks, QR import, pickup, and reward redemption.
+- For Cloudflare R2, test signed-operation expiry, object-key ownership, MIME/size/checksum validation, interrupted upload recovery, private access and cross-store download denial without contacting production storage.
+- For Razorpay recharge, test server-created order amounts in paise, webhook signature verification, mismatched order/payment IDs, duplicate and out-of-order events, cancellation/failure, reconciliation and exactly-once wallet credit. A Flutter checkout callback alone must never change the balance.
 - Test timer boundaries with a controllable clock rather than real waits.
 
 ## Flutter clients
@@ -63,6 +73,9 @@ Read [security.md](security.md) before implementing APIs or authentication clien
 - In each Flutter app: flutter analyze, flutter test, and an applicable build command.
 - From the repository root: `make -f files/Makefile generate-api` after every OpenAPI change; `make -f files/Makefile check-p00` for generation plus Flutter analysis/tests and backend tests.
 - In backend: npm test and npm audit --audit-level=high.
+- In React admin: `npm run check` for ESLint, Vitest, production build and Playwright Chromium; `npm audit --audit-level=high` for dependency review.
+- From the repository root after P01: `make -f files/Makefile check-p01` for generated-client reproducibility, React checks, all Flutter analysis/tests and backend tests.
+- From the repository root after P02: `make -f files/Makefile check-p02` adds dependency audits and Store Manager/Vendor Android debug builds to the complete authentication regression gate.
 
 P00 ran all commands above successfully, including Android debug builds for all three apps. The backend test suite has four passing tests/subtests, including the canonical Swagger JSON route. Future phases add feature-specific tests rather than relying on these smoke checks.
 

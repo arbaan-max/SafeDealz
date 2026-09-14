@@ -66,7 +66,7 @@ The complete SafeDealz folder is one Git repository connected to the arbaan-max/
 
 Status: Confirmed and implemented, 2026-09-13.
 
-Sky blue is the final primary theme for Store Manager, Vendor, Diagnostics, Admin, and Super Admin. Use `#0369A1` for accessible primary actions and focus, white for content on that action color, `#38BDF8` for bright supporting highlights, and `#E0F2FE` for selected or tinted surfaces. Purple is a restrained secondary accent. The prototype may retain a Purple comparison option, but it opens in Sky Blue and production clients implement Sky Blue as the primary theme.
+Sky blue is the final primary theme for Store Manager, Vendor, Diagnostics, Admin, and Super Admin. Use `#0369A1` for accessible primary actions and focus, white for content on that action color, `#38BDF8` for bright supporting highlights, `#E0F2FE` for selected surfaces, and `#F0F9FF` for the default application background. Purple is a restrained secondary accent. The prototype may retain a Purple comparison option, but it opens in Sky Blue and production clients implement Sky Blue as the primary theme. Every client owns one reusable page-surface component backed by the semantic background token; screens do not hardcode page backgrounds.
 
 ## DEC-008 — Security gates and inactive-session logout
 
@@ -81,3 +81,29 @@ Status: Confirmed by owner, 2026-09-13.
 Add Admin alongside Super Admin, Store Manager and Vendor. Only Super Admin creates Admins and assigns their stores; all Admin UI/API visibility is limited to assigned stores. Use three Flutter projects with Tekrio/SafeDealz identifiers and React for both administrative roles. P00 bootstraps Flutter then backend; prioritize React and administrative APIs before mobile feature flows; defer Diagnostics functionality until intake requires it. Details and conservative permissions are in [architecture.md](architecture.md). The roadmap expands from 24 to 26 phases by separating manager and vendor onboarding. Earlier phase references in historical entries retain their historical meaning.
 
 Guide conflict resolution: the owner's explicit refresh/security requirements supersede the Flutter guide's no-refresh example. Secure storage/key-management implementation needs a concrete design before session code; no protected infrastructure was modified.
+
+## DEC-017 — Automatic phase stops and explicit range authorization
+
+Status: Confirmed by owner, 2026-09-14.
+
+A command for one phase authorizes only that phase and ends with an automatic stop after implementation, required verification, and record synchronization. An explicitly stated inclusive phase range authorizes continuous work through its final phase, then stops. A command for named tasks or steps stops after that scope. Broad repeated verification may be deferred to the final authorized phase only when [testing.md](testing.md) says it is safe; required feature, contract, dependency, integration, and security gates remain in the phase that introduces the behavior.
+
+## DEC-018 — React administration and event persistence foundation
+
+Status: Implemented and verified, 2026-09-14.
+
+The administration web client uses React with TypeScript and Vite, React Router for routing, TanStack Query for server-state orchestration, semantic CSS tokens, and a reusable `PageSurface`. Vitest, Testing Library and axe cover components; Playwright covers browser behavior. Permission helpers are UI boundaries only and backend authorization remains authoritative. The backend provides creation-only audit and outbox repositories backed by Mongoose, with transaction and idempotency tests. Authentication and event publication remain later-phase work.
+
+## DEC-019 — Authentication session and client storage model
+
+Status: Implemented and verified, 2026-09-14.
+
+Passwords use Argon2id. Access tokens are short-lived signed JWTs with fixed issuer, audience and algorithm; refresh tokens are opaque secrets stored server-side only as SHA-256 digests in a revocable session family. Every login, refresh and protected request checks the authoritative account and session. Web refresh uses an HttpOnly SameSite cookie plus CSRF token; React keeps access tokens only in memory. Store Manager and Vendor use platform secure storage. Clients permit one refresh in flight and retry a protected request at most once. `ACCOUNT_INACTIVE` and refresh replay clear local credentials and reset mobile navigation to Login. Login audiences are `admin_portal` for Super Admin/Admin, `store_manager`, and `vendor`, preserving email/password-only screens.
+
+## DEC-020 — Cloudflare R2 storage and Razorpay wallet recharge
+
+Status: Confirmed by owner, 2026-09-14.
+
+Cloudflare R2 is the private object store for device evidence, videos, bills and later KYC media. P07 introduces the reusable backend storage adapter and signed media flow; later media phases reuse it. R2 credentials remain backend-only, objects are private, and every signed upload/download requires record and scope authorization.
+
+Razorpay is the vendor wallet recharge gateway. P11 implements backend-created Razorpay Orders, Flutter Checkout, signature-verified webhooks, idempotent wallet credit and reconciliation. The wallet is never credited from a client success callback. Razorpay recharge does not by itself decide the separate store-payout rail planned in P16.

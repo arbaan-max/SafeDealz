@@ -13,3 +13,11 @@ After every implementation task or partial handoff, follow the mandatory file-up
 After the canonical records are updated, refresh [Obsidian Current State](obsidian/01%20Memory/Current%20State.md) and append a short entry to [Obsidian Session Log](obsidian/01%20Memory/Session%20Log.md). Obsidian memory is a resume aid and never overrides canonical records or tested code.
 
 The repository has exactly four top-level application/documentation folders: `backend`, `flutter`, `files`, and `react`. All Markdown documentation and agent instructions live under `files`. The React administration application belongs under `react/admin`.
+
+## Authorization and automatic stop boundary
+
+- A command for one phase authorizes only that phase. Complete its required implementation, tests, and records, then stop and wait for the owner's next instruction.
+- An explicit inclusive phase range authorizes continuous work through that range. Record each intermediate phase completion, continue without pausing, and stop after the final authorized phase.
+- A command naming particular tasks or steps authorizes only that stated scope. Stop when that scope is complete.
+- Do not infer authorization for the next phase from dependency readiness, remaining context, or a successful phase.
+- Within an authorized range, broad repeat builds and other nonessential cross-project checks may move to the final authorized phase when [testing.md](testing.md) permits it. Tests and security gates needed to validate a phase or protect dependent work must run in the phase that introduces the behavior.
