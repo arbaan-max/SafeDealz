@@ -1,4 +1,4 @@
-import { Building2, LayoutDashboard, ShieldCheck, MapPin } from 'lucide-react';
+import { Building2, LayoutDashboard, ShieldCheck, MapPin, Users, CircleUser } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 import { PageSurface } from '../shared/ui/PageSurface';
@@ -10,6 +10,8 @@ const links: { to: string; label: string; icon: typeof ShieldCheck; roles: Accou
   { to: '/chains', label: 'Chains', icon: Building2, roles: ['super_admin', 'admin'] },
   { to: '/branches', label: 'Branches', icon: MapPin, roles: ['super_admin', 'admin'] },
   { to: '/admins', label: 'Admins', icon: ShieldCheck, roles: ['super_admin'] },
+  { to: '/managers', label: 'Managers', icon: Users, roles: ['super_admin', 'admin'] },
+  { to: '/vendors', label: 'Vendors', icon: CircleUser, roles: ['super_admin', 'admin'] },
 ];
 
 export function AdminShell() {
@@ -33,7 +35,7 @@ export function AdminShell() {
               return <NavLink key={link.to} to={link.to}><Icon size={18} aria-hidden="true" />{link.label}</NavLink>;
             })}
           </nav>
-          <p className="sidebar-note">{role === 'admin' ? 'Menus and records stay limited to assigned stores.' : 'Only Super Admin can create Admins and change store assignments.'}</p>
+          <p className="sidebar-note">{role === 'admin' ? 'Menus and records stay limited to assigned stores. Manager and vendor links stay inside that scope.' : 'Only Super Admin can create Admins and change global vendor credentials or wallet visibility.'}</p>
         </aside>
         <main id="main-content" className="content" tabIndex={-1}><Outlet /></main>
       </div>

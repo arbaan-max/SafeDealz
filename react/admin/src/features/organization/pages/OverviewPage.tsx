@@ -15,13 +15,13 @@ export function OverviewPage() {
     <section aria-labelledby="page-title">
       <div className="eyebrow">A01</div>
       <h1 id="page-title">Overview</h1>
-      <p className="lede">{scoped ? 'You can only see stores assigned to this Admin account. Empty assignment means no store access.' : 'Super Admin workspace for chains, branches and Admin assignments.'}</p>
+      <p className="lede">{scoped ? 'You can only see stores assigned to this Admin account. Empty assignment means no store access.' : 'Super Admin workspace for chains, branches, Admins and Store Managers.'}</p>
       <div className="foundation-grid">
         <article className="foundation-card"><h2>{counts.chains}</h2><p>Visible chains</p></article>
         <article className="foundation-card"><h2>{counts.branches}</h2><p>Assigned branches</p></article>
         <article className="foundation-card"><h2>{auth.account?.email}</h2><p>{auth.account?.role === 'super_admin' ? 'Super Admin' : 'Admin'}</p></article>
       </div>
-      <p className="notice" role="status"><strong>No operational totals.</strong> Auction and payment metrics arrive in later phases. Start with <Link to="/chains">Chains</Link> or <Link to="/branches">Branches</Link>.</p>
+      <p className="notice" role="status"><strong>No operational totals.</strong> Auction and payment metrics arrive in later phases. Start with <Link to="/chains">Chains</Link>, <Link to="/branches">Branches</Link>, <Link to="/managers">Managers</Link> or <Link to="/vendors">Vendors</Link>.</p>
     </section>
   );
 }

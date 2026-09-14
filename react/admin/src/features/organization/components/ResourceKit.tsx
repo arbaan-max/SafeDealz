@@ -29,8 +29,8 @@ export function DataTable({ headers, rows, empty }: { headers: string[]; rows: R
   );
 }
 
-export function ResourceForm({ title, backTo, backLabel, error, onSubmit, children, busy }: {
-  title: string; backTo: string; backLabel: string; error: string | null; onSubmit(): Promise<void>; children: ReactNode; busy: boolean;
+export function ResourceForm({ title, backTo, backLabel, error, onSubmit, children, busy, extraActions }: {
+  title: string; backTo: string; backLabel: string; error: string | null; onSubmit(): Promise<void>; children: ReactNode; busy: boolean; extraActions?: ReactNode;
 }) {
   const [submitting, setSubmitting] = useState(false);
   const submit = async (event: FormEvent) => {
@@ -45,7 +45,10 @@ export function ResourceForm({ title, backTo, backLabel, error, onSubmit, childr
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       <form className="resource-form" onSubmit={(event) => void submit(event)}>
         {children}
-        <button className="login-button" type="submit" disabled={busy || submitting}>{submitting || busy ? 'Saving…' : 'Save'}</button>
+        <div className="row-actions">
+          {extraActions}
+          <button className="login-button" type="submit" disabled={busy || submitting}>{submitting || busy ? 'Saving…' : 'Save'}</button>
+        </div>
       </form>
     </section>
   );

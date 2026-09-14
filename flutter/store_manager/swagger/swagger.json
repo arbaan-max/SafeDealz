@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "SafeDealz API",
-    "version": "0.3.0"
+    "version": "0.10.0"
   },
   "servers": [
     {
@@ -561,6 +561,979 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AdminResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/managers": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "listManagers",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Store Manager accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagerListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "createManager",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagerCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Store Manager",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/managers/{id}": {
+      "patch": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "updateManager",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Store Manager",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/vendors": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "listVendors",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vendor accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendorListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "createVendor",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created vendor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/vendors/links": {
+      "post": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "linkVendor",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Linked vendor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/vendors/{id}": {
+      "patch": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "updateVendor",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated vendor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/assigned-stores": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "listAssignedStores",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stores assigned to the vendor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignedStoreListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/catalog": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "getCatalog",
+        "responses": {
+          "200": {
+            "description": "Trade-in and diagnostic option catalog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/diagnostic-imports": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "importDiagnostic",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DiagnosticImportWrite" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Imported diagnostic result",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DiagnosticImportResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ApiError" },
+          "401": { "$ref": "#/components/responses/ApiError" },
+          "403": { "$ref": "#/components/responses/ApiError" },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/me": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getMyWallet",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Authenticated vendor wallet",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletDetailResponse" } } }
+          },
+          "401": { "$ref": "#/components/responses/ApiError" },
+          "403": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listWallets",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Super Admin wallet summaries",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletListResponse" } } }
+          },
+          "401": { "$ref": "#/components/responses/ApiError" },
+          "403": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/{vendorId}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getVendorWallet",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "vendorId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Vendor wallet detail",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletDetailResponse" } } }
+          },
+          "401": { "$ref": "#/components/responses/ApiError" },
+          "403": { "$ref": "#/components/responses/ApiError" },
+          "404": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/{vendorId}/credits": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "creditWallet",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "vendorId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletCreditWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Ledger credit posted or replayed",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletMoveResponse" } } }
+          },
+          "400": { "$ref": "#/components/responses/ApiError" },
+          "401": { "$ref": "#/components/responses/ApiError" },
+          "403": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/reservations": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "reserveWalletFunds",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletReserveWrite" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Funds reserved",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletMoveResponse" } } }
+          },
+          "400": { "$ref": "#/components/responses/ApiError" },
+          "401": { "$ref": "#/components/responses/ApiError" },
+          "403": { "$ref": "#/components/responses/ApiError" },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/wallets/releases": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "releaseWalletFunds",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletReleaseWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Reservation released or replayed",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WalletMoveResponse" } } }
+          },
+          "401": { "$ref": "#/components/responses/ApiError" },
+          "403": { "$ref": "#/components/responses/ApiError" },
+          "404": { "$ref": "#/components/responses/ApiError" },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/devices": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "listDevices",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devices in scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "createDevice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created device draft",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/devices/{id}": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "getDevice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "updateDevice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated device",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/devices/{id}/inspection": {
+      "put": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "saveInspection",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InspectionWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved inspection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/devices/{id}/media/sign": {
+      "post": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "signDeviceMedia",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MediaSignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Signed upload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaSignResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/devices/{id}/media/complete": {
+      "post": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "completeDeviceMedia",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MediaCompleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Completed upload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaCompleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "401": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "404": {
+            "$ref": "#/components/responses/ApiError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ApiError"
+          }
+        }
+      }
+    },
+    "/devices/{id}/media/download": {
+      "post": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "downloadDeviceMedia",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MediaDownloadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signed download",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaDownloadResponse"
                 }
               }
             }
@@ -1199,6 +2172,905 @@
           },
           "data": {
             "$ref": "#/components/schemas/AdminAccount"
+          }
+        }
+      },
+      "ManagerAccount": {
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "role",
+          "branchId"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "role": {
+            "$ref": "#/components/schemas/AccountRole"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "branchId": {
+            "type": "string"
+          },
+          "assignedBranchIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "activeSessionCount": {
+            "type": "integer"
+          }
+        }
+      },
+      "ManagerCreate": {
+        "type": "object",
+        "required": [
+          "displayName",
+          "email",
+          "password",
+          "branchId"
+        ],
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          },
+          "branchId": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ManagerUpdate": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          },
+          "branchId": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "revokeSessions": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ManagerListResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagerAccount"
+            }
+          }
+        }
+      },
+      "ManagerResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ManagerAccount"
+          }
+        }
+      },
+      "VendorWallet": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "vendorAccountId": { "type": "string" },
+          "availablePaise": { "type": "integer" },
+          "reservedPaise": { "type": "integer" },
+          "processingPaise": { "type": "integer" },
+          "currency": { "type": "string" }
+        }
+      },
+      "WalletLedgerEntry": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string", "enum": ["credit", "reserve", "release", "commit"] },
+          "amountPaise": { "type": "integer" },
+          "availableAfterPaise": { "type": "integer" },
+          "reservedAfterPaise": { "type": "integer" },
+          "reason": { "type": "string" },
+          "referenceId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "WalletHold": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "amountPaise": { "type": "integer" },
+          "status": { "type": "string", "enum": ["held", "released", "committed"] },
+          "reason": { "type": "string" },
+          "idempotencyKey": { "type": "string" },
+          "referenceId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "WalletDetail": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "vendorAccountId": { "type": "string" },
+          "availablePaise": { "type": "integer" },
+          "reservedPaise": { "type": "integer" },
+          "processingPaise": { "type": "integer" },
+          "currency": { "type": "string" },
+          "ledger": { "type": "array", "items": { "$ref": "#/components/schemas/WalletLedgerEntry" } },
+          "reservations": { "type": "array", "items": { "$ref": "#/components/schemas/WalletHold" } }
+        }
+      },
+      "WalletDetailResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/WalletDetail" }
+        }
+      },
+      "WalletListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/VendorWallet" } }
+        }
+      },
+      "WalletMoveResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "availablePaise": { "type": "integer" },
+              "reservedPaise": { "type": "integer" },
+              "processingPaise": { "type": "integer" },
+              "replayed": { "type": "boolean" },
+              "reservationId": { "type": "string" },
+              "status": { "type": "string" }
+            }
+          }
+        }
+      },
+      "WalletCreditWrite": {
+        "type": "object",
+        "required": ["amountPaise", "idempotencyKey"],
+        "properties": {
+          "amountPaise": { "type": "integer", "minimum": 1 },
+          "idempotencyKey": { "type": "string" },
+          "reason": { "type": "string" },
+          "referenceId": { "type": "string" }
+        }
+      },
+      "WalletReserveWrite": {
+        "type": "object",
+        "required": ["amountPaise", "idempotencyKey"],
+        "properties": {
+          "amountPaise": { "type": "integer", "minimum": 1 },
+          "idempotencyKey": { "type": "string" },
+          "reason": { "type": "string" },
+          "referenceId": { "type": "string" },
+          "vendorAccountId": { "type": "string" }
+        }
+      },
+      "WalletReleaseWrite": {
+        "type": "object",
+        "required": ["idempotencyKey"],
+        "properties": {
+          "idempotencyKey": { "type": "string" }
+        }
+      },
+      "VendorAccount": {
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "role"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "role": {
+            "$ref": "#/components/schemas/AccountRole"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "assignedBranchIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "wallet": {
+            "$ref": "#/components/schemas/VendorWallet"
+          }
+        }
+      },
+      "VendorCreate": {
+        "type": "object",
+        "required": [
+          "displayName",
+          "email",
+          "password",
+          "assignedBranchIds"
+        ],
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          },
+          "assignedBranchIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "VendorLink": {
+        "type": "object",
+        "required": [
+          "email",
+          "assignedBranchIds"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "assignedBranchIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "VendorUpdate": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          },
+          "assignedBranchIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AssignedStore": {
+        "type": "object",
+        "required": [
+          "id",
+          "chainId",
+          "name",
+          "code",
+          "chainName"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "chainId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "contactName": {
+            "type": "string"
+          },
+          "contactPhone": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "chainName": {
+            "type": "string"
+          },
+          "chainCode": {
+            "type": "string"
+          }
+        }
+      },
+      "VendorListResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VendorAccount"
+            }
+          }
+        }
+      },
+      "VendorResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/VendorAccount"
+          }
+        }
+      },
+      "AssignedStoreListResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignedStore"
+            }
+          }
+        }
+      },
+      "Device": {
+        "type": "object",
+        "required": [
+          "id",
+          "branchId",
+          "platform",
+          "model",
+          "imei1",
+          "imei2",
+          "storage",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "branchId": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "apple",
+              "android"
+            ]
+          },
+          "model": {
+            "type": "string"
+          },
+          "imei1": {
+            "type": "string"
+          },
+          "imei2": {
+            "type": "string"
+          },
+          "storage": {
+            "type": "string"
+          },
+          "ram": {
+            "type": "string"
+          },
+          "batteryHealth": {
+            "type": "integer",
+            "nullable": true
+          },
+          "status": {
+            "type": "string"
+          },
+          "inspection": {
+            "$ref": "#/components/schemas/InspectionRecord"
+          },
+          "media": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceMedia"
+            }
+          }
+        }
+      },
+      "DeviceCreate": {
+        "type": "object",
+        "required": [
+          "branchId",
+          "platform",
+          "model",
+          "imei1",
+          "imei2",
+          "storage"
+        ],
+        "properties": {
+          "branchId": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "apple",
+              "android"
+            ]
+          },
+          "model": {
+            "type": "string"
+          },
+          "imei1": {
+            "type": "string"
+          },
+          "imei2": {
+            "type": "string"
+          },
+          "storage": {
+            "type": "string"
+          },
+          "ram": {
+            "type": "string"
+          },
+          "batteryHealth": {
+            "type": "integer"
+          }
+        }
+      },
+      "DeviceUpdate": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string"
+          },
+          "imei1": {
+            "type": "string"
+          },
+          "imei2": {
+            "type": "string"
+          },
+          "storage": {
+            "type": "string"
+          },
+          "ram": {
+            "type": "string"
+          },
+          "batteryHealth": {
+            "type": "integer"
+          }
+        }
+      },
+      "DeviceListResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Device"
+            }
+          }
+        }
+      },
+      "DeviceResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Device"
+          }
+        }
+      },
+      "InspectionWrite": {
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "complete": {
+            "type": "boolean"
+          }
+        }
+      },
+      "InspectionRecord": {
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "source": {
+            "type": "string"
+          },
+          "complete": {
+            "type": "boolean"
+          },
+          "billRequired": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DeviceMedia": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "objectKey": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "sizeBytes": {
+            "type": "integer"
+          }
+        }
+      },
+      "MediaSignRequest": {
+        "type": "object",
+        "required": [
+          "purpose",
+          "contentType",
+          "sizeBytes",
+          "checksumSha256"
+        ],
+        "properties": {
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "front",
+              "back",
+              "top",
+              "bottom",
+              "left",
+              "right",
+              "rotation",
+              "bill"
+            ]
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "sizeBytes": {
+            "type": "integer"
+          },
+          "checksumSha256": {
+            "type": "string"
+          }
+        }
+      },
+      "SignedUrl": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string"
+          },
+          "live": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MediaSignResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "mediaId": {
+                "type": "string"
+              },
+              "objectKey": {
+                "type": "string"
+              },
+              "upload": {
+                "$ref": "#/components/schemas/SignedUrl"
+              }
+            }
+          }
+        }
+      },
+      "MediaCompleteRequest": {
+        "type": "object",
+        "required": [
+          "objectKey",
+          "checksumSha256"
+        ],
+        "properties": {
+          "objectKey": {
+            "type": "string"
+          },
+          "checksumSha256": {
+            "type": "string"
+          }
+        }
+      },
+      "MediaCompleteResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "purpose": {
+                "type": "string"
+              },
+              "objectKey": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "MediaDownloadRequest": {
+        "type": "object",
+        "required": [
+          "objectKey"
+        ],
+        "properties": {
+          "objectKey": {
+            "type": "string"
+          }
+        }
+      },
+      "MediaDownloadResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "objectKey": {
+                "type": "string"
+              },
+              "download": {
+                "$ref": "#/components/schemas/SignedUrl"
+              }
+            }
+          }
+        }
+      },
+      "CatalogField": {
+        "type": "object",
+        "required": ["key", "label", "options"],
+        "properties": {
+          "key": { "type": "string" },
+          "label": { "type": "string" },
+          "options": { "type": "array", "items": { "type": "string" } },
+          "appleOnly": { "type": "boolean" }
+        }
+      },
+      "CatalogStep": {
+        "type": "object",
+        "required": ["title", "keys"],
+        "properties": {
+          "title": { "type": "string" },
+          "keys": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "CatalogEvidence": {
+        "type": "object",
+        "required": ["purpose", "label"],
+        "properties": {
+          "purpose": { "type": "string" },
+          "label": { "type": "string" },
+          "billOnly": { "type": "boolean" }
+        }
+      },
+      "CatalogDiagnosticCheck": {
+        "type": "object",
+        "required": ["id", "label", "group"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "group": { "type": "string" }
+        }
+      },
+      "Catalog": {
+        "type": "object",
+        "required": ["version", "storages", "rams", "platforms", "inspectionFields", "inspectionSteps", "evidence", "diagnosticChecks", "billAgeExemptOption"],
+        "properties": {
+          "version": { "type": "string" },
+          "storages": { "type": "array", "items": { "type": "string" } },
+          "rams": { "type": "array", "items": { "type": "string" } },
+          "platforms": { "type": "array", "items": { "type": "string" } },
+          "billAgeExemptOption": { "type": "string" },
+          "inspectionFields": { "type": "array", "items": { "$ref": "#/components/schemas/CatalogField" } },
+          "inspectionSteps": { "type": "array", "items": { "$ref": "#/components/schemas/CatalogStep" } },
+          "evidence": { "type": "array", "items": { "$ref": "#/components/schemas/CatalogEvidence" } },
+          "diagnosticChecks": { "type": "array", "items": { "$ref": "#/components/schemas/CatalogDiagnosticCheck" } }
+        }
+      },
+      "CatalogResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/Catalog" }
+        }
+      },
+      "DiagnosticImportWrite": {
+        "type": "object",
+        "required": ["deviceId", "payload", "signature"],
+        "properties": {
+          "deviceId": { "type": "string" },
+          "payload": { "type": "object", "additionalProperties": true },
+          "signature": { "type": "string" }
+        }
+      },
+      "DiagnosticImportResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "deviceId": { "type": "string" },
+              "status": { "type": "string" }
+            }
           }
         }
       }

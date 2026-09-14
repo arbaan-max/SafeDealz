@@ -108,7 +108,7 @@ After synchronization, stop at the recorded authorization boundary. A completed 
 
 ## Current gate
 
-P00–P03 are complete. [TASK-004](tasks/TASK-004-admin-store-assignments.md) finished Super Admin/Admin store assignments. The owner then instructed a P03-only stop; do not start P04 until explicitly authorized.
+P00–P10 are complete. [TASK-012](tasks/TASK-012-wallet-ledger.md) finished the personal vendor wallet ledger. Do not start P11 until explicitly authorized.
 
 ## Mandatory security checks
 

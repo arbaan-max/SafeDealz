@@ -11,8 +11,8 @@ updated: 2026-09-14
 
 ## Active gate
 
-- P00 through P03 are complete.
-- P04 Store Manager onboarding is next and is not authorized.
+- P00 through P10 are complete.
+- P11 Wallet recharge is next and is not authorized.
 - Draft backend routes for later phases exist and are not complete phases.
 - Deployment is outside the roadmap.
 - Sky blue is the client-approved final primary theme across every application.
@@ -55,7 +55,15 @@ safeDealz/
 - `make -f files/Makefile check-p01` is the complete P01 regression command.
 - P02 authentication uses Argon2id, authoritative account/session checks, rotating opaque refresh tokens, Mongo-backed throttling, HttpOnly+CSRF web refresh, and secure mobile storage.
 - React, Store Manager and Vendor now implement their approved login screens; `make -f files/Makefile check-p02` is the complete authentication gate.
+- P03 Super Admin/Admin store assignments and React A02–A05/A23/A24 are complete.
+- P04 Store Manager onboarding APIs and React A06/A07 are complete; `make -f files/Makefile check-p04` is the P04 regression command.
+- P05 Vendor onboarding APIs, React A08/A09 and Vendor V15 are complete; `make -f files/Makefile check-p05` is the P05 regression command.
+- P06 Device identity APIs, OpenAPI v0.6.0 and Store Manager M01–M03 are complete; `make -f files/Makefile check-p06` is the P06 regression command.
+- P07 manual inspection, signed media stubs and Store Manager M04–M06 are complete; `make -f files/Makefile check-p07` is the P07 regression command.
+- P08 local Diagnostics D01–D07, AppPageScaffold and diagnostic-surface tokens are complete; `make -f files/Makefile check-p08` is the P08 regression command.
+- P09 signed diagnostic QR (D08), Store Manager scan/import (M07) and review cards (M09) are complete; `make -f files/Makefile check-p09` is the P09 regression command.
+- P10 personal vendor wallet ledger, reservations and React A14 are complete; `make -f files/Makefile check-p10` is the P10 regression command.
 
 ## Next action
 
-Wait for the owner to authorize P04.
+Wait for the owner to authorize P11.

@@ -7,7 +7,7 @@ import { revokeAccountSessions } from '../repositories/session.repository.js';
 import { hashPassword, normalizeEmail, verifyPassword } from '../utils/auth-crypto.js';
 import { ApiError } from '../utils/api-error.js';
 import { duplicateError, requireObjectId } from '../utils/ids.js';
-import { publicAccount, publicBranch, publicChain } from '../utils/presenters.js';
+import { publicAccount, publicAssignedStore, publicBranch, publicChain } from '../utils/presenters.js';
 import { assertBranchInScope, loadScope, scopedBranchFilter } from './scope.service.js';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -211,7 +211,7 @@ export const updateAdmin = async (actor, id, body) => {
 export const createStaffAccount = async (actor, { role, kind, body, singleBranch = false }) => {
   const scope = await loadScope(actor);
   if (!['super_admin', 'admin'].includes(actor.role)) throw new ApiError(403, 'FORBIDDEN', 'You cannot manage this account type.');
-  const branchIds = singleBranch ? [body.branchId] : (body.assignedBranchIds ?? []);
+  const branchIds = (singleBranch ? [body.branchId] : (body.assignedBranchIds ?? [])).filter(Boolean);
   if (!branchIds.length) throw new ApiError(400, 'VALIDATION_ERROR', 'At least one assigned branch is required.');
   for (const branchId of branchIds) assertBranchInScope(scope, branchId);
   if (await findAccountByEmail(requireEmail(body.email))) throw new ApiError(409, 'CONFLICT', 'An account with this email already exists.');
@@ -250,6 +250,7 @@ export const updateStaffAccount = async (actor, { role, kind, id, body, singleBr
     account.passwordHash = await hashPassword(requirePassword(body.password));
     await revokeAccountSessions(account.id, 'password_changed');
   }
+  if (body.revokeSessions) await revokeAccountSessions(account.id, 'revoked_by_admin');
   await saveAccount(account);
   let assignedBranchIds = current;
   const nextIds = singleBranch && body.branchId ? [body.branchId] : body.assignedBranchIds;
@@ -263,7 +264,29 @@ export const updateStaffAccount = async (actor, { role, kind, id, body, singleBr
     }
   }
   await audit(actor, `${role}.updated`, 'account', account.id, { assignedBranchIds, active: account.active });
-  return { account, assignedBranchIds };
+  return {
+    account,
+    assignedBranchIds: scope.all ? assignedBranchIds : assignedBranchIds.filter((id) => scope.branchIds.includes(id)),
+  };
+};
+
+export const linkVendorAccount = async (actor, body) => {
+  const scope = await loadScope(actor);
+  if (!['super_admin', 'admin'].includes(actor.role)) throw new ApiError(403, 'FORBIDDEN', 'You cannot manage this account type.');
+  const branchIds = (body.assignedBranchIds ?? []).filter(Boolean);
+  if (!branchIds.length) throw new ApiError(400, 'VALIDATION_ERROR', 'At least one assigned branch is required.');
+  for (const branchId of branchIds) assertBranchInScope(scope, branchId);
+  const account = await findAccountByEmail(requireEmail(body.email));
+  if (!account || account.role !== 'vendor') {
+    throw new ApiError(400, 'VENDOR_LINK_UNAVAILABLE', 'Unable to link this vendor account.');
+  }
+  const current = (await listAssignments({ accountId: account.id, kind: 'vendor', active: true })).map((row) => String(row.branchId));
+  const assignedBranchIds = await replaceAssignments({
+    accountId: account.id, kind: 'vendor', branchIds: [...new Set([...current, ...branchIds.map(String)])], actor,
+  });
+  await audit(actor, 'vendor.linked', 'account', account.id, { addedBranchIds: branchIds.map(String) });
+  const visible = scope.all ? assignedBranchIds : assignedBranchIds.filter((id) => scope.branchIds.includes(id));
+  return { account, assignedBranchIds: visible };
 };
 
 export const listStaff = async (actor, { role, kind }) => {
@@ -274,9 +297,13 @@ export const listStaff = async (actor, { role, kind }) => {
     const assignedBranchIds = assignments.filter((row) => String(row.accountId) === String(account.id)).map((row) => String(row.branchId));
     return { account, assignedBranchIds };
   }).filter(({ assignedBranchIds }) => scope.all || assignedBranchIds.some((id) => scope.branchIds.includes(id)))
-    .map(({ account, assignedBranchIds }) => publicAccount(account, {
-      assignedBranchIds: scope.all ? assignedBranchIds : assignedBranchIds.filter((id) => scope.branchIds.includes(id)),
-    }));
+    .map(({ account, assignedBranchIds }) => {
+      const visibleIds = scope.all ? assignedBranchIds : assignedBranchIds.filter((id) => scope.branchIds.includes(id));
+      return publicAccount(account, {
+        assignedBranchIds: visibleIds,
+        branchId: kind === 'store_manager' ? visibleIds[0] : undefined,
+      });
+    });
 };
 
 export const listAssignedStores = async (actor) => {
@@ -285,9 +312,5 @@ export const listAssignedStores = async (actor) => {
   const branches = await listBranches({ _id: { $in: scope.branchIds } });
   const chains = await listChains({ _id: { $in: branches.map((branch) => branch.chainId) } });
   const chainMap = Object.fromEntries(chains.map((chain) => [String(chain.id), chain]));
-  return branches.map((branch) => ({
-    ...publicBranch(branch),
-    chainName: chainMap[String(branch.chainId)]?.name || '',
-    chainCode: chainMap[String(branch.chainId)]?.code || '',
-  }));
+  return branches.map((branch) => publicAssignedStore(branch, chainMap[String(branch.chainId)]));
 };

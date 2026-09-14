@@ -8,7 +8,11 @@ import 'package:safedealz_vendor/bloc/auth/auth_bloc.dart';
 import 'package:safedealz_vendor/core/network/dio_factory.dart';
 import 'package:safedealz_vendor/core/network/session_interceptor.dart';
 import 'package:safedealz_vendor/data/api/clients/auth_client.dart';
+import 'package:safedealz_vendor/data/api/clients/operations_client.dart';
+import 'package:safedealz_vendor/data/api/clients/organization_client.dart';
 import 'package:safedealz_vendor/data/repositories/auth_repository.dart';
+import 'package:safedealz_vendor/data/repositories/store_repository.dart';
+import 'package:safedealz_vendor/data/repositories/wallet_repository.dart';
 import 'package:safedealz_vendor/data/services/auth_service.dart';
 import 'package:safedealz_vendor/data/services/token_store.dart';
 
@@ -34,18 +38,28 @@ class SafeDealzApp extends StatelessWidget {
       );
     };
     final authRepository = AuthRepositoryImpl(authService);
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider<BootstrapBloc>(
-          create: (_) => BootstrapBloc()..add(const BootstrapStarted()),
+        RepositoryProvider<StoreRepository>.value(
+          value: StoreRepositoryImpl(OrganizationClient(dio)),
         ),
-        BlocProvider<AuthBloc>(create: (_) => AuthBloc(authRepository)),
+        RepositoryProvider<WalletRepository>.value(
+          value: WalletRepositoryImpl(OperationsClient(dio)),
+        ),
       ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'SafeDealz Vendor',
-        theme: AppTheme.lightTheme,
-        routerConfig: appRouter,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<BootstrapBloc>(
+            create: (_) => BootstrapBloc()..add(const BootstrapStarted()),
+          ),
+          BlocProvider<AuthBloc>(create: (_) => AuthBloc(authRepository)),
+        ],
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          title: 'SafeDealz Vendor',
+          theme: AppTheme.lightTheme,
+          routerConfig: appRouter,
+        ),
       ),
     );
   }

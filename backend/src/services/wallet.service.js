@@ -1,11 +1,22 @@
-import { Wallet } from '../models/wallet.model.js';
-import { createLedgerEntry, createReservation, createWallet, findLedgerByKey, findReservationByKey, findWalletById, findWalletByVendor, listLedger, listWallets, saveReservation, saveWallet } from '../repositories/wallet.repository.js';
+import mongoose from 'mongoose';
+import { createLedgerEntry, createReservation, createWallet, findLedgerByKey, findReservationByKey, findWalletById, findWalletByVendor, listHeldReservations, listLedger, listWallets, saveReservation, saveWallet } from '../repositories/wallet.repository.js';
 import { findAccountById } from '../repositories/account.repository.js';
 import { listAssignments } from '../repositories/store-assignment.repository.js';
 import { ApiError } from '../utils/api-error.js';
-import { duplicateError, requireObjectId } from '../utils/ids.js';
+import { requireObjectId } from '../utils/ids.js';
 import { publicWallet } from '../utils/presenters.js';
 import { loadScope } from './scope.service.js';
+
+const requireKey = (value) => {
+  const key = typeof value === 'string' ? value.trim() : '';
+  if (!key) throw new ApiError(400, 'VALIDATION_ERROR', 'An idempotency key is required.');
+  return key;
+};
+
+const requirePaise = (amountPaise, message) => {
+  if (!Number.isInteger(amountPaise) || amountPaise < 1) throw new ApiError(400, 'VALIDATION_ERROR', message);
+  return amountPaise;
+};
 
 const ensureWallet = async (vendorAccountId) => {
   const existing = await findWalletByVendor(vendorAccountId);
@@ -13,89 +24,108 @@ const ensureWallet = async (vendorAccountId) => {
   return createWallet({ vendorAccountId, availablePaise: 0, reservedPaise: 0 });
 };
 
-const persistMove = async ({ wallet, type, amountPaise, idempotencyKey, reason, actorId, referenceId, apply }) => {
-  const existing = await findLedgerByKey(idempotencyKey);
-  if (existing) return { wallet, ledger: existing, replayed: true };
-  apply(wallet);
-  if (wallet.availablePaise < 0 || wallet.reservedPaise < 0) throw new ApiError(409, 'INSUFFICIENT_FUNDS', 'Available wallet balance is too low.');
-  try {
-    await saveWallet(wallet);
-    const ledger = await createLedgerEntry({
-      walletId: wallet.id, vendorAccountId: wallet.vendorAccountId, type, amountPaise,
-      availableAfterPaise: wallet.availablePaise, reservedAfterPaise: wallet.reservedPaise,
-      idempotencyKey, reason, actorId, referenceId: referenceId || '',
-    });
-    return { wallet, ledger, replayed: false };
-  } catch (error) {
-    if (duplicateError(error)) return { wallet: await findWalletById(wallet.id), ledger: await findLedgerByKey(idempotencyKey), replayed: true };
-    throw error;
-  }
-};
+const publicLedger = (entry) => ({
+  id: String(entry.id),
+  type: entry.type,
+  amountPaise: entry.amountPaise,
+  availableAfterPaise: entry.availableAfterPaise,
+  reservedAfterPaise: entry.reservedAfterPaise,
+  reason: entry.reason,
+  referenceId: entry.referenceId || '',
+  createdAt: entry.createdAt,
+});
+
+const publicHold = (row) => ({
+  id: String(row.id),
+  amountPaise: row.amountPaise,
+  status: row.status,
+  reason: row.reason,
+  idempotencyKey: row.idempotencyKey,
+  referenceId: row.referenceId || '',
+  createdAt: row.createdAt,
+});
 
 export const creditWallet = async ({ vendorAccountId, amountPaise, idempotencyKey, reason, actorId, referenceId }) => {
-  if (!Number.isInteger(amountPaise) || amountPaise < 1) throw new ApiError(400, 'VALIDATION_ERROR', 'Credit amount must be a positive integer in paise.');
-  const wallet = await ensureWallet(vendorAccountId);
-  return persistMove({
-    wallet, type: 'credit', amountPaise, idempotencyKey, reason, actorId, referenceId,
-    apply: (current) => { current.availablePaise += amountPaise; },
+  const amount = requirePaise(amountPaise, 'Credit amount must be a positive integer in paise.');
+  const key = requireKey(idempotencyKey);
+  await ensureWallet(vendorAccountId);
+  return mongoose.connection.transaction(async (session) => {
+    const existing = await findLedgerByKey(key, session);
+    if (existing) {
+      return { wallet: await findWalletByVendor(vendorAccountId, session), ledger: existing, replayed: true };
+    }
+    const wallet = await findWalletByVendor(vendorAccountId, session);
+    wallet.availablePaise += amount;
+    await saveWallet(wallet, session);
+    const ledger = await createLedgerEntry({
+      walletId: wallet.id, vendorAccountId: wallet.vendorAccountId, type: 'credit', amountPaise: amount,
+      availableAfterPaise: wallet.availablePaise, reservedAfterPaise: wallet.reservedPaise,
+      idempotencyKey: key, reason: reason || 'manual_credit', actorId, referenceId: referenceId || '',
+    }, session);
+    return { wallet, ledger, replayed: false };
   });
 };
 
 export const reserveFunds = async ({ vendorAccountId, amountPaise, idempotencyKey, reason, referenceId, actorId }) => {
-  if (!Number.isInteger(amountPaise) || amountPaise < 1) throw new ApiError(400, 'VALIDATION_ERROR', 'Reservation amount must be a positive integer in paise.');
-  const existingReservation = await findReservationByKey(idempotencyKey);
-  if (existingReservation) {
-    const wallet = await findWalletById(existingReservation.walletId);
-    return { wallet, reservation: existingReservation, replayed: true };
-  }
+  const amount = requirePaise(amountPaise, 'Reservation amount must be a positive integer in paise.');
+  const key = requireKey(idempotencyKey);
+  if (!vendorAccountId) throw new ApiError(400, 'VALIDATION_ERROR', 'A vendor account is required.');
   await ensureWallet(vendorAccountId);
-  const updated = await Wallet.findOneAndUpdate(
-    { vendorAccountId, availablePaise: { $gte: amountPaise } },
-    { $inc: { availablePaise: -amountPaise, reservedPaise: amountPaise } },
-    { returnDocument: 'after' },
-  );
-  if (!updated) throw new ApiError(409, 'INSUFFICIENT_FUNDS', 'Available wallet balance is too low.');
-  try {
+  return mongoose.connection.transaction(async (session) => {
+    const existingReservation = await findReservationByKey(key, session);
+    if (existingReservation) {
+      return { wallet: await findWalletById(existingReservation.walletId, session), reservation: existingReservation, replayed: true };
+    }
+    const wallet = await findWalletByVendor(vendorAccountId, session);
+    if (wallet.availablePaise < amount) throw new ApiError(409, 'INSUFFICIENT_FUNDS', 'Available wallet balance is too low.');
+    wallet.availablePaise -= amount;
+    wallet.reservedPaise += amount;
+    await saveWallet(wallet, session);
     await createLedgerEntry({
-      walletId: updated.id, vendorAccountId: updated.vendorAccountId, type: 'reserve', amountPaise,
-      availableAfterPaise: updated.availablePaise, reservedAfterPaise: updated.reservedPaise,
-      idempotencyKey: `${idempotencyKey}:ledger`, reason, actorId, referenceId: referenceId || '',
-    });
-  } catch (error) {
-    if (!duplicateError(error)) throw error;
-  }
-  const session = { wallet: updated };
-  try {
+      walletId: wallet.id, vendorAccountId: wallet.vendorAccountId, type: 'reserve', amountPaise: amount,
+      availableAfterPaise: wallet.availablePaise, reservedAfterPaise: wallet.reservedPaise,
+      idempotencyKey: `${key}:ledger`, reason: reason || 'hold', actorId, referenceId: referenceId || '',
+    }, session);
     const reservation = await createReservation({
-      walletId: updated.id, amountPaise, status: 'held', idempotencyKey, reason, referenceId: referenceId || '',
-    });
-    return { wallet: session.wallet, reservation, replayed: false };
-  } catch (error) {
-    if (duplicateError(error)) return { wallet: session.wallet, reservation: await findReservationByKey(idempotencyKey), replayed: true };
-    throw error;
-  }
+      walletId: wallet.id, amountPaise: amount, status: 'held', idempotencyKey: key, reason: reason || 'hold', referenceId: referenceId || '',
+    }, session);
+    return { wallet, reservation, replayed: false };
+  });
 };
 
-export const releaseReservation = async ({ idempotencyKey, actorId }) => {
-  const reservation = await findReservationByKey(idempotencyKey);
-  if (!reservation) throw new ApiError(404, 'NOT_FOUND', 'Reservation was not found.');
-  if (reservation.status === 'released') {
-    const wallet = await findWalletById(reservation.walletId);
-    return { wallet, reservation, replayed: true };
-  }
-  if (reservation.status !== 'held') throw new ApiError(409, 'CONFLICT', 'This reservation cannot be released.');
-  const wallet = await findWalletById(reservation.walletId);
-  const moved = await persistMove({
-    wallet, type: 'release', amountPaise: reservation.amountPaise, idempotencyKey: `${idempotencyKey}:release`,
-    reason: 'reservation_released', actorId, referenceId: String(reservation.id),
-    apply: (current) => {
-      current.reservedPaise -= reservation.amountPaise;
-      current.availablePaise += reservation.amountPaise;
-    },
+export const releaseReservation = async ({ idempotencyKey, actorId, actor }) => {
+  const key = requireKey(idempotencyKey);
+  return mongoose.connection.transaction(async (session) => {
+    const reservation = await findReservationByKey(key, session);
+    if (!reservation) throw new ApiError(404, 'NOT_FOUND', 'Reservation was not found.');
+    const wallet = await findWalletById(reservation.walletId, session);
+    if (actor?.role === 'vendor' && String(wallet.vendorAccountId) !== String(actor.id)) {
+      throw new ApiError(403, 'FORBIDDEN', 'You can only release your own reserved funds.');
+    }
+    if (reservation.status === 'released') return { wallet, reservation, replayed: true };
+    if (reservation.status !== 'held') throw new ApiError(409, 'CONFLICT', 'This reservation cannot be released.');
+    const releaseKey = `${key}:release`;
+    const existing = await findLedgerByKey(releaseKey, session);
+    if (existing) {
+      reservation.status = 'released';
+      await saveReservation(reservation, session);
+      return { wallet, reservation, replayed: true };
+    }
+    wallet.reservedPaise -= reservation.amountPaise;
+    wallet.availablePaise += reservation.amountPaise;
+    if (wallet.availablePaise < 0 || wallet.reservedPaise < 0) {
+      throw new ApiError(409, 'INSUFFICIENT_FUNDS', 'Available wallet balance is too low.');
+    }
+    await saveWallet(wallet, session);
+    await createLedgerEntry({
+      walletId: wallet.id, vendorAccountId: wallet.vendorAccountId, type: 'release', amountPaise: reservation.amountPaise,
+      availableAfterPaise: wallet.availablePaise, reservedAfterPaise: wallet.reservedPaise,
+      idempotencyKey: releaseKey, reason: 'reservation_released', actorId, referenceId: String(reservation.id),
+    }, session);
+    reservation.status = 'released';
+    await saveReservation(reservation, session);
+    return { wallet, reservation, replayed: false };
   });
-  reservation.status = 'released';
-  await saveReservation(reservation);
-  return { wallet: moved.wallet, reservation, replayed: moved.replayed };
 };
 
 export const readVendorWallet = async (actor, vendorId) => {
@@ -115,17 +145,11 @@ export const readVendorWallet = async (actor, vendorId) => {
   const wallet = await ensureWallet(vendor.id);
   const hideBalances = actor.role === 'admin';
   const ledger = hideBalances ? [] : await listLedger(wallet.id);
+  const reservations = hideBalances ? [] : await listHeldReservations(wallet.id);
   return {
     ...publicWallet(wallet, { hideBalances }),
-    ledger: ledger.map((entry) => ({
-      id: String(entry.id),
-      type: entry.type,
-      amountPaise: entry.amountPaise,
-      availableAfterPaise: entry.availableAfterPaise,
-      reservedAfterPaise: entry.reservedAfterPaise,
-      reason: entry.reason,
-      createdAt: entry.createdAt,
-    })),
+    ledger: ledger.map(publicLedger),
+    reservations: reservations.map(publicHold),
   };
 };
 

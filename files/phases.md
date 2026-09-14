@@ -1,6 +1,6 @@
 # SafeDealz implementation phases
 
-Admin-first development-only roadmap; P00–P03 are complete and P04 has not started. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
+Admin-first development-only roadmap; P00–P10 are complete and P11 has not started. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
 
 Each phase is split into three small or medium tasks: `.1` contract/data or decision preparation, `.2` implementation or feasibility evidence, `.3` integration/testing and documentation. Create numbered task files from [the template](tasks/TASK_TEMPLATE.md) when work is selected, rather than creating empty task files now. Split further when a task cannot be reviewed independently. These task IDs are roadmap identifiers, not existing files.
 
@@ -56,79 +56,79 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P04 — Store Manager onboarding APIs and React pages
 
-- Status: Planned
+- Status: Complete — TASK-005
 - Dependencies: P03
 - Screens: A06,A07
 - Scope: Create/manage Store Manager accounts, branch assignments, active status and onboarding validation through React.
 - API, data and client impact: Reuse account contracts, manager assignment relations and scoped queries; multiple logins per branch supported. Super Admin has global management; Admin can manage permitted manager records only within assigned stores.
 - Security gate: Test role escalation, unauthorized store assignment, cross-store account updates and immediate inactive-session logout. Shared account/global changes are Super Admin-only where they affect stores outside the Admin scope.
-- Tasks: P04.1 — manager contracts/tests; P04.2 — API and React forms/list; P04.3 — real API/browser/mobile login verification and documentation.
+- Tasks: P04.1–P04.3 completed together in TASK-005: manager contracts/tests, API and React A06/A07, real API/browser/generated-client verification and documentation.
 - Completion gate: Manager created in React can log into Flutter and sees only authorized branch work; deactivation and removed assignments enforced server-side.
 
 ## P05 — Vendor onboarding APIs and React pages
 
-- Status: Planned
+- Status: Complete — TASK-006
 - Dependencies: P04
 - Screens: A08,A09,V15
 - Scope: Vendor account creation, safe existing-account linking and multi-chain/multi-store assignments; Flutter assigned-store view. Introduce the Vendor app's reusable `AppPageScaffold` backed by ThemeData `app-background` as its production feature shell begins.
 - API, data and client impact: Reuse account/assignment service with vendor-specific validation. Keep one personal wallet per vendor; assignments never split or duplicate it.
 - Security gate: Admin may manage links only to assigned stores. Global vendor account status/credentials and cross-store financial visibility remain Super Admin-only. Do not leak an existing vendor's other store relationships through lookup or duplicate errors.
-- Tasks: P05.1 — vendor contracts/ownership tests; P05.2 — API and React pages plus Flutter store view; P05.3 — multi-chain isolation and regression tests/documentation.
+- Tasks: P05.1–P05.3 completed together in TASK-006: vendor contracts/ownership tests, API and React A08/A09 plus Flutter V15, multi-chain isolation and documentation.
 - Completion gate: Vendor assignment is limited to authorized stores and visible correctly in the vendor app; Admin cannot affect another Admin's store or inspect global wallet balances; Vendor feature pages inherit their background from the shared scaffold/token with no raw screen background colors.
 
 ## P06 — Device identity
 
-- Status: Planned
+- Status: Complete — TASK-007
 - Dependencies: P05
 - Screens: M01,M02,M03
 - Scope: Device drafts, list filters, dual editable IMEI capture, Apple and Android fields. Introduce the Store Manager app's reusable `AppPageScaffold` backed by ThemeData `app-background` as its production feature shell begins.
 - API, data and client impact: Draft ownership, identity validation and camera scan adapter; Apple storage/battery health, Android RAM 4/6/8/12/24 only.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P06.1 — define contracts/data and acceptance cases; P06.2 — deliver scoped functionality/evidence; P06.3 — verify integration and synchronize completion records.
+- Tasks: P06.1–P06.3 completed together in TASK-007: device identity contracts/tests, APIs and Store Manager M01–M03, generated-client verification and documentation.
 - Completion gate: Conditional required fields, scan correction, duplicates and draft resume tested; Apple has no RAM selector; Manager feature pages inherit their background from the shared scaffold/token with no raw screen background colors.
 
 ## P07 — Manual inspection and evidence
 
-- Status: Planned
+- Status: Complete — TASK-008
 - Dependencies: P06
 - Screens: M04,M05,M06
 - Scope: Complete manual form on both platforms and live capture of six images plus one rotation video.
 - API, data and client impact: Separate inspection/evidence records; age bands and mandatory bill below 11 months. Store live-captured images, rotation videos and bills in a private Cloudflare R2 bucket through backend-issued short-lived signed upload/download requests; persist only object metadata and keys in MongoDB.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P07.1 — define contracts/data and acceptance cases; P07.2 — deliver scoped functionality/evidence; P07.3 — verify integration and synchronize completion records.
+- Tasks: P07.1–P07.3 completed together in TASK-008: inspection/media contracts, APIs and Store Manager M04–M06, generated-client verification and documentation.
 - Completion gate: All form steps remain editable despite diagnostics; required bill and seven captures enforced; permissions, retake, interrupted R2 upload, expired signatures and unauthorized media access tested; no RGB inspection.
 
 ## P08 — Android diagnostic tests
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P07
 - Screens: D01,D02,D03,D04,D05,D06,D07
 - Scope: Flutter Android Diagnostics app: local diagnostic workflow, hardware tests, full-screen touch dots and report review; native Android bridges only where hardware access requires them. Introduce its reusable `AppPageScaffold` for ordinary pages; full-screen test surfaces use separate semantic diagnostic tokens.
 - API, data and client impact: Local result schema and hardware adapters; no customer data or transfer before final import.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P08.1 — define contracts/data and acceptance cases; P08.2 — deliver scoped functionality/evidence; P08.3 — verify integration and synchronize completion records.
+- Tasks: P08.1–P08.3 completed together in TASK-009: local Diagnostics D01–D07, injectable adapters, 120-dot 90% touch gate, local encrypted report and documentation. TASK-010 added the public backend catalog module for intake/inspection labels.
 - Completion gate: Physical-device checks plus automated state tests: permissions, unsupported hardware, 120 dots, percentage, retries and explicit submission; never fabricate a passing result; ordinary pages inherit the reusable background token while test surfaces use explicit diagnostic tokens.
 
 ## P09 — Diagnostic QR handoff
 
-- Status: Planned
+- Status: Complete — TASK-011
 - Dependencies: P07,P08
 - Screens: D08,M07,M09
 - Scope: Final result QR scanned by manager; separate manual and diagnostic cards; Apple bypass.
 - API, data and client impact: Approved signing/transfer design, device binding, replay/expiry validation, import contract and readiness event.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P09.1 — define contracts/data and acceptance cases; P09.2 — deliver scoped functionality/evidence; P09.3 — verify integration and synchronize completion records.
+- Tasks: P09.1–P09.3 completed together in TASK-011: signed QR contract, D08/M07/M09, import verification and documentation.
 - Completion gate: Valid import persists once; altered, duplicate, mismatched and expired data handled; neither app launches the other; no pairing flow; Android auction waits for valid import.
 
 ## P10 — Wallet ledger
 
-- Status: Planned
+- Status: Complete — TASK-012
 - Dependencies: P05
 - Screens: V07,V10,V11,A14
 - Scope: Personal vendor wallet, immutable ledger, available/reserved amounts and admin visibility.
 - API, data and client impact: Atomic paise ledger, transaction indexes, idempotency and reservation primitives; no shared wallet.
 - Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P10.1 — define contracts/data and acceptance cases; P10.2 — deliver scoped functionality/evidence; P10.3 — verify integration and synchronize completion records.
+- Tasks: P10.1–P10.3 completed together in TASK-012: wallet contracts, transactional ledger, V07/V10/V11/A14 and documentation.
 - Completion gate: Concurrent reservations cannot overspend; duplicate release cannot credit twice; balance reconciles to ledger; ownership enforced.
 
 ## P11 — Wallet recharge

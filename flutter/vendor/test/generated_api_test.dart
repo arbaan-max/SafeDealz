@@ -7,6 +7,7 @@ import 'package:safedealz_vendor/core/network/dio_factory.dart';
 import 'package:safedealz_vendor/data/api/clients/system_client.dart';
 import 'package:safedealz_vendor/data/api/clients/auth_client.dart';
 import 'package:safedealz_vendor/data/api/clients/organization_client.dart';
+import 'package:safedealz_vendor/data/api/clients/operations_client.dart';
 import 'package:safedealz_vendor/data/api/models/client_type.dart';
 import 'package:safedealz_vendor/data/api/models/login_audience.dart';
 import 'package:safedealz_vendor/data/api/models/login_request.dart';
@@ -51,6 +52,31 @@ void main() {
     final response = await OrganizationClient(dio).listChains();
     expect(response.success, isTrue);
     expect(response.data.single.code, 'PAI');
+  });
+
+  test('generated organization client deserializes manager lists', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _ManagerAdapter();
+    final response = await OrganizationClient(dio).listManagers();
+    expect(response.data.single.role.toJson(), 'store_manager');
+    expect(response.data.single.branchId, 'b1');
+  });
+
+  test('generated organization client deserializes assigned stores', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _AssignedStoreAdapter();
+    final response = await OrganizationClient(dio).listAssignedStores();
+    expect(response.data.single.chainName, 'PAI');
+    expect(response.data.single.name, 'Indiranagar');
+  });
+
+  test('generated operations client deserializes the vendor wallet', () async {
+    final Dio dio = DioFactory.create(baseUrl: 'https://api.example.test/v1');
+    dio.httpClientAdapter = _WalletAdapter();
+    final response = await OperationsClient(dio).getMyWallet();
+    expect(response.data.availablePaise, 10000);
+    expect(response.data.ledger?.single.type?.json, 'credit');
+    expect(response.data.reservations, isEmpty);
   });
 }
 
@@ -114,6 +140,72 @@ final class _ChainAdapter implements HttpClientAdapter {
     expect(options.uri.path, '/v1/chains');
     return ResponseBody.fromString(
       '{"success":true,"data":[{"id":"1","name":"PAI","code":"PAI","active":true,"branchCount":1}]}',
+      200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _ManagerAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'GET');
+    expect(options.uri.path, '/v1/managers');
+    return ResponseBody.fromString(
+      '{"success":true,"data":[{"id":"m1","email":"kavya@test.dev","role":"store_manager","displayName":"Kavya","active":true,"branchId":"b1","assignedBranchIds":["b1"],"activeSessionCount":1}]}',
+      200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _AssignedStoreAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'GET');
+    expect(options.uri.path, '/v1/assigned-stores');
+    return ResponseBody.fromString(
+      '{"success":true,"data":[{"id":"b1","chainId":"c1","name":"Indiranagar","code":"PAI-IND","chainName":"PAI","address":"100 Feet Road","city":"Bengaluru"}]}',
+      200,
+      headers: <String, List<String>>{
+        Headers.contentTypeHeader: <String>[Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+final class _WalletAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    expect(options.method, 'GET');
+    expect(options.uri.path, '/v1/wallets/me');
+    return ResponseBody.fromString(
+      '{"success":true,"data":{"id":"w1","vendorAccountId":"v1","availablePaise":10000,"reservedPaise":0,"processingPaise":0,"currency":"INR","ledger":[{"id":"l1","type":"credit","amountPaise":10000,"availableAfterPaise":10000,"reservedAfterPaise":0,"reason":"seed"}],"reservations":[]}}',
       200,
       headers: <String, List<String>>{
         Headers.contentTypeHeader: <String>[Headers.jsonContentType],

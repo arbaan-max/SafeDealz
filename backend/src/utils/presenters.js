@@ -42,10 +42,25 @@ export const publicBranch = (branch, options = {}) => ({
   active: branch.active,
 });
 
+export const publicAssignedStore = (branch, chain) => ({
+  id: String(branch.id),
+  chainId: String(branch.chainId),
+  name: branch.name,
+  code: branch.code,
+  address: branch.address || '',
+  city: branch.city || '',
+  contactName: branch.contactName || '',
+  contactPhone: branch.contactPhone || '',
+  active: branch.active,
+  chainName: chain?.name || '',
+  chainCode: chain?.code || '',
+});
+
 export const publicWallet = (wallet, options = {}) => ({
   id: String(wallet.id),
   vendorAccountId: String(wallet.vendorAccountId),
   availablePaise: options.hideBalances ? undefined : wallet.availablePaise,
   reservedPaise: options.hideBalances ? undefined : wallet.reservedPaise,
+  processingPaise: options.hideBalances ? undefined : 0,
   currency: 'INR',
 });

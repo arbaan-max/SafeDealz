@@ -8,8 +8,15 @@ import 'package:safedealz_store_manager/bloc/auth/auth_bloc.dart';
 import 'package:safedealz_store_manager/core/network/dio_factory.dart';
 import 'package:safedealz_store_manager/core/network/session_interceptor.dart';
 import 'package:safedealz_store_manager/data/api/clients/auth_client.dart';
+import 'package:safedealz_store_manager/data/api/clients/operations_client.dart';
+import 'package:safedealz_store_manager/data/repositories/account_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/auth_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/catalog_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
 import 'package:safedealz_store_manager/data/services/auth_service.dart';
+import 'package:safedealz_store_manager/data/services/diagnostic_qr_scan_adapter.dart';
+import 'package:safedealz_store_manager/data/services/evidence_capture_adapter.dart';
+import 'package:safedealz_store_manager/data/services/imei_scan_adapter.dart';
 import 'package:safedealz_store_manager/data/services/token_store.dart';
 
 class SafeDealzApp extends StatelessWidget {
@@ -22,7 +29,8 @@ class SafeDealzApp extends StatelessWidget {
     final interceptor = SessionInterceptor(tokenStore);
     dio.interceptors.add(interceptor);
     interceptor.client = dio;
-    final authService = AuthService(AuthClient(dio), tokenStore);
+    final authClient = AuthClient(dio);
+    final authService = AuthService(authClient, tokenStore);
     interceptor.refresh = authService.refreshOnce;
     interceptor.terminal = (code) async {
       await tokenStore.clear();
@@ -34,18 +42,40 @@ class SafeDealzApp extends StatelessWidget {
       );
     };
     final authRepository = AuthRepositoryImpl(authService);
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider<BootstrapBloc>(
-          create: (_) => BootstrapBloc()..add(const BootstrapStarted()),
+        RepositoryProvider<AccountRepository>.value(
+          value: AccountRepositoryImpl(authClient),
         ),
-        BlocProvider<AuthBloc>(create: (_) => AuthBloc(authRepository)),
+        RepositoryProvider<DeviceRepository>.value(
+          value: DeviceRepositoryImpl(OperationsClient(dio), dio),
+        ),
+        RepositoryProvider<CatalogRepository>.value(
+          value: CatalogRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<ImeiScanAdapter>.value(
+          value: const DemoImeiScanAdapter(),
+        ),
+        RepositoryProvider<EvidenceCaptureAdapter>.value(
+          value: const DemoEvidenceCaptureAdapter(),
+        ),
+        RepositoryProvider<DiagnosticQrScanAdapter>.value(
+          value: const DemoDiagnosticQrScanAdapter(),
+        ),
       ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'SafeDealz Store Manager',
-        theme: AppTheme.lightTheme,
-        routerConfig: appRouter,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<BootstrapBloc>(
+            create: (_) => BootstrapBloc()..add(const BootstrapStarted()),
+          ),
+          BlocProvider<AuthBloc>(create: (_) => AuthBloc(authRepository)),
+        ],
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          title: 'SafeDealz Store Manager',
+          theme: AppTheme.lightTheme,
+          routerConfig: appRouter,
+        ),
       ),
     );
   }

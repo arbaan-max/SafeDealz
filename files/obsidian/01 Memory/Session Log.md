@@ -33,3 +33,24 @@ tags:
 - Owner authorized P03–P10 plus a post-range regression; live R2/Razorpay tests last.
 - Completed P03: chain/branch/Admin assignment APIs, OpenAPI v0.3.0, React A02–A05/A23/A24, design.html A23/A24, store-scope tests. Stopped before P04 as instructed.
 - P03 verification: backend 23/23; React 12/12 and 2/2 Chromium; Flutter 5/5, 5/5, 4/4.
+- Owner authorized P04 only: complete it, update records, and stop.
+- Completed P04: manager APIs, OpenAPI v0.4.0, React A06/A07, scoped Admin writes, mobile login and session revoke tests. Stopped before P05.
+- P04 verification: backend 24/24; React 13/13 and 2/2 Chromium; Flutter 6/6, 6/6, 5/5.
+- Owner authorized P05 only.
+- Completed P05: vendor APIs and linking, OpenAPI v0.5.0, React A08/A09, Vendor AppPageScaffold and V15 assigned stores. Stopped before P06.
+- P05 verification: backend 25/25; React 14/14 and 2/2 Chromium; Flutter 6/6, 9/9, 5/5.
+- Owner authorized P06 only.
+- Completed P06: device identity APIs, OpenAPI v0.6.0, Store Manager AppPageScaffold and M01–M03 with injectable IMEI scan. Stopped before P07.
+- P06 verification: backend 26/26; React 14/14 and 2/2 Chromium; Flutter 11/11, 9/9, 5/5.
+- Owner authorized P07 only.
+- Completed P07: inspection/media APIs, OpenAPI v0.7.0, Store Manager M04–M06 with injectable capture adapter. Stopped before P08.
+- P07 verification: backend 27/27; React 14/14 and 2/2 Chromium; Flutter 15/15, 9/9, 5/5.
+- Owner authorized P08 only.
+- Completed P08: Diagnostics D01–D07 with injectable hardware adapters, 120-dot 90% touch gate and local encrypted report. Stopped before P09.
+- P08 verification: backend 27/27; React 14/14 and 2/2 Chromium; Flutter 15/15, 9/9, 13/13.
+- Owner later authorized a catalog addendum (TASK-010) and then P09 only.
+- Completed P09: signed D08 QR, M07 import, M09 review, OpenAPI v0.9.0. Stopped before P10.
+- P09 verification: backend 28/28; React 14/14 and 2/2 Chromium; Flutter 20/20, 9/9, 14/14.
+- Owner authorized P10 only.
+- Completed P10: personal vendor wallet ledger, concurrent reservation safety, V07/V10/V11 and A14. Stopped before P11.
+- P10 verification: backend 28/28; React 16/16 and 2/2 Chromium; Flutter 20/20, 13/13, 14/14.

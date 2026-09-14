@@ -1,2 +1,11 @@
 const String bootstrapRoute = 'bootstrap';
 const String loginRoute = 'login';
+const String homeRoute = 'home';
+const String devicesRoute = 'devices';
+const String deviceNewRoute = 'deviceNew';
+const String deviceEditRoute = 'deviceEdit';
+const String inspectionRoute = 'inspection';
+const String evidenceRoute = 'evidence';
+const String cameraRoute = 'camera';
+const String reviewRoute = 'review';
+const String diagnosticScanRoute = 'diagnosticScan';

@@ -7,9 +7,10 @@ const deviceSchema = new mongoose.Schema({
   model: { type: String, required: true, trim: true },
   imei1: { type: String, required: true, trim: true },
   imei2: { type: String, required: true, trim: true },
-  storage: { type: String, required: true, enum: ['64 GB', '128 GB', '256 GB', '512 GB', '1 TB'] },
-  ram: { type: String, enum: ['', '4 GB', '6 GB', '8 GB', '12 GB', '24 GB'], default: '' },
+  storage: { type: String, required: true },
+  ram: { type: String, default: '' },
   batteryHealth: { type: Number, min: 1, max: 100 },
+  catalogVersion: { type: String },
   status: {
     type: String,
     required: true,

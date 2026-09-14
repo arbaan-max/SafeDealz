@@ -10,6 +10,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('SafeDealz Diagnostics'), findsOneWidget);
+    expect(find.textContaining('IMEI 1: …2345'), findsOneWidget);
     final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
     expect(app.theme?.colorScheme.primary, const Color(0xFF0369A1));
     expect(app.theme?.colorScheme.onPrimary, Colors.white);

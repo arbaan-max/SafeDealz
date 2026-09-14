@@ -6,6 +6,15 @@ const wrap = (handler) => async (request, response, next) => {
   try { await handler(request, response); } catch (error) { next(error); }
 };
 
+const movePayload = (result) => ({
+  availablePaise: result.wallet.availablePaise,
+  reservedPaise: result.wallet.reservedPaise,
+  processingPaise: 0,
+  replayed: result.replayed,
+  reservationId: result.reservation ? String(result.reservation.id) : undefined,
+  status: result.reservation?.status,
+});
+
 export const getMyWallet = wrap(async (request, response) => send(response, await readVendorWallet(request.auth.account)));
 export const getVendorWallet = wrap(async (request, response) => send(response, await readVendorWallet(request.auth.account, request.params.vendorId)));
 export const getWallets = wrap(async (request, response) => send(response, await listAdminWallets(request.auth.account)));
@@ -19,10 +28,13 @@ export const postWalletCredit = wrap(async (request, response) => {
     actorId: request.auth.account.id,
     referenceId: request.body.referenceId,
   });
-  send(response, { availablePaise: result.wallet.availablePaise, reservedPaise: result.wallet.reservedPaise, replayed: result.replayed });
+  send(response, movePayload(result));
 });
 export const postWalletReserve = wrap(async (request, response) => {
   const vendorAccountId = request.auth.account.role === 'vendor' ? request.auth.account.id : request.body.vendorAccountId;
+  if (request.auth.account.role !== 'vendor' && request.auth.account.role !== 'super_admin') {
+    throw new ApiError(403, 'FORBIDDEN', 'Only the vendor or Super Admin can reserve funds.');
+  }
   const result = await reserveFunds({
     vendorAccountId,
     amountPaise: request.body.amountPaise,
@@ -31,9 +43,13 @@ export const postWalletReserve = wrap(async (request, response) => {
     referenceId: request.body.referenceId,
     actorId: request.auth.account.id,
   });
-  send(response, { reservationId: String(result.reservation.id), availablePaise: result.wallet.availablePaise, reservedPaise: result.wallet.reservedPaise, replayed: result.replayed }, 201);
+  send(response, movePayload(result), 201);
 });
 export const postWalletRelease = wrap(async (request, response) => {
-  const result = await releaseReservation({ idempotencyKey: request.body.idempotencyKey, actorId: request.auth.account.id });
-  send(response, { availablePaise: result.wallet.availablePaise, reservedPaise: result.wallet.reservedPaise, status: result.reservation.status, replayed: result.replayed });
+  const result = await releaseReservation({
+    idempotencyKey: request.body.idempotencyKey,
+    actorId: request.auth.account.id,
+    actor: request.auth.account,
+  });
+  send(response, movePayload(result));
 });

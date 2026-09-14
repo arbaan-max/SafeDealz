@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
             constraints: const BoxConstraints(maxWidth: 440),
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                if (state is AuthAuthenticated) context.goNamed(bootstrapRoute);
+                if (state is AuthAuthenticated) context.goNamed(homeRoute);
               },
               builder: (context, state) => Form(
                 key: _form,

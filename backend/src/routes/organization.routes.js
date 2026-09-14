@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { getAdmins, getAssignedStores, listBranches, listChains, patchAdmin, patchBranch, patchChain, postAdmin, postBranch, postChain } from '../controllers/organization.controller.js';
-import { getManagers, getVendors, patchManager, patchVendor, postManager, postVendor } from '../controllers/staff.controller.js';
+import { getManagers, getVendors, patchManager, patchVendor, postManager, postVendor, postVendorLink } from '../controllers/staff.controller.js';
 import { getDevice, getDevices, patchDevice, postDevice, postDiagnosticImport, postMediaComplete, postMediaDownload, postMediaSign, putInspection } from '../controllers/device.controller.js';
+import { getCatalog } from '../controllers/catalog.controller.js';
 import { getMyWallet, getVendorWallet, getWallets, postWalletCredit, postWalletRelease, postWalletReserve } from '../controllers/wallet.controller.js';
 import { requireAuthentication } from '../middlewares/auth.middleware.js';
 import { requireRoles } from '../middlewares/authorize.middleware.js';
@@ -23,9 +24,11 @@ organizationRouter.post('/managers', ...guard('super_admin', 'admin'), postManag
 organizationRouter.patch('/managers/:id', ...guard('super_admin', 'admin'), patchManager);
 organizationRouter.get('/vendors', ...guard('super_admin', 'admin'), getVendors);
 organizationRouter.post('/vendors', ...guard('super_admin', 'admin'), postVendor);
+organizationRouter.post('/vendors/links', ...guard('super_admin', 'admin'), postVendorLink);
 organizationRouter.patch('/vendors/:id', ...guard('super_admin', 'admin'), patchVendor);
 
 export const operationsRouter = Router();
+operationsRouter.get('/catalog', getCatalog);
 operationsRouter.get('/assigned-stores', ...guard('vendor'), getAssignedStores);
 operationsRouter.get('/devices', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), getDevices);
 operationsRouter.post('/devices', ...guard('store_manager', 'super_admin'), postDevice);

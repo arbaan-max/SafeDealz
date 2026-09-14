@@ -7,6 +7,11 @@ import { BranchListPage } from '../../features/organization/pages/BranchListPage
 import { BranchFormPage } from '../../features/organization/pages/BranchFormPage';
 import { AdminListPage } from '../../features/organization/pages/AdminListPage';
 import { AdminFormPage } from '../../features/organization/pages/AdminFormPage';
+import { ManagerListPage } from '../../features/organization/pages/ManagerListPage';
+import { ManagerFormPage } from '../../features/organization/pages/ManagerFormPage';
+import { VendorListPage } from '../../features/organization/pages/VendorListPage';
+import { VendorFormPage } from '../../features/organization/pages/VendorFormPage';
+import { VendorWalletPage } from '../../features/organization/pages/VendorWalletPage';
 import { RequireSession } from '../../features/auth/components/RequireSession';
 import { RoleGate } from '../../features/organization/components/RoleGate';
 import { LoginPage } from '../../features/auth/pages/LoginPage';
@@ -30,6 +35,13 @@ export const appRouter = createBrowserRouter([
         { path: 'admins', element: <RoleGate roles={['super_admin']}><AdminListPage /></RoleGate> },
         { path: 'admins/new', element: <RoleGate roles={['super_admin']}><AdminFormPage /></RoleGate> },
         { path: 'admins/:id', element: <RoleGate roles={['super_admin']}><AdminFormPage /></RoleGate> },
+        { path: 'managers', element: <RoleGate roles={['super_admin', 'admin']}><ManagerListPage /></RoleGate> },
+        { path: 'managers/new', element: <RoleGate roles={['super_admin', 'admin']}><ManagerFormPage /></RoleGate> },
+        { path: 'managers/:id', element: <RoleGate roles={['super_admin', 'admin']}><ManagerFormPage /></RoleGate> },
+        { path: 'vendors', element: <RoleGate roles={['super_admin', 'admin']}><VendorListPage /></RoleGate> },
+        { path: 'vendors/new', element: <RoleGate roles={['super_admin', 'admin']}><VendorFormPage /></RoleGate> },
+        { path: 'vendors/:id', element: <RoleGate roles={['super_admin', 'admin']}><VendorFormPage /></RoleGate> },
+        { path: 'vendors/:id/wallet', element: <RoleGate roles={['super_admin', 'admin']}><VendorWalletPage /></RoleGate> },
       ] },
     ],
   },

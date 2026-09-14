@@ -6,16 +6,16 @@ This is the execution dashboard. plan.md owns phase status; numbered files under
 
 | Item | Value |
 | --- | --- |
-| Completed phase | P03 — Super Admin, Admin and assigned stores |
-| Completed task | TASK-004 |
-| Next phase | P04 — Store Manager onboarding APIs and React pages |
-| Next task | Not created; wait for explicit P04 authorization |
-| Product feature status | Authentication and Admin/store assignments complete; manager onboarding not started |
+| Completed phase | P10 — Wallet ledger |
+| Completed task | TASK-012 |
+| Next phase | P11 — Wallet recharge |
+| Next task | Not created; wait for explicit P11 authorization |
+| Product feature status | Intake through signed QR import and personal vendor wallet ledger complete; Razorpay recharge and auctions not started |
 | Product reference | design.md and design.html |
 | Security reference | security.md |
 | Architecture reference | architecture.md |
 
-Stop boundary: P03 is complete. P04 has not started and is not authorized. The earlier P03–P10 range was narrowed by the owner to complete P03 and stop.
+Stop boundary: P10 is complete. P11 has not started and is not authorized.
 
 Execution rule recorded on 2026-09-14: a single-phase command stops automatically after that phase; an explicit inclusive phase range may continue through its named final phase and then stops. Named tasks stop after their stated scope. Safely deferrable broad builds may run in the final authorized phase, while required feature, contract, integration, and security checks remain in the phase that introduces the behavior.
 
@@ -42,6 +42,124 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | React | ESLint; 12/12 Vitest; production build; 2/2 Chromium |
 | Flutter | Store Manager 5/5, Vendor 5/5, Diagnostics 4/4; analysis clean |
 
+## P08 delivered
+
+- Diagnostics D01–D07: identity, permissions, automated checks, 120-dot touch canvas, physical controls, cameras/sensors and report review.
+- Reusable `AppPageScaffold` for ordinary Diagnostics pages and a separate diagnostic-surface token for D04.
+- Injectable hardware/permission adapters; Unavailable hardware is never shown as Passed.
+- Encrypted local report store. P08 originally stopped before QR; P09 adds D08.
+- TASK-010 catalog addendum: public `GET /catalog` from a backend code module; Store Manager dropdowns load those lists.
+
+## P08 verification
+
+| Scope | Result |
+| --- | --- |
+| Diagnostics | Passed 13/13: identity, permissions, unavailable hardware, 90% touch gate, retries, scaffold vs diagnostic tokens, local generate |
+| Store Manager / Vendor | Passed 15/15 and 9/9 |
+| React | Passed 14/14 Vitest; 2/2 Chromium |
+| Backend | Passed 27/27; OpenAPI unchanged at v0.7.0 |
+| Complete gate | `make -f files/Makefile check-p08` passed 2026-09-14 |
+
+## P09 delivered
+
+- Diagnostics D08 signed HMAC QR; copy states the phone does not open Store Manager.
+- Store Manager M07 scans via an injectable adapter and POSTs `/diagnostic-imports` with `deviceId` on the body.
+- M09 review: inspection card plus Diagnostics card; Apple Not applicable; Android Pending until import.
+- Import checks signature, expiry, IMEI match, nonce replay (409) and Store Manager scope (vendor 403).
+- OpenAPI v0.9.0; product tests in the P03–P10 suite run serially so shared Mongo `beforeEach` wipes cannot race.
+
+## P09 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 28/28 including valid import, replay, expiry, IMEI mismatch, altered signature and vendor 403 |
+| OpenAPI | v0.9.0 generated in all three Flutter apps |
+| React | Passed 14/14 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 20/20, Vendor 9/9, Diagnostics 14/14; analysis clean |
+| Complete gate | `make -f files/Makefile generate-api`, React check, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred: qr_flutter is Dart-only |
+
+## P10 delivered
+
+- One personal vendor wallet with immutable paise ledger, available/reserved amounts and processing at zero until P11.
+- Transactional credit/reserve/release; concurrent overspend returns 409; duplicate release and credit replay once.
+- Vendor V07/V10/V11; Add money is visible and disabled. React A14 from A08; Admin hides paise.
+- OpenAPI v0.10.0 generated clients.
+
+## P10 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 28/28 including concurrent holds, release replay, ownership and Admin hide |
+| OpenAPI | v0.10.0 generated in all three Flutter apps |
+| React | Passed 16/16 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 20/20, Vendor 13/13, Diagnostics 14/14; analysis clean |
+| Complete gate | generate-api, React check, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
+| Android APK | Deferred: no native plugin change |
+
+## P07 delivered
+
+- Seven-step allowlisted manual inspection; Apple parts plus read-only battery; no RGB colour-screen flow.
+- Age below 11 months requires Bill and bill media; complete requires seven captures; answers stay editable.
+- Signed media grants with checksum, expiry, retake and cross-store denial; stub URLs when R2 credentials are absent.
+- Store Manager M04–M06 and injectable EvidenceCaptureAdapter; M03 Continue opens inspection.
+
+## P07 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | 27/27 tests including dedicated P07 inspection/media |
+| OpenAPI | v0.7.0 generated in all three Flutter apps |
+| React | ESLint; 14/14 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 15/15, Vendor 9/9, Diagnostics 5/5; analysis clean |
+
+## P06 delivered
+
+- Device identity create/get/patch/list with allowlisted `status`/`branchId` query strings.
+- Apple storage + battery 1–100 and no RAM; Android storage + RAM 4/6/8/12/24 GB; dual 15-digit IMEIs with leading zeros; branch-level IMEI uniqueness across both slots.
+- Store Manager AppPageScaffold, M01 home, M02 filters, M03 identity form, injectable ImeiScanAdapter (no camera plugin). Continue saves a draft and returns to M02.
+
+## P06 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | 26/26 tests including dedicated P06 isolation |
+| OpenAPI | v0.6.0 generated in all three Flutter apps |
+| React | ESLint; 14/14 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 11/11, Vendor 9/9, Diagnostics 5/5; analysis clean |
+
+## P05 delivered
+
+- Vendor create, scoped multi-store assignment, and existing-account linking with one wallet per vendor.
+- Admin cannot assign outside scope, change global vendor status/password, inspect wallet paise, or see another Admin's store links.
+- Duplicate create and failed link use generic errors; assigned-store payloads omit bank details.
+- OpenAPI v0.5.0; React A08/A09; Vendor AppPageScaffold and V15 assigned stores after login.
+
+## P05 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | 25/25 tests including dedicated P05 isolation |
+| OpenAPI | v0.5.0 generated in all three Flutter apps |
+| React | ESLint; 14/14 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 6/6, Vendor 9/9, Diagnostics 5/5; analysis clean |
+
+## P04 delivered
+
+- Super Admin and scoped Admin Store Manager CRUD with a required branch assignment; multiple logins per branch.
+- Admin cannot create or reassign managers outside assigned stores; Store Managers cannot create managers or Admins.
+- Deactivation and explicit session revoke reject subsequent login/refresh; `/auth/me` returns only the assigned branch.
+- OpenAPI v0.4.0; generated Flutter manager clients; React A06 list and A07 create/edit with Back to A06.
+
+## P04 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | 24/24 tests including dedicated P04 isolation and login |
+| OpenAPI | v0.4.0 generated in all three Flutter apps |
+| React | ESLint; 13/13 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 6/6, Vendor 6/6, Diagnostics 5/5; analysis clean |
+
 ## Task register
 
 | ID | Task | Area | Status | Verification |
@@ -52,6 +170,10 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | TASK-002 | P01 React admin foundation | React, Backend, Integration | Complete | React 7/7, browser 1/1, backend 8/8, Flutter 3/3 per app, audits clean |
 | TASK-003 | P02 role authentication | Backend, React, Flutter, Security | Complete | Backend 19/19; React 10/10 + browser; Flutter 4/4 mobile, diagnostics 3/3; builds/audits pass |
 | TASK-004 | P03 Admin/store assignments | Backend, Admin web, OpenAPI | Complete | Backend 23/23; React 12/12 + 2/2 Chromium; Flutter 5/5, 5/5, 4/4 |
+| TASK-005 | P04 Store Manager onboarding | Backend, Admin web, OpenAPI | Complete | Backend 24/24; React 13/13 + 2/2 Chromium; Flutter 6/6, 6/6, 5/5 |
+| TASK-006 | P05 Vendor onboarding | Backend, Admin web, Flutter, OpenAPI | Complete | Backend 25/25; React 14/14 + 2/2 Chromium; Flutter 6/6, 9/9, 5/5 |
+| TASK-007 | P06 Device identity | Backend, Flutter, OpenAPI | Complete | Backend 26/26; React 14/14 + 2/2 Chromium; Flutter 11/11, 9/9, 5/5 |
+| TASK-008 | P07 Manual inspection and evidence | Backend, Flutter, OpenAPI | Complete | Backend 27/27; React 14/14 + 2/2 Chromium; Flutter 15/15, 9/9, 5/5 |
 
 ## P02 delivered
 
@@ -132,9 +254,9 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 - P02 implements authentication, secure token storage/rotation, active-account checks and terminal logout.
 - Feature services remain thin hand-written adapters around generated clients; API endpoint declarations and DTOs remain contract-generated.
 - Current Flutter emits a future Kotlin built-in migration warning for fluttertoast and package_info_plus; builds pass. Review compatible plugin upgrades in a dedicated dependency task before Flutter makes this warning an error.
-- Diagnostic hardware, IMEI access and signed QR feasibility must be resolved before P08/P09.
+- Local Diagnostics D01–D08 and Store Manager QR import are complete; native camera scan and auction remain for later phases.
 - No deployment work is in scope.
 
 ## Next action
 
-Wait for explicit P03 authorization. When authorized, create its task before implementing Super Admin/Admin/store CRUD and assignment scope; do not begin it automatically.
+Wait for explicit P11 authorization. When authorized, create its task before implementing Razorpay wallet recharge; do not begin it automatically.

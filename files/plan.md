@@ -10,7 +10,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Product design specification | Available in [design.md](design.md) |
 | Interactive design reference | Available in [design.html](design.html) |
 | Phase breakdown | Prepared — see [phases.md](phases.md) |
-| Product implementation | P00–P03 complete; P04 Store Manager onboarding not started |
+| Product implementation | P00–P10 complete; P11 Wallet recharge not started |
 
 ## Project setup
 
@@ -28,7 +28,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Backend | Node.js, Express.js, MongoDB, and Mongoose |
 | API contract | OpenAPI/Swagger contract required before API-client generation |
 | Development completion goal | Complete approved scope through P25; development acceptance follows the test gates; deployment excluded |
-| Coding authorization | P03 completed and stopped. P04 is not authorized. |
+| Coding authorization | P10 completed and stopped. P11 is not authorized. |
 
 ## Product roles
 
@@ -47,10 +47,10 @@ The complete role permissions and screen behavior are defined in [design.md](des
 | Capability | Design status | Implementation status |
 | --- | --- | --- |
 | Authentication and account status enforcement | Defined | Complete — TASK-003 |
-| Chain, branch, manager, and vendor administration | Defined | Chain/branch/Admin assignments complete — TASK-004; manager and vendor onboarding not started |
-| Store Manager device intake and evidence | Defined | Not started |
-| Manual condition inspection | Defined | Not started |
-| Android Diagnostics and signed result-QR import | Defined | Not started |
+| Chain, branch, manager, and vendor administration | Defined | Chain/branch/Admin assignments, Store Manager and Vendor onboarding complete — TASK-004/TASK-005/TASK-006 |
+| Store Manager device intake and evidence | Defined | Complete — TASK-007/TASK-008 |
+| Manual condition inspection | Defined | Complete — TASK-008 |
+| Android Diagnostics and signed result-QR import | Defined | Local D01–D08 and M07 import complete — TASK-009/TASK-011 |
 | Vendor assignment, auction, and immutable bidding | Defined | Not started |
 | Wallet reservation, fees, release, and recharge | Defined | Not started |
 | Offer acceptance, customer verification, and payout | Defined | Not started |
@@ -81,7 +81,7 @@ The complete role permissions and screen behavior are defined in [design.md](des
 
 ## Phase plan
 
-The detailed roadmap is in [phases.md](phases.md). P00–P03 are complete. Update this table after every task, including when the phase remains In progress. Do not mark a phase complete until its clients, contract and tests pass.
+The detailed roadmap is in [phases.md](phases.md). P00–P08 are complete. Update this table after every task, including when the phase remains In progress. Do not mark a phase complete until its clients, contract and tests pass.
 
 | Phase | Goal | Status | Latest completed task |
 | --- | --- | --- | --- |
@@ -89,13 +89,13 @@ The detailed roadmap is in [phases.md](phases.md). P00–P03 are complete. Updat
 | P01 | React admin foundation and shared test tooling | Complete | TASK-002 |
 | P02 | Role authentication APIs and React login | Complete | TASK-003 |
 | P03 | Super Admin, Admin and assigned stores | Complete | TASK-004 |
-| P04 | Store Manager onboarding APIs and React pages | Planned | None |
-| P05 | Vendor onboarding APIs and React pages | Planned | None |
-| P06 | Device identity | Planned | None |
-| P07 | Manual inspection and evidence | Planned | None |
-| P08 | Android diagnostic tests | Planned | None |
-| P09 | Diagnostic QR handoff | Planned | None |
-| P10 | Wallet ledger | Planned | None |
+| P04 | Store Manager onboarding APIs and React pages | Complete | TASK-005 |
+| P05 | Vendor onboarding APIs and React pages | Complete | TASK-006 |
+| P06 | Device identity | Complete | TASK-007 |
+| P07 | Manual inspection and evidence | Complete | TASK-008 |
+| P08 | Android diagnostic tests | Complete | TASK-009; TASK-010 catalog addendum |
+| P09 | Diagnostic QR handoff | Complete | TASK-011 |
+| P10 | Wallet ledger | Complete | TASK-012 |
 | P11 | Wallet recharge | Planned | None |
 | P12 | Auction lifecycle and settings | Planned | None |
 | P13 | Vendor bidding and fee holds | Planned | None |
@@ -112,7 +112,7 @@ The detailed roadmap is in [phases.md](phases.md). P00–P03 are complete. Updat
 | P24 | End-to-end and resilience | Planned | None |
 | P25 | Development completion and handover | Planned | None |
 
-Next: wait for the owner to authorize P04. Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
+Next: wait for the owner to authorize P11. Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
 
 ## Confirmed technology and scope
 

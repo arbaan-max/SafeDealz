@@ -9,6 +9,7 @@ const mediaObjectSchema = new mongoose.Schema({
   sizeBytes: { type: Number, required: true, min: 1 },
   checksumSha256: { type: String, required: true },
   status: { type: String, required: true, enum: ['pending', 'uploaded'], default: 'pending' },
+  grantExpiresAt: { type: Date },
 }, { timestamps: true, versionKey: false });
 
 mediaObjectSchema.index({ deviceId: 1, purpose: 1 }, { unique: true });

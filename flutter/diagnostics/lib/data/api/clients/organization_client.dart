@@ -9,6 +9,7 @@ import '../models/admin_create.dart';
 import '../models/admin_list_response.dart';
 import '../models/admin_response.dart';
 import '../models/admin_update.dart';
+import '../models/assigned_store_list_response.dart';
 import '../models/branch_create.dart';
 import '../models/branch_list_response.dart';
 import '../models/branch_response.dart';
@@ -16,6 +17,15 @@ import '../models/branch_update.dart';
 import '../models/chain_list_response.dart';
 import '../models/chain_response.dart';
 import '../models/chain_write.dart';
+import '../models/manager_create.dart';
+import '../models/manager_list_response.dart';
+import '../models/manager_response.dart';
+import '../models/manager_update.dart';
+import '../models/vendor_create.dart';
+import '../models/vendor_link.dart';
+import '../models/vendor_list_response.dart';
+import '../models/vendor_response.dart';
+import '../models/vendor_update.dart';
 
 part 'organization_client.g.dart';
 
@@ -64,4 +74,40 @@ abstract class OrganizationClient {
     @Path('id') required String id,
     @Body() required AdminUpdate body,
   });
+
+  @GET('/managers')
+  Future<ManagerListResponse> listManagers();
+
+  @POST('/managers')
+  Future<ManagerResponse> createManager({
+    @Body() required ManagerCreate body,
+  });
+
+  @PATCH('/managers/{id}')
+  Future<ManagerResponse> updateManager({
+    @Path('id') required String id,
+    @Body() required ManagerUpdate body,
+  });
+
+  @GET('/vendors')
+  Future<VendorListResponse> listVendors();
+
+  @POST('/vendors')
+  Future<VendorResponse> createVendor({
+    @Body() required VendorCreate body,
+  });
+
+  @POST('/vendors/links')
+  Future<VendorResponse> linkVendor({
+    @Body() required VendorLink body,
+  });
+
+  @PATCH('/vendors/{id}')
+  Future<VendorResponse> updateVendor({
+    @Path('id') required String id,
+    @Body() required VendorUpdate body,
+  });
+
+  @GET('/assigned-stores')
+  Future<AssignedStoreListResponse> listAssignedStores();
 }

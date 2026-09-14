@@ -13,13 +13,15 @@ export const importDiagnostic = async (actor, body) => {
     throw new ApiError(403, 'FORBIDDEN', 'Only a Store Manager can import diagnostic results.');
   }
   const payload = body.payload && typeof body.payload === 'object' ? body.payload : null;
-  if (!payload?.nonce || !payload.imei1 || !payload.imei2 || !payload.deviceId) {
+  if (!payload?.nonce || !payload.imei1 || !payload.imei2) {
     throw new ApiError(400, 'VALIDATION_ERROR', 'Diagnostic payload is incomplete.');
   }
-  if (signDiagnosticPayload(payload) !== body.signature) throw new ApiError(400, 'DIAGNOSTIC_INVALID', 'Diagnostic signature is invalid.');
+  if (typeof body.signature !== 'string' || signDiagnosticPayload(payload) !== body.signature) {
+    throw new ApiError(400, 'DIAGNOSTIC_INVALID', 'Diagnostic signature is invalid.');
+  }
   if (payload.expiresAt && new Date(payload.expiresAt) <= new Date()) throw new ApiError(400, 'DIAGNOSTIC_EXPIRED', 'Diagnostic QR has expired.');
   if (await findImportByNonce(payload.nonce)) throw new ApiError(409, 'CONFLICT', 'This diagnostic result was already imported.');
-  const device = await findDeviceById(requireObjectId(payload.deviceId, 'device id'));
+  const device = await findDeviceById(requireObjectId(body.deviceId, 'device id'));
   if (!device) throw new ApiError(404, 'NOT_FOUND', 'Device was not found.');
   const scope = await loadScope(actor);
   assertBranchInScope(scope, device.branchId);

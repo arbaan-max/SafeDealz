@@ -8,7 +8,25 @@ Completed: [TASK-002 — P01 React admin foundation](tasks/TASK-002-react-admin-
 
 Completed: [TASK-003 — P02 role authentication](tasks/TASK-003-role-authentication.md). The OpenAPI-first account/session/throttle models and authentication layers implement login, refresh, logout and current-session behavior with P02 security tests.
 
-Active: none. P03 is complete in [TASK-004](tasks/TASK-004-admin-store-assignments.md). Wait for P04 authorization. Manager/vendor/device/wallet draft routes in the backend are not an authorized phase.
+Completed: [TASK-004](tasks/TASK-004-admin-store-assignments.md). P03 Super Admin/Admin store assignments remain complete.
+
+Completed: [TASK-005](tasks/TASK-005-store-manager-onboarding.md). P04 Store Manager onboarding remains complete.
+
+Completed: [TASK-006 — P05 Vendor onboarding](tasks/TASK-006-vendor-onboarding.md). Vendor APIs, scoped linking, React A08/A09 and Vendor V15 pass.
+
+Completed: [TASK-007 — P06 Device identity](tasks/TASK-007-device-identity.md). Device identity APIs, OpenAPI v0.6.0 and Store Manager M01–M03 pass.
+
+Completed: [TASK-008 — P07 Manual inspection and evidence](tasks/TASK-008-inspection-evidence.md). Inspection/media APIs, OpenAPI v0.7.0 and Store Manager M04–M06 pass. Diagnostic QR remains a later-phase draft. Live R2 tests wait for the authorized range regression.
+
+Completed: [TASK-009 — P08 Android Diagnostics](tasks/TASK-009-android-diagnostics.md). Local D01–D07 tests stay on the phone.
+
+Completed: [TASK-010 — Trade-in catalog](tasks/TASK-010-trade-in-catalog.md). Public `GET /catalog` from a backend code module.
+
+Completed: [TASK-011 — P09 Diagnostic QR handoff](tasks/TASK-011-diagnostic-qr-handoff.md). Signed import, D08/M07/M09 and OpenAPI v0.9.0 pass.
+
+Completed: [TASK-012 — P10 Wallet ledger](tasks/TASK-012-wallet-ledger.md). Transactional paise ledger, reservations and OpenAPI v0.10.0 pass.
+
+No backend task is active; P11 waits for explicit authorization.
 
 Confirmed future integrations: P07 adds a backend-owned Cloudflare R2 adapter for private evidence media and short-lived authorized signed operations. P11 adds backend-created Razorpay recharge orders, signature-verified webhooks, reconciliation and idempotent wallet credits. Provider secrets are environment-only and neither client callbacks nor public object URLs are authoritative.
 

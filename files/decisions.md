@@ -115,3 +115,17 @@ Status: Confirmed by owner, 2026-09-14.
 Implement P03 through P10 inclusive, then run a separate P00–P10 regression. Live Cloudflare R2 and Razorpay tests wait until after that range. Razorpay checkout remains a P11 feature. After every completed phase, update the task file, implementation.md, plan.md, phases.md and Obsidian current-state/session log before starting the next phase in the range.
 
 Owner follow-up on 2026-09-14: complete P03 and stop. P04 is not authorized by that instruction.
+
+Owner follow-up on 2026-09-14: start P04, complete it, update recommended records, and stop. P05 is not authorized by that instruction.
+
+Owner follow-up on 2026-09-14: start P05. That command authorizes P05 only; stop after P05 and do not start P06.
+
+Owner follow-up on 2026-09-14: start P06. That command authorizes P06 only; stop after P06 and do not start P07.
+
+Owner follow-up on 2026-09-14: start P07. That command authorizes P07 only; stop after P07 and do not start P08.
+
+Owner follow-up on 2026-09-14: start P08. That command authorizes P08 only; stop after P08 and do not start P09.
+
+Owner follow-up on 2026-09-14: start P09 and complete it. That command authorizes P09 only; stop after P09 and do not start P10.
+
+Owner follow-up on 2026-09-14: start P10. That command authorizes P10 only; stop after P10 and do not start P11.

@@ -4,6 +4,7 @@ import { env } from './src/config/env.js';
 
 import { notFoundHandler } from './src/middlewares/not-found.middleware.js';
 import { errorHandler } from './src/middlewares/error.middleware.js';
+import { requestLog } from './src/middlewares/request-log.middleware.js';
 import { apiRouter } from './src/routes/index.js';
 import { docsRouter } from './src/routes/docs.routes.js';
 
@@ -14,6 +15,7 @@ export const createApp = () => {
   app.set('trust proxy', 1);
   app.use(express.json({ limit: '1mb' }));
   app.use(cookieParser());
+  app.use(requestLog);
   app.use((request, response, next) => {
     if (request.get('origin') === env.allowedWebOrigin) {
       response.set('Access-Control-Allow-Origin', env.allowedWebOrigin);
