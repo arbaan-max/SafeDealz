@@ -5,11 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safedealz_store_manager/core/network/api_error_message.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
+import 'package:safedealz_store_manager/core/utils/theme.dart';
 import 'package:safedealz_store_manager/data/api/models/auction_decline_write.dart';
 import 'package:safedealz_store_manager/data/api/models/auction_decline_write_reason_code.dart';
 import 'package:safedealz_store_manager/data/api/models/auction_round.dart';
 import 'package:safedealz_store_manager/data/api/models/auction_round_status.dart';
+import 'package:safedealz_store_manager/data/api/models/branch.dart';
 import 'package:safedealz_store_manager/data/repositories/auction_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/store_repository.dart';
 import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
@@ -25,6 +28,7 @@ class OfferPage extends StatefulWidget {
 class _OfferPageState extends State<OfferPage> {
   AuctionRound? _round;
   String? _error;
+  String? _payoutLabel;
   bool _loading = true;
   Timer? _timer;
 
@@ -50,6 +54,7 @@ class _OfferPageState extends State<OfferPage> {
         _loading = false;
         _error = null;
       });
+      await _loadPayout(round.branchId);
       _timer?.cancel();
       if (round.status == AuctionRoundStatus.awaitingAcceptance) {
         _timer = Timer.periodic(const Duration(seconds: 1), (_) {
@@ -69,6 +74,29 @@ class _OfferPageState extends State<OfferPage> {
         _loading = false;
       });
     }
+  }
+
+  Future<void> _loadPayout(String branchId) async {
+    try {
+      final stores = context.read<StoreRepository>();
+      final branches = await stores.listAssignedBranches();
+      if (!mounted) return;
+      Branch? match;
+      for (final branch in branches) {
+        if (branch.id == branchId) {
+          match = branch;
+          break;
+        }
+      }
+      match ??= branches.isEmpty ? null : branches.first;
+      if (match == null) return;
+      final masked = match.accountNumberMasked;
+      setState(() {
+        _payoutLabel = masked == null || masked.isEmpty
+            ? branchLabel(match)
+            : '${branchLabel(match)} / $masked';
+      });
+    } catch (_) {}
   }
 
   Future<void> _expire() async {
@@ -223,57 +251,104 @@ class _OfferPageState extends State<OfferPage> {
                   onPressed: open
                       ? () => context.goNamed(offerAcceptRoute, pathParameters: {'id': round.id})
                       : null,
-                  child: const Text('Accept'),
+                  child: const Text('Accept offer'),
                 ),
                 const SizedBox(height: 8),
                 OutlinedButton(onPressed: open ? _rebid : null, child: const Text('Rebid')),
-                SdQuietButton(label: 'Decline', onPressed: open ? _decline : null),
+                SdQuietButton(label: 'Decline offer', onPressed: open ? _decline : null),
               ],
             ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : ListView(
+          : SdScrollBody(
               children: [
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 if (round != null) ...[
                   Row(
                     children: [
-                      const SdStatusBadge('Selected offer'),
+                      const SdStatusBadge('Highest offer', tone: 'purple'),
                       const Spacer(),
-                      Text(open ? 'Accept within $mm:$ss' : 'Acceptance window ended', style: const TextStyle(fontWeight: FontWeight.w700)),
+                      Text(
+                        open ? 'Accept within $mm:$ss' : 'Acceptance window ended',
+                        style: const TextStyle(fontWeight: FontWeight.w700),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   Text(device['model']?.toString() ?? 'Device', style: Theme.of(context).textTheme.headlineMedium),
-                  Text('${device['storage'] ?? ''}'),
+                  Text(
+                    [
+                      if ((device['storage']?.toString() ?? '').isNotEmpty) device['storage'],
+                      if ((device['imei1']?.toString() ?? '').isNotEmpty)
+                        'IMEI ending ${_imeiEnding(device['imei1']?.toString())}',
+                    ].join(' / '),
+                    style: const TextStyle(color: AppTheme.muted),
+                  ),
                   const SizedBox(height: 16),
                   SdCard(
                     tint: true,
                     child: Column(
                       children: [
-                        const Text('Offer to your store', style: TextStyle(fontSize: 12, color: Color(0xFF526079))),
-                        Text(formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise), style: const TextStyle(fontSize: 37, fontWeight: FontWeight.w800)),
+                        const Text('Offer to your store', style: TextStyle(fontSize: 12, color: AppTheme.muted)),
+                        Text(
+                          formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise),
+                          style: const TextStyle(fontSize: 37, fontWeight: FontWeight.w800),
+                        ),
                         Text(open ? 'Accept within the remaining time' : 'Acceptance window ended'),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(vendor['displayName']?.toString() ?? 'Winning vendor', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  SdPersonRow(name: vendor['displayName']?.toString() ?? 'Winning vendor'),
+                  const SizedBox(height: 16),
                   SdCard(
                     child: Column(
                       children: [
+                        if (round.winnerBid?.basePaise != null)
+                          SdDetailRow('Base price', formatPaise(round.winnerBid!.basePaise)),
+                        if (round.winnerBid?.cosmeticDeductionPaise != null)
+                          SdDetailRow('Cosmetic deduction', '−${formatPaise(round.winnerBid!.cosmeticDeductionPaise)}'),
+                        if (round.winnerBid?.batteryDeductionPaise != null)
+                          SdDetailRow('Battery deduction', '−${formatPaise(round.winnerBid!.batteryDeductionPaise)}'),
                         SdDetailRow('Final offer', formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise)),
-                        SdDetailRow('Platform fee', formatPaise(round.winnerBid?.feePaise)),
                       ],
                     ),
                   ),
                   const SizedBox(height: 12),
-                  SdDetailRow('Payout account', device['branchName']?.toString() ?? 'Store business account'),
-                  const Text('Payout uses the branch business account. No customer KYC yet.'),
+                  SdDetailRow(
+                    'Payout account',
+                    _payoutLabel ??
+                        device['branchName']?.toString() ??
+                        'PAI / Indiranagar / •••• 4821',
+                  ),
+                  SdDetailRow(
+                    'Customer reward',
+                    '${_rewardPoints(round.winnerBid?.amountPaise ?? round.highestAmountPaise)} points',
+                  ),
+                  const SdNotice(
+                    'Acceptance starts payment processing immediately. Customer verification is required before payout release.',
+                  ),
                 ],
               ],
             ),
     );
   }
+}
+
+String _imeiEnding(String? imei) {
+  if (imei == null || imei.isEmpty) return '';
+  return imei.length <= 4 ? imei : imei.substring(imei.length - 4);
+}
+
+String _rewardPoints(int? paise) {
+  final points = ((paise ?? 0) / 1000).round();
+  final digits = points.toString();
+  final buffer = StringBuffer();
+  for (var i = 0; i < digits.length; i++) {
+    final remaining = digits.length - i;
+    if (i != 0 && remaining % 3 == 0) buffer.write(',');
+    buffer.write(digits[i]);
+  }
+  return buffer.toString();
 }

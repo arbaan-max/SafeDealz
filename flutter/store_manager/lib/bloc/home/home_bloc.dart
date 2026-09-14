@@ -12,9 +12,8 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc(this._accounts, this._devices, {StoreRepository? stores})
-      : _stores = stores,
-        super(const HomeLoading()) {
+  HomeBloc(this._accounts, this._devices, {this._stores})
+      : super(const HomeLoading()) {
     on<HomeStarted>(_load);
   }
 

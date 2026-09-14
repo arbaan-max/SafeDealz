@@ -53,6 +53,8 @@ class _FakeAuth implements AuthRepository {
   Future<void> login(String email, String password) async {}
   @override
   Future<void> logout() async {}
+  @override
+  Future<bool> restore() async => false;
 }
 
 class _FakeScan implements ImeiScanAdapter {
@@ -116,6 +118,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Battery health'), findsOneWidget);
     expect(find.text('RAM'), findsNothing);
+    await tester.ensureVisible(find.text('Android'));
     await tester.tap(find.text('Apple'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Android').last);

@@ -31,8 +31,12 @@ AuctionRound _offer() {
       totalPaise: 1620000,
       status: BidStatus.won,
     ),
-    winnerVendor: const {'displayName': 'Uday', 'email': 'uday@test.dev'},
-    device: const {'model': 'iPhone 14'},
+    winnerVendor: const {'displayName': 'Uday Mobiles', 'email': 'uday@test.dev'},
+    device: const {
+      'model': 'Apple iPhone 14',
+      'storage': '128 GB',
+      'imei1': '3534567890125678',
+    },
   );
 }
 
@@ -49,14 +53,19 @@ void main() {
     );
     await tester.pump();
     await tester.pump();
-    expect(find.text('Highest offer'), findsOneWidget);
-    expect(find.textContaining('Accept within'), findsOneWidget);
-    expect(find.text('₹15000'), findsOneWidget);
-    expect(find.text('Uday'), findsOneWidget);
-    expect(find.text('Accept'), findsOneWidget);
+    expect(find.text('Highest offer'), findsWidgets);
+    expect(find.textContaining('Accept within'), findsWidgets);
+    expect(find.text('₹15000'), findsNWidgets(2));
+    expect(find.text('Uday Mobiles'), findsOneWidget);
+    expect(find.text('Verified vendor'), findsOneWidget);
+    expect(find.text('Accept offer'), findsOneWidget);
     expect(find.text('Rebid'), findsOneWidget);
-    expect(find.text('Decline'), findsOneWidget);
-    expect(find.textContaining('No customer KYC yet'), findsOneWidget);
+    expect(find.text('Decline offer'), findsOneWidget);
+    expect(find.textContaining('Customer reward'), findsOneWidget);
+    expect(
+      find.textContaining('Customer verification is required before payout release'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('M11 Other decline requires a reason', (tester) async {
@@ -71,7 +80,7 @@ void main() {
     );
     await tester.pump();
     await tester.pump();
-    await tester.tap(find.text('Decline'));
+    await tester.tap(find.text('Decline offer'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Customer does not want to do the transaction'));
     await tester.pumpAndSettle();

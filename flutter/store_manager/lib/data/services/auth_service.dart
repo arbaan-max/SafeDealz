@@ -41,6 +41,30 @@ class AuthService {
     }
   }
 
+  Future<bool> restore() async {
+    final token = await _tokens.readRefresh();
+    if (token == null) {
+      return false;
+    }
+    final access = await refreshOnce();
+    if (access == null) {
+      await _tokens.clear();
+      throw const AuthFailure(
+        'SESSION_INVALID',
+        'Your session has ended. Login again.',
+      );
+    }
+    final me = await _client.getCurrentAccount();
+    if (me.data.active == false) {
+      await _tokens.clear();
+      throw const AuthFailure(
+        'ACCOUNT_INACTIVE',
+        'Your account is inactive. Contact your administrator.',
+      );
+    }
+    return true;
+  }
+
   Future<String?> refreshOnce() =>
       _refreshing ??= _refresh().whenComplete(() => _refreshing = null);
   Future<String?> _refresh() async {

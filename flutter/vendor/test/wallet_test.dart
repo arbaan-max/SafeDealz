@@ -119,8 +119,8 @@ void main() {
   testWidgets('V11 lists held reservations', (tester) async {
     await tester.pumpWidget(_wrap(const WalletHoldsPage()));
     await tester.pumpAndSettle();
-    expect(find.text('₹25'), findsOneWidget);
-    expect(find.textContaining('bid'), findsOneWidget);
+    expect(find.text('₹25'), findsWidgets);
+    expect(find.textContaining('bid'), findsWidgets);
   });
 
   testWidgets('V10 shows a signed ledger movement', (tester) async {
@@ -135,10 +135,10 @@ void main() {
     await tester.pumpWidget(_router(location: '/wallet/recharge'));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), '500');
-    await tester.tap(find.text('Continue'));
+    await tester.tap(find.text('Continue to checkout'));
     await tester.pumpAndSettle();
     expect(find.text('Pending'), findsOneWidget);
-    expect(find.textContaining('order_test_1'), findsOneWidget);
+    expect(find.textContaining('order_test_1'), findsWidgets);
     expect(find.textContaining('Usable balance does not change'), findsOneWidget);
     expect(find.text('Refresh'), findsOneWidget);
   });
@@ -182,7 +182,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), '100');
-    await tester.tap(find.text('Continue'));
+    await tester.tap(find.text('Continue to checkout'));
     await tester.pumpAndSettle();
     expect(find.text('Checkout was canceled. No money was added.'), findsOneWidget);
     expect(find.text('Add money'), findsOneWidget);

@@ -132,6 +132,11 @@ void main() {
     await tester.tap(find.text('Capture portrait'));
     await tester.pump();
     await tester.enterText(find.widgetWithText(TextField, 'Model'), 'Pixel 8');
+    await tester.scrollUntilVisible(
+      find.text('Android'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Android'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Complete verification'));
@@ -160,6 +165,11 @@ void main() {
     await tester.pump();
     expect(find.text('Customer verification'), findsOneWidget);
     expect(find.text('RAM'), findsNothing);
+    await tester.scrollUntilVisible(
+      find.text('Android'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Android'));
     await tester.pumpAndSettle();
     expect(find.text('RAM'), findsOneWidget);

@@ -23,7 +23,7 @@ export function OverviewPage() {
       }
     })();
     return () => { cancelled = true; };
-  }, [api, auth.refresh]);
+  }, [api, auth.refresh]); // eslint-disable-line react-hooks/exhaustive-deps -- optional refresh on first overview load
   const scoped = auth.account?.role === 'admin';
   const attention = metrics?.needsAttention ?? [];
   const series = metrics?.weeklyPaidPaise ?? [0, 0, 0, 0, 0, 0, 0];

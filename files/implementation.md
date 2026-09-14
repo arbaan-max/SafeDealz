@@ -6,16 +6,16 @@ This is the execution dashboard. plan.md owns phase status; numbered files under
 
 | Item | Value |
 | --- | --- |
-| Completed phase | P25 — Admin HTML visual match |
-| Completed task | TASK-027 |
-| Next phase | P26 — Store Manager HTML visual match (not authorized) |
-| Next task | None until the owner starts P26 |
-| Product feature status | P00–P25 complete; P26–P28 HTML visual match and P29 handover are planned |
+| Completed phase | P28 — Diagnostics HTML visual match |
+| Completed task | TASK-030 |
+| Next phase | P29 — Development completion and handover (not authorized) |
+| Next task | None until the owner starts P29 |
+| Product feature status | P00–P28 complete; P29 handover is planned |
 | Product reference | design.md and design.html |
 | Security reference | security.md |
 | Architecture reference | architecture.md |
 
-Stop boundary: single phase P25. **P25 is complete. Stop. Do not start P26.** Per-screen marks: [screen-match.md](screen-match.md).
+Stop boundary: inclusive range P26–P28. **P28 is complete. Stop. Do not start P29.** Per-screen marks: [screen-match.md](screen-match.md).
 
 Execution rule recorded on 2026-09-14: a single-phase command stops automatically after that phase; an explicit inclusive phase range may continue through its named final phase and then stops. Named tasks stop after their stated scope. Safely deferrable broad builds may run in the final authorized phase, while required feature, contract, integration, and security checks remain in the phase that introduces the behavior.
 
@@ -25,7 +25,7 @@ Client theme amendment on 2026-09-14: Sky Blue is now the confirmed primary them
 
 Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for private evidence/KYC object storage, beginning with the reusable signed-media integration in P07. Razorpay is confirmed for vendor wallet recharge in P11 using backend-created orders, verified webhooks and idempotent ledger credit.
 
-Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live screen to design.html. P25 Admin is complete (TASK-027). P26 Store Manager, P27 Vendor, P28 Diagnostics remain planned. Mark each screen Same or restyle it and mark Updated in screen-match.md. Former handover P25 is now P29. Do not start P26 until the owner authorizes it.
+Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live screen to design.html. P25 Admin, P26 Store Manager, P27 Vendor and P28 Diagnostics are complete. Former handover P25 is now P29. Do not start P29 until the owner authorizes it.
 
 ## P03 delivered
 
@@ -423,6 +423,9 @@ Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live sc
 | TASK-025 | P23 Cross-app experience | Flutter, React, Backend | Complete | Backend 41/41; React 31/31 + 3/3 Chromium; Flutter 39/39, 30/30, 15/15 |
 | TASK-026 | P24 End-to-end and resilience | Backend, Flutter | Complete | Backend 42/42; sequential Android debug APKs |
 | TASK-027 | P25 Admin HTML visual match | Admin web | Complete | React 31/31 + 3/3 Chromium; Flutter 39/39, 30/30, 15/15; backend 42/42 |
+| TASK-028 | P26 Store Manager HTML visual match | Flutter Store Manager | Complete | Flutter 42/42 after session restore; Vendor/Diagnostics later in range |
+| TASK-029 | P27 Vendor HTML visual match | Flutter Vendor | Complete | Vendor 33/33; session restore; HTML V01–V17 |
+| TASK-030 | P28 Diagnostics HTML visual match | Flutter Diagnostics | Complete | Diagnostics 15/15; real Android permissions; QR unchanged |
 
 ## P02 delivered
 
@@ -497,6 +500,56 @@ Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live sc
 | Repository layout | Passed: backend, flutter, files and react remain the only four top-level entries; no project-owned Markdown exists outside files |
 | Sky-blue theme | Passed: all 3 Flutter apps analyze and pass 3 tests each; prototype defaults/tokens and all app theme/splash tokens match; primary/white contrast is 5.93:1 |
 
+## P26 delivered
+
+- Store Manager S01, S04 and M01–M24 restyled to the HTML mobile frames: sky-blue shell, HTML app-top, sticky actions, 4-tab nav, HTML device chips and HTML copy.
+- Logout remains on M24 only. Login has no remember/signup/forgot-password.
+- Store managers may `GET /branches` for their assigned store; account numbers stay masked. OpenAPI unchanged at v0.22.0.
+- Admin, Vendor and Diagnostics keep their existing APIs; manager branch list is the only role expansion.
+
+## P26 verification
+
+| Scope | Result |
+| --- | --- |
+| Flutter Store Manager tests | Passed, 42/42 including session restore, analyze clean |
+| React admin | Passed previously in TASK-028; OpenAPI unchanged |
+| Flutter Vendor / Diagnostics | Passed later in P27/P28 |
+| Backend tests | Unchanged 42/42 |
+| Screen-match register | All P26 rows marked Updated |
+
+Owner follow-up in the P26–P28 range: persist Store Manager session (refresh once on open, logout if inactive), match M11 to HTML, and add INTERNET/CAMERA on the Store Manager main manifest.
+
+## P27 delivered
+
+- Vendor S01, S04 and V01–V17 restyled to the HTML mobile frames: sky-blue shell, HTML app-top, sticky actions, 4-tab nav (Live / My bids / Wallet / Account).
+- Logout remains on V17 only. Login has no remember/signup/forgot-password.
+- Session restore on cold start uses the 30-day refresh token and `GET /auth/me` active check.
+- Bid flow is Review bid then Submit final bid. Wallet chips are All / Recharge / Reserved / Paid.
+- OpenAPI unchanged.
+
+## P27 verification
+
+| Scope | Result |
+| --- | --- |
+| Flutter Vendor tests | Passed, 33/33 |
+| Screen-match register | All P27 rows marked Updated |
+
+## P28 delivered
+
+- Diagnostics D01–D08 restyled to HTML: ANDROID DIAGNOSTICS n of 8, HTML copy, D04 full-screen diagnostic canvas.
+- Production `AndroidDiagnosticsHardware` requests camera, microphone, location and Bluetooth. Tests keep injectable hardware.
+- Main manifest includes INTERNET, camera, audio, location and Bluetooth. QR payload/signature/import unchanged.
+
+## P28 verification
+
+| Scope | Result |
+| --- | --- |
+| Flutter Diagnostics tests | Passed, 15/15, analyze clean |
+| Flutter Vendor tests | Passed, 33/33, analyze clean |
+| Flutter Store Manager tests | Passed, 42/42, analyze clean (sequential, one app at a time) |
+| Screen-match register | All P28 rows marked Updated |
+| Emulator pixel walkthrough | Deferred (low RAM; one-app rule) |
+
 ## Known follow-ups
 
 - P01 creates the React admin foundation; it was intentionally excluded from P00.
@@ -508,4 +561,4 @@ Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live sc
 
 ## Next action
 
-Stop. P25 is complete. Do not start P26. Store Manager HTML match is not authorized.
+Stop. P28 is complete. Do not start P29.

@@ -71,13 +71,10 @@ class _NotificationsPageState extends State<NotificationsPage> {
       onBack: () => GoRouter.maybeOf(context)?.goNamed(homeRoute),
       body: ListView(
         children: [
-          Row(
-            children: [
-              Expanded(child: Text('Notifications', style: Theme.of(context).textTheme.headlineMedium)),
-              TextButton(onPressed: _rows.isEmpty ? null : _readAll, child: const Text('Mark all read')),
-            ],
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(onPressed: _rows.isEmpty ? null : _readAll, child: const Text('Mark all read')),
           ),
-          const SizedBox(height: 12),
           if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
           if (_rows.isEmpty) const SdNotice('No notifications yet.'),
           if (unread.isNotEmpty) ...[

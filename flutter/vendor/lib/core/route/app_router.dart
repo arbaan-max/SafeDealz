@@ -22,7 +22,7 @@ import 'package:safedealz_vendor/view/screens/account/account_page.dart';
 import 'package:safedealz_vendor/view/screens/auctions/media_viewer_page.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/',
   routes: <RouteBase>[
     GoRoute(
       name: bootstrapRoute,

@@ -19,6 +19,8 @@ class _FakeAuth implements AuthRepository {
   Future<void> login(String email, String password) async {}
   @override
   Future<void> logout() async {}
+  @override
+  Future<bool> restore() async => false;
 }
 
 void main() {

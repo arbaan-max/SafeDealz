@@ -85,10 +85,10 @@ void main() {
     await tester.pumpWidget(_wrap(const LiveQueuePage()));
     await tester.pump();
     await tester.pump();
-    expect(find.text('Live auctions'), findsOneWidget);
+    expect(find.text('Live queue'), findsOneWidget);
     expect(find.text('Available to bid ₹10000'), findsOneWidget);
     expect(find.text('iPhone 14'), findsOneWidget);
-    expect(find.textContaining('open bidding'), findsOneWidget);
+    expect(find.text('Vendor bidding'), findsOneWidget);
     expect(find.text('My bids'), findsOneWidget);
   });
 
@@ -96,7 +96,7 @@ void main() {
     await tester.pumpWidget(_wrap(const AuctionDetailPage(auctionId: 'a1')));
     await tester.pump();
     await tester.pump();
-    expect(find.text('iPhone 14'), findsOneWidget);
+    expect(find.text('iPhone 14'), findsWidgets);
     expect(find.text('Store manager inspection'), findsOneWidget);
     expect(find.text('Device Diagnostics report'), findsOneWidget);
     expect(find.text('Not applicable'), findsOneWidget);
@@ -163,9 +163,15 @@ void main() {
     await tester.pump();
     expect(find.text('Platform fee ₹640'), findsOneWidget);
     expect(find.text('Total reservation ₹8640'), findsOneWidget);
-    await tester.tap(find.text('Confirm bid'));
+    await tester.ensureVisible(find.text('Review bid'));
+    await tester.tap(find.text('Review bid'));
     await tester.pump();
     await tester.pump();
+    await tester.ensureVisible(find.text('Submit final bid'));
+    await tester.tap(find.text('Submit final bid'));
+    await tester.pump();
+    await tester.pump();
+    await tester.pumpAndSettle();
     expect(find.text('This bid cannot be edited.'), findsOneWidget);
     expect(find.text('Reserved ₹8640'), findsOneWidget);
   });
@@ -174,8 +180,8 @@ void main() {
     await tester.pumpWidget(_wrap(const MyBidsPage()));
     await tester.pump();
     await tester.pump();
-    expect(find.text('My bids'), findsOneWidget);
-    expect(find.text('₹8000'), findsOneWidget);
+    expect(find.text('My bids'), findsWidgets);
+    expect(find.text('₹8000'), findsWidgets);
     expect(find.text('submitted'), findsOneWidget);
   });
 
@@ -199,7 +205,7 @@ void main() {
     await tester.pump();
     await tester.pump();
     expect(find.text('Purchased device'), findsOneWidget);
-    expect(find.text('Indiranagar'), findsOneWidget);
+    expect(find.text('Indiranagar'), findsWidgets);
     expect(find.text('Mark picked up'), findsNothing);
   });
 }

@@ -50,9 +50,15 @@ Completed: [TASK-025 — P23 cross-app experience](tasks/TASK-025-cross-app-expe
 
 Completed: [TASK-026 — P24 end-to-end and resilience](tasks/TASK-026-end-to-end-resilience.md). Combined API journey and sequential debug APKs pass.
 
-Completed: [TASK-027 — P25 Admin HTML visual match](tasks/TASK-027-admin-html-visual-match.md). React admin restyled to design.html; OpenAPI unchanged. Stop. Do not start P26.
+Completed: [TASK-027 — P25 Admin HTML visual match](tasks/TASK-027-admin-html-visual-match.md). React admin restyled to design.html; OpenAPI unchanged.
 
-Next: none active. Visual HTML match continues as P26–P28; handover is P29. Do not start until the owner authorizes P26.
+Completed: [TASK-028 — P26 Store Manager HTML visual match](tasks/TASK-028-store-manager-html-visual-match.md). Store Manager restyled to design.html; session restore added in the P26–P28 range.
+
+Completed: [TASK-029 — P27 Vendor HTML visual match](tasks/TASK-029-vendor-html-visual-match.md). Vendor restyled to design.html; session restore; OpenAPI unchanged.
+
+Completed: [TASK-030 — P28 Diagnostics HTML visual match](tasks/TASK-030-diagnostics-html-visual-match.md). Diagnostics restyled to design.html; real Android permissions; QR unchanged. Stop. Do not start P29.
+
+Next: none active. Development handover is P29. Do not start until the owner authorizes P29.
 
 Completed: [TASK-014 — P12 Auction lifecycle](tasks/TASK-014-auction-lifecycle.md). Server-timed rounds, tick close and OpenAPI v0.12.0 pass.
 

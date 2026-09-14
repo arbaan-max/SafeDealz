@@ -77,10 +77,12 @@ class _ReauctionPageState extends State<ReauctionPage> {
                 : () async {
                     final round = _round;
                     if (round == null) return;
+                    final auctions = context.read<AuctionRepository>();
+                    final router = GoRouter.of(context);
                     try {
-                      await context.read<AuctionRepository>().cancelAuction(round.id, 'Canceled from re-auction screen');
+                      await auctions.cancelAuction(round.id, 'Canceled from re-auction screen');
                       if (!mounted) return;
-                      context.goNamed(devicesRoute);
+                      router.goNamed(devicesRoute);
                     } catch (error) {
                       if (mounted) setState(() => _error = apiErrorMessage(error));
                     }

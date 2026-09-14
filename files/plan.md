@@ -10,7 +10,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Product design specification | Available in [design.md](design.md) |
 | Interactive design reference | Available in [design.html](design.html) |
 | Phase breakdown | Prepared — see [phases.md](phases.md) |
-| Product implementation | P00–P25 complete. P26–P28 HTML visual match and P29 handover are planned and not authorized. |
+| Product implementation | P00–P28 complete. P29 handover is planned and not authorized. |
 
 ## Project setup
 
@@ -28,7 +28,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Backend | Node.js, Express.js, MongoDB, and Mongoose |
 | API contract | OpenAPI/Swagger contract required before API-client generation |
 | Development completion goal | Complete approved scope through P29; development acceptance follows the test gates; deployment excluded |
-| Coding authorization | Inclusive range P21–P24 is complete. P25 is complete. Stop. P26–P29 are not authorized. |
+| Coding authorization | Inclusive range P26–P28 is complete. Stop. P29 is not authorized. |
 
 ## Product roles
 
@@ -111,12 +111,12 @@ The detailed roadmap is in [phases.md](phases.md). P00–P25 are complete. Updat
 | P23 | Cross-app experience verification | Complete | TASK-025 |
 | P24 | End-to-end and resilience | Complete | TASK-026 |
 | P25 | Admin HTML visual match | Complete | TASK-027 |
-| P26 | Store Manager HTML visual match | Planned | None |
-| P27 | Vendor HTML visual match | Planned | None |
-| P28 | Diagnostics HTML visual match | Planned | None |
+| P26 | Store Manager HTML visual match | Complete | TASK-028 |
+| P27 | Vendor HTML visual match | Complete | TASK-029 |
+| P28 | Diagnostics HTML visual match | Complete | TASK-030 |
 | P29 | Development completion and handover | Planned | None |
 
-Next: P25 is complete. Stop. Store Manager HTML match (P26) is not authorized.
+Next: P28 is complete. Stop. Development handover (P29) is not authorized.
 
 ## Confirmed technology and scope
 

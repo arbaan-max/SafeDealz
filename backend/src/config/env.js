@@ -51,5 +51,10 @@ export const env = Object.freeze({
   payout: Object.freeze({
     webhookSecret: process.env.PAYOUT_WEBHOOK_SECRET ?? '',
   }),
+  firebase: Object.freeze({
+    projectId: process.env.FIREBASE_PROJECT_ID ?? 'safedealz-2e8d3',
+    serviceAccountPath: process.env.GOOGLE_APPLICATION_CREDENTIALS ?? '',
+    serviceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON ?? '',
+  }),
   diagnosticQrSecret: secret('DIAGNOSTIC_QR_SECRET', 'local-diagnostic-qr-secret-change-me-32'),
 });

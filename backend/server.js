@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { createApp } from './app.js';
 import { env } from './src/config/env.js';
+import { getFirebaseAdmin } from './src/config/firebase.js';
 
 const app = createApp();
 
@@ -22,6 +23,13 @@ const start = async () => {
   } catch (error) {
     process.stdout.write(`MongoDB not connected: ${error.message}\n`);
   }
+
+  const firebase = getFirebaseAdmin();
+  process.stdout.write(
+    firebase
+      ? `Firebase Cloud Messaging ready (${env.firebase.projectId})\n`
+      : 'Firebase Cloud Messaging not configured (missing service account)\n',
+  );
 
   const server = app.listen(env.port, '127.0.0.1', () => {
     process.stdout.write(`SafeDealz API listening on http://127.0.0.1:${env.port}\n`);

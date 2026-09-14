@@ -25,7 +25,7 @@ export function PaymentDetailPage() {
     if (!id) return;
     void api.getPayment(id).then(setPayment).catch((caught: Error) => setError(caught.message));
   };
-  useEffect(() => { load(); }, [api, id]);
+  useEffect(() => { load(); }, [api, id]); // eslint-disable-line react-hooks/exhaustive-deps -- reload when payment id changes
   const run = async (action: () => Promise<PaymentInstruction>) => {
     setBusy(true);
     setError(null);

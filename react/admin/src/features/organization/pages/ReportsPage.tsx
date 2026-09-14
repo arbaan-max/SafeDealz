@@ -27,7 +27,7 @@ export function ReportsPage() {
     load();
     void api.listChains().then(setChains).catch(() => setChains([]));
     void api.listBranches().then(setBranches).catch(() => setBranches([]));
-  }, [api]);
+  }, [api]); // eslint-disable-line react-hooks/exhaustive-deps -- first reports load; filters re-run from the form
   const empty = report && (report.auctionConversion?.started || 0) === 0 && (report.paidValuePaise || 0) === 0 && !(report.branches || []).some((row) => row.auctions || row.paidDeals);
   const conversion = report?.auctionConversion;
   const started = conversion?.started ?? 0;

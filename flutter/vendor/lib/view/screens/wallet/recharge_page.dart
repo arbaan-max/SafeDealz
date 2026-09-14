@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safedealz_vendor/core/network/api_error_message.dart';
 import 'package:safedealz_vendor/core/route/routes.dart';
+import 'package:safedealz_vendor/core/utils/theme.dart';
 import 'package:safedealz_vendor/data/repositories/wallet_repository.dart';
 import 'package:safedealz_vendor/data/services/razorpay_checkout_adapter.dart';
 import 'package:safedealz_vendor/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_vendor/view/widgets/html_kit.dart';
 
 class RechargePage extends StatefulWidget {
   const RechargePage({super.key});
@@ -69,22 +71,56 @@ class _RechargePageState extends State<RechargePage> {
     }
   }
 
+  void _preset(int rupees) {
+    _amount.text = '$rupees';
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppPageScaffold(
       title: 'Add money',
-      body: ListView(
-        padding: const EdgeInsets.all(16),
+      onBack: () => GoRouter.maybeOf(context)?.goNamed(walletRoute),
+      actionBar: FilledButton(
+        onPressed: _busy ? null : _continue,
+        child: Text(_busy ? 'Opening Razorpay…' : 'Continue to checkout'),
+      ),
+      body: SdScrollBody(
         children: [
+          const SdStatusOrb(icon: Icons.account_balance_wallet_outlined),
+          const Text(
+            'Recharge your wallet to place funded bids.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: AppTheme.muted),
+          ),
+          const SizedBox(height: 23),
           TextField(
             controller: _amount,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: const InputDecoration(
-              labelText: 'Amount',
+              labelText: 'Amount (₹)',
               prefixText: '₹ ',
             ),
           ),
           const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            children: [
+              FilterChip(label: const Text('₹5000'), selected: _amount.text == '5000', onSelected: (_) => _preset(5000)),
+              FilterChip(label: const Text('₹10000'), selected: _amount.text == '10000', onSelected: (_) => _preset(10000)),
+              FilterChip(label: const Text('₹25000'), selected: _amount.text == '25000', onSelected: (_) => _preset(25000)),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const SdCard(
+            child: Column(
+              children: [
+                SdDetailRow('Payment method', 'Secure provider checkout'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          const SdNotice('Demo checkout simulates a payment provider. Your balance changes only after confirmation.'),
           const Text(
             'Continue opens Razorpay Checkout. The wallet credits only after the provider confirms the payment. Checkout success never adds money by itself.',
           ),
@@ -92,11 +128,7 @@ class _RechargePageState extends State<RechargePage> {
             const SizedBox(height: 12),
             Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
           ],
-          const SizedBox(height: 24),
-          FilledButton(
-            onPressed: _busy ? null : _continue,
-            child: Text(_busy ? 'Opening Razorpay…' : 'Continue'),
-          ),
+          const SizedBox(height: 12),
         ],
       ),
     );

@@ -13,6 +13,18 @@ final class AuthLoginRequested extends AuthEvent {
   List<Object?> get props => [email, password];
 }
 
+final class AuthStarted extends AuthEvent {
+  const AuthStarted();
+}
+
 final class AuthLogoutRequested extends AuthEvent {
   const AuthLogoutRequested();
+}
+
+final class AuthForcedLogout extends AuthEvent {
+  const AuthForcedLogout({this.message, this.inactive = false});
+  final String? message;
+  final bool inactive;
+  @override
+  List<Object?> get props => [message, inactive];
 }

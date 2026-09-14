@@ -7,10 +7,13 @@ void main() {
   testWidgets('renders the approved Vendor login screen', (tester) async {
     await dotenv.load(fileName: '.env');
     await tester.pumpWidget(const SafeDealzApp());
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 120));
     await tester.pumpAndSettle();
 
-    expect(find.text('SafeDealz Vendor'), findsOneWidget);
-    expect(find.text('Login'), findsNWidgets(2));
+    expect(find.text('Welcome back'), findsOneWidget);
+    expect(find.text('Login to your vendor account.'), findsOneWidget);
+    expect(find.text('Login'), findsOneWidget);
     expect(find.textContaining('Forgot'), findsNothing);
     expect(find.textContaining('Remember'), findsNothing);
     expect(find.byTooltip('Show password'), findsOneWidget);

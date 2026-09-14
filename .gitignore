@@ -8,6 +8,9 @@
 **/*.jks
 **/google-services.json
 **/GoogleService-Info.plist
+**/firebase-service-account*.json
+**/firebase-adminsdk*.json
+backend/secrets/
 
 # Node.js
 **/node_modules/

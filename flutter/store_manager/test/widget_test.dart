@@ -9,6 +9,8 @@ void main() {
   ) async {
     await dotenv.load(fileName: '.env');
     await tester.pumpWidget(const SafeDealzApp());
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 120));
     await tester.pumpAndSettle();
 
     expect(find.text('Welcome back'), findsOneWidget);

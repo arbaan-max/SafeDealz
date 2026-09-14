@@ -164,7 +164,7 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
           ? const Center(child: CircularProgressIndicator())
           : Form(
               key: _form,
-              child: ListView(
+              child: SdScrollBody(
                 children: [
                   const SdSteps(current: 1),
                   Text('Meet the device', style: Theme.of(context).textTheme.headlineMedium),
@@ -203,25 +203,24 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
                     label: const Text('Scan IMEIs'),
                   ),
                   const SizedBox(height: 16),
-                  const Text('Device type', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
-                  const SizedBox(height: 8),
-                  SegmentedButton<DeviceCreatePlatform>(
-                    segments: const [
-                      ButtonSegment(value: DeviceCreatePlatform.apple, label: Text('Apple')),
-                      ButtonSegment(value: DeviceCreatePlatform.android, label: Text('Android')),
+                  const SdFieldLabel('Device type'),
+                  SdChoiceRow<DeviceCreatePlatform>(
+                    options: const [
+                      (DeviceCreatePlatform.apple, 'Apple'),
+                      (DeviceCreatePlatform.android, 'Android'),
                     ],
-                    selected: {_platform},
-                    onSelectionChanged: (value) {
+                    selected: _platform,
+                    onSelected: (value) {
                       setState(() {
-                        _platform = value.first;
+                        _platform = value;
                         if (_platform == DeviceCreatePlatform.apple) _ram = null;
                         if (_platform == DeviceCreatePlatform.android) _battery.clear();
                       });
                     },
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
-                    key: ValueKey(_storage),
+                    key: const ValueKey('identity-storage'),
                     initialValue: _storage,
                     decoration: const InputDecoration(labelText: 'Storage'),
                     items: [
@@ -233,10 +232,11 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
                   ),
                   if (_platform == DeviceCreatePlatform.android) ...[
                     const SizedBox(height: 16),
+                    const SdFieldLabel('RAM'),
                     DropdownButtonFormField<String>(
-                      key: ValueKey(_ram),
+                      key: const ValueKey('identity-ram'),
                       initialValue: _ram,
-                      decoration: const InputDecoration(labelText: 'RAM'),
+                      decoration: const InputDecoration(hintText: 'Select RAM'),
                       items: [
                         for (final size in _catalog?.rams ?? const <String>[])
                           DropdownMenuItem(value: size, child: Text(size)),
@@ -247,10 +247,11 @@ class _DeviceIdentityPageState extends State<DeviceIdentityPage> {
                   ],
                   if (_platform == DeviceCreatePlatform.apple) ...[
                     const SizedBox(height: 16),
+                    const SdFieldLabel('Battery health'),
                     TextFormField(
                       controller: _battery,
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(labelText: 'Battery health'),
+                      decoration: const InputDecoration(hintText: 'Enter a whole number from 1 to 100.'),
                       validator: (value) {
                         final health = int.tryParse(value?.trim() ?? '');
                         if (health == null || health < 1 || health > 100) {

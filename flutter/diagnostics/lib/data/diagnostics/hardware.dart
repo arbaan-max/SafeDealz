@@ -1,3 +1,4 @@
+import 'package:permission_handler/permission_handler.dart';
 import 'package:safedealz_diagnostics/data/diagnostics/models.dart';
 
 abstract interface class DiagnosticsHardware {
@@ -155,4 +156,23 @@ class ConfigurableDiagnosticsHardware implements DiagnosticsHardware {
 
 class DemoDiagnosticsHardware extends ConfigurableDiagnosticsHardware {
   const DemoDiagnosticsHardware() : super();
+}
+
+class AndroidDiagnosticsHardware extends ConfigurableDiagnosticsHardware {
+  const AndroidDiagnosticsHardware() : super();
+
+  @override
+  Future<PermissionSnapshot> requestPermissions() async {
+    final camera = await Permission.camera.request();
+    final microphone = await Permission.microphone.request();
+    final location = await Permission.locationWhenInUse.request();
+    final bluetooth = await Permission.bluetoothConnect.request();
+    final scan = await Permission.bluetoothScan.request();
+    return PermissionSnapshot(
+      camera: camera.isGranted,
+      microphone: microphone.isGranted,
+      location: location.isGranted,
+      bluetooth: bluetooth.isGranted || scan.isGranted,
+    );
+  }
 }

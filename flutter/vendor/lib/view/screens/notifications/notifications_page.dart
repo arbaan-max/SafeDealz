@@ -6,6 +6,7 @@ import 'package:safedealz_vendor/core/route/routes.dart';
 import 'package:safedealz_vendor/data/api/models/notification.dart' as api;
 import 'package:safedealz_vendor/data/repositories/notification_repository.dart';
 import 'package:safedealz_vendor/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_vendor/view/widgets/html_kit.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -44,25 +45,57 @@ class _NotificationsPageState extends State<NotificationsPage> {
     }
   }
 
+  Future<void> _readAll() async {
+    for (final row in _rows.where((item) => item.readAt == null && item.id != null)) {
+      await _read(row);
+    }
+  }
+
+  IconData _icon(String? category) => switch (category) {
+        'pickup' => Icons.storefront_outlined,
+        'payment' => Icons.check_circle_outlined,
+        _ => Icons.bolt_outlined,
+      };
+
   @override
   Widget build(BuildContext context) {
+    final offers = _rows.where((row) => row.category != 'pickup').toList();
+    final pickups = _rows.where((row) => row.category == 'pickup').toList();
     return AppPageScaffold(
       title: 'Notifications',
-      onBack: () => GoRouter.maybeOf(context)?.goNamed(assignedStoresRoute),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
+      onBack: () => GoRouter.maybeOf(context)?.goNamed(liveQueueRoute),
+      body: SdScrollBody(
         children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(onPressed: _rows.isEmpty ? null : _readAll, child: const Text('Mark all read')),
+          ),
           const Text('Offer, payout and pickup alerts for assigned stores. No messages appear before login.'),
           if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-          if (_rows.isEmpty) const Text('No notifications yet.'),
-          for (final row in _rows)
-            ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(row.title ?? 'Notice'),
-              subtitle: Text(row.body ?? ''),
-              trailing: row.readAt == null ? const Text('Unread') : const Text('Read'),
-              onTap: () => _read(row),
-            ),
+          if (_rows.isEmpty) const SdNotice('No notifications yet.'),
+          if (offers.isNotEmpty) ...[
+            const SdSectionHead('Offers'),
+            for (final row in offers)
+              SdListRow(
+                icon: _icon(row.category),
+                title: row.title ?? 'Notice',
+                subtitle: row.body ?? '',
+                badge: row.readAt == null ? 'Unread' : 'Read',
+                onTap: () => _read(row),
+              ),
+          ],
+          if (pickups.isNotEmpty) ...[
+            const SdSectionHead('Pickup updates'),
+            for (final row in pickups)
+              SdListRow(
+                icon: _icon(row.category),
+                title: row.title ?? 'Notice',
+                subtitle: row.body ?? '',
+                badge: row.readAt == null ? 'Unread' : 'Read',
+                onTap: () => _read(row),
+              ),
+          ],
+          const SdNotice('Vendor notifications are limited to assigned offers, winning-bid decisions and pickup updates.'),
         ],
       ),
     );

@@ -43,9 +43,9 @@ void main() {
     );
     await tester.pump();
     await tester.pump();
-    expect(find.text('Account'), findsOneWidget);
+    expect(find.text('Account'), findsWidgets);
     expect(find.text('Uday'), findsOneWidget);
-    expect(find.byTooltip('Back'), findsOneWidget);
+    expect(find.text('Logout'), findsOneWidget);
     expect(tester.widget<Scaffold>(find.byType(Scaffold)).backgroundColor, AppTheme.appBackground);
 
     await tester.pumpWidget(

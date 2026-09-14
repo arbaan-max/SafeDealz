@@ -22,30 +22,72 @@ class TouchPage extends StatelessWidget {
         final cubit = context.read<DiagnosticSessionCubit>();
         return Scaffold(
           backgroundColor: canvas,
-          appBar: AppBar(
-            backgroundColor: canvas,
-            foregroundColor: Colors.white,
-            title: Text('${state.touch.percent}% covered'),
-          ),
           body: SafeArea(
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                  child: Row(
                     children: [
-                      Text(
-                        key: const Key('touch-remaining'),
-                        '${state.touch.remaining} dots remaining',
-                        style: const TextStyle(color: Colors.white),
+                      IconButton(
+                        onPressed: () => context.goNamed(automatedRoute),
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        tooltip: 'Back',
                       ),
-                      Text(
-                        key: const Key('touch-attempt'),
-                        'Attempt ${state.touch.attempts}',
-                        style: const TextStyle(color: Colors.white),
+                      const Expanded(
+                        child: Text(
+                          'Full-screen touch test',
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'DRAG ACROSS THE ENTIRE SCREEN',
+                              style: TextStyle(color: Color(0xFF94A3B8), fontSize: 11, letterSpacing: 0.6),
+                            ),
+                            Text(
+                              '${state.touch.percent}% covered',
+                              style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w800),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            key: const Key('touch-remaining'),
+                            '${state.touch.remaining} dots remaining',
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+                          ),
+                          const Text('dots left', style: TextStyle(color: Color(0xFF94A3B8), fontSize: 11)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Text(
+                    key: const Key('touch-attempt'),
+                    'Attempt ${state.touch.attempts}',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'Dots disappear wherever your finger travels. Cover every edge and corner.',
+                    style: TextStyle(color: Color(0xFFCBD5E1)),
                   ),
                 ),
                 Expanded(
@@ -54,18 +96,8 @@ class TouchPage extends StatelessWidget {
                       final cellW = constraints.maxWidth / columns;
                       final cellH = constraints.maxHeight / rows;
                       return Listener(
-                        onPointerDown: (event) => _clearNear(
-                          cubit,
-                          event.localPosition,
-                          cellW,
-                          cellH,
-                        ),
-                        onPointerMove: (event) => _clearNear(
-                          cubit,
-                          event.localPosition,
-                          cellW,
-                          cellH,
-                        ),
+                        onPointerDown: (event) => _clearNear(cubit, event.localPosition, cellW, cellH),
+                        onPointerMove: (event) => _clearNear(cubit, event.localPosition, cellW, cellH),
                         child: CustomPaint(
                           painter: _DotPainter(
                             cleared: state.touch.cleared,
@@ -95,6 +127,7 @@ class TouchPage extends StatelessWidget {
                           key: const Key('retry-touch'),
                           style: OutlinedButton.styleFrom(
                             foregroundColor: Colors.white,
+                            minimumSize: const Size(0, 48),
                           ),
                           onPressed: cubit.retryTouch,
                           child: const Text('Try again'),
@@ -104,6 +137,7 @@ class TouchPage extends StatelessWidget {
                       Expanded(
                         child: FilledButton(
                           key: const Key('submit-touch'),
+                          style: FilledButton.styleFrom(minimumSize: const Size(0, 48)),
                           onPressed: () async {
                             final router = GoRouter.of(context);
                             if (!cubit.submitTouch()) {

@@ -2,7 +2,7 @@
 
 Compare each live screen to the matching frame in [design.html](design.html). Behavior and fields stay in [design.md](design.md). Appearance follows the HTML.
 
-Do not start Store Manager/Vendor/Diagnostics visual match until the owner authorizes P26.
+P25–P28 visual match is complete. Do not start P29 until the owner authorizes handover.
 
 ## How to mark a row
 
@@ -49,66 +49,66 @@ Compare Admin in the desktop browser against HTML desktop frames. Compare Store 
 
 | Screen | HTML title | Status | Notes |
 | --- | --- | --- | --- |
-| S01 | Login | Pending | Shared HTML login; Store Manager app |
-| S04 | Notifications | Pending | Manager inbox |
-| M01 | Home | Pending | |
-| M02 | Devices | Pending | |
-| M03 | Device identity | Pending | |
-| M04 | Physical inspection | Pending | |
-| M05 | Capture device | Pending | |
-| M06 | Camera and preview | Pending | |
-| M07 | Scan diagnostic result | Pending | |
-| M08 | Customer verification | Pending | |
-| M09 | Device summary | Pending | |
-| M10 | Live auction | Pending | |
-| M11 | Highest offer | Pending | |
-| M12 | Accept confirmation | Pending | |
-| M13 | Payment status | Pending | |
-| M14 | Deal detail | Pending | |
-| M15 | Needs re-auction | Pending | |
-| M16 | Device history | Pending | |
-| M17 | Pickup confirmation | Pending | |
-| M18 | Rewards lookup | Pending | |
-| M19 | All redemptions | Pending | |
-| M20 | Redeem rewards | Pending | |
-| M21 | Redemption confirmation | Pending | |
-| M22 | Redemption receipt | Pending | |
-| M23 | Report issue | Pending | |
-| M24 | Account | Pending | |
+| S01 | Login | Updated | Welcome back, Email address, password eye, admin-created notice |
+| S04 | Notifications | Updated | Inbox list, Mark all read, Today/Earlier |
+| M01 | Home | Updated | Brand header, Hello, New trade-in, stats, 4-tab nav |
+| M02 | Devices | Updated | Search, HTML chips, New trade-in action |
+| M03 | Device identity | Updated | Steps, Apple/Android radios, RAM/battery rules |
+| M04 | Physical inspection | Updated | Step copy, Back/Continue action bar |
+| M05 | Capture device | Updated | Media slots, Continue action |
+| M06 | Camera and preview | Updated | Capture surface, demo ready |
+| M07 | Scan diagnostic result | Updated | QR import card |
+| M08 | Customer verification | Updated | KYC + purchased device identity |
+| M09 | Device summary | Updated | Specs, inspection, diagnostics cards |
+| M10 | Live auction | Updated | Countdown, Cancel auction |
+| M11 | Highest offer | Updated | Timer, Accept/Rebid/Decline |
+| M12 | Accept confirmation | Updated | Payout instruction copy |
+| M13 | Payment status | Updated | Processing/Refresh, no approve |
+| M14 | Deal detail | Updated | Amount card, pickup path |
+| M15 | Needs re-auction | Updated | Reason + Review & restart |
+| M16 | Device history | Updated | Timeline rows |
+| M17 | Pickup confirmation | Updated | Vendor OTP, Confirm handover |
+| M18 | Rewards lookup | Updated | Branch badge, Find customer |
+| M19 | All redemptions | Updated | Branch list rows |
+| M20 | Redeem rewards | Updated | Invoice/category/discount |
+| M21 | Redemption confirmation | Updated | OTP, Verify & redeem |
+| M22 | Redemption receipt | Updated | Billing-software notice |
+| M23 | Report issue | Updated | Tell us what happened, Submit issue |
+| M24 | Account | Updated | Store manager, masked bank, Logout only here |
 
 ## P27 — Vendor (Flutter)
 
 | Screen | HTML title | Status | Notes |
 | --- | --- | --- | --- |
-| S01 | Login | Pending | Shared HTML login; Vendor app |
-| S04 | Notifications | Pending | Vendor inbox |
-| V01 | Live queue | Pending | |
-| V02 | Device detail | Pending | |
-| V03 | Media viewer | Pending | |
-| V04 | Your bid | Pending | |
-| V05 | Confirm bid | Pending | |
-| V06 | Bid detail | Pending | |
-| V07 | Wallet | Pending | |
-| V08 | Add money | Pending | |
-| V09 | Razorpay recharge status | Pending | |
-| V10 | Wallet transaction | Pending | |
-| V11 | Reserved funds | Pending | |
-| V12 | Purchased device | Pending | |
-| V13 | My bids | Pending | |
-| V14 | Performance | Pending | |
-| V15 | Assigned stores | Pending | |
-| V16 | Support issue | Pending | |
-| V17 | Account | Pending | |
+| S01 | Login | Updated | Welcome back, Login to your vendor account |
+| S04 | Notifications | Updated | Offers / Pickup updates, Mark all read |
+| V01 | Live queue | Updated | YOUR BUYING DESK, Live queue, 4-tab nav |
+| V02 | Device detail | Updated | Live auction, Inspect media, Place bid |
+| V03 | Media viewer | Updated | Slot chips, identity notice |
+| V04 | Your bid | Updated | Your offer, Review bid, fee card |
+| V05 | Confirm bid | Updated | Confirm your bid, Submit final bid |
+| V06 | Bid detail | Updated | Immutable bid, Back to queue |
+| V07 | Wallet | Updated | Available to bid, Reserved/Paid chips |
+| V08 | Add money | Updated | Presets, Continue to checkout |
+| V09 | Razorpay recharge status | Updated | Pending/Money added/Failed |
+| V10 | Wallet transaction | Updated | Signed ledger receipt |
+| V11 | Reserved funds | Updated | Reserved for bids |
+| V12 | Purchased device | Updated | Store card, no pickup control |
+| V13 | My bids | Updated | All/Submitted/Won/Not selected/Expired |
+| V14 | Performance | Updated | Today/week/month stats |
+| V15 | Assigned stores | Updated | Chain groups, no logout here |
+| V16 | Support issue | Updated | Get help with this deal, Submit issue |
+| V17 | Account | Updated | Vendor account, Logout only here |
 
 ## P28 — Diagnostics (Flutter)
 
 | Screen | HTML title | Status | Notes |
 | --- | --- | --- | --- |
-| D01 | Diagnostics start | Pending | |
-| D02 | Permissions | Pending | |
-| D03 | Automated checks | Pending | |
-| D04 | Touch canvas | Pending | Full-screen diagnostic surface |
-| D05 | Physical controls | Pending | |
-| D06 | Camera, audio and sensors | Pending | |
-| D07 | Report review | Pending | |
-| D08 | Final result QR | Pending | |
+| D01 | Diagnostics start | Updated | Check this Android phone, IMEI suffixes |
+| D02 | Permissions | Updated | Allow device checks, real OS permissions |
+| D03 | Automated checks | Updated | Automatic checks, Complete |
+| D04 | Touch canvas | Updated | Full-screen diagnostic surface, 90% gate |
+| D05 | Physical controls | Updated | Physical buttons, VOL/POWER |
+| D06 | Camera, audio and sensors | Updated | Finish checks |
+| D07 | Report review | Updated | Generate result QR |
+| D08 | Final result QR | Updated | Diagnostics complete, Store Manager scan copy |

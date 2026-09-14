@@ -15,7 +15,7 @@ function ParallelRefreshProbe() {
   const auth = useAuth();
   useEffect(() => {
     void Promise.all([auth.refresh({ optional: true }), auth.refresh({ optional: true })]);
-  }, [auth.refresh]);
+  }, [auth.refresh]); // eslint-disable-line react-hooks/exhaustive-deps -- probe current auth bag once
   return <p>{auth.status}</p>;
 }
 

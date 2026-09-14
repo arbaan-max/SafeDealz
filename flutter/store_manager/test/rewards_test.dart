@@ -47,6 +47,9 @@ void main() {
               ),
               GoRoute(name: homeRoute, path: '/home', builder: (_, _) => const Scaffold(body: Text('Home'))),
               GoRoute(name: devicesRoute, path: '/devices', builder: (_, _) => const Scaffold(body: Text('Devices'))),
+              GoRoute(name: accountRoute, path: '/account', builder: (_, _) => const Scaffold(body: Text('Account'))),
+              GoRoute(name: notificationsRoute, path: '/notifications', builder: (_, _) => const Scaffold(body: Text('Notifications'))),
+              GoRoute(name: reportIssueRoute, path: '/support/new', builder: (_, _) => const Scaffold(body: Text('Report issue'))),
             ],
           ),
         ),
@@ -72,8 +75,7 @@ void main() {
     expect(find.text('Verify & redeem'), findsOneWidget);
     await tester.enterText(find.byKey(const Key('redeem-otp')), '123456');
     await tester.tap(find.text('Verify & redeem'));
-    await tester.pump();
-    await tester.pump();
+    await tester.pumpAndSettle();
     expect(find.textContaining('billing software'), findsOneWidget);
     expect(find.text('Done'), findsOneWidget);
   });

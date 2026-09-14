@@ -41,16 +41,20 @@ class SafeDealzApp extends StatelessWidget {
     final authClient = AuthClient(dio);
     final authService = AuthService(authClient, tokenStore);
     interceptor.refresh = authService.refreshOnce;
+    final authRepository = AuthRepositoryImpl(authService);
+    final authBloc = AuthBloc(authRepository);
     interceptor.terminal = (code) async {
       await tokenStore.clear();
-      appRouter.goNamed(
-        loginRoute,
-        extra: code == 'ACCOUNT_INACTIVE'
-            ? 'Your account is inactive. Contact your administrator.'
-            : 'Your session has ended. Login again.',
+      final inactive = code == 'ACCOUNT_INACTIVE';
+      authBloc.add(
+        AuthForcedLogout(
+          inactive: inactive,
+          message: inactive
+              ? 'Your account is inactive. Contact your administrator.'
+              : 'Your session has ended. Login again.',
+        ),
       );
     };
-    final authRepository = AuthRepositoryImpl(authService);
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AccountRepository>.value(
@@ -101,13 +105,29 @@ class SafeDealzApp extends StatelessWidget {
           BlocProvider<BootstrapBloc>(
             create: (_) => BootstrapBloc()..add(const BootstrapStarted()),
           ),
-          BlocProvider<AuthBloc>(create: (_) => AuthBloc(authRepository)),
+          BlocProvider<AuthBloc>.value(
+            value: authBloc..add(const AuthStarted()),
+          ),
         ],
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'SafeDealz Store Manager',
-          theme: AppTheme.lightTheme,
-          routerConfig: appRouter,
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthAuthenticated) {
+              final path = appRouter.state.uri.path;
+              if (path == '/' || path == '/login') {
+                appRouter.goNamed(homeRoute);
+              }
+            } else if (state is AuthUnauthenticated) {
+              if (appRouter.state.uri.path != '/login') {
+                appRouter.goNamed(loginRoute, extra: state.message);
+              }
+            }
+          },
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'SafeDealz Store Manager',
+            theme: AppTheme.lightTheme,
+            routerConfig: appRouter,
+          ),
         ),
       ),
     );

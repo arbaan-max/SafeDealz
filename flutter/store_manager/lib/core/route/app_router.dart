@@ -31,7 +31,7 @@ import 'package:safedealz_store_manager/view/screens/rewards/reward_customer_pag
 import 'package:safedealz_store_manager/view/screens/rewards/rewards_lookup_page.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/',
   routes: <RouteBase>[
     GoRoute(
       name: bootstrapRoute,

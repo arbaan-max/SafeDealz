@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safedealz_vendor/core/network/api_error_message.dart';
 import 'package:safedealz_vendor/core/route/routes.dart';
+import 'package:safedealz_vendor/core/utils/theme.dart';
 import 'package:safedealz_vendor/data/api/models/wallet_ledger_entry.dart';
 import 'package:safedealz_vendor/data/repositories/wallet_repository.dart';
 import 'package:safedealz_vendor/view/screens/wallet/money.dart';
 import 'package:safedealz_vendor/view/screens/wallet/wallet_page.dart';
 import 'package:safedealz_vendor/view/widgets/app_page_scaffold.dart';
+import 'package:safedealz_vendor/view/widgets/html_kit.dart';
 
 class WalletEntryPage extends StatefulWidget {
   const WalletEntryPage({super.key, required this.entryId});
@@ -52,28 +54,50 @@ class _WalletEntryPageState extends State<WalletEntryPage> {
     final entry = _entry;
     return AppPageScaffold(
       title: 'Wallet transaction',
-      actions: [
-        TextButton(
-          onPressed: () => context.goNamed(walletRoute),
-          child: const Text('Back'),
-        ),
-      ],
+      onBack: () => GoRouter.maybeOf(context)?.goNamed(walletRoute),
+      actionBar: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          FilledButton(
+            onPressed: () => context.goNamed(myBidsRoute),
+            child: const Text('View related bid'),
+          ),
+          const SizedBox(height: 8),
+          OutlinedButton(
+            onPressed: () => context.goNamed(walletRoute),
+            child: const Text('Back to wallet'),
+          ),
+        ],
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : ListView(
-              padding: const EdgeInsets.all(16),
+          : SdScrollBody(
               children: [
                 if (_error != null)
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 if (entry != null) ...[
-                  Text(ledgerLabel(entry.type), style: Theme.of(context).textTheme.headlineSmall),
-                  Text(signedPaise(entry), style: Theme.of(context).textTheme.headlineMedium),
-                  const SizedBox(height: 12),
-                  Text('Type: ${entry.type?.json ?? ''}'),
-                  Text('Available after: ${formatPaise(entry.availableAfterPaise)}'),
-                  Text('Reserved after: ${formatPaise(entry.reservedAfterPaise)}'),
-                  if ((entry.reason ?? '').isNotEmpty) Text('Reason: ${entry.reason}'),
-                  if ((entry.referenceId ?? '').isNotEmpty) Text('Reference: ${entry.referenceId}'),
+                  const SdStatusOrb(icon: Icons.receipt_long_outlined),
+                  const Text('Wallet transaction', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+                  const SizedBox(height: 16),
+                  SdCard(
+                    child: Column(
+                      children: [
+                        Text(ledgerLabel(entry.type), style: const TextStyle(fontSize: 12, color: AppTheme.muted)),
+                        Text(signedPaise(entry), style: Theme.of(context).textTheme.headlineMedium),
+                        const Divider(height: 24),
+                        SdDetailRow('Type', entry.type?.json ?? ''),
+                        Text('Type: ${entry.type?.json ?? ''}'),
+                        SdDetailRow('Available after', formatPaise(entry.availableAfterPaise)),
+                        Text('Available after: ${formatPaise(entry.availableAfterPaise)}'),
+                        SdDetailRow('Reserved after', formatPaise(entry.reservedAfterPaise)),
+                        Text('Reserved after: ${formatPaise(entry.reservedAfterPaise)}'),
+                        if ((entry.reason ?? '').isNotEmpty) SdDetailRow('Reason', entry.reason!),
+                        if ((entry.referenceId ?? '').isNotEmpty) SdDetailRow('Reference', entry.referenceId!),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const SdNotice('Ledger entries are retained for every reserve, release and payment.'),
                 ],
               ],
             ),

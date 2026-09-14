@@ -67,6 +67,7 @@ class SdStatusBadge extends StatelessWidget {
     final colors = switch (tone) {
       'green' => (const Color(0xFFEAF7EF), const Color(0xFF166534)),
       'amber' => (const Color(0xFFFFF4DF), const Color(0xFF92400E)),
+      'purple' => (const Color(0xFFF3E8FF), const Color(0xFF6D38C7)),
       _ => (AppTheme.selected, AppTheme.skyHover),
     };
     return Container(
@@ -92,6 +93,42 @@ class SdDetailRow extends StatelessWidget {
           Expanded(child: Text(value, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
         ],
       ),
+    );
+  }
+}
+
+class SdPersonRow extends StatelessWidget {
+  const SdPersonRow({super.key, required this.name, this.subtitle = 'Verified vendor'});
+  final String name;
+  final String subtitle;
+  @override
+  Widget build(BuildContext context) {
+    final initials = name
+        .split(' ')
+        .where((part) => part.isNotEmpty)
+        .take(2)
+        .map((part) => part[0].toUpperCase())
+        .join();
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 22,
+          backgroundColor: AppTheme.selected,
+          foregroundColor: AppTheme.skyHover,
+          child: Text(initials, style: const TextStyle(fontWeight: FontWeight.w800)),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(name, style: const TextStyle(fontWeight: FontWeight.w800)),
+              Text(subtitle, style: const TextStyle(fontSize: 12, color: AppTheme.muted)),
+            ],
+          ),
+        ),
+        const Icon(Icons.verified_outlined, color: AppTheme.skyBlue),
+      ],
     );
   }
 }
@@ -232,7 +269,7 @@ class SdDeviceCard extends StatelessWidget {
         ? 'green'
         : RegExp(r'expired|re-auction', caseSensitive: false).hasMatch(status)
             ? 'amber'
-            : 'sky';
+            : 'purple';
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: SdCard(
@@ -438,6 +475,21 @@ class SdMediaSlot extends StatelessWidget {
   }
 }
 
+class SdScrollBody extends StatelessWidget {
+  const SdScrollBody({super.key, required this.children});
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: children,
+      ),
+    );
+  }
+}
+
 class SdQuietButton extends StatelessWidget {
   const SdQuietButton({super.key, required this.label, required this.onPressed});
   final String label;
@@ -447,6 +499,69 @@ class SdQuietButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, color: AppTheme.muted)),
+    );
+  }
+}
+
+class SdFieldLabel extends StatelessWidget {
+  const SdFieldLabel(this.text, {super.key});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppTheme.ink)),
+    );
+  }
+}
+
+class SdChoiceRow<T> extends StatelessWidget {
+  const SdChoiceRow({
+    super.key,
+    required this.options,
+    required this.selected,
+    required this.onSelected,
+  });
+  final List<(T, String)> options;
+  final T selected;
+  final ValueChanged<T> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        for (var i = 0; i < options.length; i++)
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: i == options.length - 1 ? 0 : 8),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => onSelected(options[i].$1),
+                  borderRadius: BorderRadius.circular(11),
+                  child: Container(
+                    height: 44,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: selected == options[i].$1 ? AppTheme.selected : AppTheme.surface,
+                      border: Border.all(
+                        color: selected == options[i].$1 ? AppTheme.skyBlue : const Color(0xFFCFD6E3),
+                      ),
+                      borderRadius: BorderRadius.circular(11),
+                    ),
+                    child: Text(
+                      options[i].$2,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: selected == options[i].$1 ? AppTheme.skyHover : AppTheme.ink,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
