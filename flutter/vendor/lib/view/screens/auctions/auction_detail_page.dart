@@ -51,6 +51,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
     final alreadyBid = round?.ownBid != null;
     return AppPageScaffold(
       title: 'Device',
+      onBack: () => GoRouter.maybeOf(context)?.goNamed(liveQueueRoute),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
@@ -66,6 +67,16 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                   const SizedBox(height: 8),
                   const Text('Device Diagnostics report'),
                   Text(device['platform'] == 'apple' ? 'Not applicable' : 'Imported'),
+                  TextButton(
+                    onPressed: () => GoRouter.maybeOf(context)?.goNamed(
+                      mediaViewerRoute,
+                      queryParameters: {
+                        'label': 'Front',
+                        'url': device['mediaUrl']?.toString() ?? '',
+                      },
+                    ),
+                    child: const Text('Inspect media'),
+                  ),
                   const SizedBox(height: 24),
                   if (alreadyBid)
                     FilledButton(

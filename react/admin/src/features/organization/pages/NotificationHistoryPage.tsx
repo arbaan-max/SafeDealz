@@ -25,27 +25,39 @@ export function NotificationHistoryPage() {
     }
   };
   return (
-    <ResourcePage eyebrow="S04" title="Notifications" lede="Delivery history uses the in-app test provider. Super Admin can target all users, stores, vendors, one store or one vendor. Retries do not duplicate deliveries.">
+    <ResourcePage title="Notifications" lede="Send an operational message to everyone, a role, or one selected account." backTo="/overview" backLabel="Back to overview">
       {error ? <p className="form-error" role="alert">{error}</p> : null}
-      <form className="resource-form" onSubmit={(event) => void send(event)}>
-        <Field label="Audience">
-          <select value={audience} onChange={(event) => setAudience(event.target.value)}>
-            <option value="all_users">All users</option>
-            <option value="all_stores">All stores</option>
-            <option value="all_vendors">All vendors</option>
-            <option value="store">One store</option>
-            <option value="vendor">One vendor</option>
-          </select>
-        </Field>
-        <Field label="Title"><input value={title} onChange={(event) => setTitle(event.target.value)} required /></Field>
-        <Field label="Message"><input value={body} onChange={(event) => setBody(event.target.value)} required /></Field>
-        <button className="login-button" type="submit">Send broadcast</button>
-      </form>
-      <DataTable
-        headers={['Title', 'Audience', 'Role', 'Status']}
-        empty="No notification deliveries yet."
-        rows={rows.map((row) => [row.title || '—', row.audience || '—', row.recipientRole || '—', row.status || '—'])}
-      />
+      <div className="admin-grid">
+        <form className="card" onSubmit={(event) => void send(event)}>
+          <h3>Send notification</h3>
+          <p className="muted">Retries do not duplicate deliveries.</p>
+          <div className="form-grid">
+            <Field label="Audience">
+              <select value={audience} onChange={(event) => setAudience(event.target.value)}>
+                <option value="all_users">All users</option>
+                <option value="all_stores">All stores</option>
+                <option value="all_vendors">All vendors</option>
+                <option value="store">One store</option>
+                <option value="vendor">One vendor</option>
+              </select>
+            </Field>
+            <Field label="Title"><input value={title} onChange={(event) => setTitle(event.target.value)} required /></Field>
+            <Field label="Message" span><textarea value={body} onChange={(event) => setBody(event.target.value)} required /></Field>
+          </div>
+          <button className="btn small" type="submit">Send notification</button>
+        </form>
+        <div className="card">
+          <h3>Delivery scope</h3>
+          <p className="muted">All users, all stores, all vendors, one store or one vendor.</p>
+        </div>
+      </div>
+      <div className="section">
+        <DataTable
+          headers={['Title', 'Audience', 'Role', 'Status']}
+          empty="No notification deliveries yet."
+          rows={rows.map((row) => [row.title || '—', row.audience || '—', row.recipientRole || '—', row.status || '—'])}
+        />
+      </div>
     </ResourcePage>
   );
 }

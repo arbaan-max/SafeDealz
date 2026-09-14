@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrganizationApi, type Branch, type Chain } from '../api/organizationApi';
-import { DataTable, ResourcePage } from '../components/ResourceKit';
+import { DataTable, ResourcePage, StatusBadge } from '../components/ResourceKit';
 
 export function BranchListPage() {
   const api = useOrganizationApi();
@@ -15,7 +15,7 @@ export function BranchListPage() {
   }, [api]);
   const names = useMemo(() => Object.fromEntries(chains.map((chain) => [chain.id, chain.name])), [chains]);
   return (
-    <ResourcePage eyebrow="A04" title="Branches" lede="Assigned stores, parent chain and payout readiness." action={<Link className="login-button" to="/branches/new">Add branch</Link>}>
+    <ResourcePage title="Branches" lede="Assigned stores, parent chain and payout readiness." action={<Link className="btn small" to="/branches/new">Add branch</Link>}>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       <DataTable
         headers={['Branch', 'Parent chain', 'Payout', 'Status', '']}
@@ -23,9 +23,9 @@ export function BranchListPage() {
         rows={branches.map((branch) => [
           <span key={`${branch.id}-name`}><strong>{branch.name}</strong><small>{branch.city || branch.code}</small></span>,
           names[branch.chainId] ?? branch.chainId,
-          branch.payoutReady ? 'Ready' : 'Setup pending',
-          branch.active ? 'Active' : 'Inactive',
-          <Link key={`${branch.id}-edit`} to={`/branches/${branch.id}`}>Manage</Link>,
+          branch.payoutReady ? <StatusBadge tone="green">Ready</StatusBadge> : <StatusBadge tone="amber">Setup pending</StatusBadge>,
+          branch.active ? <StatusBadge tone="green">Active</StatusBadge> : <StatusBadge tone="gray">Inactive</StatusBadge>,
+          <Link className="textlink" key={`${branch.id}-edit`} to={`/branches/${branch.id}`}>Manage</Link>,
         ])}
       />
     </ResourcePage>

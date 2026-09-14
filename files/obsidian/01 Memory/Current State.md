@@ -11,8 +11,8 @@ updated: 2026-09-14
 
 ## Active gate
 
-- P00 through P20 are complete.
-- The authorized P16–P20 range has stopped. Do not start P21.
+- P00 through P24 are complete.
+- Visual HTML match is planned as P25–P28; handover is P29. Not authorized until the owner starts P25.
 - Deployment is outside the roadmap.
 - Sky blue is the client-approved final primary theme across every application.
 - A single-phase command stops after that phase; an explicit inclusive range stops after its final named phase.
@@ -72,8 +72,11 @@ safeDealz/
 - P17 deal history/pickup (M14/M16/M17/V12/A10/A11) is complete; `make -f files/Makefile check-p17` is the P17 regression command.
 - P18 reward issuance (A15/A16/A17) is complete; `make -f files/Makefile check-p18` is the P18 regression command.
 - P19 reward redemption (M18–M22) is complete; `make -f files/Makefile check-p19` is the P19 regression command.
-- P20 notifications (S04) is complete; `make -f files/Makefile check-p20` is the P20 regression command. Sequential Android debug APKs (Store Manager, Vendor, Diagnostics) passed 2026-09-14.
+- P21 support tickets (M23/V16/A18) is complete; `make -f files/Makefile check-p21` is the P21 regression command.
+- P22 admin oversight (A01/A19/A21/A22/V14) is complete; `make -f files/Makefile check-p22` is the P22 regression command.
+- P23 cross-app experience is complete; `make -f files/Makefile check-p23` is the P23 regression command.
+- P24 end-to-end/resilience is complete; `make -f files/Makefile check-p24` is the P24 regression command. Sequential Android debug APKs passed 2026-09-14.
 
 ## Next action
 
-None. Stop after P20. Wait for an explicit command before P21.
+Stop. P25–P29 are planned and not authorized.

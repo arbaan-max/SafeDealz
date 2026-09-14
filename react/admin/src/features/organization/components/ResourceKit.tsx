@@ -1,20 +1,29 @@
 import { type FormEvent, type ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
-export function ResourcePage({ eyebrow, title, lede, action, children }: { eyebrow: string; title: string; lede: string; action?: ReactNode; children: ReactNode }) {
+export function ResourcePage({ title, lede, action, backTo, backLabel, children }: {
+  title: string; lede?: string; action?: ReactNode; backTo?: string; backLabel?: string; children: ReactNode;
+}) {
   return (
     <section aria-labelledby="page-title">
-      <div className="page-heading">
-        <div>
-          <div className="eyebrow">{eyebrow}</div>
-          <h1 id="page-title">{title}</h1>
-          <p className="lede">{lede}</p>
+      <div className="admin-title">
+        <div className="admin-heading">
+          {backTo ? <Link className="iconbtn admin-back" to={backTo} aria-label={backLabel || 'Back'}>{<ArrowLeft size={16} />}</Link> : null}
+          <div>
+            <h1 id="page-title">{title}</h1>
+            <p>{lede || 'Manage your exchange network with confidence.'}</p>
+          </div>
         </div>
         {action}
       </div>
       {children}
     </section>
   );
+}
+
+export function StatusBadge({ tone = 'sky', children }: { tone?: 'sky' | 'green' | 'amber' | 'gray'; children: ReactNode }) {
+  return <span className={`badge badge-${tone}`}>{children}</span>;
 }
 
 export function DataTable({ headers, rows, empty }: { headers: string[]; rows: ReactNode[][]; empty: string }) {
@@ -39,21 +48,28 @@ export function ResourceForm({ title, backTo, backLabel, error, onSubmit, childr
     try { await onSubmit(); } finally { setSubmitting(false); }
   };
   return (
-    <section aria-labelledby="page-title">
-      <Link className="back-link" to={backTo}>{backLabel}</Link>
-      <h1 id="page-title">{title}</h1>
+    <section className="resource-form-page" aria-labelledby="page-title">
+      <div className="admin-title">
+        <div className="admin-heading">
+          <Link className="iconbtn admin-back" to={backTo} aria-label={backLabel}><ArrowLeft size={16} /></Link>
+          <div>
+            <h1 id="page-title">{title}</h1>
+            <p>Manage your exchange network with confidence.</p>
+          </div>
+        </div>
+      </div>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
-      <form className="resource-form" onSubmit={(event) => void submit(event)}>
-        {children}
+      <form className="card form-card resource-form" onSubmit={(event) => void submit(event)}>
+        <div className="form-grid">{children}</div>
         <div className="row-actions">
           {extraActions}
-          <button className="login-button" type="submit" disabled={busy || submitting}>{submitting || busy ? 'Saving…' : 'Save'}</button>
+          <button className="btn small" type="submit" disabled={busy || submitting}>{submitting || busy ? 'Saving…' : 'Save'}</button>
         </div>
       </form>
     </section>
   );
 }
 
-export function Field({ label, children }: { label: string; children: ReactNode }) {
-  return <label className="field">{label}{children}</label>;
+export function Field({ label, children, span }: { label: string; children: ReactNode; span?: boolean }) {
+  return <label className={span ? 'field span2' : 'field'}>{label}{children}</label>;
 }

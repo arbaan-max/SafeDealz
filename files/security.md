@@ -28,7 +28,9 @@ These requirements apply when each API is implemented, not only at final testing
 | P15–P16 | Bound OTP expiry, attempt limits and resend cooldowns; single use and transaction binding. Authorize KYC access, encrypt sensitive records, snapshot verified beneficiary, gate transfer correctly and prevent duplicate/forged payout instructions. |
 | P17–P19 | Enforce originating-store pickup and branch-scoped rewards; atomic single-use redemption OTP and ledger updates; reject wrong owner, stale OTP, concurrent spends and replay. |
 | P20–P22 | Scope inboxes, broadcasts, support, reports and exports; sanitize rendered content and spreadsheet exports; prevent attachment and customer-data leakage; audit privileged actions and keep audit immutable. |
-| P23–P25 | Run cross-app security regression, dependency/secret scans and API abuse tests; review unresolved findings before development completion. No required security test may be silently skipped. |
+| P23–P24 | Run cross-app security regression already required by experience and end-to-end phases. |
+| P25–P28 | Visual HTML match only. Do not weaken authorization, session, media, wallet or QR controls while restyling. Re-run the affected client tests after UI edits. |
+| P29 | Run dependency/secret scans and API abuse tests; review unresolved findings before development completion. No required security test may be silently skipped. |
 
 OTP initial defaults: 5-minute expiry, at most 5 failed verifications per challenge, 60-second resend cooldown, plus per-recipient and per-IP send limits defined in the feature contract. Resending invalidates the prior OTP and does not reset aggregate abuse counters. Store OTP digests, not plaintext. Document provider constraints before implementation.
 

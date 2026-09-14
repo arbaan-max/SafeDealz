@@ -51,6 +51,15 @@ class _RedeemReceiptPageState extends State<RedeemReceiptPage> {
             onPressed: () => context.goNamed(redemptionsRoute),
             child: const Text('Done'),
           ),
+          if (_row?.id != null)
+            TextButton(
+              onPressed: () => context.goNamed(reportIssueRoute, queryParameters: {
+                'subjectType': 'redemption',
+                'subjectId': _row!.id!,
+                'returnTo': '/rewards/redemptions/${_row!.id}',
+              }),
+              child: const Text('Report issue'),
+            ),
         ],
       ),
     );

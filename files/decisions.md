@@ -143,3 +143,15 @@ Owner follow-up on 2026-09-14: P15 product tests passed. Parallel `flutter build
 Status: Confirmed by owner, 2026-09-14.
 
 Implement P16 through P20 inclusive. After every completed phase, run the phase tests, update the recommended Markdown files, and continue automatically. Stop after P20. P21 is not authorized. Android debug APKs deferred from P11–P15 must run before completing P20 when no native plugin is added. Payout provider stays stubbed with HMAC webhooks; unknown outcomes must be reconciled before retry.
+
+## DEC-024 — Authorized P21–P24 range
+
+Status: Confirmed by owner, 2026-09-14.
+
+Implement P21 through P24 inclusive. After every completed phase, run the phase tests, update the recommended Markdown files, and continue automatically. Stop after P24. Visual HTML match and handover were later numbered P25–P29 (DEC-025). Android debug APKs may be deferred to P24 when no native plugin, platform configuration, or application-id change is added. Live SMS, live payout, and production hosting stay out of scope.
+
+## DEC-025 — HTML visual-match phases before handover
+
+Status: Confirmed by owner, 2026-09-14.
+
+Insert four visual-match phases after P24 and move development handover to the last number. Compare each live screen to [design.html](design.html); mark it **Same** in [screen-match.md](screen-match.md) when it matches, otherwise restyle it to the HTML and mark **Updated**. Order is Admin (P25), Store Manager (P26), Vendor (P27), Diagnostics (P28). Former P25 handover is now P29. Do not start P25 until the owner explicitly authorizes it. No hosting, store publishing, live SMS, or live payout.

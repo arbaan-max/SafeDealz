@@ -215,6 +215,65 @@ export type InboxNotification = {
   createdAt?: string;
 };
 
+export type SupportTicket = {
+  id?: string;
+  creatorAccountId?: string;
+  creatorRole?: string;
+  subjectType?: string;
+  subjectId?: string;
+  branchId?: string;
+  reasonCode?: string;
+  status?: string;
+  ownerAccountId?: string;
+  notes?: { id?: string; authorRole?: string; body?: string; createdAt?: string }[];
+  attachments?: { id?: string; status?: string }[];
+  createdAt?: string;
+};
+
+export type OverviewMetrics = {
+  liveAuctions?: number;
+  awaitingAcceptance?: number;
+  paymentExceptions?: number;
+  completedValuePaise?: number;
+  needsAttention?: { kind?: string; id?: string; label?: string }[];
+};
+
+export type ReportTotals = {
+  auctionConversion?: { started?: number; accepted?: number; rate?: number };
+  acceptedValuePaise?: number;
+  paidValuePaise?: number;
+  pickupCount?: number;
+  walletMovementsPaise?: number;
+  rewardIssuedPoints?: number;
+  rewardRedeemedPoints?: number;
+  billingReconciliation?: { paidValuePaise?: number; rewardOutstandingValuePaise?: number };
+};
+
+export type AuditRow = {
+  id?: string;
+  actorRole?: string;
+  action?: string;
+  entityType?: string;
+  entityId?: string;
+  createdAt?: string;
+};
+
+export type AccountSession = {
+  id?: string;
+  clientType?: string;
+  current?: boolean;
+  revokedAt?: string | null;
+};
+
+const toQuery = (query?: Record<string, string>) => {
+  const params = new URLSearchParams();
+  Object.entries(query || {}).forEach(([key, value]) => {
+    if (value) params.set(key, value);
+  });
+  const encoded = params.toString();
+  return encoded ? `?${encoded}` : '';
+};
+
 export function useOrganizationApi() {
   const { request } = useAuth();
   return useMemo(() => {
@@ -253,6 +312,20 @@ export function useOrganizationApi() {
       listNotificationHistory: () => request<InboxNotification[]>('/notifications/history'),
       broadcastNotification: (body: { audience: string; title: string; body: string; category?: string; branchId?: string; accountId?: string }) =>
         request<{ campaignId: string; delivered: number }>('/notifications/broadcasts', json('POST', body)),
+      listTickets: (status?: string) => request<SupportTicket[]>(`/tickets${status ? `?status=${encodeURIComponent(status)}` : ''}`),
+      getTicket: (id: string) => request<SupportTicket>(`/tickets/${id}`),
+      addTicketNote: (id: string, body: string) => request<SupportTicket>(`/tickets/${id}/notes`, json('POST', { body })),
+      assignTicket: (id: string, ownerAccountId: string) => request<SupportTicket>(`/tickets/${id}/assign`, json('POST', { ownerAccountId })),
+      updateTicketStatus: (id: string, status: 'investigating' | 'resolved', note?: string) =>
+        request<SupportTicket>(`/tickets/${id}/status`, json('POST', { status, note })),
+      getOverview: () => request<OverviewMetrics>('/overview'),
+      getReports: (query?: Record<string, string>) => request<ReportTotals>(`/reports${toQuery(query)}`),
+      exportReports: (query?: Record<string, string>) => request<{ filename: string; csv: string }>('/reports/export', json('POST', query || {})),
+      listAudit: (query?: Record<string, string>) => request<AuditRow[]>(`/audit${toQuery(query)}`),
+      listSessions: () => request<AccountSession[]>('/auth/sessions'),
+      revokeSession: (id: string) => request<{ id: string; revoked: boolean }>(`/auth/sessions/${id}/revoke`, json('POST', {})),
+      changePassword: (currentPassword: string, newPassword: string) =>
+        request<{ revokedSessions: boolean }>('/auth/password', json('POST', { currentPassword, newPassword })),
     };
   }, [request]);
 }

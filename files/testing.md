@@ -89,7 +89,15 @@ Read [security.md](security.md) before implementing APIs or authentication clien
 - From the repository root after P17: `make -f files/Makefile check-p17` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P20.
 - From the repository root after P18: `make -f files/Makefile check-p18` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P20.
 - From the repository root after P19: `make -f files/Makefile check-p19` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P20.
-- From the repository root after P20: `make -f files/Makefile check-p20` regenerates clients and runs React, Flutter and backend tests. Sequential Android debug APKs for Store Manager, Vendor and Diagnostics passed at P20 close on 2026-09-14.
+- From the repository root after P21: `make -f files/Makefile check-p21` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P24.
+- From the repository root after P22: `make -f files/Makefile check-p22` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P24.
+- From the repository root after P23: `make -f files/Makefile check-p23` regenerates clients and runs React, Flutter and backend tests without repeating Android APK builds. Deferred Android APKs remain due at P24.
+- From the repository root after P24: `make -f files/Makefile check-p24` regenerates clients, runs React, Flutter and backend tests, then builds sequential Android debug APKs.
+- From the repository root after P25: `make -f files/Makefile check-p25` regenerates clients and runs React, Flutter and backend tests. Also mark every Admin row in [screen-match.md](screen-match.md).
+- From the repository root after P26: `make -f files/Makefile check-p26` regenerates clients and runs React, Flutter and backend tests. Also mark every Store Manager row in screen-match.md.
+- From the repository root after P27: `make -f files/Makefile check-p27` regenerates clients and runs React, Flutter and backend tests. Also mark every Vendor row in screen-match.md.
+- From the repository root after P28: `make -f files/Makefile check-p28` regenerates clients and runs React, Flutter and backend tests. Also mark every Diagnostics row in screen-match.md.
+- From the repository root after P29: `make -f files/Makefile check-p29` regenerates clients and runs React, Flutter and backend tests for handover.
 
 P00 ran all commands above successfully, including Android debug builds for all three apps. The backend test suite has four passing tests/subtests, including the canonical Swagger JSON route. Future phases add feature-specific tests rather than relying on these smoke checks.
 

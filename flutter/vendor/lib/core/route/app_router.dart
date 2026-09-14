@@ -15,6 +15,11 @@ import 'package:safedealz_vendor/view/screens/wallet/wallet_entry_page.dart';
 import 'package:safedealz_vendor/view/screens/wallet/wallet_holds_page.dart';
 import 'package:safedealz_vendor/view/screens/wallet/wallet_page.dart';
 import 'package:safedealz_vendor/view/screens/notifications/notifications_page.dart';
+import 'package:safedealz_vendor/view/screens/performance/performance_page.dart';
+import 'package:safedealz_vendor/view/screens/support/report_issue_page.dart';
+import 'package:safedealz_vendor/view/screens/support/ticket_receipt_page.dart';
+import 'package:safedealz_vendor/view/screens/account/account_page.dart';
+import 'package:safedealz_vendor/view/screens/auctions/media_viewer_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/login',
@@ -94,6 +99,41 @@ final GoRouter appRouter = GoRouter(
       name: notificationsRoute,
       path: '/notifications',
       builder: (context, state) => const NotificationsPage(),
+    ),
+    GoRoute(
+      name: performanceRoute,
+      path: '/performance',
+      builder: (context, state) => const PerformancePage(),
+    ),
+    GoRoute(
+      name: reportIssueRoute,
+      path: '/tickets/new',
+      builder: (context, state) => ReportIssuePage(
+        subjectType: state.uri.queryParameters['subjectType'] ?? 'deal',
+        subjectId: state.uri.queryParameters['subjectId'] ?? '',
+        returnTo: state.uri.queryParameters['returnTo'],
+      ),
+    ),
+    GoRoute(
+      name: ticketReceiptRoute,
+      path: '/tickets/:id',
+      builder: (context, state) => TicketReceiptPage(
+        ticketId: state.pathParameters['id']!,
+        returnTo: state.extra as String?,
+      ),
+    ),
+    GoRoute(
+      name: accountRoute,
+      path: '/account',
+      builder: (context, state) => const AccountPage(),
+    ),
+    GoRoute(
+      name: mediaViewerRoute,
+      path: '/media',
+      builder: (context, state) => MediaViewerPage(
+        label: state.uri.queryParameters['label'] ?? 'Photo',
+        url: state.uri.queryParameters['url'],
+      ),
     ),
   ],
 );

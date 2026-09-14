@@ -14,7 +14,6 @@ export function RewardCustomerPage() {
   useEffect(() => { void api.getCustomerRewards(phone).then(setRecord).catch((caught: Error) => setError(caught.message)); }, [api, phone]);
   return (
     <ResourcePage
-      eyebrow="A16"
       title={record?.customerName ? `${record.customerName} rewards` : 'Customer rewards'}
       lede="Balances stay branch-separated. Other branches cannot redeem these points. Redemption receipts appear after P19."
       action={<Link to="/rewards">Back to rewards</Link>}

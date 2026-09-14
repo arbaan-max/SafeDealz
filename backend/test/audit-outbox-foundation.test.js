@@ -43,7 +43,8 @@ test('enforces unique outbox idempotency keys', async () => {
   await assert.rejects(createOutboxEvent(outbox), (error) => error?.code === 11000);
 });
 
-test('audit repository exposes creation without mutation methods', () => {
+test('audit repository exposes creation and list without mutation methods', () => {
   assert.equal(typeof createAuditEvent, 'function');
-  assert.deepEqual(Object.keys(auditRepository).sort(), ['createAuditEvent']);
+  assert.equal(typeof auditRepository.listAuditEvents, 'function');
+  assert.deepEqual(Object.keys(auditRepository).sort(), ['createAuditEvent', 'listAuditEvents']);
 });

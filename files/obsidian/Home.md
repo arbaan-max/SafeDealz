@@ -24,6 +24,7 @@ Start each work session with [[01 Memory/Current State]], then read [[02 Workflo
 - [Decisions](../decisions.md)
 - [Design specification](../design.md)
 - [Interactive design reference](../design.html)
+- [HTML screen visual match](../screen-match.md)
 - [Implementation status](../implementation.md)
 - [Testing policy](../testing.md)
 - [Security policy](../security.md)

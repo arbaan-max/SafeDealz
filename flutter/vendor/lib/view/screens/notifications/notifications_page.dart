@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safedealz_vendor/core/network/api_error_message.dart';
+import 'package:safedealz_vendor/core/route/routes.dart';
 import 'package:safedealz_vendor/data/api/models/notification.dart' as api;
 import 'package:safedealz_vendor/data/repositories/notification_repository.dart';
 import 'package:safedealz_vendor/view/widgets/app_page_scaffold.dart';
@@ -46,6 +48,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return AppPageScaffold(
       title: 'Notifications',
+      onBack: () => GoRouter.maybeOf(context)?.goNamed(assignedStoresRoute),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [

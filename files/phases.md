@@ -1,6 +1,6 @@
 # SafeDealz implementation phases
 
-Admin-first development-only roadmap; P00–P20 are complete. The authorized P16–P20 range has stopped; do not start P21. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
+Admin-first development-only roadmap; P00–P24 are complete. Visual HTML match is planned as P25–P28 and is not authorized until the owner starts it. Development handover is P29. Store Manager, Vendor and Diagnostics are Flutter apps; Super Admin is React web. Hosting, deployment and production rollout are outside this roadmap. Read [start.md](start.md), [plan.md](plan.md), [design.md](design.md), and [testing.md](testing.md). Continue with the React admin/API foundations before intake and diagnostic features. Latest confirmed amendments override older design prose; record conflicts in [decisions.md](decisions.md).
 
 Each phase is split into three small or medium tasks: `.1` contract/data or decision preparation, `.2` implementation or feasibility evidence, `.3` integration/testing and documentation. Create numbered task files from [the template](tasks/TASK_TEMPLATE.md) when work is selected, rather than creating empty task files now. Split further when a task cannot be reviewed independently. These task IDs are roadmap identifiers, not existing files.
 
@@ -243,7 +243,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P21 — Support management
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P03
 - Screens: M23,V16,A18
 - Scope: Manager/vendor tickets and admin assignment, response and resolution.
@@ -254,7 +254,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P22 — Admin oversight and reporting
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P17,P19,P20,P21
 - Screens: A01,A19,A21,A22,V14
 - Scope: Overview, scoped reports/exports, immutable audit and account sessions.
@@ -265,7 +265,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P23 — Cross-app experience verification
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P22
 - Screens: —
 - Scope: Complete screen inventory using the client-approved sky-blue theme, responsive layouts and accessible interaction states. Purple may remain in the prototype as a comparison preview but is not a production implementation target.
@@ -276,7 +276,7 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 
 ## P24 — End-to-end and resilience
 
-- Status: Planned
+- Status: Complete
 - Dependencies: P23
 - Screens: —
 - Scope: Android and Apple journeys from intake to payout, pickup and rewards; recovery and concurrency.
@@ -285,13 +285,57 @@ Phase completion is an automatic stop boundary unless the owner explicitly autho
 - Tasks: P24.1 — define contracts/data and acceptance cases; P24.2 — deliver scoped functionality/evidence; P24.3 — verify integration and synchronize completion records.
 - Completion gate: API and Flutter integration suites cover happy paths, rebid, insufficient funds, deactivation, failed/unknown payment, offline recovery and duplicate events.
 
-## P25 — Development completion and handover
+## P25 — Admin HTML visual match
 
 - Status: Planned
 - Dependencies: P24
+- Screens: A00–A24, S04 (admin)
+- Scope: Run React admin in the browser beside [design.html](design.html). For each listed screen, if the live UI matches the HTML frame mark it **Same** in [screen-match.md](screen-match.md); if it does not, restyle that screen to match the HTML and mark it **Updated**.
+- API, data and client impact: Visual and copy alignment only. No new product APIs, no OpenAPI bump unless a visible field is already missing from the contract, no Store Manager/Vendor/Diagnostics work.
+- Security gate: Do not weaken existing authorization while restyling. Re-run admin browser checks after UI edits.
+- Tasks: P25.1 — compare each admin HTML frame; P25.2 — restyle mismatches; P25.3 — mark the register and run `check-p25`.
+- Completion gate: Every P25 row in screen-match.md is Same or Updated; `make -f files/Makefile check-p25` passes.
+
+## P26 — Store Manager HTML visual match
+
+- Status: Planned
+- Dependencies: P25
+- Screens: S01, S04, M01–M24
+- Scope: Run Store Manager on the emulator beside the matching mobile HTML frames. Mark each screen **Same** or restyle it and mark **Updated**. Login S01 is compared to the HTML Store Manager/Vendor login frame.
+- API, data and client impact: Flutter UI only. Do not add workflows. Shared widgets may change when that is required to match HTML.
+- Security gate: Keep password-eye, inactive-account logout and scope behaviour intact.
+- Tasks: P26.1 — compare each Store Manager HTML frame; P26.2 — restyle mismatches; P26.3 — mark the register and run `check-p26`.
+- Completion gate: Every P26 row in screen-match.md is Same or Updated; `make -f files/Makefile check-p26` passes.
+
+## P27 — Vendor HTML visual match
+
+- Status: Planned
+- Dependencies: P26
+- Screens: S01, S04, V01–V17
+- Scope: Run Vendor on the emulator beside the matching mobile HTML frames. Mark each screen **Same** or restyle it and mark **Updated**.
+- API, data and client impact: Flutter UI only. Do not add workflows.
+- Security gate: Keep wallet amounts, bid immutability and inactive-account logout intact.
+- Tasks: P27.1 — compare each Vendor HTML frame; P27.2 — restyle mismatches; P27.3 — mark the register and run `check-p27`.
+- Completion gate: Every P27 row in screen-match.md is Same or Updated; `make -f files/Makefile check-p27` passes.
+
+## P28 — Diagnostics HTML visual match
+
+- Status: Planned
+- Dependencies: P27
+- Screens: D01–D08
+- Scope: Run Diagnostics on an Android emulator/device beside the matching HTML frames. Mark each screen **Same** or restyle it and mark **Updated**. D04 remains a full-screen diagnostic surface, not the ordinary page scaffold.
+- API, data and client impact: Diagnostics UI only. Do not change QR payload, signature or Store Manager import rules.
+- Security gate: Keep signed-result generation and local-only report storage intact.
+- Tasks: P28.1 — compare each Diagnostics HTML frame; P28.2 — restyle mismatches; P28.3 — mark the register and run `check-p28`.
+- Completion gate: Every P28 row in screen-match.md is Same or Updated; `make -f files/Makefile check-p28` passes.
+
+## P29 — Development completion and handover
+
+- Status: Planned
+- Dependencies: P28
 - Screens: —
-- Scope: Resolve review defects, prepare local client demo and development handover, and confirm all approved requirements are implemented.
+- Scope: Resolve remaining review defects, prepare the local client demo and development handover, and confirm all approved requirements are implemented. This is the former P25.
 - API, data and client impact: Document local setup, test fixtures, database migrations/index setup, sandbox provider configuration and API/client development instructions.
-- Security gate: Apply the phase-specific controls and negative tests in [security.md](security.md); record passing evidence before completion.
-- Tasks: P25.1 — define contracts/data and acceptance cases; P25.2 — deliver scoped functionality/evidence; P25.3 — verify integration and synchronize completion records.
+- Security gate: Apply the P23–P29 controls and negative tests in [security.md](security.md); record passing evidence before completion.
+- Tasks: P29.1 — define contracts/data and acceptance cases; P29.2 — deliver scoped functionality/evidence; P29.3 — verify integration and synchronize completion records.
 - Completion gate: Local Flutter/React/backend builds and smoke tests pass; all required tests and completion records are current; known limitations are documented. No hosting, deployment, store publishing or production rollout.

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safedealz_vendor/core/network/api_error_message.dart';
+import 'package:safedealz_vendor/core/route/routes.dart';
 import 'package:safedealz_vendor/data/api/models/bid.dart';
 import 'package:safedealz_vendor/data/repositories/auction_repository.dart';
 import 'package:safedealz_vendor/view/screens/wallet/money.dart';
@@ -49,6 +51,14 @@ class _BidDetailPageState extends State<BidDetailPage> {
                   Text('Reserved ${formatPaise(bid.totalPaise)}'),
                   Text(bid.status.json ?? bid.status.name),
                   const Text('This bid cannot be edited.'),
+                  OutlinedButton(
+                    onPressed: () => context.goNamed(reportIssueRoute, queryParameters: {
+                      'subjectType': 'bid',
+                      'subjectId': bid.id,
+                      'returnTo': '/bids/${bid.id}',
+                    }),
+                    child: const Text('Report issue'),
+                  ),
                 ],
               ],
             ),

@@ -30,7 +30,6 @@ export function PaymentDetailPage() {
   };
   return (
     <ResourcePage
-      eyebrow="A13"
       title="Payment detail"
       lede="Refresh, retry a failed transfer, or reconcile an unknown provider outcome. Never approve a payout."
       action={<Link className="back-link" to="/payments">Back to payments</Link>}
@@ -60,6 +59,7 @@ export function PaymentDetailPage() {
                 <button className="text-button" type="button" disabled={busy} onClick={() => void run(() => api.reconcilePayment(payment.id!, 'failed'))}>Mark failed</button>
               </>
             ) : null}
+            <Link className="text-button" to="/support">Open support</Link>
           </p>
         </>
       ) : null}

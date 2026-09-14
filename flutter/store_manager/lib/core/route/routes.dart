@@ -25,3 +25,6 @@ const String redeemRoute = 'redeem';
 const String redeemOtpRoute = 'redeemOtp';
 const String redeemReceiptRoute = 'redeemReceipt';
 const String notificationsRoute = 'notifications';
+const String reportIssueRoute = 'reportIssue';
+const String ticketReceiptRoute = 'ticketReceipt';
+const String accountRoute = 'account';

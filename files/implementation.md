@@ -6,16 +6,16 @@ This is the execution dashboard. plan.md owns phase status; numbered files under
 
 | Item | Value |
 | --- | --- |
-| Completed phase | P20 — Notifications and broadcasts |
-| Completed task | TASK-022 |
-| Next phase | P21 — Support management |
-| Next task | None — stop after P20 |
-| Product feature status | P16–P20 complete; P21 not started |
+| Completed phase | P24 — End-to-end and resilience |
+| Completed task | TASK-026 |
+| Next phase | P25 — Admin HTML visual match (not authorized) |
+| Next task | None until the owner starts P25 |
+| Product feature status | P00–P24 complete; P25–P28 HTML visual match and P29 handover are planned |
 | Product reference | design.md and design.html |
 | Security reference | security.md |
 | Architecture reference | architecture.md |
 
-Stop boundary: inclusive range P16–P20. **P20 is complete. Do not start P21.**
+Stop boundary: inclusive range P21–P24. **P24 is complete.** Visual HTML match is P25–P28; handover is P29. Do not start P25 until explicitly authorized. Per-screen Same/Updated marks: [screen-match.md](screen-match.md).
 
 Execution rule recorded on 2026-09-14: a single-phase command stops automatically after that phase; an explicit inclusive phase range may continue through its named final phase and then stops. Named tasks stop after their stated scope. Safely deferrable broad builds may run in the final authorized phase, while required feature, contract, integration, and security checks remain in the phase that introduces the behavior.
 
@@ -24,6 +24,8 @@ P00 amendment completed on 2026-09-13: aligned all three Flutter pubspecs and sw
 Client theme amendment on 2026-09-14: Sky Blue is now the confirmed primary theme. The interactive prototype defaults to Sky Blue, all three Flutter foundations use the shared sky action and `#F0F9FF` scaffold-background colors, native splash colors match, Obsidian uses the same accent, and the design/architecture/phase records define Purple only as a restrained secondary or prototype comparison accent. P01, P05, P06 and P08 now require reusable page-surface components so future background changes remain centralized.
 
 Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for private evidence/KYC object storage, beginning with the reusable signed-media integration in P07. Razorpay is confirmed for vendor wallet recharge in P11 using backend-created orders, verified webhooks and idempotent ledger credit.
+
+Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live screen to design.html. P25 Admin, P26 Store Manager, P27 Vendor, P28 Diagnostics. Mark each screen Same or restyle it and mark Updated in screen-match.md. Former handover P25 is now P29. Not started until the owner authorizes P25.
 
 ## P03 delivered
 
@@ -78,6 +80,68 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | Flutter | Store Manager 20/20, Vendor 9/9, Diagnostics 14/14; analysis clean |
 | Complete gate | `make -f files/Makefile generate-api`, React check, Flutter analyze/test and backend `npm test` passed 2026-09-14 |
 | Android APK | Deferred: qr_flutter is Dart-only |
+
+## P24 delivered
+
+- Combined API journey covers insufficient funds, vendor deactivation, rebid, unknown payout blocking retry, paid-webhook replay, originating-store pickup and 800 issued reward points.
+- Sequential Android debug APKs built 2026-09-14 for Store Manager, then Vendor, then Diagnostics, with `flutter clean` between apps because free disk was ~5GB.
+
+## P24 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 42/42 including the P24 combined journey |
+| OpenAPI | Unchanged at v0.22.0 |
+| React | Passed 31/31 Vitest; production build; 3/3 Chromium |
+| Flutter | Store Manager 39/39, Vendor 30/30, Diagnostics 15/15; analysis clean |
+| Android APK | Passed sequentially 2026-09-14: Store Manager, Vendor, Diagnostics |
+
+## P23 delivered
+
+- Catalogued Store Manager, Vendor, Diagnostics and Admin routes resolve. M24 and V17 account pages, V03 media viewer, nested Back controls and the sky-blue `#F0F9FF` page surface are covered by widget and Chromium tests.
+- Unauthenticated overview/reports/audit stay 401. Backend and React high-severity npm audits are clean.
+
+## P23 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 41/41 including unauthenticated oversight 401 |
+| OpenAPI | Unchanged at v0.22.0 |
+| React | Passed 31/31 Vitest; production build; 3/3 Chromium |
+| Flutter | Store Manager 39/39, Vendor 30/30, Diagnostics 15/15; analysis clean |
+| npm audit | 0 high+ vulnerabilities in backend and React |
+| Android APK | Deferred to P24 |
+
+## P22 delivered
+
+- React A01 overview uses live/awaiting/payment-exception/completed-value totals. Needs Attention lists payment and incomplete branch-setup issues only; there is no SMS tile.
+- A19 reports and CSV export re-check Admin scope. Paid value matches paid payment-instruction amounts. A21 audit is read-only. A22 lists sessions, changes password and returns to overview.
+- Vendor V14 shows bids, wins, accepted purchases, win rate, average response time and a textual hourly chart. OpenAPI v0.22.0.
+
+## P22 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 40/40 including paid-value 800000, vendor export 403, audit PATCH 404, current-session 409 and no SMS overview tile |
+| OpenAPI | v0.22.0 generated in all three Flutter apps |
+| React | Passed 31/31 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 37/37, Vendor 28/28, Diagnostics 14/14; analysis clean |
+| Android APK | Deferred to P24 |
+
+## P21 delivered
+
+- Store Manager M23 and Vendor V16 raise tickets against a linked deal, bid, payment, device or redemption. Super Admin and scoped Admin handle A18 cases; they cannot create manager/vendor tickets.
+- Open tickets are unique per creator and subject. Attachments use signed stub grants; other accounts cannot download. OpenAPI v0.21.0.
+
+## P21 verification
+
+| Scope | Result |
+| --- | --- |
+| Backend | Passed 39/39 including cross-account 403, admin create 403, open-ticket 409 and attachment download 403 |
+| OpenAPI | v0.21.0 generated in all three Flutter apps |
+| React | Passed 27/27 Vitest; production build; 2/2 Chromium |
+| Flutter | Store Manager 37/37, Vendor 27/27, Diagnostics 14/14; analysis clean |
+| Android APK | Deferred to P24 |
 
 ## P20 delivered
 
@@ -335,7 +399,7 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | ID | Task | Area | Status | Verification |
 | --- | --- | --- | --- | --- |
 | DOC-001 | Connect planning, design, implementation and testing documents | Documentation | Complete | Link checks passed |
-| PHASE-PLANNING | Prepare P00–P25 with dependencies and gates | Planning | Complete | 26 phases and 76 planned screens checked |
+| PHASE-PLANNING | Prepare P00–P29 with dependencies and gates | Planning | Complete | 30 phases; 76 design screens; 79 visual-check rows |
 | TASK-001 | P00 Flutter/backend bootstrap | Flutter, Backend, OpenAPI | Complete | Flutter analyze/test/APK builds, codegen, backend tests and audit passed |
 | TASK-002 | P01 React admin foundation | React, Backend, Integration | Complete | React 7/7, browser 1/1, backend 8/8, Flutter 3/3 per app, audits clean |
 | TASK-003 | P02 role authentication | Backend, React, Flutter, Security | Complete | Backend 19/19; React 10/10 + browser; Flutter 4/4 mobile, diagnostics 3/3; builds/audits pass |
@@ -353,7 +417,7 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 | TASK-019 | P17 Deal history and pickup | Backend, Flutter, React, OpenAPI | Complete | Backend 35/35; React 21/21 + 2/2 Chromium; Flutter 32/32, 25/25, 14/14 |
 | TASK-020 | P18 Reward issuance and policy | Backend, Flutter, React, OpenAPI | Complete | Backend 36/36; React 24/24 + 2/2 Chromium; Flutter 33/33, 25/25, 14/14 |
 | TASK-021 | P19 Reward redemption | Backend, Flutter, OpenAPI | Complete | Backend 37/37; React 24/24 + 2/2 Chromium; Flutter 35/35, 25/25, 14/14 |
-| TASK-022 | P20 Notifications and broadcasts | Backend, Flutter, React, OpenAPI | Complete | Backend 38/38; React 25/25 + 2/2 Chromium; Flutter 36/36, 26/26, 14/14; sequential Android debug APKs passed |
+| TASK-023 | P21 Support tickets | Backend, Flutter, React, OpenAPI | Complete | Backend 39/39; React 27/27 + 2/2 Chromium; Flutter 37/37, 27/27, 14/14 |
 
 ## P02 delivered
 
@@ -439,4 +503,4 @@ Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for privat
 
 ## Next action
 
-Stop after P20. Do not start P21.
+Stop. P25–P29 are planned and not authorized. To begin visual matching, authorize P25 (Admin) or an inclusive range such as P25 through P28.

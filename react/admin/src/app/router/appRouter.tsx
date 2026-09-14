@@ -21,6 +21,11 @@ import { RewardOverviewPage } from '../../features/organization/pages/RewardOver
 import { RewardCustomerPage } from '../../features/organization/pages/RewardCustomerPage';
 import { RewardPolicyPage } from '../../features/organization/pages/RewardPolicyPage';
 import { NotificationHistoryPage } from '../../features/organization/pages/NotificationHistoryPage';
+import { SupportListPage } from '../../features/organization/pages/SupportListPage';
+import { SupportDetailPage } from '../../features/organization/pages/SupportDetailPage';
+import { ReportsPage } from '../../features/organization/pages/ReportsPage';
+import { AuditPage } from '../../features/organization/pages/AuditPage';
+import { AccountPage } from '../../features/organization/pages/AccountPage';
 import { RequireSession } from '../../features/auth/components/RequireSession';
 import { RoleGate } from '../../features/organization/components/RoleGate';
 import { LoginPage } from '../../features/auth/pages/LoginPage';
@@ -59,6 +64,11 @@ export const appRouter = createBrowserRouter([
         { path: 'rewards/policy', element: <RoleGate roles={['super_admin', 'admin']}><RewardPolicyPage /></RoleGate> },
         { path: 'rewards/customers/:phone', element: <RoleGate roles={['super_admin', 'admin']}><RewardCustomerPage /></RoleGate> },
         { path: 'notifications', element: <RoleGate roles={['super_admin', 'admin']}><NotificationHistoryPage /></RoleGate> },
+        { path: 'support', element: <RoleGate roles={['super_admin', 'admin']}><SupportListPage /></RoleGate> },
+        { path: 'support/:id', element: <RoleGate roles={['super_admin', 'admin']}><SupportDetailPage /></RoleGate> },
+        { path: 'reports', element: <RoleGate roles={['super_admin', 'admin']}><ReportsPage /></RoleGate> },
+        { path: 'audit', element: <RoleGate roles={['super_admin', 'admin']}><AuditPage /></RoleGate> },
+        { path: 'account', element: <RoleGate roles={['super_admin', 'admin']}><AccountPage /></RoleGate> },
         { path: 'settings', element: <RoleGate roles={['super_admin']}><SettingsPage /></RoleGate> },
       ] },
     ],

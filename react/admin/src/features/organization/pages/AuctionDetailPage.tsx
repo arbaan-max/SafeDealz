@@ -19,10 +19,11 @@ export function AuctionDetailPage() {
     }).catch((caught: Error) => setError(caught.message));
   }, [api, id]);
   return (
-    <ResourcePage eyebrow="A11" title="Auction detail" lede="Bid table for this round. Customer KYC stays hidden unless opened from an authorized deal screen." action={<Link className="back-link" to="/auctions">Back to auctions</Link>}>
+    <ResourcePage title="Auction detail" lede="Bid table for this round. Customer KYC stays hidden unless opened from an authorized deal screen." action={<Link className="back-link" to="/auctions">Back to auctions</Link>}>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       {round ? <p>Round {round.roundNumber} · {round.status?.replaceAll('_', ' ')} · Highest {rupees(round.highestAmountPaise)}</p> : null}
       {round?.declineReason ? <p>{round.declineReason}</p> : null}
+      <p><Link to="/support">Open support</Link></p>
       <ul>
         {bids.map((bid) => (
           <li key={bid.id}>{rupees(bid.amountPaise)} · {bid.status} · fee {rupees(bid.feePaise)}</li>

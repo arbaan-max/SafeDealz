@@ -1,5 +1,5 @@
 import { env } from '../config/env.js';
-import { login, logout, refresh } from '../services/auth.service.js';
+import { login, logout, refresh, listMySessions, revokeMySession, changePassword } from '../services/auth.service.js';
 import { ApiError } from '../utils/api-error.js';
 import { validateLogin, validateRefresh } from '../validators/auth.validator.js';
 
@@ -42,3 +42,15 @@ export const logoutAccount = async (request, response, next) => {
   } catch (error) { next(error); }
 };
 export const readCurrentAccount = (request, response) => response.set('Cache-Control', 'no-store').json({ success: true, data: request.auth.account });
+export const getSessions = async (request, response, next) => {
+  try { response.set('Cache-Control', 'no-store').json({ success: true, data: await listMySessions(request.auth.account, request.auth.familyId) }); }
+  catch (error) { next(error); }
+};
+export const postSessionRevoke = async (request, response, next) => {
+  try { response.json({ success: true, data: await revokeMySession(request.auth.account, request.params.id, request.auth.familyId) }); }
+  catch (error) { next(error); }
+};
+export const postPassword = async (request, response, next) => {
+  try { response.json({ success: true, data: await changePassword(request.auth.account, request.body) }); }
+  catch (error) { next(error); }
+};

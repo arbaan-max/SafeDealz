@@ -4,28 +4,16 @@ import { createMediaObject, findMediaByDevicePurpose, findMediaByKey, saveMediaO
 import { findDeviceById } from '../repositories/device.repository.js';
 import { ApiError } from '../utils/api-error.js';
 import { requireObjectId } from '../utils/ids.js';
+import { assertObjectUploaded, r2Configured, signObjectAccess } from './r2.adapter.js';
 import { assertBranchInScope, loadScope } from './scope.service.js';
-import { createHmac } from 'node:crypto';
+
+export { r2Configured };
 
 const purposes = new Set(['front', 'back', 'top', 'bottom', 'left', 'right', 'rotation', 'bill']);
 const imageTypes = new Set(['image/jpeg', 'image/png']);
-const r2Ready = () => Boolean(env.r2.accessKeyId && env.r2.secretAccessKey && env.r2.bucket && env.r2.endpoint);
-export const r2Configured = r2Ready;
 
 const objectKeyFor = (deviceId, purpose) => `devices/${deviceId}/${purpose}/${randomUUID()}`;
 const allowedKey = (deviceId, purpose, objectKey) => new RegExp(`^devices/${deviceId}/${purpose}/[0-9a-f-]{36}$`, 'i').test(objectKey);
-
-const signStub = (objectKey, contentType, method, expiresAt) => {
-  const expires = expiresAt.getTime();
-  const signature = createHmac('sha256', env.r2.secretAccessKey || env.jwtSecret).update(`${method}:${objectKey}:${expires}`).digest('hex');
-  return {
-    method,
-    url: `${env.r2.endpoint || 'https://r2.local.test'}/${env.r2.bucket || 'safedealz-evidence'}/${objectKey}?expires=${expires}&signature=${signature}`,
-    headers: { 'content-type': contentType },
-    expiresAt: expiresAt.toISOString(),
-    live: r2Ready(),
-  };
-};
 
 const requireDevice = async (actor, deviceId) => {
   const device = await findDeviceById(requireObjectId(deviceId, 'device id'));
@@ -79,7 +67,7 @@ export const createUploadGrant = async (actor, deviceId, body) => {
       grantExpiresAt,
     });
   }
-  return { mediaId: String(media.id), objectKey, upload: signStub(objectKey, contentType, 'PUT', grantExpiresAt) };
+  return { mediaId: String(media.id), objectKey, upload: await signObjectAccess(objectKey, contentType, 'PUT', grantExpiresAt) };
 };
 
 export const completeUpload = async (actor, deviceId, body) => {
@@ -98,6 +86,7 @@ export const completeUpload = async (actor, deviceId, body) => {
   if (!/^[a-f0-9]{64}$/.test(checksumSha256) || checksumSha256 !== media.checksumSha256) {
     throw new ApiError(400, 'VALIDATION_ERROR', 'The checksum does not match the signed upload.');
   }
+  await assertObjectUploaded(objectKey);
   media.status = 'uploaded';
   await saveMediaObject(media);
   return { id: String(media.id), purpose: media.purpose, objectKey: media.objectKey, status: media.status };
@@ -110,5 +99,5 @@ export const createDownloadGrant = async (actor, deviceId, objectKey) => {
     throw new ApiError(404, 'NOT_FOUND', 'Media was not found.');
   }
   const expiresAt = new Date(Date.now() + env.r2.signTtlSeconds * 1000);
-  return { objectKey, download: signStub(objectKey, media.contentType, 'GET', expiresAt) };
+  return { objectKey, download: await signObjectAccess(objectKey, media.contentType, 'GET', expiresAt) };
 };

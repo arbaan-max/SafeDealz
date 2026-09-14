@@ -14,7 +14,10 @@ import 'package:safedealz_vendor/data/repositories/auction_repository.dart';
 import 'package:safedealz_vendor/data/repositories/auth_repository.dart';
 import 'package:safedealz_vendor/data/repositories/deal_repository.dart';
 import 'package:safedealz_vendor/data/repositories/notification_repository.dart';
+import 'package:safedealz_vendor/data/repositories/performance_repository.dart';
+import 'package:safedealz_vendor/data/repositories/profile_repository.dart';
 import 'package:safedealz_vendor/data/repositories/store_repository.dart';
+import 'package:safedealz_vendor/data/repositories/ticket_repository.dart';
 import 'package:safedealz_vendor/data/repositories/wallet_repository.dart';
 import 'package:safedealz_vendor/data/services/auth_service.dart';
 import 'package:safedealz_vendor/data/services/razorpay_checkout_adapter.dart';
@@ -58,6 +61,15 @@ class SafeDealzApp extends StatelessWidget {
         ),
         RepositoryProvider<NotificationRepository>.value(
           value: NotificationRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<TicketRepository>.value(
+          value: TicketRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<PerformanceRepository>.value(
+          value: PerformanceRepositoryImpl(OperationsClient(dio)),
+        ),
+        RepositoryProvider<ProfileRepository>.value(
+          value: ProfileRepositoryImpl(AuthClient(dio)),
         ),
         RepositoryProvider<RazorpayCheckoutAdapter>.value(
           value: const DemoRazorpayCheckoutAdapter(),

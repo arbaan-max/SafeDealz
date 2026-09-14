@@ -10,7 +10,7 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Product design specification | Available in [design.md](design.md) |
 | Interactive design reference | Available in [design.html](design.html) |
 | Phase breakdown | Prepared — see [phases.md](phases.md) |
-| Product implementation | P00–P20 complete; stop. P21 is not authorized. |
+| Product implementation | P00–P24 complete. P25–P28 HTML visual match and P29 handover are planned and not authorized. |
 
 ## Project setup
 
@@ -27,8 +27,8 @@ This file owns project scope, architecture-level decisions, release boundaries, 
 | Super Admin client | React web interface (not Flutter) |
 | Backend | Node.js, Express.js, MongoDB, and Mongoose |
 | API contract | OpenAPI/Swagger contract required before API-client generation |
-| Development completion goal | Complete approved scope through P25; development acceptance follows the test gates; deployment excluded |
-| Coding authorization | Inclusive range P16–P20. P15 complete; continue through P20 then stop. P21 is not authorized. |
+| Development completion goal | Complete approved scope through P29; development acceptance follows the test gates; deployment excluded |
+| Coding authorization | Inclusive range P21–P24 is complete. Stop. P25–P29 are planned and not authorized. |
 
 ## Product roles
 
@@ -56,8 +56,8 @@ The complete role permissions and screen behavior are defined in [design.md](des
 | Offer acceptance, customer verification, and payout | Defined | Not started |
 | Pickup completion | Defined | Complete — TASK-019 |
 | Customer rewards and redemption | Defined | Complete — TASK-020/TASK-021 |
-| Notifications and support | Defined | Notifications complete — TASK-022; support not started |
-| Reports, settings, and audit history | Defined | Not started |
+| Notifications and support | Defined | Notifications complete — TASK-022; support complete — TASK-023 |
+| Reports, settings, and audit history | Defined | Complete — TASK-014 settings; TASK-024 reports/audit/overview |
 
 ## Architecture status and later decisions
 
@@ -81,7 +81,7 @@ The complete role permissions and screen behavior are defined in [design.md](des
 
 ## Phase plan
 
-The detailed roadmap is in [phases.md](phases.md). P00–P08 are complete. Update this table after every task, including when the phase remains In progress. Do not mark a phase complete until its clients, contract and tests pass.
+The detailed roadmap is in [phases.md](phases.md). P00–P24 are complete. Update this table after every task, including when the phase remains In progress. Do not mark a phase complete until its clients, contract and tests pass.
 
 | Phase | Goal | Status | Latest completed task |
 | --- | --- | --- | --- |
@@ -106,13 +106,17 @@ The detailed roadmap is in [phases.md](phases.md). P00–P08 are complete. Updat
 | P18 | Reward issuance and policy | Complete | TASK-020 |
 | P19 | Reward redemption | Complete | TASK-021 |
 | P20 | Notifications and broadcasts | Complete | TASK-022 |
-| P21 | Support management | Planned | None |
-| P22 | Admin oversight and reporting | Planned | None |
-| P23 | Cross-app experience verification | Planned | None |
-| P24 | End-to-end and resilience | Planned | None |
-| P25 | Development completion and handover | Planned | None |
+| P21 | Support management | Complete | TASK-023 |
+| P22 | Admin oversight and reporting | Complete | TASK-024 |
+| P23 | Cross-app experience verification | Complete | TASK-025 |
+| P24 | End-to-end and resilience | Complete | TASK-026 |
+| P25 | Admin HTML visual match | Planned | None |
+| P26 | Store Manager HTML visual match | Planned | None |
+| P27 | Vendor HTML visual match | Planned | None |
+| P28 | Diagnostics HTML visual match | Planned | None |
+| P29 | Development completion and handover | Planned | None |
 
-Next: P16–P20 is complete. Do not start P21 until explicitly authorized. Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
+Next: P24 is complete. Visual-match work starts only when the owner authorizes P25 (or an inclusive range). Per-screen Same/Updated marks live in [screen-match.md](screen-match.md). Preserve completed history; do not mark a phase complete until all its tasks and test gates pass.
 
 ## Confirmed technology and scope
 

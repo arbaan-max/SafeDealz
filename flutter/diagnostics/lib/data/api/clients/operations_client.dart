@@ -14,6 +14,7 @@ import '../models/auction_response.dart';
 import '../models/auction_settings_response.dart';
 import '../models/auction_settings_write.dart';
 import '../models/auction_tick_response.dart';
+import '../models/audit_list_response.dart';
 import '../models/bid_list_response.dart';
 import '../models/bid_response.dart';
 import '../models/bid_write.dart';
@@ -40,16 +41,28 @@ import '../models/notification_broadcast_write.dart';
 import '../models/notification_list_response.dart';
 import '../models/notification_response.dart';
 import '../models/otp_response.dart';
+import '../models/overview_response.dart';
 import '../models/payment_list_response.dart';
 import '../models/payment_reconcile_write.dart';
 import '../models/payment_response.dart';
+import '../models/performance_response.dart';
 import '../models/redemption_confirm_write.dart';
 import '../models/redemption_list_response.dart';
 import '../models/redemption_response.dart';
 import '../models/redemption_write.dart';
+import '../models/report_export_response.dart';
+import '../models/report_response.dart';
 import '../models/reward_overview_response.dart';
 import '../models/reward_policy_response.dart';
 import '../models/reward_policy_write.dart';
+import '../models/support_ticket_assign_write.dart';
+import '../models/support_ticket_list_response.dart';
+import '../models/support_ticket_note_write.dart';
+import '../models/support_ticket_response.dart';
+import '../models/support_ticket_status_write.dart';
+import '../models/support_ticket_write.dart';
+import '../models/ticket_attachment_sign_response.dart';
+import '../models/ticket_attachment_sign_write.dart';
 import '../models/wallet_credit_write.dart';
 import '../models/wallet_detail_response.dart';
 import '../models/wallet_list_response.dart';
@@ -271,6 +284,83 @@ abstract class OperationsClient {
   @POST('/notifications/{id}/read')
   Future<NotificationResponse> markNotificationRead({
     @Path('id') required String id,
+  });
+
+  @GET('/tickets')
+  Future<SupportTicketListResponse> listTickets({
+    @Query('status') String? status,
+  });
+
+  @POST('/tickets')
+  Future<SupportTicketResponse> createTicket({
+    @Body() required SupportTicketWrite body,
+  });
+
+  @GET('/tickets/{id}')
+  Future<SupportTicketResponse> getTicket({
+    @Path('id') required String id,
+  });
+
+  @POST('/tickets/{id}/notes')
+  Future<SupportTicketResponse> addTicketNote({
+    @Path('id') required String id,
+    @Body() required SupportTicketNoteWrite body,
+  });
+
+  @POST('/tickets/{id}/assign')
+  Future<SupportTicketResponse> assignTicket({
+    @Path('id') required String id,
+    @Body() required SupportTicketAssignWrite body,
+  });
+
+  @POST('/tickets/{id}/status')
+  Future<SupportTicketResponse> updateTicketStatus({
+    @Path('id') required String id,
+    @Body() required SupportTicketStatusWrite body,
+  });
+
+  @POST('/tickets/{id}/attachments/sign')
+  Future<TicketAttachmentSignResponse> signTicketAttachment({
+    @Path('id') required String id,
+    @Body() required TicketAttachmentSignWrite body,
+  });
+
+  @POST('/tickets/{id}/attachments/complete')
+  Future<SupportTicketResponse> completeTicketAttachment({
+    @Path('id') required String id,
+    @Body() required MediaCompleteRequest body,
+  });
+
+  @POST('/tickets/{id}/attachments/{attachmentId}/download')
+  Future<MediaDownloadResponse> downloadTicketAttachment({
+    @Path('id') required String id,
+    @Path('attachmentId') required String attachmentId,
+  });
+
+  @GET('/overview')
+  Future<OverviewResponse> getOverview();
+
+  @GET('/reports')
+  Future<ReportResponse> getReports({
+    @Query('from') String? from,
+    @Query('to') String? to,
+    @Query('chainId') String? chainId,
+    @Query('branchId') String? branchId,
+  });
+
+  @POST('/reports/export')
+  Future<ReportExportResponse> exportReports();
+
+  @GET('/audit')
+  Future<AuditListResponse> listAudit({
+    @Query('action') String? action,
+    @Query('entityType') String? entityType,
+  });
+
+  @GET('/performance')
+  Future<PerformanceResponse> getPerformance({
+    @Query('from') String? from,
+    @Query('to') String? to,
   });
 
   @GET('/auctions/{id}/bids')

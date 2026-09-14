@@ -19,7 +19,7 @@ export function PaymentListPage() {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => { void api.listPayments().then(setPayments).catch((caught: Error) => setError(caught.message)); }, [api]);
   return (
-    <ResourcePage eyebrow="A12" title="Payments" lede="Store payouts start automatically after customer verification. Duplicate provider callbacks cannot pay twice. There is no approve-payout action.">
+    <ResourcePage title="Payments" lede="Store payouts start automatically after customer verification. Duplicate provider callbacks cannot pay twice. There is no approve-payout action.">
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       <DataTable
         headers={['Status', 'Store amount', 'Fee', 'Beneficiary', '']}

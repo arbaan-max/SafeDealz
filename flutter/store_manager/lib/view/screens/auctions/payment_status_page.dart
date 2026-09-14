@@ -110,6 +110,14 @@ class _PaymentStatusPageState extends State<PaymentStatusPage> {
                     onPressed: _busy ? null : _retry,
                     child: Text(_busy ? 'Retrying…' : 'Retry payout'),
                   ),
+                OutlinedButton(
+                  onPressed: () => context.goNamed(reportIssueRoute, queryParameters: {
+                    'subjectType': 'deal',
+                    'subjectId': widget.dealId,
+                    'returnTo': '/payments/${widget.dealId}',
+                  }),
+                  child: const Text('Report issue'),
+                ),
               ],
             ),
     );

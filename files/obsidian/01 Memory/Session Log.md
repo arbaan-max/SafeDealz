@@ -76,3 +76,13 @@ tags:
 - P19 verification: backend 37/37; React 24/24 and 2/2 Chromium; Flutter 35/35, 25/25, 14/14.
 - Completed P20: role inboxes and admin broadcasts, OpenAPI v0.20.0. Stopped before P21.
 - P20 verification: backend 38/38; React 25/25 and 2/2 Chromium; Flutter 36/36, 26/26, 14/14; sequential Android debug APKs passed (Store Manager, Vendor, Diagnostics).
+- Owner authorized inclusive range P21–P24; stop after P24.
+- Completed P21: owner-scoped tickets, M23/V16/A18, OpenAPI v0.21.0. Continuing to P22.
+- P21 verification: backend 39/39; React 27/27 and 2/2 Chromium; Flutter 37/37, 27/27, 14/14.
+- Completed P22: overview/reports/audit/sessions and Vendor V14, OpenAPI v0.22.0. Continuing to P23.
+- P22 verification: backend 40/40; React 31/31 and 2/2 Chromium; Flutter 37/37, 28/28, 14/14.
+- Completed P23: catalogued screens, nested back, sky-blue theme, OpenAPI unchanged. Continuing to P24.
+- P23 verification: backend 41/41; React 31/31 and 3/3 Chromium; Flutter 39/39, 30/30, 15/15; npm audit clean.
+- Completed P24: combined intake-to-rewards API journey and sequential Android debug APKs.
+- P24 verification: backend 42/42; sequential APKs Store Manager, Vendor, Diagnostics.
+- Recorded DEC-025: HTML visual-match phases P25 Admin, P26 Store Manager, P27 Vendor, P28 Diagnostics; handover moved to P29. Waiting for the owner to start P25.

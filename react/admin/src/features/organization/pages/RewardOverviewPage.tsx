@@ -21,7 +21,6 @@ export function RewardOverviewPage() {
   };
   return (
     <ResourcePage
-      eyebrow="A15"
       title="Rewards"
       lede="Paid deals issue 10 points per complete ₹100 of the bid excluding fee. Each point is ₹0.50 and stays at the originating branch."
       action={<Link to="/rewards/policy">Reward policy</Link>}

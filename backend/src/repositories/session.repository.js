@@ -22,3 +22,5 @@ export const countActiveSessionsByAccount = async (accountIds) => {
   ]);
   return Object.fromEntries(rows.map((row) => [String(row._id), row.count]));
 };
+export const listSessionsForAccount = (accountId) => Session.find({ accountId }).sort({ createdAt: -1 });
+export const findSessionById = (id) => Session.findById(id);

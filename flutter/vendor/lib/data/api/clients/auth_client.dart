@@ -8,7 +8,11 @@ import 'package:retrofit/retrofit.dart';
 import '../models/account_response.dart';
 import '../models/auth_response.dart';
 import '../models/login_request.dart';
+import '../models/password_change_response.dart';
+import '../models/password_change_write.dart';
 import '../models/refresh_request.dart';
+import '../models/session_list_response.dart';
+import '../models/session_revoke_response.dart';
 
 part 'auth_client.g.dart';
 
@@ -31,4 +35,17 @@ abstract class AuthClient {
 
   @GET('/auth/me')
   Future<AccountResponse> getCurrentAccount();
+
+  @GET('/auth/sessions')
+  Future<SessionListResponse> listSessions();
+
+  @POST('/auth/sessions/{id}/revoke')
+  Future<SessionRevokeResponse> revokeSession({
+    @Path('id') required String id,
+  });
+
+  @POST('/auth/password')
+  Future<PasswordChangeResponse> changePassword({
+    @Body() required PasswordChangeWrite body,
+  });
 }

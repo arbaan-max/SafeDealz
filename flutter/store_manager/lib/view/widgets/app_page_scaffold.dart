@@ -8,12 +8,14 @@ class AppPageScaffold extends StatelessWidget {
     required this.body,
     this.actions,
     this.bottomNavigationBar,
+    this.onBack,
   });
 
   final String title;
   final Widget body;
   final List<Widget>? actions;
   final Widget? bottomNavigationBar;
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,9 @@ class AppPageScaffold extends StatelessWidget {
         backgroundColor: background,
         foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
+        leading: onBack == null
+            ? null
+            : IconButton(onPressed: onBack, icon: const Icon(Icons.arrow_back), tooltip: 'Back'),
         actions: actions,
       ),
       body: SafeArea(child: body),

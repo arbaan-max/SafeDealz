@@ -19,24 +19,27 @@ class AssignedStoresPage extends StatelessWidget {
       child: AppPageScaffold(
         title: 'Assigned stores',
         actions: [
-          TextButton(
-            onPressed: () => context.goNamed(liveQueueRoute),
-            child: const Text('Live auctions'),
-          ),
-          TextButton(
-            onPressed: () => context.goNamed(myBidsRoute),
-            child: const Text('My bids'),
-          ),
-          TextButton(
-            onPressed: () => context.goNamed(walletRoute),
-            child: const Text('Wallet'),
-          ),
-          TextButton(
-            onPressed: () {
-              context.read<AuthBloc>().add(const AuthLogoutRequested());
-              context.goNamed(loginRoute);
+          PopupMenuButton<String>(
+            tooltip: 'More',
+            onSelected: (value) {
+              if (value == 'live') context.goNamed(liveQueueRoute);
+              if (value == 'bids') context.goNamed(myBidsRoute);
+              if (value == 'wallet') context.goNamed(walletRoute);
+              if (value == 'performance') context.goNamed(performanceRoute);
+              if (value == 'account') context.goNamed(accountRoute);
+              if (value == 'logout') {
+                context.read<AuthBloc>().add(const AuthLogoutRequested());
+                context.goNamed(loginRoute);
+              }
             },
-            child: const Text('Logout'),
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: 'live', child: Text('Live auctions')),
+              PopupMenuItem(value: 'bids', child: Text('My bids')),
+              PopupMenuItem(value: 'wallet', child: Text('Wallet')),
+              PopupMenuItem(value: 'performance', child: Text('Performance')),
+              PopupMenuItem(value: 'account', child: Text('Account')),
+              PopupMenuItem(value: 'logout', child: Text('Logout')),
+            ],
           ),
         ],
         body: BlocBuilder<AssignedStoresBloc, AssignedStoresState>(

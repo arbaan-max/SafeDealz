@@ -20,6 +20,9 @@ import 'package:safedealz_store_manager/view/screens/devices/review_page.dart';
 import 'package:safedealz_store_manager/view/screens/devices/diagnostic_scan_page.dart';
 import 'package:safedealz_store_manager/view/screens/home/home_page.dart';
 import 'package:safedealz_store_manager/view/screens/notifications/notifications_page.dart';
+import 'package:safedealz_store_manager/view/screens/support/report_issue_page.dart';
+import 'package:safedealz_store_manager/view/screens/support/ticket_receipt_page.dart';
+import 'package:safedealz_store_manager/view/screens/account/account_page.dart';
 import 'package:safedealz_store_manager/view/screens/rewards/redeem_otp_page.dart';
 import 'package:safedealz_store_manager/view/screens/rewards/redeem_page.dart';
 import 'package:safedealz_store_manager/view/screens/rewards/redeem_receipt_page.dart';
@@ -199,6 +202,28 @@ final GoRouter appRouter = GoRouter(
       name: notificationsRoute,
       path: '/notifications',
       builder: (context, state) => const NotificationsPage(),
+    ),
+    GoRoute(
+      name: reportIssueRoute,
+      path: '/tickets/new',
+      builder: (context, state) => ReportIssuePage(
+        subjectType: state.uri.queryParameters['subjectType'] ?? 'deal',
+        subjectId: state.uri.queryParameters['subjectId'] ?? '',
+        returnTo: state.uri.queryParameters['returnTo'],
+      ),
+    ),
+    GoRoute(
+      name: ticketReceiptRoute,
+      path: '/tickets/:id',
+      builder: (context, state) => TicketReceiptPage(
+        ticketId: state.pathParameters['id']!,
+        returnTo: state.extra as String?,
+      ),
+    ),
+    GoRoute(
+      name: accountRoute,
+      path: '/account',
+      builder: (context, state) => const AccountPage(),
     ),
     GoRoute(
       name: reauctionRoute,

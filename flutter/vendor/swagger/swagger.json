@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "SafeDealz API",
-    "version": "0.20.0"
+    "version": "0.22.0"
   },
   "servers": [
     {
@@ -131,28 +131,58 @@
     },
     "/auth/me": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "getCurrentAccount",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "Current account",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccountResponse"
-                }
-              }
-            }
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AccountResponse" } } }
           },
-          "401": {
-            "$ref": "#/components/responses/ApiError"
+          "401": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/auth/sessions": {
+      "get": {
+        "tags": ["Auth"],
+        "operationId": "listSessions",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Current account sessions",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SessionListResponse" } } }
+          }
+        }
+      }
+    },
+    "/auth/sessions/{id}/revoke": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "revokeSession",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Session revoked",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SessionRevokeResponse" } } }
+          }
+        }
+      }
+    },
+    "/auth/password": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "changePassword",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PasswordChangeWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Password changed",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PasswordChangeResponse" } } }
           }
         }
       }
@@ -1644,6 +1674,242 @@
           "200": {
             "description": "Marked read",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NotificationResponse" } } }
+          }
+        }
+      }
+    },
+    "/tickets": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listTickets",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "status", "in": "query", "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Tickets visible to the current account",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketListResponse" } } }
+          },
+          "401": { "$ref": "#/components/responses/ApiError" }
+        }
+      },
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "createTicket",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketWrite" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Created ticket",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketResponse" } } }
+          },
+          "200": {
+            "description": "Idempotent replay",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketResponse" } } }
+          },
+          "403": { "$ref": "#/components/responses/ApiError" },
+          "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/tickets/{id}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getTicket",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Ticket detail",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketResponse" } } }
+          }
+        }
+      }
+    },
+    "/tickets/{id}/notes": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "addTicketNote",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketNoteWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Ticket with note",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketResponse" } } }
+          }
+        }
+      }
+    },
+    "/tickets/{id}/assign": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "assignTicket",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketAssignWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Assigned ticket",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketResponse" } } }
+          }
+        }
+      }
+    },
+    "/tickets/{id}/status": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "updateTicketStatus",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketStatusWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated ticket",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketResponse" } } }
+          }
+        }
+      }
+    },
+    "/tickets/{id}/attachments/sign": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "signTicketAttachment",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TicketAttachmentSignWrite" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Signed upload",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TicketAttachmentSignResponse" } } }
+          }
+        }
+      }
+    },
+    "/tickets/{id}/attachments/complete": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "completeTicketAttachment",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MediaCompleteRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Completed attachment",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketResponse" } } }
+          }
+        }
+      }
+    },
+    "/tickets/{id}/attachments/{attachmentId}/download": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "downloadTicketAttachment",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "attachmentId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed download",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MediaDownloadResponse" } } }
+          }
+        }
+      }
+    },
+    "/overview": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getOverview",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Admin overview metrics",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/OverviewResponse" } } }
+          }
+        }
+      }
+    },
+    "/reports": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getReports",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string" } },
+          { "name": "to", "in": "query", "schema": { "type": "string" } },
+          { "name": "chainId", "in": "query", "schema": { "type": "string" } },
+          { "name": "branchId", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped reports",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ReportResponse" } } }
+          }
+        }
+      }
+    },
+    "/reports/export": {
+      "post": {
+        "tags": ["Operations"],
+        "operationId": "exportReports",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "CSV export",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ReportExportResponse" } } }
+          }
+        }
+      }
+    },
+    "/audit": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listAudit",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "action", "in": "query", "schema": { "type": "string" } },
+          { "name": "entityType", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Immutable audit trail",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuditListResponse" } } }
+          }
+        }
+      }
+    },
+    "/performance": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getPerformance",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string" } },
+          { "name": "to", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vendor performance",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PerformanceResponse" } } }
           }
         }
       }
@@ -3461,6 +3727,259 @@
           "success": { "type": "boolean" },
           "data": { "$ref": "#/components/schemas/NotificationBroadcast" }
         }
+      },
+      "SupportTicketNote": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "authorAccountId": { "type": "string" },
+          "authorRole": { "type": "string" },
+          "body": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "SupportTicketAttachment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "objectKey": { "type": "string" },
+          "contentType": { "type": "string" },
+          "sizeBytes": { "type": "integer" },
+          "status": { "type": "string", "enum": ["pending", "uploaded"] }
+        }
+      },
+      "SupportTicket": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "creatorAccountId": { "type": "string" },
+          "creatorRole": { "type": "string", "enum": ["store_manager", "vendor"] },
+          "subjectType": { "type": "string", "enum": ["device", "deal", "payment", "bid", "redemption"] },
+          "subjectId": { "type": "string" },
+          "branchId": { "type": "string" },
+          "reasonCode": { "type": "string", "enum": ["payment_issue", "pickup_issue", "device_issue", "redemption_issue", "bid_issue", "other"] },
+          "status": { "type": "string", "enum": ["open", "investigating", "resolved"] },
+          "ownerAccountId": { "type": "string" },
+          "notes": { "type": "array", "items": { "$ref": "#/components/schemas/SupportTicketNote" } },
+          "attachments": { "type": "array", "items": { "$ref": "#/components/schemas/SupportTicketAttachment" } },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "SupportTicketWrite": {
+        "type": "object",
+        "required": ["subjectType", "subjectId", "reasonCode", "notes"],
+        "properties": {
+          "subjectType": { "type": "string", "enum": ["device", "deal", "payment", "bid", "redemption"] },
+          "subjectId": { "type": "string" },
+          "reasonCode": { "type": "string", "enum": ["payment_issue", "pickup_issue", "device_issue", "redemption_issue", "bid_issue", "other"] },
+          "notes": { "type": "string" },
+          "idempotencyKey": { "type": "string" }
+        }
+      },
+      "SupportTicketNoteWrite": {
+        "type": "object",
+        "required": ["body"],
+        "properties": { "body": { "type": "string" } }
+      },
+      "SupportTicketAssignWrite": {
+        "type": "object",
+        "required": ["ownerAccountId"],
+        "properties": { "ownerAccountId": { "type": "string" } }
+      },
+      "SupportTicketStatusWrite": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": { "type": "string", "enum": ["investigating", "resolved"] },
+          "note": { "type": "string" }
+        }
+      },
+      "TicketAttachmentSignWrite": {
+        "type": "object",
+        "required": ["contentType", "sizeBytes", "checksumSha256"],
+        "properties": {
+          "contentType": { "type": "string" },
+          "sizeBytes": { "type": "integer" },
+          "checksumSha256": { "type": "string" }
+        }
+      },
+      "TicketAttachmentSign": {
+        "type": "object",
+        "properties": {
+          "attachmentId": { "type": "string" },
+          "objectKey": { "type": "string" },
+          "upload": { "$ref": "#/components/schemas/SignedUrl" }
+        }
+      },
+      "TicketAttachmentSignResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/TicketAttachmentSign" }
+        }
+      },
+      "SupportTicketResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/SupportTicket" }
+        }
+      },
+      "SupportTicketListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/SupportTicket" } }
+        }
+      },
+      "OverviewAttention": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string", "enum": ["payment", "branch_setup"] },
+          "id": { "type": "string" },
+          "label": { "type": "string" }
+        }
+      },
+      "Overview": {
+        "type": "object",
+        "properties": {
+          "liveAuctions": { "type": "integer" },
+          "awaitingAcceptance": { "type": "integer" },
+          "paymentExceptions": { "type": "integer" },
+          "completedValuePaise": { "type": "integer" },
+          "needsAttention": { "type": "array", "items": { "$ref": "#/components/schemas/OverviewAttention" } }
+        }
+      },
+      "OverviewResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": { "success": { "type": "boolean" }, "data": { "$ref": "#/components/schemas/Overview" } }
+      },
+      "Report": {
+        "type": "object",
+        "properties": {
+          "auctionConversion": {
+            "type": "object",
+            "properties": {
+              "started": { "type": "integer" },
+              "accepted": { "type": "integer" },
+              "rate": { "type": "number" }
+            }
+          },
+          "acceptedValuePaise": { "type": "integer" },
+          "paidValuePaise": { "type": "integer" },
+          "pickupCount": { "type": "integer" },
+          "walletMovementsPaise": { "type": "integer" },
+          "rewardIssuedPoints": { "type": "integer" },
+          "rewardRedeemedPoints": { "type": "integer" },
+          "billingReconciliation": {
+            "type": "object",
+            "properties": {
+              "paidValuePaise": { "type": "integer" },
+              "rewardOutstandingValuePaise": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "ReportResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": { "success": { "type": "boolean" }, "data": { "$ref": "#/components/schemas/Report" } }
+      },
+      "ReportExport": {
+        "type": "object",
+        "properties": {
+          "filename": { "type": "string" },
+          "csv": { "type": "string" },
+          "generatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "ReportExportResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": { "success": { "type": "boolean" }, "data": { "$ref": "#/components/schemas/ReportExport" } }
+      },
+      "AuditEvent": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "actorId": { "type": "string" },
+          "actorRole": { "type": "string" },
+          "action": { "type": "string" },
+          "entityType": { "type": "string" },
+          "entityId": { "type": "string" },
+          "storeId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "metadata": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "AuditListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/AuditEvent" } }
+        }
+      },
+      "PerformanceHour": {
+        "type": "object",
+        "properties": { "hour": { "type": "integer" }, "bids": { "type": "integer" } }
+      },
+      "Performance": {
+        "type": "object",
+        "properties": {
+          "bids": { "type": "integer" },
+          "wins": { "type": "integer" },
+          "acceptedPurchases": { "type": "integer" },
+          "winRate": { "type": "number" },
+          "averageResponseSeconds": { "type": "number" },
+          "hourly": { "type": "array", "items": { "$ref": "#/components/schemas/PerformanceHour" } }
+        }
+      },
+      "PerformanceResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": { "success": { "type": "boolean" }, "data": { "$ref": "#/components/schemas/Performance" } }
+      },
+      "AccountSession": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "clientType": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "expiresAt": { "type": "string", "format": "date-time" },
+          "revokedAt": { "type": "string", "format": "date-time", "nullable": true },
+          "current": { "type": "boolean" }
+        }
+      },
+      "SessionListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/AccountSession" } }
+        }
+      },
+      "SessionRevoke": { "type": "object", "properties": { "id": { "type": "string" }, "revoked": { "type": "boolean" } } },
+      "SessionRevokeResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": { "success": { "type": "boolean" }, "data": { "$ref": "#/components/schemas/SessionRevoke" } }
+      },
+      "PasswordChangeWrite": {
+        "type": "object",
+        "required": ["currentPassword", "newPassword"],
+        "properties": { "currentPassword": { "type": "string" }, "newPassword": { "type": "string" } }
+      },
+      "PasswordChange": { "type": "object", "properties": { "revokedSessions": { "type": "boolean" } } },
+      "PasswordChangeResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": { "success": { "type": "boolean" }, "data": { "$ref": "#/components/schemas/PasswordChange" } }
       },
       "PurchasedDevice": {
         "type": "object",

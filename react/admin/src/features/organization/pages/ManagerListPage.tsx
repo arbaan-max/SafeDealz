@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrganizationApi, type Branch, type Chain, type ManagerAccount } from '../api/organizationApi';
-import { DataTable, ResourcePage } from '../components/ResourceKit';
+import { DataTable, ResourcePage, StatusBadge } from '../components/ResourceKit';
 
 export function ManagerListPage() {
   const api = useOrganizationApi();
@@ -19,7 +19,7 @@ export function ManagerListPage() {
     return Object.fromEntries(branches.map((branch) => [branch.id, `${chainNames[branch.chainId] ?? 'Store'} / ${branch.name}`]));
   }, [branches, chains]);
   return (
-    <ResourcePage eyebrow="A06" title="Managers" lede="Create Store Manager logins, assign a branch and deactivate unused accounts. Multiple managers may share a branch." action={<Link className="login-button" to="/managers/new">Create manager</Link>}>
+    <ResourcePage title="Managers" lede="Create Store Manager logins, assign a branch and deactivate unused accounts. Multiple managers may share a branch." action={<Link className="btn small" to="/managers/new">Create manager</Link>}>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       <DataTable
         headers={['Manager', 'Email', 'Branch', 'Sessions', 'Status', '']}
@@ -29,8 +29,8 @@ export function ManagerListPage() {
           manager.email,
           labels[manager.branchId] ?? manager.branchId,
           String(manager.activeSessionCount ?? 0),
-          manager.active ? 'Active' : 'Inactive',
-          <Link key={`${manager.id}-edit`} to={`/managers/${manager.id}`}>Manage</Link>,
+          manager.active ? <StatusBadge tone="green">Active</StatusBadge> : <StatusBadge tone="gray">Inactive</StatusBadge>,
+          <Link className="textlink" key={`${manager.id}-edit`} to={`/managers/${manager.id}`}>Manage</Link>,
         ])}
       />
     </ResourcePage>

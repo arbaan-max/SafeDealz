@@ -25,7 +25,6 @@ export function VendorWalletPage() {
   }, [api, id]);
   return (
     <ResourcePage
-      eyebrow="A14"
       title="Vendor wallet"
       lede={superAdmin ? 'Immutable paise ledger. Available, reserved and processing never come from the client.' : 'Admin can confirm the vendor exists. Global balances stay Super Admin-only.'}
       action={<Link className="back-link" to="/vendors">Back to vendors</Link>}

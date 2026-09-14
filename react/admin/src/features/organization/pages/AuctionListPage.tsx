@@ -17,7 +17,7 @@ export function AuctionListPage() {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => { void api.listAuctions().then(setRows).catch((caught: Error) => setError(caught.message)); }, [api]);
   return (
-    <ResourcePage eyebrow="A10" title="Auctions" lede="Device rounds across assigned stores. Open a round to inspect bids and payment state.">
+    <ResourcePage title="Auctions" lede="Device rounds across assigned stores. Open a round to inspect bids and payment state.">
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       <DataTable
         headers={['Round', 'Status', 'Highest', '']}

@@ -72,6 +72,14 @@ class _DealDetailPageState extends State<DealDetailPage> {
                       onPressed: () => context.goNamed(pickupRoute, pathParameters: {'id': deal.id}),
                       child: const Text('Mark picked up'),
                     ),
+                  OutlinedButton(
+                    onPressed: () => context.goNamed(reportIssueRoute, queryParameters: {
+                      'subjectType': 'deal',
+                      'subjectId': deal.id,
+                      'returnTo': '/deals/${deal.id}',
+                    }),
+                    child: const Text('Report issue'),
+                  ),
                 ],
               ],
             ),

@@ -42,7 +42,15 @@ Completed: [TASK-021 — P19 Reward redemption](tasks/TASK-021-reward-redemption
 
 Completed: [TASK-022 — P20 Notifications](tasks/TASK-022-notifications.md). Role inboxes, admin broadcasts and OpenAPI v0.20.0 pass.
 
-No backend task is active. Stop after P20; do not start P21.
+Completed: [TASK-023 — P21 Support tickets](tasks/TASK-023-support-tickets.md). Owner-scoped tickets, A18 handling and OpenAPI v0.21.0 pass.
+
+Completed: [TASK-024 — P22 admin oversight](tasks/TASK-024-admin-oversight.md). Overview, scoped reports/export, immutable audit, sessions and vendor performance. OpenAPI v0.22.0 pass.
+
+Completed: [TASK-025 — P23 cross-app experience](tasks/TASK-025-cross-app-experience.md). Catalogued screens, nested back, sky-blue theme and 401 oversight tests pass.
+
+Completed: [TASK-026 — P24 end-to-end and resilience](tasks/TASK-026-end-to-end-resilience.md). Combined API journey and sequential debug APKs pass.
+
+Next: none active. Visual HTML match is P25–P28; handover is P29. Do not start until the owner authorizes P25.
 
 Completed: [TASK-014 — P12 Auction lifecycle](tasks/TASK-014-auction-lifecycle.md). Server-timed rounds, tick close and OpenAPI v0.12.0 pass.
 

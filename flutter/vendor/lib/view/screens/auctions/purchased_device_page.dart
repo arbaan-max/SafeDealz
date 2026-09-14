@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safedealz_vendor/core/network/api_error_message.dart';
+import 'package:safedealz_vendor/core/route/routes.dart';
 import 'package:safedealz_vendor/data/api/models/deal.dart';
 import 'package:safedealz_vendor/data/repositories/deal_repository.dart';
 import 'package:safedealz_vendor/view/screens/wallet/money.dart';
@@ -52,6 +54,14 @@ class _PurchasedDevicePageState extends State<PurchasedDevicePage> {
                   Text(branch['contactPhone']?.toString() ?? ''),
                   const SizedBox(height: 12),
                   const Text('The store marks pickup. Vendors cannot mark picked up.'),
+                  OutlinedButton(
+                    onPressed: () => context.goNamed(reportIssueRoute, queryParameters: {
+                      'subjectType': 'deal',
+                      'subjectId': deal.id,
+                      'returnTo': '/deals/${deal.id}',
+                    }),
+                    child: const Text('Report issue'),
+                  ),
                 ],
               ],
             ),

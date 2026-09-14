@@ -10,10 +10,14 @@
     "dev": "node --watch server.js",
     "start": "node server.js",
     "test": "NODE_ENV=test node --test",
-    "test:watch": "NODE_ENV=test node --test --watch"
+    "test:watch": "NODE_ENV=test node --test --watch",
+    "check:r2": "node tool/r2_check.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1131.0",
+    "@aws-sdk/s3-request-presigner": "^3.1131.0",
     "argon2": "^0.45.1",
+    "dotenv": "^17.4.2",
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "jose": "^6.2.12",
