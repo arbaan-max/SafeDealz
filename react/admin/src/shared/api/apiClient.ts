@@ -30,4 +30,19 @@ export class ApiClient {
   }
 }
 
-export const apiClient = new ApiClient(import.meta.env.VITE_API_BASE_URL ?? '/api/v1');
+const trimSlash = (url: string) => (url.endsWith('/') ? url.slice(0, -1) : url);
+
+export const resolveApiBaseUrl = (
+  target = import.meta.env.VITE_API_TARGET,
+  localBase = import.meta.env.VITE_LOCAL_API_BASE_URL ?? import.meta.env.VITE_API_BASE_URL,
+  liveBase = import.meta.env.VITE_LIVE_API_BASE_URL,
+) => {
+  const useLive = (target ?? 'local').trim().toLowerCase() === 'live';
+  return trimSlash(
+    useLive
+      ? liveBase || 'https://safedealz-production.up.railway.app/api/v1'
+      : localBase || '/api/v1',
+  );
+};
+
+export const apiClient = new ApiClient(resolveApiBaseUrl());
