@@ -22,6 +22,7 @@ import 'package:safedealz_store_manager/data/repositories/reward_repository.dart
 import 'package:safedealz_store_manager/data/repositories/store_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/ticket_repository.dart';
 import 'package:safedealz_store_manager/data/services/auth_service.dart';
+import 'package:safedealz_store_manager/data/services/device_access.dart';
 import 'package:safedealz_store_manager/data/services/diagnostic_qr_scan_adapter.dart';
 import 'package:safedealz_store_manager/data/services/evidence_capture_adapter.dart';
 import 'package:safedealz_store_manager/data/services/imei_scan_adapter.dart';
@@ -116,6 +117,9 @@ class SafeDealzApp extends StatelessWidget {
               if (path == '/' || path == '/login') {
                 appRouter.goNamed(homeRoute);
               }
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                prepareStoreManagerAccess(dio);
+              });
             } else if (state is AuthUnauthenticated) {
               if (appRouter.state.uri.path != '/login') {
                 appRouter.goNamed(loginRoute, extra: state.message);

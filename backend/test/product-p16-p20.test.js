@@ -14,6 +14,7 @@ import { OutboxEvent } from '../src/models/outbox-event.model.js';
 import { PaymentInstruction } from '../src/models/payment-instruction.model.js';
 import { PlatformSettings } from '../src/models/platform-settings.model.js';
 import { RewardAccount } from '../src/models/reward-account.model.js';
+import { RewardCustomer } from '../src/models/reward-customer.model.js';
 import { RewardLedger } from '../src/models/reward-ledger.model.js';
 import { RewardPolicy } from '../src/models/reward-policy.model.js';
 import { RewardRedemption } from '../src/models/reward-redemption.model.js';
@@ -45,7 +46,7 @@ beforeEach(async () => {
     WalletReservation.deleteMany({}), WalletRecharge.deleteMany({}), OutboxEvent.deleteMany({}),
     Device.deleteMany({}), AuctionRound.deleteMany({}), PlatformSettings.deleteMany({}), Bid.deleteMany({}),
     Deal.deleteMany({}), PaymentInstruction.deleteMany({}),
-    RewardAccount.deleteMany({}), RewardLedger.deleteMany({}), RewardPolicy.deleteMany({}), RewardRedemption.deleteMany({}),
+    RewardAccount.deleteMany({}), RewardCustomer.deleteMany({}), RewardLedger.deleteMany({}), RewardPolicy.deleteMany({}), RewardRedemption.deleteMany({}),
     Notification.deleteMany({}),
   ]);
   await Account.create({ email: 'root@safedealz.test', passwordHash: await hashPassword(password), role: 'super_admin', displayName: 'Root', active: true });
@@ -213,6 +214,22 @@ test('P18 paid deal issues branch rewards once from bid excluding fee', async ()
   assert.equal(customer.body.data.entries.length, 1);
   assert.equal(customer.body.data.entries[0].type, 'earn');
   assert.equal(customer.body.data.entries[0].policyVersion, 1);
+  assert.equal(customer.body.data.entries[0].deviceModel, 'iPhone 14');
+  assert.ok(customer.body.data.entries[0].auctionRoundId);
+  assert.equal(customer.body.data.issuedPoints, 800);
+  assert.equal(customer.body.data.outstandingPoints, 800);
+  assert.ok(customer.body.data.history.length >= 1);
+  const branchId = overview.body.data.branches[0].branchId;
+  assert.equal(overview.body.data.branches[0].customerCount, 1);
+  const branchRewards = await request(app).get(`/api/v1/rewards/branches/${branchId}`).set(as(root));
+  assert.equal(branchRewards.status, 200, branchRewards.text);
+  assert.equal(branchRewards.body.data.customerCount, 1);
+  assert.equal(branchRewards.body.data.entries[0].deviceModel, 'iPhone 14');
+  assert.ok(branchRewards.body.data.entries[0].auctionRoundId);
+  const recent = await request(app).get('/api/v1/rewards/customers?page=1').set(as(root));
+  assert.equal(recent.status, 200, recent.text);
+  assert.equal(recent.body.data.limit, 40);
+  assert.ok(recent.body.data.items.some((row) => row.phone === '9876543210'));
   assert.equal(await RewardLedger.countDocuments({ type: 'earn' }), 1);
   const chain = (await request(app).get('/api/v1/chains').set(as(root))).body.data[0];
   const otherBranch = (await request(app).post('/api/v1/branches').set(as(root)).send({
@@ -318,16 +335,16 @@ test('P20 inbox is role-scoped, broadcasts target, retries do not duplicate', as
   assert.equal((await postWebhook(paidBody)).status, 200);
   const vendorInbox = await request(app).get('/api/v1/notifications').set(as(vendor));
   assert.equal(vendorInbox.status, 200, vendorInbox.text);
-  assert.equal(vendorInbox.body.data.length, 1);
+  assert.equal(vendorInbox.body.data.length, 3);
   assert.equal(vendorInbox.body.data[0].category, 'pickup');
   const managerInbox = await request(app).get('/api/v1/notifications').set(as(manager));
-  assert.equal(managerInbox.body.data.length, 1);
+  assert.equal(managerInbox.body.data.length, 3);
   assert.equal(managerInbox.body.data[0].category, 'payment');
   const pickup = await request(app).post(`/api/v1/deals/${verified.id}/pickup`).set(as(manager)).send({});
   assert.equal(pickup.status, 200, pickup.text);
   await request(app).post(`/api/v1/deals/${verified.id}/pickup`).set(as(manager)).send({});
   const afterPickup = await request(app).get('/api/v1/notifications').set(as(vendor));
-  assert.equal(afterPickup.body.data.length, 2);
+  assert.equal(afterPickup.body.data.length, 4);
   const vendorBroadcast = await request(app).post('/api/v1/notifications/broadcasts').set(as(vendor)).send({
     audience: 'all_vendors', title: 'Hello', body: 'Vendor only',
   });
@@ -338,9 +355,9 @@ test('P20 inbox is role-scoped, broadcasts target, retries do not duplicate', as
   assert.equal(sent.status, 201, sent.text);
   assert.equal(sent.body.data.delivered, 1);
   const vendorAfter = await request(app).get('/api/v1/notifications').set(as(vendor));
-  assert.equal(vendorAfter.body.data.length, 3);
+  assert.equal(vendorAfter.body.data.length, 5);
   const managerAfter = await request(app).get('/api/v1/notifications').set(as(manager));
-  assert.equal(managerAfter.body.data.length, 1);
+  assert.equal(managerAfter.body.data.length, 3);
   const history = await request(app).get('/api/v1/notifications/history').set(as(root));
   assert.ok(history.body.data.length >= 3);
   const marked = await request(app).post(`/api/v1/notifications/${vendorInbox.body.data[0].id}/read`).set(as(vendor)).send({});

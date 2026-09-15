@@ -39,7 +39,7 @@ class PermissionsPage extends StatelessWidget {
               ),
               const SizedBox(height: 18),
               const Text(
-                'Camera, microphone, location/GPS and Bluetooth are used only for hardware checks on this phone.',
+                'Camera, microphone, location/GPS, Bluetooth and notifications are used only for hardware checks and test alerts on this phone.',
               ),
               const SizedBox(height: 12),
               const DiagnosticCheckRow(icon: Icons.photo_camera_outlined, label: 'Camera', state: 'Required'),
@@ -50,6 +50,8 @@ class PermissionsPage extends StatelessWidget {
               const Text('Location/GPS — confirm positioning hardware.'),
               const DiagnosticCheckRow(icon: Icons.bluetooth, label: 'Bluetooth & nearby devices', state: 'Required'),
               const Text('Bluetooth and nearby devices — confirm radio hardware.'),
+              const DiagnosticCheckRow(icon: Icons.notifications_outlined, label: 'Notifications', state: 'Required'),
+              const Text('Notifications — confirm the phone can show diagnostic alerts.'),
               if (state.permissions != null) ...[
                 const SizedBox(height: 16),
                 Text(state.permissions!.summary),

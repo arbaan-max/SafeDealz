@@ -13,6 +13,7 @@ import { duplicateError, requireObjectId } from '../utils/ids.js';
 import { notifyEvent } from './notification.service.js';
 import { assertObjectUploaded, signObjectAccess } from './r2.adapter.js';
 import { assertBranchInScope, loadScope } from './scope.service.js';
+import { parseAdminTicketStatus } from './support-status.js';
 
 const reasons = new Set(['payment_issue', 'pickup_issue', 'device_issue', 'redemption_issue', 'bid_issue', 'other']);
 const subjectTypes = new Set(['device', 'deal', 'payment', 'bid', 'redemption']);
@@ -249,10 +250,7 @@ export const updateTicketStatus = async (actor, id, body) => {
   }
   const ticket = await requireTicket(id);
   await assertCanRead(actor, ticket);
-  const status = String(body.status || '');
-  if (status !== 'investigating' && status !== 'resolved') {
-    throw new ApiError(400, 'VALIDATION_ERROR', 'Choose investigating or resolved.');
-  }
+  const status = parseAdminTicketStatus(body.status);
   ticket.status = status;
   const note = String(body.note || '').trim();
   if (note) ticket.notes.push({ authorAccountId: actor.id, authorRole: actor.role, body: note });

@@ -1,14 +1,15 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import admin from 'firebase-admin';
+import { cert, getApp, getApps, initializeApp } from 'firebase-admin/app';
+import { getMessaging } from 'firebase-admin/messaging';
 import { env } from './env.js';
 
 const backendRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 const loadCredential = () => {
   if (env.firebase.serviceAccountJson) {
-    return admin.credential.cert(JSON.parse(env.firebase.serviceAccountJson));
+    return cert(JSON.parse(env.firebase.serviceAccountJson));
   }
 
   if (!env.firebase.serviceAccountPath) {
@@ -20,12 +21,12 @@ const loadCredential = () => {
     return null;
   }
 
-  return admin.credential.cert(JSON.parse(readFileSync(serviceAccountPath, 'utf8')));
+  return cert(JSON.parse(readFileSync(serviceAccountPath, 'utf8')));
 };
 
 export const getFirebaseAdmin = () => {
-  if (admin.apps.length > 0) {
-    return admin.app();
+  if (getApps().length > 0) {
+    return getApp();
   }
 
   const credential = loadCredential();
@@ -33,7 +34,7 @@ export const getFirebaseAdmin = () => {
     return null;
   }
 
-  return admin.initializeApp({
+  return initializeApp({
     credential,
     projectId: env.firebase.projectId,
   });
@@ -41,5 +42,5 @@ export const getFirebaseAdmin = () => {
 
 export const getFirebaseMessaging = () => {
   const app = getFirebaseAdmin();
-  return app ? admin.messaging(app) : null;
+  return app ? getMessaging(app) : null;
 };

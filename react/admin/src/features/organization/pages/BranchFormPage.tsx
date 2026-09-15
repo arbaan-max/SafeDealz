@@ -6,7 +6,7 @@ import { Field, ResourceForm } from '../components/ResourceKit';
 
 const blank = {
   chainId: '', name: '', code: '', address: '', city: '', contactName: '', contactPhone: '',
-  beneficiaryName: '', accountNumber: '', ifsc: '', currentPassword: '', active: true,
+  beneficiaryName: '', accountNumber: '', ifsc: '', active: true,
 };
 
 export function BranchFormPage() {
@@ -41,13 +41,12 @@ export function BranchFormPage() {
       try {
         const payload: Record<string, unknown> = { ...form };
         if (id && !form.accountNumber) delete payload.accountNumber;
-        if (id && !form.currentPassword) delete payload.currentPassword;
         if (id) await api.updateBranch(id, payload); else await api.createBranch(payload);
         navigate('/branches');
       } catch (caught) { setError(caught instanceof Error ? caught.message : 'Unable to save branch.'); }
     }}>
       <Field label="Parent chain">
-        <select value={form.chainId} onChange={(event) => set('chainId', event.target.value)} required disabled={!canWrite || Boolean(id)}>
+        <select value={form.chainId} onChange={(event) => set('chainId', event.target.value)} required disabled={!canWrite}>
           {chains.map((chain) => <option key={chain.id} value={chain.id}>{chain.name}</option>)}
         </select>
       </Field>
@@ -62,7 +61,6 @@ export function BranchFormPage() {
         <input value={form.accountNumber} onChange={(event) => set('accountNumber', event.target.value)} required={!id} readOnly={!canWrite} />
       </Field>
       <Field label="IFSC"><input value={form.ifsc} onChange={(event) => set('ifsc', event.target.value)} required readOnly={!canWrite} /></Field>
-      {id && canWrite ? <Field label="Current password for bank changes"><input type="password" value={form.currentPassword} onChange={(event) => set('currentPassword', event.target.value)} /></Field> : null}
     </ResourceForm>
   );
 }

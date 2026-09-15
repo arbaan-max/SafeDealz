@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "SafeDealz API",
-    "version": "0.22.0"
+    "version": "0.23.0"
   },
   "servers": [
     {
@@ -138,6 +138,53 @@
           "200": {
             "description": "Current account",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AccountResponse" } } }
+          },
+          "401": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/auth/push-tokens": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "registerPushToken",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["token", "platform", "client"],
+                "properties": {
+                  "token": { "type": "string" },
+                  "platform": { "type": "string", "enum": ["web", "android", "ios"] },
+                  "client": { "type": "string", "enum": ["admin", "store_manager", "vendor", "diagnostics"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registered device token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "platform": { "type": "string" },
+                        "client": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": { "$ref": "#/components/responses/ApiError" }
         }
@@ -1488,6 +1535,20 @@
         }
       }
     },
+    "/rewards/branches/{branchId}": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "getBranchRewards",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "branchId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Branch reward customers and phone-sale history",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RewardBranchDetailResponse" } } }
+          }
+        }
+      }
+    },
     "/rewards/policy": {
       "get": {
         "tags": ["Operations"],
@@ -1514,6 +1575,23 @@
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RewardPolicyResponse" } } }
           },
           "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/rewards/customers": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listRecentRewardCustomers",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1 } },
+          { "name": "branchId", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recent customers with reward history",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RewardCustomerListResponse" } } }
+          }
         }
       }
     },
@@ -1711,6 +1789,19 @@
           },
           "403": { "$ref": "#/components/responses/ApiError" },
           "409": { "$ref": "#/components/responses/ApiError" }
+        }
+      }
+    },
+    "/tickets/statuses": {
+      "get": {
+        "tags": ["Operations"],
+        "operationId": "listTicketStatuses",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Admin ticket statuses for the support dropdown",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SupportTicketStatusListResponse" } } }
+          }
         }
       }
     },
@@ -2853,8 +2944,11 @@
           "ifsc": {
             "type": "string"
           },
-          "currentPassword": {
+          "chainId": {
             "type": "string"
+          },
+          "isDeleted": {
+            "type": "boolean"
           },
           "active": {
             "type": "boolean"
@@ -3142,6 +3236,13 @@
             "type": "string"
           },
           "active": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "isDeleted": {
             "type": "boolean"
           },
           "revokeSessions": {
@@ -3539,7 +3640,9 @@
           "outstandingPoints": { "type": "integer" },
           "issuedValuePaise": { "type": "integer" },
           "redeemedValuePaise": { "type": "integer" },
-          "outstandingValuePaise": { "type": "integer" }
+          "outstandingValuePaise": { "type": "integer" },
+          "customerCount": { "type": "integer" },
+          "redeemedCustomerCount": { "type": "integer" }
         }
       },
       "RewardOverview": {
@@ -3582,8 +3685,17 @@
           "points": { "type": "integer" },
           "valuePaise": { "type": "integer" },
           "balanceAfter": { "type": "integer" },
+          "remainingPoints": { "type": "integer" },
+          "customerPhone": { "type": "string" },
+          "customerName": { "type": "string" },
           "branchId": { "type": "string" },
+          "branchName": { "type": "string" },
           "dealId": { "type": "string" },
+          "auctionRoundId": { "type": "string" },
+          "deviceId": { "type": "string" },
+          "deviceModel": { "type": "string" },
+          "deviceStorage": { "type": "string" },
+          "saleAmountPaise": { "type": "integer" },
           "invoiceNumber": { "type": "string" },
           "policyVersion": { "type": "integer" },
           "earnPointsPerHundredRupees": { "type": "integer" },
@@ -3597,8 +3709,40 @@
         "properties": {
           "phone": { "type": "string" },
           "customerName": { "type": "string" },
+          "issuedPoints": { "type": "integer" },
+          "redeemedPoints": { "type": "integer" },
+          "outstandingPoints": { "type": "integer" },
+          "outstandingValuePaise": { "type": "integer" },
+          "earnCount": { "type": "integer" },
+          "redeemCount": { "type": "integer" },
           "balances": { "type": "array", "items": { "$ref": "#/components/schemas/RewardBalance" } },
+          "entries": { "type": "array", "items": { "$ref": "#/components/schemas/RewardLedgerEntry" } },
+          "history": { "type": "array", "items": { "$ref": "#/components/schemas/RewardLedgerEntry" } }
+        }
+      },
+      "RewardBranchDetail": {
+        "type": "object",
+        "properties": {
+          "branchId": { "type": "string" },
+          "branchName": { "type": "string" },
+          "issuedPoints": { "type": "integer" },
+          "redeemedPoints": { "type": "integer" },
+          "outstandingPoints": { "type": "integer" },
+          "issuedValuePaise": { "type": "integer" },
+          "redeemedValuePaise": { "type": "integer" },
+          "outstandingValuePaise": { "type": "integer" },
+          "customerCount": { "type": "integer" },
+          "redeemedCustomerCount": { "type": "integer" },
+          "customers": { "type": "array", "items": { "$ref": "#/components/schemas/RewardBalance" } },
           "entries": { "type": "array", "items": { "$ref": "#/components/schemas/RewardLedgerEntry" } }
+        }
+      },
+      "RewardBranchDetailResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/RewardBranchDetail" }
         }
       },
       "CustomerRewardsResponse": {
@@ -3607,6 +3751,55 @@
         "properties": {
           "success": { "type": "boolean" },
           "data": { "$ref": "#/components/schemas/CustomerRewards" }
+        }
+      },
+      "RewardCustomerSummary": {
+        "type": "object",
+        "properties": {
+          "phone": { "type": "string" },
+          "customerName": { "type": "string" },
+          "lastRewardedAt": { "type": "string", "format": "date-time" },
+          "outstandingPoints": { "type": "integer" },
+          "issuedPoints": { "type": "integer" },
+          "redeemedPoints": { "type": "integer" },
+          "history": { "type": "array", "items": { "$ref": "#/components/schemas/RewardLedgerEntry" } }
+        }
+      },
+      "RewardCustomerList": {
+        "type": "object",
+        "properties": {
+          "page": { "type": "integer" },
+          "limit": { "type": "integer" },
+          "total": { "type": "integer" },
+          "items": { "type": "array", "items": { "$ref": "#/components/schemas/RewardCustomerSummary" } }
+        }
+      },
+      "RewardCustomerListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/RewardCustomerList" }
+        }
+      },
+      "SupportTicketStatusOption": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string" },
+          "label": { "type": "string" }
+        }
+      },
+      "SupportTicketStatusListResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "statuses": { "type": "array", "items": { "$ref": "#/components/schemas/SupportTicketStatusOption" } }
+            }
+          }
         }
       },
       "Redemption": {
@@ -3791,7 +3984,7 @@
         "type": "object",
         "required": ["status"],
         "properties": {
-          "status": { "type": "string", "enum": ["investigating", "resolved"] },
+          "status": { "type": "string", "enum": ["investigation", "investigating", "resolved"] },
           "note": { "type": "string" }
         }
       },

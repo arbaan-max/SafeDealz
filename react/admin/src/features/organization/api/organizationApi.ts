@@ -10,6 +10,7 @@ export type Chain = {
   contactPhone?: string;
   active: boolean;
   branchCount?: number;
+  isDeleted?: boolean;
 };
 
 export type Branch = {
@@ -26,6 +27,7 @@ export type Branch = {
   accountNumberMasked?: string;
   payoutReady: boolean;
   active: boolean;
+  isDeleted?: boolean;
 };
 
 export type AdminAccount = {
@@ -36,6 +38,7 @@ export type AdminAccount = {
   phone?: string;
   active: boolean;
   assignedBranchIds: string[];
+  isDeleted?: boolean;
 };
 
 export type ManagerAccount = {
@@ -48,6 +51,7 @@ export type ManagerAccount = {
   branchId: string;
   assignedBranchIds: string[];
   activeSessionCount?: number;
+  isDeleted?: boolean;
 };
 
 export type VendorAccount = {
@@ -59,6 +63,7 @@ export type VendorAccount = {
   active: boolean;
   assignedBranchIds: string[];
   wallet?: { availablePaise?: number; reservedPaise?: number; processingPaise?: number } | null;
+  isDeleted?: boolean;
 };
 
 export type WalletLedgerEntry = {
@@ -126,6 +131,35 @@ export type AuctionDevice = {
   imei2?: string;
   batteryHealth?: number;
   ram?: string;
+  inspection?: { complete?: boolean; answers?: Record<string, string>; source?: string; updatedAt?: string } | null;
+  inspectionFields?: { key?: string; label?: string; value?: string }[];
+};
+
+export type AuctionDiagnostic = {
+  id?: string;
+  importedAt?: string;
+  imei1?: string;
+  imei2?: string;
+  checks?: { id?: string; label?: string; group?: string; outcome?: string }[];
+};
+
+export type AuctionDeal = {
+  id?: string;
+  status?: string;
+  customerName?: string;
+  customerPhone?: string;
+  otpVerified?: boolean;
+  idCaptured?: boolean;
+  portraitCaptured?: boolean;
+  purchasedDevice?: {
+    platform?: string;
+    model?: string;
+    storage?: string;
+    ram?: string;
+    imei1?: string;
+    imei2?: string;
+  } | null;
+  paymentInstructionId?: string;
 };
 
 export type AuctionRound = {
@@ -137,7 +171,10 @@ export type AuctionRound = {
   declineReason?: string;
   closesAt?: string;
   opensAt?: string;
+  paymentId?: string;
   device?: AuctionDevice | null;
+  diagnostic?: AuctionDiagnostic | null;
+  deal?: AuctionDeal | null;
   branch?: { id?: string; name?: string; code?: string } | null;
   winnerVendor?: { id?: string; displayName?: string; email?: string } | null;
 };
@@ -187,6 +224,8 @@ export type RewardBranchTotal = {
   issuedValuePaise?: number;
   redeemedValuePaise?: number;
   outstandingValuePaise?: number;
+  customerCount?: number;
+  redeemedCustomerCount?: number;
 };
 
 export type RewardOverview = {
@@ -214,8 +253,17 @@ export type RewardLedgerEntry = {
   points?: number;
   valuePaise?: number;
   balanceAfter?: number;
+  remainingPoints?: number;
+  customerPhone?: string;
+  customerName?: string;
   branchId?: string;
+  branchName?: string;
   dealId?: string;
+  auctionRoundId?: string;
+  deviceId?: string;
+  deviceModel?: string;
+  deviceStorage?: string;
+  saleAmountPaise?: number;
   invoiceNumber?: string;
   policyVersion?: number;
   reason?: string;
@@ -225,8 +273,42 @@ export type RewardLedgerEntry = {
 export type CustomerRewards = {
   phone?: string;
   customerName?: string;
+  issuedPoints?: number;
+  redeemedPoints?: number;
+  outstandingPoints?: number;
+  outstandingValuePaise?: number;
+  earnCount?: number;
+  redeemCount?: number;
   balances?: RewardBalance[];
   entries?: RewardLedgerEntry[];
+  history?: RewardLedgerEntry[];
+};
+
+export type RewardBranchDetail = RewardBranchTotal & {
+  customers?: RewardBalance[];
+  entries?: RewardLedgerEntry[];
+};
+
+export type RewardCustomerSummary = {
+  phone: string;
+  customerName?: string;
+  lastRewardedAt?: string;
+  outstandingPoints?: number;
+  issuedPoints?: number;
+  redeemedPoints?: number;
+  history?: RewardLedgerEntry[];
+};
+
+export type RewardCustomerList = {
+  page?: number;
+  limit?: number;
+  total?: number;
+  items?: RewardCustomerSummary[];
+};
+
+export type SupportTicketStatusOption = {
+  value: string;
+  label: string;
 };
 
 export type InboxNotification = {
@@ -354,7 +436,11 @@ export function useOrganizationApi() {
       listAuctions: () => request<AuctionRound[]>('/auctions'),
       getAuction: (id: string) => request<AuctionRound>(`/auctions/${id}`),
       listAuctionBids: (id: string) => request<BidRow[]>(`/auctions/${id}/bids`),
-      getRewardOverview: (branchId?: string) => request<RewardOverview>(`/rewards/overview${branchId ? `?branchId=${encodeURIComponent(branchId)}` : ''}`),
+      registerPushToken: (body: { token: string; platform: 'web' | 'android' | 'ios'; client: 'admin' | 'store_manager' | 'vendor' | 'diagnostics' }) =>
+        request<{ id: string; platform: string; client: string }>('/auth/push-tokens', json('POST', body)),
+      getBranchRewards: (branchId: string) => request<RewardBranchDetail>(`/rewards/branches/${encodeURIComponent(branchId)}`),
+      getRewardOverview: () => request<RewardOverview>('/rewards/overview'),
+      listRewardCustomers: (page = 1) => request<RewardCustomerList>(`/rewards/customers?page=${page}&limit=40`),
       getCustomerRewards: (phone: string) => request<CustomerRewards>(`/rewards/customers/${encodeURIComponent(phone)}`),
       getRewardPolicy: () => request<RewardPolicyBundle>('/rewards/policy'),
       publishRewardPolicy: (body: Partial<RewardPolicy>) => request<RewardPolicyBundle>('/rewards/policy', json('POST', body)),
@@ -363,9 +449,10 @@ export function useOrganizationApi() {
         request<{ campaignId: string; delivered: number }>('/notifications/broadcasts', json('POST', body)),
       listTickets: (status?: string) => request<SupportTicket[]>(`/tickets${status ? `?status=${encodeURIComponent(status)}` : ''}`),
       getTicket: (id: string) => request<SupportTicket>(`/tickets/${id}`),
+      listTicketStatuses: () => request<{ statuses: SupportTicketStatusOption[] }>('/tickets/statuses'),
       addTicketNote: (id: string, body: string) => request<SupportTicket>(`/tickets/${id}/notes`, json('POST', { body })),
       assignTicket: (id: string, ownerAccountId: string) => request<SupportTicket>(`/tickets/${id}/assign`, json('POST', { ownerAccountId })),
-      updateTicketStatus: (id: string, status: 'investigating' | 'resolved', note?: string) =>
+      updateTicketStatus: (id: string, status: string, note?: string) =>
         request<SupportTicket>(`/tickets/${id}/status`, json('POST', { status, note })),
       getOverview: () => request<OverviewMetrics>('/overview'),
       getReports: (query?: Record<string, string>) => request<ReportTotals>(`/reports${toQuery(query)}`),

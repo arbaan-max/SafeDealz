@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAdminList, queryMessage } from '../hooks/useAdminQuery';
 import { useOrganizationApi, type AuctionRound } from '../api/organizationApi';
 import { DataTable, ListTools, ResourcePage, StatusBadge, downloadCsv } from '../components/ResourceKit';
 
@@ -17,11 +18,10 @@ const tone = (status?: string): 'sky' | 'green' | 'amber' | 'gray' => (
 export function AuctionListPage() {
   const api = useOrganizationApi();
   const navigate = useNavigate();
-  const [rows, setRows] = useState<AuctionRound[]>([]);
+  const auctionsQuery = useAdminList(['admin', 'auctions'], api.listAuctions);
+  const rows = auctionsQuery.items;
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('All statuses');
-  const [error, setError] = useState<string | null>(null);
-  useEffect(() => { void api.listAuctions().then(setRows).catch((caught: Error) => setError(caught.message)); }, [api]);
   const visible = useMemo(() => rows.filter((row) => {
     const haystack = `${row.device?.model || ''} ${row.branch?.name || ''} ${row.status || ''}`.toLowerCase();
     if (query && !haystack.includes(query.toLowerCase())) return false;
@@ -29,8 +29,8 @@ export function AuctionListPage() {
     return (row.status || '').replaceAll('_', ' ') === status.toLowerCase() || row.status === status;
   }), [query, rows, status]);
   return (
-    <ResourcePage title="Auctions" lede="Device rounds across assigned stores. Open a round to inspect bids and payment state.">
-      {error ? <p className="form-error" role="alert">{error}</p> : null}
+    <ResourcePage title="Auctions" lede="Device rounds across assigned stores. Open a round to inspect bids and payment state." onRefresh={() => auctionsQuery.refetch()}>
+      {queryMessage(auctionsQuery.error) ? <p className="form-error" role="alert">{queryMessage(auctionsQuery.error)}</p> : null}
       <ListTools placeholder="Search model, IMEI or branch" query={query} onQuery={setQuery} onExport={() => downloadCsv('safedealz-auctions.csv', [['Device', 'Branch', 'Ends in', 'Highest offer', 'Status'], ...visible.map((row) => [row.device?.model || '', row.branch?.name || '', endsIn(row), rupees(row.highestAmountPaise), row.status || ''])])}>
         <select aria-label="Filter status" value={status} onChange={(event) => setStatus(event.target.value)}>
           <option>All statuses</option><option>live</option><option>accepted</option><option>needs_reauction</option>

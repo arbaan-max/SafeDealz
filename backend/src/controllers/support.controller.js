@@ -2,6 +2,7 @@ import {
   addTicketNote, assignTicket, completeTicketAttachment, createSupportTicket, downloadTicketAttachment,
   listSupportTickets, readSupportTicket, signTicketAttachment, updateTicketStatus,
 } from '../services/support.service.js';
+import { listSupportAdminStatuses } from '../services/support-status.js';
 
 const send = (response, data, status = 200) => response.status(status).json({ success: true, data });
 const wrap = (handler) => async (request, response, next) => {
@@ -9,6 +10,7 @@ const wrap = (handler) => async (request, response, next) => {
 };
 
 export const getTickets = wrap(async (request, response) => send(response, await listSupportTickets(request.auth.account, request.query)));
+export const getTicketStatuses = wrap(async (_request, response) => send(response, { statuses: listSupportAdminStatuses() }));
 export const postTicket = wrap(async (request, response) => {
   const result = await createSupportTicket(request.auth.account, request.body);
   send(response, result.ticket, result.replayed ? 200 : 201);

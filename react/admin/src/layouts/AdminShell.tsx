@@ -1,4 +1,4 @@
-import { Bell, Building2, LayoutDashboard, ShieldCheck, MapPin, Users, CircleUser, Settings, Banknote, Smartphone, Gift, LifeBuoy, BarChart3, ScrollText, Zap } from 'lucide-react';
+import { Bell, Building2, LayoutDashboard, ShieldCheck, MapPin, Users, CircleUser, Settings, Banknote, Smartphone, Gift, LifeBuoy, BarChart3, Zap } from 'lucide-react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 import { PageSurface } from '../shared/ui/PageSurface';
@@ -18,7 +18,6 @@ const links: { to: string; label: string; icon: typeof ShieldCheck; roles: Accou
   { to: '/support', label: 'Support', icon: LifeBuoy, roles: ['super_admin', 'admin'] },
   { to: '/reports', label: 'Reports', icon: BarChart3, roles: ['super_admin', 'admin'] },
   { to: '/settings', label: 'Settings', icon: Settings, roles: ['super_admin'] },
-  { to: '/audit', label: 'Audit log', icon: ScrollText, roles: ['super_admin', 'admin'] },
 ];
 
 const workspaceLabel = (pathname: string) => {
@@ -29,7 +28,6 @@ const workspaceLabel = (pathname: string) => {
     ['/notifications', 'Notifications'],
     ['/account', 'Account'],
     ['/settings', 'Settings'],
-    ['/audit', 'Audit log'],
     ['/reports', 'Reports'],
     ['/support', 'Support'],
     ['/rewards', 'Rewards'],

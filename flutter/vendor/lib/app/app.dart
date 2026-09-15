@@ -20,6 +20,7 @@ import 'package:safedealz_vendor/data/repositories/store_repository.dart';
 import 'package:safedealz_vendor/data/repositories/ticket_repository.dart';
 import 'package:safedealz_vendor/data/repositories/wallet_repository.dart';
 import 'package:safedealz_vendor/data/services/auth_service.dart';
+import 'package:safedealz_vendor/data/services/device_access.dart';
 import 'package:safedealz_vendor/data/services/razorpay_checkout_adapter.dart';
 import 'package:safedealz_vendor/data/services/token_store.dart';
 
@@ -96,6 +97,9 @@ class SafeDealzApp extends StatelessWidget {
               if (path == '/' || path == '/login') {
                 appRouter.goNamed(liveQueueRoute);
               }
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                prepareVendorAccess(dio);
+              });
             } else if (state is AuthUnauthenticated) {
               if (appRouter.state.uri.path != '/login') {
                 appRouter.goNamed(loginRoute, extra: state.message);

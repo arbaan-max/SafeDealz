@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safedealz_vendor/core/route/routes.dart';
 import 'package:safedealz_vendor/view/screens/auctions/auction_detail_page.dart';
@@ -21,7 +22,10 @@ import 'package:safedealz_vendor/view/screens/support/ticket_receipt_page.dart';
 import 'package:safedealz_vendor/view/screens/account/account_page.dart';
 import 'package:safedealz_vendor/view/screens/auctions/media_viewer_page.dart';
 
+final GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
 final GoRouter appRouter = GoRouter(
+  navigatorKey: appNavigatorKey,
   initialLocation: '/',
   routes: <RouteBase>[
     GoRoute(

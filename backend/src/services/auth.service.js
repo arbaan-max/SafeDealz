@@ -40,7 +40,7 @@ export const login = async ({ email, password, expectedRole, clientType, ip }) =
     await recordLoginFailure(normalized, ip);
     throw invalidCredentials();
   }
-  if (!account.active) throw new ApiError(401, 'ACCOUNT_INACTIVE', 'Your account is inactive. Contact your administrator.');
+  if (!account.active || account.isDeleted) throw new ApiError(401, 'ACCOUNT_INACTIVE', 'Your account is inactive. Contact your administrator.');
   await clearAccountFailures(normalized);
   return issueFor(account, clientType);
 };
@@ -52,7 +52,7 @@ export const refresh = async (refreshToken, clientType) => {
     throw new ApiError(401, 'SESSION_INVALID', 'Session is invalid or expired.');
   }
   const account = await findActiveAccountById(session.accountId);
-  if (!account || !account.active) {
+  if (!account || !account.active || account.isDeleted) {
     await revokeSessionFamily(familyId, 'account_inactive');
     throw new ApiError(401, 'ACCOUNT_INACTIVE', 'Your account is inactive. Contact your administrator.');
   }
@@ -79,7 +79,7 @@ export const logout = async (familyId) => { if (familyId) await revokeSessionFam
 
 export const getSessionAccount = async (accountId, familyId) => {
   const [account, session] = await Promise.all([findActiveAccountById(accountId), findActiveSessionByFamily(familyId)]);
-  if (!account || !account.active) {
+  if (!account || !account.active || account.isDeleted) {
     if (session) await revokeSessionFamily(familyId, 'account_inactive');
     throw new ApiError(401, 'ACCOUNT_INACTIVE', 'Your account is inactive. Contact your administrator.');
   }

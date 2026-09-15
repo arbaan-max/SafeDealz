@@ -13,6 +13,7 @@ test('catalogued admin screens, nested back, empty and error states stay on the 
   await page.route('**/payments', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/auctions', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/rewards/overview', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { totals: { issuedPoints: 0 }, policy: { redemptionScope: 'branch_only' } } }) }));
+  await page.route('**/rewards/customers**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { page: 1, limit: 40, total: 0, items: [] } }) }));
   await page.route('**/notifications/history', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route('**/tickets', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: [] }) }));
   await page.route((url) => url.pathname.endsWith('/reports'), (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { auctionConversion: { started: 0, accepted: 0 }, paidValuePaise: 0 } }) }));
@@ -42,7 +43,6 @@ test('catalogued admin screens, nested back, empty and error states stay on the 
     { href: '/rewards', heading: 'Rewards' },
     { href: '/support', heading: 'Support' },
     { href: '/reports', heading: 'Reports' },
-    { href: '/audit', heading: 'Audit log' },
     { href: '/settings', heading: 'Settings' },
   ];
   for (const item of destinations) {

@@ -7,8 +7,9 @@ import { findDeviceById, saveDevice } from '../repositories/device.repository.js
 import { findAccountById, listAccounts } from '../repositories/account.repository.js';
 import { createDeal, findDealById, findDealByRound, findDealByDevice, listDeals, saveDeal, createPaymentInstruction, findPaymentByDeal, savePaymentInstruction } from '../repositories/deal.repository.js';
 import { findBranchById } from '../repositories/branch.repository.js';
+import { findImportByDevice } from '../repositories/diagnostic-import.repository.js';
 import { listAssignments } from '../repositories/store-assignment.repository.js';
-import { notifyPickup } from './notification.service.js';
+import { notifyPickup, notifyTradeInStarted, notifyHighestBidAccepted } from './notification.service.js';
 import { ApiError } from '../utils/api-error.js';
 import { duplicateError, requireObjectId } from '../utils/ids.js';
 import { addMinutes, now } from '../utils/clock.js';
@@ -17,7 +18,7 @@ import { assertBranchInScope, loadScope } from './scope.service.js';
 import { releaseReservation, reserveFunds, commitReservation } from './wallet.service.js';
 import { startPayout, presentPayment } from './payout.service.js';
 import { maskAccountNumber } from '../utils/presenters.js';
-import { ramOptions, storageOptions } from './inspection-catalog.js';
+import { ramOptions, storageOptions, presentInspectionFields } from './inspection-catalog.js';
 
 export const publicBid = (bid) => ({
   id: String(bid.id),
@@ -191,6 +192,8 @@ export const startAuction = async (actor, deviceId) => {
     actorId: actor.id, actorRole: actor.role, action: 'auction.started', entityType: 'auction_round', entityId: String(round.id),
     storeId: device.branchId, metadata: { roundNumber, biddingMinutes: settings.biddingMinutes },
   });
+  const branch = await findBranchById(device.branchId);
+  await notifyTradeInStarted({ device, branch, round, actor });
   return publicAuction(round);
 };
 
@@ -206,9 +209,51 @@ export const readAuction = async (actor, id) => {
   const device = await findDeviceById(round.deviceId);
   const branch = await findBranchById(round.branchId);
   const extras = {
-    device: device ? { id: String(device.id), model: device.model, storage: device.storage, platform: device.platform, status: device.status, imei1: device.imei1, imei2: device.imei2, batteryHealth: device.batteryHealth, ram: device.ram } : null,
+    device: device ? {
+      id: String(device.id),
+      model: device.model,
+      storage: device.storage,
+      platform: device.platform,
+      status: device.status,
+      imei1: device.imei1,
+      imei2: device.imei2,
+      batteryHealth: device.batteryHealth,
+      ram: device.ram,
+      inspection: device.inspection || null,
+      inspectionFields: actor.role === 'vendor' ? [] : presentInspectionFields(device),
+    } : null,
     branch: branch ? { id: String(branch.id), name: branch.name, code: branch.code } : null,
   };
+  if (actor.role !== 'vendor' && device) {
+    if (device.platform === 'android') {
+      const imported = await findImportByDevice(device.id);
+      extras.diagnostic = imported ? {
+        id: String(imported.id),
+        importedAt: imported.importedAt,
+        imei1: imported.imei1,
+        imei2: imported.imei2,
+        checks: imported.payload?.checks || [],
+        payload: imported.payload || {},
+      } : null;
+    } else {
+      extras.diagnostic = null;
+    }
+    const deal = await findDealByRound(round.id);
+    if (deal) {
+      extras.deal = {
+        id: String(deal.id),
+        status: deal.status,
+        customerName: deal.customerName || '',
+        customerPhone: deal.customerPhone || '',
+        otpVerified: Boolean(deal.otpVerified),
+        idCaptured: Boolean(deal.idCaptured),
+        portraitCaptured: Boolean(deal.portraitCaptured),
+        purchasedDevice: deal.purchasedDevice || null,
+        paymentInstructionId: deal.paymentInstructionId ? String(deal.paymentInstructionId) : '',
+      };
+      extras.paymentId = deal.paymentInstructionId ? String(deal.paymentInstructionId) : '';
+    }
+  }
   if (actor.role === 'vendor') {
     const own = await findVendorBid(round.id, actor.id);
     if (own) extras.ownBid = publicBid(own);
@@ -633,6 +678,9 @@ export const acceptAuction = async (actor, id) => {
     idempotencyKey: `deal-accepted:${claimed.id}`,
     payload: { dealId: String(deal.id), auctionId: String(claimed.id) },
   });
+  const device = await findDeviceById(claimed.deviceId);
+  const vendor = await findAccountById(winner.vendorAccountId);
+  await notifyHighestBidAccepted({ device, branch, round: claimed, vendor, manager: actor });
   return { deal: await publicDeal(deal, actor), replayed: false };
 };
 

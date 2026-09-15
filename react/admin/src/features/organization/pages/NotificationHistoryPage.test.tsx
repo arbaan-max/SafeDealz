@@ -24,6 +24,11 @@ test('S04 lists delivery history and can send a vendor broadcast', async () => {
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
   expect(await screen.findByRole('heading', { name: 'Notifications' })).toBeInTheDocument();
   expect(await screen.findByText('Payout paid')).toBeInTheDocument();
+  expect(screen.getByRole('option', { name: 'All stores' })).toBeInTheDocument();
+  expect(screen.getByRole('option', { name: 'All users' })).toBeInTheDocument();
+  expect(screen.getByRole('option', { name: 'All vendors' })).toBeInTheDocument();
+  expect(screen.queryByRole('option', { name: 'One store' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('option', { name: 'One vendor' })).not.toBeInTheDocument();
   await user.type(screen.getByLabelText('Title'), 'Pickup hours');
   await user.type(screen.getByLabelText('Message'), 'Stores open 10–7.');
   await user.click(screen.getByRole('button', { name: 'Send notification' }));

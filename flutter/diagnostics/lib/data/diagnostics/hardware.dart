@@ -22,6 +22,7 @@ class ConfigurableDiagnosticsHardware implements DiagnosticsHardware {
       microphone: true,
       location: true,
       bluetooth: true,
+      notifications: true,
     ),
     this.online = true,
     this.automated,
@@ -163,16 +164,22 @@ class AndroidDiagnosticsHardware extends ConfigurableDiagnosticsHardware {
 
   @override
   Future<PermissionSnapshot> requestPermissions() async {
-    final camera = await Permission.camera.request();
-    final microphone = await Permission.microphone.request();
-    final location = await Permission.locationWhenInUse.request();
-    final bluetooth = await Permission.bluetoothConnect.request();
-    final scan = await Permission.bluetoothScan.request();
+    final statuses = await <Permission>[
+      Permission.camera,
+      Permission.microphone,
+      Permission.locationWhenInUse,
+      Permission.bluetoothConnect,
+      Permission.bluetoothScan,
+      Permission.notification,
+    ].request();
     return PermissionSnapshot(
-      camera: camera.isGranted,
-      microphone: microphone.isGranted,
-      location: location.isGranted,
-      bluetooth: bluetooth.isGranted || scan.isGranted,
+      camera: statuses[Permission.camera]?.isGranted ?? false,
+      microphone: statuses[Permission.microphone]?.isGranted ?? false,
+      location: statuses[Permission.locationWhenInUse]?.isGranted ?? false,
+      bluetooth:
+          (statuses[Permission.bluetoothConnect]?.isGranted ?? false) ||
+          (statuses[Permission.bluetoothScan]?.isGranted ?? false),
+      notifications: statuses[Permission.notification]?.isGranted ?? false,
     );
   }
 }

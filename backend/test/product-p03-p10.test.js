@@ -448,4 +448,33 @@ test('P10 wallet ledger refuses overspend and duplicate release credit', async (
   const stolenRelease = await request(app).post('/api/v1/wallets/releases').set(as(other)).send({ idempotencyKey: releaseKey });
   assert.equal(stolenRelease.status, 403);
 });
+
+test('admin console hides soft-deleted records and allows branch chain and manager email changes', async () => {
+  const root = await auth('root@safedealz.test', 'admin_portal');
+  const pai = (await request(app).post('/api/v1/chains').set(as(root)).send({ name: 'PAI', code: 'PAI' })).body.data;
+  const sang = (await request(app).post('/api/v1/chains').set(as(root)).send({ name: 'Sangeetha', code: 'SANG' })).body.data;
+  const branch = (await request(app).post('/api/v1/branches').set(as(root)).send({
+    chainId: pai.id, name: 'Indiranagar', code: 'IND', beneficiaryName: 'PAI', accountNumber: '123456784821', ifsc: 'HDFC0001234',
+  })).body.data;
+  const moved = await request(app).patch(`/api/v1/branches/${branch.id}`).set(as(root)).send({
+    chainId: sang.id, accountNumber: '123456784829', ifsc: 'HDFC0001234',
+  });
+  assert.equal(moved.status, 200, moved.text);
+  assert.equal(moved.body.data.chainId, sang.id);
+  const manager = (await request(app).post('/api/v1/managers').set(as(root)).send({
+    displayName: 'Kavya', email: 'kavya-console@safedealz.test', password, branchId: branch.id,
+  })).body.data;
+  const renamed = await request(app).patch(`/api/v1/managers/${manager.id}`).set(as(root)).send({ email: 'kavya-new@safedealz.test' });
+  assert.equal(renamed.status, 200, renamed.text);
+  assert.equal(renamed.body.data.email, 'kavya-new@safedealz.test');
+  const hiddenChain = await request(app).patch(`/api/v1/chains/${pai.id}`).set(as(root)).send({ isDeleted: true });
+  assert.equal(hiddenChain.status, 200, hiddenChain.text);
+  const chains = await request(app).get('/api/v1/chains').set(as(root));
+  assert.equal(chains.body.data.some((row) => row.id === pai.id), false);
+  assert.equal(await Chain.countDocuments({ _id: pai.id }), 1);
+  const hiddenBranch = await request(app).patch(`/api/v1/branches/${branch.id}`).set(as(root)).send({ isDeleted: true });
+  assert.equal(hiddenBranch.status, 200, hiddenBranch.text);
+  const branches = await request(app).get('/api/v1/branches').set(as(root));
+  assert.equal(branches.body.data.some((row) => row.id === branch.id), false);
+});
 });

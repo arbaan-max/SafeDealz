@@ -144,6 +144,12 @@ test('P21 tickets are owner-scoped, admins cannot create, attachments stay priva
   const assigned = await request(app).post(`/api/v1/tickets/${created.body.data.id}/assign`).set(as(root)).send({ ownerAccountId: String(rootAccount.id) });
   assert.equal(assigned.status, 200, assigned.text);
   assert.equal(assigned.body.data.status, 'investigating');
+  const statuses = await request(app).get('/api/v1/tickets/statuses').set(as(root));
+  assert.equal(statuses.status, 200, statuses.text);
+  assert.deepEqual(statuses.body.data.statuses.map((row) => row.value), ['investigation', 'resolved']);
+  const investigating = await request(app).post(`/api/v1/tickets/${created.body.data.id}/status`).set(as(root)).send({ status: 'investigation' });
+  assert.equal(investigating.status, 200, investigating.text);
+  assert.equal(investigating.body.data.status, 'investigating');
   const resolved = await request(app).post(`/api/v1/tickets/${created.body.data.id}/status`).set(as(root)).send({
     status: 'resolved', note: 'Store hours posted on the pickup screen.',
   });

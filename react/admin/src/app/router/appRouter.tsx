@@ -19,13 +19,13 @@ import { PaymentDetailPage } from '../../features/organization/pages/PaymentDeta
 import { AuctionListPage } from '../../features/organization/pages/AuctionListPage';
 import { AuctionDetailPage } from '../../features/organization/pages/AuctionDetailPage';
 import { RewardOverviewPage } from '../../features/organization/pages/RewardOverviewPage';
+import { RewardBranchPage } from '../../features/organization/pages/RewardBranchPage';
 import { RewardCustomerPage } from '../../features/organization/pages/RewardCustomerPage';
 import { RewardPolicyPage } from '../../features/organization/pages/RewardPolicyPage';
 import { NotificationHistoryPage } from '../../features/organization/pages/NotificationHistoryPage';
 import { SupportListPage } from '../../features/organization/pages/SupportListPage';
 import { SupportDetailPage } from '../../features/organization/pages/SupportDetailPage';
 import { ReportsPage } from '../../features/organization/pages/ReportsPage';
-import { AuditPage } from '../../features/organization/pages/AuditPage';
 import { AccountPage } from '../../features/organization/pages/AccountPage';
 import { RequireSession } from '../../features/auth/components/RequireSession';
 import { RoleGate } from '../../features/organization/components/RoleGate';
@@ -64,12 +64,12 @@ export const appRouter = createBrowserRouter([
         { path: 'auctions/:id', element: <RoleGate roles={['super_admin', 'admin']}><AuctionDetailPage /></RoleGate> },
         { path: 'rewards', element: <RoleGate roles={['super_admin', 'admin']}><RewardOverviewPage /></RoleGate> },
         { path: 'rewards/policy', element: <RoleGate roles={['super_admin', 'admin']}><RewardPolicyPage /></RoleGate> },
+        { path: 'rewards/branches/:branchId', element: <RoleGate roles={['super_admin', 'admin']}><RewardBranchPage /></RoleGate> },
         { path: 'rewards/customers/:phone', element: <RoleGate roles={['super_admin', 'admin']}><RewardCustomerPage /></RoleGate> },
         { path: 'notifications', element: <RoleGate roles={['super_admin', 'admin']}><NotificationHistoryPage /></RoleGate> },
         { path: 'support', element: <RoleGate roles={['super_admin', 'admin']}><SupportListPage /></RoleGate> },
         { path: 'support/:id', element: <RoleGate roles={['super_admin', 'admin']}><SupportDetailPage /></RoleGate> },
         { path: 'reports', element: <RoleGate roles={['super_admin', 'admin']}><ReportsPage /></RoleGate> },
-        { path: 'audit', element: <RoleGate roles={['super_admin', 'admin']}><AuditPage /></RoleGate> },
         { path: 'account', element: <RoleGate roles={['super_admin', 'admin']}><AccountPage /></RoleGate> },
         { path: 'settings', element: <RoleGate roles={['super_admin']}><SettingsPage /></RoleGate> },
       ] },

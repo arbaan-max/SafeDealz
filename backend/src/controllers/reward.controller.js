@@ -1,4 +1,4 @@
-import { confirmRedemption, listBranchRedemptions, listRewardOverview, publishRewardPolicy, readCustomerRewards, readRedemption, readRewardPolicy, resendRedemptionOtp, startRedemption } from '../services/reward.service.js';
+import { listRewardOverview, listRecentRewardCustomers, publishRewardPolicy, readBranchRewards, readCustomerRewards, readRedemption, readRewardPolicy, resendRedemptionOtp, startRedemption, confirmRedemption, listBranchRedemptions } from '../services/reward.service.js';
 
 const send = (response, data, status = 200) => response.status(status).json({ success: true, data });
 const wrap = (handler) => async (request, response, next) => {
@@ -7,6 +7,12 @@ const wrap = (handler) => async (request, response, next) => {
 
 export const getRewardOverview = wrap(async (request, response) => (
   send(response, await listRewardOverview(request.auth.account, request.query))
+));
+export const getRecentRewardCustomers = wrap(async (request, response) => (
+  send(response, await listRecentRewardCustomers(request.auth.account, request.query))
+));
+export const getBranchRewards = wrap(async (request, response) => (
+  send(response, await readBranchRewards(request.auth.account, request.params.branchId))
 ));
 export const getCustomerRewards = wrap(async (request, response) => (
   send(response, await readCustomerRewards(request.auth.account, request.params.phone, request.query))

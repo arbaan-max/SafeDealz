@@ -49,6 +49,8 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>SafeDealz Vendor uses the camera to capture pickup and device photos.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

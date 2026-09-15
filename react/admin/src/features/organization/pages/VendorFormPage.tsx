@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import { useOrganizationApi, type Branch, type Chain, type VendorAccount } from '../api/organizationApi';
-import { Field } from '../components/ResourceKit';
+import { Field, RefreshButton } from '../components/ResourceKit';
 
 const blank = { displayName: '', email: '', phone: '', password: '', active: true, assignedBranchIds: [] as string[], linkExisting: false };
 
@@ -18,14 +18,15 @@ export function VendorFormPage() {
   const [chains, setChains] = useState<Chain[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  useEffect(() => {
+  const load = () => {
     void Promise.all([api.listBranches(), api.listChains(), id ? api.listVendors() : Promise.resolve([] as VendorAccount[])]).then(([nextBranches, nextChains, vendors]) => {
       setBranches(nextBranches);
       setChains(nextChains);
       const vendor = vendors.find((item) => item.id === id);
       if (vendor) setForm({ displayName: vendor.displayName, email: vendor.email, phone: vendor.phone ?? '', password: '', active: vendor.active, assignedBranchIds: vendor.assignedBranchIds ?? [], linkExisting: false });
     }).catch((caught: Error) => setError(caught.message));
-  }, [api, id]);
+  };
+  useEffect(() => { load(); }, [api, id]); // eslint-disable-line react-hooks/exhaustive-deps -- reload vendor form when the id changes
   const chainName = useMemo(() => Object.fromEntries(chains.map((chain) => [chain.id, chain.name])), [chains]);
   const toggle = (branchId: string) => setForm((current) => ({
     ...current,
@@ -76,6 +77,9 @@ export function VendorFormPage() {
             <h1 id="page-title">Vendor onboarding/edit</h1>
             <p>Manage your exchange network with confidence.</p>
           </div>
+        </div>
+        <div className="admin-title-actions">
+          <RefreshButton onRefresh={load} />
         </div>
       </div>
       {error ? <p className="form-error" role="alert">{error}</p> : null}

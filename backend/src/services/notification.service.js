@@ -3,7 +3,9 @@ import { findBranchById } from '../repositories/branch.repository.js';
 import { findDealById } from '../repositories/deal.repository.js';
 import { findDeviceById } from '../repositories/device.repository.js';
 import { createNotification, findNotificationById, findNotificationByKey, listNotifications, saveNotification } from '../repositories/notification.repository.js';
+import { deletePushTokens, listPushTokensForAccount, upsertPushToken } from '../repositories/push-token.repository.js';
 import { listAssignments } from '../repositories/store-assignment.repository.js';
+import { getFirebaseMessaging } from '../config/firebase.js';
 import { ApiError } from '../utils/api-error.js';
 import { opaqueId } from '../utils/auth-crypto.js';
 import { duplicateError, requireObjectId } from '../utils/ids.js';
@@ -25,6 +27,52 @@ const presentNotification = (row) => ({
   recipientAccountId: String(row.recipientAccountId),
   recipientRole: row.recipientRole,
 });
+
+const sendPush = async (accountId, { title, body, category, deepLink }) => {
+  const rows = await listPushTokensForAccount(accountId);
+  if (!rows.length) return;
+  const messaging = getFirebaseMessaging();
+  if (!messaging) return;
+  const tokens = rows.map((row) => row.token).filter(Boolean);
+  if (!tokens.length) return;
+  try {
+    const result = await messaging.sendEachForMulticast({
+      tokens,
+      notification: { title, body },
+      data: {
+        title: String(title || ''),
+        body: String(body || ''),
+        category: String(category || ''),
+        deepLink: String(deepLink || ''),
+      },
+    });
+    const stale = [];
+    result.responses.forEach((response, index) => {
+      const code = response.error?.code || '';
+      if (!response.success && (code.includes('registration-token-not-registered') || code.includes('invalid-registration-token'))) {
+        stale.push(tokens[index]);
+      }
+    });
+    if (stale.length) await deletePushTokens(stale);
+  } catch {
+    // In-app notification still stands when FCM is unavailable.
+  }
+};
+
+export const registerPushToken = async (actor, body) => {
+  const token = String(body?.token || '').trim();
+  const platform = String(body?.platform || '').trim();
+  const client = String(body?.client || '').trim();
+  if (!token) throw new ApiError(400, 'VALIDATION_ERROR', 'A push token is required.');
+  if (!['web', 'android', 'ios'].includes(platform)) {
+    throw new ApiError(400, 'VALIDATION_ERROR', 'Choose web, android or ios.');
+  }
+  if (!['admin', 'store_manager', 'vendor', 'diagnostics'].includes(client)) {
+    throw new ApiError(400, 'VALIDATION_ERROR', 'Choose a supported client.');
+  }
+  const row = await upsertPushToken(actor.id, { token, platform, client });
+  return { id: String(row.id), platform: row.platform, client: row.client };
+};
 
 const deliver = async (attributes) => {
   const existing = await findNotificationByKey(attributes.idempotencyKey);
@@ -56,7 +104,7 @@ const recipientsForAudience = async ({ audience, branchId, accountId }) => {
 
 export const notifyEvent = async ({ recipient, title, body, category, branchId, deepLink, idempotencyKey }) => {
   if (!recipient?.id) return null;
-  return deliver({
+  const result = await deliver({
     recipientAccountId: recipient.id,
     recipientRole: recipient.role,
     title,
@@ -66,6 +114,62 @@ export const notifyEvent = async ({ recipient, title, body, category, branchId, 
     branchId,
     deepLink: deepLink || '',
     idempotencyKey,
+  });
+  if (!result.replayed) {
+    await sendPush(recipient.id, { title, body, category, deepLink });
+  }
+  return result;
+};
+
+export const notifyTradeInStarted = async ({ device, branch, round, actor }) => {
+  const assignments = await listAssignments({ branchId: device.branchId, kind: 'vendor', active: true });
+  const vendors = await listAccounts({ _id: { $in: assignments.map((row) => row.accountId) }, active: true });
+  const place = branch?.name || 'the store';
+  const model = device?.model || 'A device';
+  for (const vendor of vendors) {
+    await notifyEvent({
+      recipient: vendor,
+      title: 'New trade-in',
+      body: `${model} is live at ${place}. Open the auction to bid.`,
+      category: 'auction',
+      branchId: device.branchId,
+      deepLink: `/auctions/${round.id}`,
+      idempotencyKey: `notify-tradein:${round.id}:${vendor.id}`,
+    });
+  }
+  if (actor) {
+    await notifyEvent({
+      recipient: actor,
+      title: 'Trade-in listed',
+      body: `${model} is now live at ${place}.`,
+      category: 'auction',
+      branchId: device.branchId,
+      deepLink: `/auctions/${round.id}`,
+      idempotencyKey: `notify-tradein-manager:${round.id}`,
+    });
+  }
+};
+
+export const notifyHighestBidAccepted = async ({ device, branch, round, vendor, manager }) => {
+  const place = branch?.name || 'the store';
+  const model = device?.model || 'the device';
+  await notifyEvent({
+    recipient: vendor,
+    title: 'Highest bid accepted',
+    body: `The store accepted your offer for ${model} at ${place}.`,
+    category: 'offer',
+    branchId: round.branchId,
+    deepLink: `/deals/${round.id}`,
+    idempotencyKey: `notify-accept-vendor:${round.id}`,
+  });
+  await notifyEvent({
+    recipient: manager,
+    title: 'Offer accepted',
+    body: `You accepted the highest bid for ${model} at ${place}.`,
+    category: 'offer',
+    branchId: round.branchId,
+    deepLink: `/deals/${round.id}`,
+    idempotencyKey: `notify-accept-manager:${round.id}`,
   });
 };
 
@@ -184,6 +288,9 @@ export const broadcastNotification = async (actor, body) => {
       actorId: actor.id,
       idempotencyKey: `broadcast:${campaignId}:${recipient.id}`,
     });
+    if (!result.replayed) {
+      await sendPush(recipient.id, { title, body: message, category, deepLink: '' });
+    }
     deliveries.push(presentNotification(result.notification));
   }
   return { campaignId, delivered: deliveries.length, deliveries };

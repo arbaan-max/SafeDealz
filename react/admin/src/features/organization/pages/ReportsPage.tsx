@@ -1,42 +1,40 @@
-import { useEffect, useState } from 'react';
-import { useOrganizationApi, type Branch, type Chain, type ReportTotals } from '../api/organizationApi';
+import { useState } from 'react';
+import { useAdminList, useAdminQuery, queryMessage } from '../hooks/useAdminQuery';
+import { useOrganizationApi } from '../api/organizationApi';
 import { DataTable, ResourcePage, downloadCsv } from '../components/ResourceKit';
 
 const rupees = (paise?: number) => (typeof paise === 'number' ? `₹${(paise / 100).toLocaleString('en-IN')}` : '—');
-const periodRange = (period: string) => {
+const periodRange = (period: string, chainId = '', branchId = '') => {
   const to = new Date();
   const from = new Date();
   if (period === 'Today') from.setHours(0, 0, 0, 0);
   else if (period === 'This week') from.setDate(from.getDate() - 7);
   else from.setDate(from.getDate() - 30);
-  return { from: from.toISOString(), to: to.toISOString() };
+  return { from: from.toISOString(), to: to.toISOString(), chainId, branchId };
 };
 
 export function ReportsPage() {
   const api = useOrganizationApi();
-  const [report, setReport] = useState<ReportTotals | null>(null);
-  const [chains, setChains] = useState<Chain[]>([]);
-  const [branches, setBranches] = useState<Branch[]>([]);
   const [period, setPeriod] = useState('This week');
   const [chainId, setChainId] = useState('');
   const [branchId, setBranchId] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const filters = () => ({ ...periodRange(period), chainId, branchId });
-  const load = () => void api.getReports(filters()).then(setReport).catch((caught: Error) => setError(caught.message));
-  useEffect(() => {
-    load();
-    void api.listChains().then(setChains).catch(() => setChains([]));
-    void api.listBranches().then(setBranches).catch(() => setBranches([]));
-  }, [api]); // eslint-disable-line react-hooks/exhaustive-deps -- first reports load; filters re-run from the form
+  const [applied, setApplied] = useState(() => periodRange('This week'));
+  const reportQuery = useAdminQuery(['admin', 'reports', applied], () => api.getReports(applied));
+  const chainsQuery = useAdminList(['admin', 'chains'], api.listChains);
+  const branchesQuery = useAdminList(['admin', 'branches'], api.listBranches);
+  const report = reportQuery.data;
+  const chains = chainsQuery.items;
+  const branches = branchesQuery.items;
+  const error = queryMessage(reportQuery.error);
   const empty = report && (report.auctionConversion?.started || 0) === 0 && (report.paidValuePaise || 0) === 0 && !(report.branches || []).some((row) => row.auctions || row.paidDeals);
   const conversion = report?.auctionConversion;
   const started = conversion?.started ?? 0;
   const accepted = conversion?.accepted ?? 0;
   const rate = started ? `${((accepted / started) * 100).toFixed(1)}%` : '—';
   return (
-    <ResourcePage title="Reports" lede="Auction conversion, paid value, pickups, wallet movements and branch rewards." backTo="/overview" backLabel="Back to overview">
+    <ResourcePage title="Reports" lede="Auction conversion, paid value, pickups, wallet movements and branch rewards." backTo="/overview" backLabel="Back to overview" onRefresh={() => Promise.all([reportQuery.refetch(), chainsQuery.refetch(), branchesQuery.refetch()])}>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
-      <form className="admin-tools" onSubmit={(event) => { event.preventDefault(); load(); }}>
+      <form className="admin-tools" onSubmit={(event) => { event.preventDefault(); setApplied(periodRange(period, chainId, branchId)); }}>
         <label className="field">Period
           <select value={period} onChange={(event) => setPeriod(event.target.value)} aria-label="Period">
             <option>Today</option><option>This week</option><option>This month</option>

@@ -51,6 +51,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>SafeDealz Store Manager uses the camera to capture device evidence and scan IMEI barcodes.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>SafeDealz Store Manager uses the microphone to record 360° device evidence video.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

@@ -32,11 +32,8 @@ export function ManagerFormPage() {
     finally { setBusy(false); }
   };
   return (
-    <ResourceForm title={id ? 'Edit manager' : 'Create manager'} backTo="/managers" backLabel="Back to managers" error={error} busy={busy} extraActions={id ? (
-      <>
-        <button className="secondary-button" type="button" disabled={busy} onClick={() => void patch({ revokeSessions: true })}>Revoke sessions</button>
-        <button className="secondary-button" type="button" disabled={busy} onClick={() => void patch({ active: !form.active })}>{form.active ? 'Deactivate' : 'Activate'}</button>
-      </>
+    <ResourceForm title={id ? 'Edit manager' : 'Create manager'} backTo="/managers" backLabel="Back to managers" error={error} busy={busy}     extraActions={id ? (
+      <button className="secondary-button" type="button" disabled={busy} onClick={() => void patch({ active: !form.active })}>{form.active ? 'Deactivate' : 'Activate'}</button>
     ) : null} onSubmit={async () => {
       try {
         const payload: Record<string, unknown> = { ...form };
@@ -47,7 +44,7 @@ export function ManagerFormPage() {
       } catch (caught) { setError(caught instanceof Error ? caught.message : 'Unable to save manager.'); }
     }}>
       <Field label="Manager name"><input value={form.displayName} onChange={(event) => set('displayName', event.target.value)} required /></Field>
-      <Field label="Email"><input type="email" value={form.email} onChange={(event) => set('email', event.target.value)} required readOnly={Boolean(id)} /></Field>
+      <Field label="Email"><input type="email" value={form.email} onChange={(event) => set('email', event.target.value)} required /></Field>
       <Field label="Phone"><input value={form.phone} onChange={(event) => set('phone', event.target.value)} /></Field>
       <Field label="Branch">
         <select value={form.branchId} onChange={(event) => set('branchId', event.target.value)} required>
@@ -63,7 +60,7 @@ export function ManagerFormPage() {
           <option>Active</option><option>Inactive</option>
         </select>
       </Field>
-      <p className="hint">Managers at this branch can operate its transactions. Inactive accounts cannot log in, and revoked sessions end immediately.</p>
+      <p className="hint">Managers at this branch can operate its transactions. Inactive accounts cannot log in.</p>
     </ResourceForm>
   );
 }

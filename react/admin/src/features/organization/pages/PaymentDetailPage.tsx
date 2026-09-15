@@ -34,7 +34,7 @@ export function PaymentDetailPage() {
   };
   const tone = payment?.status === 'paid' ? 'green' : payment?.status === 'needs_attention' || payment?.status === 'unknown' ? 'amber' : 'sky';
   return (
-    <ResourcePage title="Payment detail" lede="Refresh, retry a failed transfer, or reconcile an unknown provider outcome. Never approve a payout." backTo="/payments" backLabel="Back to payments">
+    <ResourcePage title="Payment detail" lede="Refresh, retry a failed transfer, or reconcile an unknown provider outcome. Never approve a payout." backTo="/payments" backLabel="Back to payments" onRefresh={load}>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       {payment ? (
         <div className="admin-grid">

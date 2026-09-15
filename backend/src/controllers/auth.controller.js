@@ -1,5 +1,6 @@
 import { env } from '../config/env.js';
 import { login, logout, refresh, listMySessions, revokeMySession, changePassword } from '../services/auth.service.js';
+import { registerPushToken } from '../services/notification.service.js';
 import { ApiError } from '../utils/api-error.js';
 import { validateLogin, validateRefresh } from '../validators/auth.validator.js';
 
@@ -52,5 +53,9 @@ export const postSessionRevoke = async (request, response, next) => {
 };
 export const postPassword = async (request, response, next) => {
   try { response.json({ success: true, data: await changePassword(request.auth.account, request.body) }); }
+  catch (error) { next(error); }
+};
+export const postPushToken = async (request, response, next) => {
+  try { response.status(201).json({ success: true, data: await registerPushToken(request.auth.account, request.body) }); }
   catch (error) { next(error); }
 };

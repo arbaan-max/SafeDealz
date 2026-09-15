@@ -2,6 +2,7 @@ import { createContext, type PropsWithChildren, useCallback, useContext, useEffe
 import { apiClient, ApiError } from '../../shared/api/apiClient';
 import { requestWithSingleRefresh } from './api/sessionRequest';
 import { loginAdmin, logoutAdmin, refreshAdmin, type Account } from './api/authApi';
+import { registerAdminPush } from './api/registerAdminPush';
 
 type AuthState = { status: 'checking' | 'anonymous' | 'authenticated'; account: Account | null; accessToken: string | null; message: string | null };
 type RefreshOptions = { optional?: boolean };
@@ -85,6 +86,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
       terminal,
     );
   }, [refresh, state.accessToken, terminal]);
+
+  useEffect(() => {
+    if (state.status !== 'authenticated' || !state.accessToken) return;
+    void registerAdminPush((path, init) => request(path, init));
+  }, [state.status, state.accessToken, request]);
 
   const value = useMemo(() => ({ ...state, login, logout, refresh, request }), [state, login, logout, refresh, request]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

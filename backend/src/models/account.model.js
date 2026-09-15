@@ -7,6 +7,7 @@ const accountSchema = new mongoose.Schema({
   displayName: { type: String, trim: true, default: '' },
   phone: { type: String, trim: true, default: '' },
   active: { type: Boolean, required: true, default: true, index: true },
+  isDeleted: { type: Boolean, required: true, default: false, index: true },
 }, { timestamps: true, versionKey: false });
 
 export const Account = mongoose.model('Account', accountSchema);

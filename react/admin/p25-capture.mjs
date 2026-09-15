@@ -29,7 +29,6 @@ const reactRoutes = {
   A18: '/support',
   A19: '/reports',
   A20: '/settings',
-  A21: '/audit',
   A22: '/account',
   A23: '/admins',
   A24: '/admins/new',

@@ -184,3 +184,28 @@ export const sampleInspectionAnswers = (platform = 'android') => {
   answers.finance = 'Unlocked';
   return answers;
 };
+
+export const sampleDiagnosticPayload = (device, extras = {}) => ({
+  nonce: extras.nonce || `diag-${device.imei1}`,
+  model: device.model,
+  imei1: device.imei1,
+  imei2: device.imei2,
+  testedAt: extras.testedAt || new Date().toISOString(),
+  expiresAt: extras.expiresAt || new Date(Date.now() + 86_400_000).toISOString(),
+  checks: diagnosticChecks.map((check) => ({
+    id: check.id,
+    label: check.label,
+    group: check.group,
+    outcome: ['magnetometer', 'home', 'proximity'].includes(check.id) ? 'unavailable' : 'passed',
+  })),
+});
+
+export const presentInspectionFields = (device) => {
+  const answers = device?.inspection?.answers;
+  if (!answers || typeof answers !== 'object') return [];
+  return requiredInspectionKeys(device.platform).map((key) => ({
+    key,
+    label: inspectionFields[key].label,
+    value: answers[key] || '',
+  }));
+};

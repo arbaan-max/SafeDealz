@@ -4,7 +4,7 @@ import { countBranches, createBranch, findBranchById, listBranches, saveBranch }
 import { createChain, findChainById, listChains, saveChain } from '../repositories/chain.repository.js';
 import { countAssignments, listAssignments, revokeAssignmentsForAccount, upsertAssignment } from '../repositories/store-assignment.repository.js';
 import { revokeAccountSessions } from '../repositories/session.repository.js';
-import { hashPassword, normalizeEmail, verifyPassword } from '../utils/auth-crypto.js';
+import { hashPassword, normalizeEmail } from '../utils/auth-crypto.js';
 import { ApiError } from '../utils/api-error.js';
 import { duplicateError, requireObjectId } from '../utils/ids.js';
 import { publicAccount, publicAssignedStore, publicBranch, publicChain } from '../utils/presenters.js';
@@ -33,6 +33,14 @@ const audit = (actor, action, entityType, entityId, metadata = {}, storeId) => c
 const uniqueOrConflict = (error, message) => {
   if (duplicateError(error)) throw new ApiError(409, 'CONFLICT', message);
   throw error;
+};
+const assertAlive = (doc, message) => {
+  if (!doc || doc.isDeleted) throw new ApiError(404, 'NOT_FOUND', message);
+};
+const markDeleted = async (doc, saveFn, extra = {}) => {
+  doc.isDeleted = true;
+  Object.assign(doc, extra);
+  await saveFn(doc);
 };
 
 export const listVisibleChains = async (actor) => {
@@ -70,7 +78,12 @@ export const createVisibleChain = async (actor, body) => {
 export const updateVisibleChain = async (actor, id, body) => {
   if (actor.role !== 'super_admin') throw new ApiError(403, 'FORBIDDEN', 'Only Super Admin can update chains.');
   const chain = await findChainById(requireObjectId(id, 'chain id'));
-  if (!chain) throw new ApiError(404, 'NOT_FOUND', 'Chain was not found.');
+  assertAlive(chain, 'Chain was not found.');
+  if (body.isDeleted === true) {
+    await markDeleted(chain, saveChain);
+    await audit(actor, 'chain.deleted', 'chain', chain.id, { isDeleted: true });
+    return publicChain(chain);
+  }
   if (body.name) chain.name = requiredText(body.name, 'Chain name is required.');
   if (body.code) chain.code = requiredText(body.code, 'Chain code is required.').toUpperCase();
   if (body.contactName !== undefined) chain.contactName = optionalText(body.contactName);
@@ -91,7 +104,7 @@ export const listVisibleBranches = async (actor) => {
 export const createVisibleBranch = async (actor, body) => {
   if (actor.role !== 'super_admin') throw new ApiError(403, 'FORBIDDEN', 'Only Super Admin can create branches.');
   const chain = await findChainById(requireObjectId(body.chainId, 'chain id'));
-  if (!chain) throw new ApiError(404, 'NOT_FOUND', 'Chain was not found.');
+  assertAlive(chain, 'Chain was not found.');
   const accountNumber = requiredText(body.accountNumber, 'Business account number is required.');
   const ifsc = requiredText(body.ifsc, 'IFSC is required.').toUpperCase();
   if (!ifscPattern.test(ifsc)) throw new ApiError(400, 'VALIDATION_ERROR', 'Enter a valid IFSC.');
@@ -117,17 +130,20 @@ export const createVisibleBranch = async (actor, body) => {
 export const updateVisibleBranch = async (actor, id, body) => {
   const scope = await loadScope(actor);
   const branch = await findBranchById(requireObjectId(id, 'branch id'), { withAccount: true });
-  if (!branch) throw new ApiError(404, 'NOT_FOUND', 'Branch was not found.');
+  assertAlive(branch, 'Branch was not found.');
   assertBranchInScope(scope, branch.id);
-  const bankChanging = body.accountNumber || body.ifsc || body.beneficiaryName;
-  if (bankChanging) {
-    if (actor.role !== 'super_admin') throw new ApiError(403, 'FORBIDDEN', 'Only Super Admin can change branch bank details.');
-    const current = await findAccountById(actor.id, { withPassword: true });
-    if (!body.currentPassword || !await verifyPassword(current.passwordHash, body.currentPassword)) {
-      throw new ApiError(401, 'REAUTH_REQUIRED', 'Confirm your password to change bank details.');
-    }
-  } else if (actor.role !== 'super_admin') {
+  if (actor.role !== 'super_admin') {
     throw new ApiError(403, 'FORBIDDEN', 'Only Super Admin can edit branch records.');
+  }
+  if (body.isDeleted === true) {
+    await markDeleted(branch, saveBranch);
+    await audit(actor, 'branch.deleted', 'branch', branch.id, { isDeleted: true }, branch.id);
+    return publicBranch(branch, { revealAccount: true });
+  }
+  if (body.chainId) {
+    const chain = await findChainById(requireObjectId(body.chainId, 'chain id'));
+    assertAlive(chain, 'Chain was not found.');
+    branch.chainId = chain.id;
   }
   if (body.name) branch.name = requiredText(body.name, 'Branch name is required.');
   if (body.code) branch.code = requiredText(body.code, 'Branch code is required.').toUpperCase();
@@ -144,7 +160,7 @@ export const updateVisibleBranch = async (actor, id, body) => {
   }
   if (typeof body.active === 'boolean') branch.active = body.active;
   try { await saveBranch(branch); } catch (error) { uniqueOrConflict(error, 'A branch with this name or code already exists in the chain.'); }
-  await audit(actor, 'branch.updated', 'branch', branch.id, { bankChanged: Boolean(bankChanging) }, branch.id);
+  await audit(actor, 'branch.updated', 'branch', branch.id, { bankChanged: Boolean(body.accountNumber || body.ifsc) }, branch.id);
   return publicBranch(branch, { revealAccount: actor.role === 'super_admin' });
 };
 
@@ -189,7 +205,16 @@ export const createAdmin = async (actor, body) => {
 export const updateAdmin = async (actor, id, body) => {
   if (actor.role !== 'super_admin') throw new ApiError(403, 'FORBIDDEN', 'Only Super Admin can manage Admins.');
   const account = await findAccountById(requireObjectId(id, 'admin id'));
-  if (!account || account.role !== 'admin') throw new ApiError(404, 'NOT_FOUND', 'Admin was not found.');
+  assertAlive(account, 'Admin was not found.');
+  if (account.role !== 'admin') throw new ApiError(404, 'NOT_FOUND', 'Admin was not found.');
+  if (body.isDeleted === true) {
+    account.active = false;
+    await markDeleted(account, saveAccount);
+    await revokeAccountSessions(account.id, 'deleted');
+    await audit(actor, 'admin.deleted', 'account', account.id, { isDeleted: true });
+    const assignedBranchIds = (await listAssignments({ accountId: account.id, kind: 'admin', active: true })).map((row) => String(row.branchId));
+    return publicAccount(account, { assignedBranchIds });
+  }
   if (body.displayName) account.displayName = requiredText(body.displayName, 'Name is required.');
   if (body.phone !== undefined) account.phone = optionalText(body.phone);
   if (typeof body.active === 'boolean' && body.active !== account.active) {
@@ -231,13 +256,34 @@ export const createStaffAccount = async (actor, { role, kind, body, singleBranch
 export const updateStaffAccount = async (actor, { role, kind, id, body, singleBranch = false }) => {
   const scope = await loadScope(actor);
   const account = await findAccountById(requireObjectId(id, 'account id'));
-  if (!account || account.role !== role) throw new ApiError(404, 'NOT_FOUND', 'Account was not found.');
+  assertAlive(account, 'Account was not found.');
+  if (account.role !== role) throw new ApiError(404, 'NOT_FOUND', 'Account was not found.');
   const current = (await listAssignments({ accountId: account.id, kind, active: true })).map((row) => String(row.branchId));
   if (!scope.all && !current.some((branchId) => scope.branchIds.includes(branchId))) {
     throw new ApiError(403, 'STORE_SCOPE_DENIED', 'This account is outside your assigned access.');
   }
   if (body.displayName) account.displayName = requiredText(body.displayName, 'Name is required.');
   if (body.phone !== undefined) account.phone = optionalText(body.phone);
+  if (body.email) {
+    const email = requireEmail(body.email);
+    if (email !== account.email) {
+      const existing = await findAccountByEmail(email);
+      if (existing && String(existing.id) !== String(account.id)) {
+        throw new ApiError(409, 'CONFLICT', 'An account with this email already exists.');
+      }
+      account.email = email;
+    }
+  }
+  if (body.isDeleted === true) {
+    if (actor.role !== 'super_admin' && role === 'vendor') {
+      throw new ApiError(403, 'FORBIDDEN', 'Only Super Admin can delete a vendor account.');
+    }
+    account.active = false;
+    await markDeleted(account, saveAccount);
+    await revokeAccountSessions(account.id, 'deleted');
+    await audit(actor, `${role}.deleted`, 'account', account.id, { isDeleted: true });
+    return { account, assignedBranchIds: current };
+  }
   if (typeof body.active === 'boolean' && body.active !== account.active) {
     if (actor.role !== 'super_admin' && role === 'vendor') {
       throw new ApiError(403, 'FORBIDDEN', 'Only Super Admin can change global vendor account status.');

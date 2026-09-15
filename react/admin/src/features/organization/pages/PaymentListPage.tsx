@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useOrganizationApi, type PaymentInstruction } from '../api/organizationApi';
+import { useAdminList, queryMessage } from '../hooks/useAdminQuery';
+import { useOrganizationApi } from '../api/organizationApi';
 import { DataTable, ListTools, ResourcePage, StatusBadge, downloadCsv } from '../components/ResourceKit';
 
 const rupees = (paise?: number) => (typeof paise === 'number' ? `₹${(paise / 100).toLocaleString('en-IN')}` : '—');
@@ -19,11 +20,10 @@ const tone = (status?: string): 'sky' | 'green' | 'amber' | 'gray' => (
 export function PaymentListPage() {
   const api = useOrganizationApi();
   const navigate = useNavigate();
-  const [payments, setPayments] = useState<PaymentInstruction[]>([]);
+  const paymentsQuery = useAdminList(['admin', 'payments'], api.listPayments);
+  const payments = paymentsQuery.items;
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('All statuses');
-  const [error, setError] = useState<string | null>(null);
-  useEffect(() => { void api.listPayments().then(setPayments).catch((caught: Error) => setError(caught.message)); }, [api]);
   const visible = useMemo(() => payments.filter((payment) => {
     const haystack = `${payment.providerTransferId} ${payment.branchName} ${payment.vendorName} ${payment.deviceName} ${payment.status}`.toLowerCase();
     if (query && !haystack.includes(query.toLowerCase())) return false;
@@ -32,8 +32,8 @@ export function PaymentListPage() {
     return true;
   }), [payments, query, status]);
   return (
-    <ResourcePage title="Payments" lede="Store payouts start automatically after customer verification. Duplicate provider callbacks cannot pay twice. There is no approve-payout action.">
-      {error ? <p className="form-error" role="alert">{error}</p> : null}
+    <ResourcePage title="Payments" lede="Store payouts start automatically after customer verification. Duplicate provider callbacks cannot pay twice. There is no approve-payout action." onRefresh={() => paymentsQuery.refetch()}>
+      {queryMessage(paymentsQuery.error) ? <p className="form-error" role="alert">{queryMessage(paymentsQuery.error)}</p> : null}
       <ListTools placeholder="Search payment reference" query={query} onQuery={setQuery} onExport={() => downloadCsv('safedealz-payments.csv', [['Reference', 'Store', 'Vendor', 'Amount', 'Status'], ...visible.map((payment) => [payment.providerTransferId || payment.id || '', payment.branchName || '', payment.vendorName || '', rupees(payment.amountPaise), label(payment.status)])])}>
         <select aria-label="Filter status" value={status} onChange={(event) => setStatus(event.target.value)}>
           <option>All statuses</option><option>Paid</option><option>Pending</option>

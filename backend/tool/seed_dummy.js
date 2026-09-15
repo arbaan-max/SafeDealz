@@ -37,6 +37,7 @@ import { OutboxEvent } from '../src/models/outbox-event.model.js';
 import { MediaObject } from '../src/models/media-object.model.js';
 import { DiagnosticImport } from '../src/models/diagnostic-import.model.js';
 import { PlatformSettings } from '../src/models/platform-settings.model.js';
+import { catalogVersion, sampleDiagnosticPayload, sampleInspectionAnswers } from '../src/services/inspection-catalog.js';
 
 const PASSWORD = '1234567890';
 const USERS = [
@@ -216,21 +217,50 @@ const seedDummy = async (accounts) => {
     clientAcknowledged: true, lastEvent: 'payment.captured',
   });
 
+  const inspectionRecord = (platform, extras = {}) => ({
+    answers: { ...sampleInspectionAnswers(platform), ...extras },
+    source: 'store_manual',
+    complete: true,
+    billRequired: false,
+    updatedAt: now.toISOString(),
+  });
   const iphone = await Device.create({
     branchId: indiranagar._id, createdByAccountId: manager._id, platform: 'apple',
     model: 'Apple iPhone 14', imei1: '356789102345678', imei2: '356789102345686',
-    storage: '128 GB', batteryHealth: 91, status: 'live',
+    storage: '128 GB', batteryHealth: 91, status: 'live', catalogVersion,
+    inspection: inspectionRecord('apple'),
   });
   const samsung = await Device.create({
     branchId: jayanagar._id, createdByAccountId: manager._id, platform: 'android',
     model: 'Samsung Galaxy S22', imei1: '353456789012345', imei2: '353456789012346',
-    storage: '128 GB', ram: '8 GB', status: 'picked_up',
+    storage: '128 GB', ram: '8 GB', status: 'picked_up', catalogVersion,
+    inspection: inspectionRecord('android', {
+      screenDamage: 'Up to 5 scratches under 1 cm',
+      bodyScratches: 'Up to 5 scratches under 1 cm',
+    }),
   });
   const vivo = await Device.create({
     branchId: koramangala._id, createdByAccountId: manager._id, platform: 'android',
     model: 'Vivo V23e 5G', imei1: '353456789012355', imei2: '353456789012356',
-    storage: '128 GB', ram: '8 GB', status: 'needs_reauction',
+    storage: '128 GB', ram: '8 GB', status: 'needs_reauction', catalogVersion,
+    inspection: inspectionRecord('android'),
   });
+  const seedDiagnostic = async (device, nonce) => {
+    const imported = await DiagnosticImport.create({
+      deviceId: device._id,
+      branchId: device.branchId,
+      nonce,
+      imei1: device.imei1,
+      imei2: device.imei2,
+      payload: sampleDiagnosticPayload(device, { nonce, testedAt: now.toISOString() }),
+      importedByAccountId: manager._id,
+      importedAt: now,
+    });
+    device.diagnosticImportId = imported._id;
+    await device.save();
+  };
+  await seedDiagnostic(samsung, `${SEED_PREFIX}diag-samsung`);
+  await seedDiagnostic(vivo, `${SEED_PREFIX}diag-vivo`);
 
   const liveRound = await AuctionRound.create({
     deviceId: iphone._id, branchId: indiranagar._id, roundNumber: 1, status: 'live',
@@ -286,6 +316,10 @@ const seedDummy = async (accounts) => {
     feePaise: paidFee.feePaise, totalPaise: paidAmount + paidFee.feePaise,
     status: 'picked_up', customerName: 'Priya Nair', customerPhone: '9876501234',
     otpVerified: true, idCaptured: true, portraitCaptured: true, pickedUpAt: now,
+    purchasedDevice: {
+      platform: 'android', model: 'Samsung Galaxy A54', storage: '128 GB', ram: '8 GB',
+      imei1: '353456789019001', imei2: '353456789019002',
+    },
   });
   const payment = await PaymentInstruction.create({
     dealId: deal._id, branchId: jayanagar._id, vendorAccountId: vendor._id,

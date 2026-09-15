@@ -68,13 +68,17 @@ class PermissionSnapshot {
     this.microphone = false,
     this.location = false,
     this.bluetooth = false,
+    this.notifications = false,
   });
   final bool camera;
   final bool microphone;
   final bool location;
   final bool bluetooth;
-  bool get allGranted => camera && microphone && location && bluetooth;
-  bool get noneGranted => !camera && !microphone && !location && !bluetooth;
+  final bool notifications;
+  bool get allGranted =>
+      camera && microphone && location && bluetooth && notifications;
+  bool get noneGranted =>
+      !camera && !microphone && !location && !bluetooth && !notifications;
   String get summary {
     if (allGranted) {
       return 'All required permissions granted.';

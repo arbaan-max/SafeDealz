@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { createAuditEvent } from '../repositories/audit-event.repository.js';
 import { findBranchById } from '../repositories/branch.repository.js';
-import { findDealById } from '../repositories/deal.repository.js';
-import { findDeviceById } from '../repositories/device.repository.js';
+import { findDealById, listDealsByIds } from '../repositories/deal.repository.js';
+import { findDeviceById, listDevicesByIds } from '../repositories/device.repository.js';
 import { createOutboxEvent } from '../repositories/outbox-event.repository.js';
 import {
+  aggregateRecentRewardCustomers,
   createPolicy,
   createRedemptionRow,
   createRewardAccount,
@@ -13,20 +14,24 @@ import {
   findCurrentPolicy,
   findRedemptionById,
   findRewardAccount,
+  findRewardCustomer,
   findRewardLedgerByKey,
+  createRewardCustomer,
   listPolicies,
   listRedemptions,
   listRewardAccounts,
   listRewardAccountsByPhone,
+  listRewardCustomersByPhone,
   listRewardLedger,
   nextPolicyVersion,
   saveRedemption,
   saveRewardAccount,
+  upsertRewardCustomerHistory,
 } from '../repositories/reward.repository.js';
 import { ApiError } from '../utils/api-error.js';
 import { digestToken, opaqueId } from '../utils/auth-crypto.js';
 import { addMinutes, now } from '../utils/clock.js';
-import { duplicateError, requireObjectId } from '../utils/ids.js';
+import { duplicateError, isObjectId, requireObjectId } from '../utils/ids.js';
 import { assertBranchInScope, loadScope } from './scope.service.js';
 
 export const HUNDRED_RUPEES_PAISE = 10000;
@@ -82,21 +87,91 @@ const presentAccount = (account, branch) => ({
   redeemableAtThisBranch: true,
 });
 
-const presentLedger = (entry) => ({
-  id: String(entry.id),
+const idOf = (value) => (value ? String(value) : '');
+
+const presentLedger = (entry, extras = {}) => ({
+  id: entry.id ? String(entry.id) : (entry._id ? String(entry._id) : undefined),
   type: entry.type,
   points: entry.points,
   valuePaise: entry.valuePaise,
   balanceAfter: entry.balanceAfter,
-  branchId: String(entry.branchId),
-  dealId: entry.dealId ? String(entry.dealId) : '',
+  remainingPoints: entry.balanceAfter,
+  customerPhone: extras.customerPhone || entry.customerPhone || '',
+  customerName: extras.customerName || '',
+  branchId: idOf(entry.branchId),
+  branchName: extras.branchName || entry.branchName || '',
+  dealId: extras.dealId || (entry.dealId ? String(entry.dealId) : ''),
+  auctionRoundId: extras.auctionRoundId || '',
+  deviceId: extras.deviceId || '',
+  deviceModel: extras.deviceModel || '',
+  deviceStorage: extras.deviceStorage || '',
+  saleAmountPaise: extras.saleAmountPaise,
   invoiceNumber: entry.invoiceNumber || '',
   policyVersion: entry.policyVersion,
   earnPointsPerHundredRupees: entry.earnPointsPerHundredRupees,
   pointValuePaise: entry.pointValuePaise,
-  reason: entry.reason,
+  reason: entry.reason || '',
   createdAt: entry.createdAt,
 });
+
+const presentHistory = (entry, extras = {}) => presentLedger(entry, extras);
+
+const loadSaleMap = async (entries) => {
+  const dealIds = [...new Set(entries.map((entry) => idOf(entry.dealId)).filter(isObjectId))];
+  if (!dealIds.length) return {};
+  const deals = await listDealsByIds(dealIds);
+  const deviceIds = [...new Set(deals.map((deal) => idOf(deal.deviceId)).filter(Boolean))];
+  const devices = deviceIds.length ? await listDevicesByIds(deviceIds) : [];
+  const deviceMap = Object.fromEntries(devices.map((device) => [idOf(device.id), device]));
+  return Object.fromEntries(deals.map((deal) => {
+    const device = deviceMap[idOf(deal.deviceId)];
+    return [idOf(deal.id), {
+      dealId: idOf(deal.id),
+      auctionRoundId: idOf(deal.auctionRoundId),
+      deviceId: idOf(deal.deviceId),
+      deviceModel: device?.model || '',
+      deviceStorage: device?.storage || '',
+      saleAmountPaise: deal.amountPaise,
+      customerPhone: deal.customerPhone || '',
+      customerName: deal.customerName || '',
+    }];
+  }));
+};
+
+const loadBranchNames = async (entries) => {
+  const branchIds = [...new Set(entries.map((entry) => idOf(entry.branchId)).filter(Boolean))];
+  const branches = await Promise.all(branchIds.map((id) => findBranchById(id)));
+  return Object.fromEntries(branches.filter(Boolean).map((branch) => [idOf(branch.id), branch.name || '']));
+};
+
+const enrichEntries = async (entries, extras = {}) => {
+  const [saleMap, branchNames] = await Promise.all([loadSaleMap(entries), extras.branchName ? Promise.resolve({}) : loadBranchNames(entries)]);
+  return entries.map((entry) => {
+    const sale = saleMap[idOf(entry.dealId)] || {};
+    return presentLedger(entry, {
+      branchName: extras.branchName || entry.branchName || branchNames[idOf(entry.branchId)] || '',
+      customerPhone: extras.customerPhone || entry.customerPhone || sale.customerPhone || '',
+      customerName: extras.customerName || extras.customerNames?.[entry.customerPhone] || extras.customerNames?.[sale.customerPhone] || sale.customerName || '',
+      ...sale,
+    });
+  });
+};
+
+const recordCustomerHistory = async (phone, name, ledger, branch, session) => upsertRewardCustomerHistory(phone, {
+  name,
+  entry: {
+    type: ledger.type,
+    points: ledger.points,
+    valuePaise: ledger.valuePaise,
+    branchId: ledger.branchId,
+    branchName: branch?.name || '',
+    dealId: ledger.dealId,
+    invoiceNumber: ledger.invoiceNumber || '',
+    policyVersion: ledger.policyVersion,
+    reason: ledger.reason,
+    createdAt: ledger.createdAt || new Date(),
+  },
+}, session);
 
 const defaultPolicyAttributes = (actor) => ({
   version: 1,
@@ -200,6 +275,7 @@ export const issueDealReward = async (instruction) => {
         metadata: { dealId: String(deal.id), points, policyVersion: policy.version },
       }, { session });
     }
+    await recordCustomerHistory(deal.customerPhone, deal.customerName || account.customerName, ledger, branch, session);
     return ledger;
   });
 };
@@ -278,10 +354,13 @@ export const listRewardOverview = async (actor, query = {}) => {
     const key = String(account.branchId);
     const current = byBranch.get(key) || {
       branchId: key, issuedPoints: 0, redeemedPoints: 0, outstandingPoints: 0,
+      customerCount: 0, redeemedCustomerCount: 0,
     };
     current.issuedPoints += account.issuedPoints;
     current.redeemedPoints += account.redeemedPoints;
     current.outstandingPoints += account.pointsBalance;
+    current.customerCount += 1;
+    if (account.redeemedPoints > 0) current.redeemedCustomerCount += 1;
     byBranch.set(key, current);
   }
   const branches = await Promise.all([...byBranch.values()].map(async (row) => {
@@ -326,11 +405,110 @@ export const readCustomerRewards = async (actor, phone, query = {}) => {
   const ledgerFilter = { customerPhone: normalized };
   if (branchIds) ledgerFilter.branchId = { $in: branchIds };
   const entries = await listRewardLedger(ledgerFilter);
+  let customer = await findRewardCustomer(normalized);
+  if (!customer && entries.length) {
+    customer = await createRewardCustomer({
+      phone: normalized,
+      name: presented[0]?.customerName || '',
+      lastRewardedAt: entries[0]?.createdAt || new Date(),
+      history: entries.map((entry) => ({
+        type: entry.type,
+        points: entry.points,
+        valuePaise: entry.valuePaise,
+        branchId: entry.branchId,
+        branchName: presented.find((row) => row.branchId === String(entry.branchId))?.branchName || '',
+        dealId: entry.dealId,
+        invoiceNumber: entry.invoiceNumber || '',
+        policyVersion: entry.policyVersion,
+        reason: entry.reason,
+        createdAt: entry.createdAt,
+      })),
+    });
+  }
+  const customerName = customer?.name || presented[0]?.customerName || '';
+  const extras = { customerName, customerPhone: normalized };
+  const presentedEntries = await enrichEntries(entries, extras);
+  const presentedHistory = await enrichEntries(customer?.history || [], extras);
+  const issuedPoints = presented.reduce((sum, row) => sum + (row.issuedPoints || 0), 0);
+  const redeemedPoints = presented.reduce((sum, row) => sum + (row.redeemedPoints || 0), 0);
+  const outstandingPoints = presented.reduce((sum, row) => sum + (row.pointsBalance || 0), 0);
   return {
     phone: normalized,
-    customerName: presented[0]?.customerName || '',
+    customerName,
+    issuedPoints,
+    redeemedPoints,
+    outstandingPoints,
+    outstandingValuePaise: valuePaiseFromPoints(outstandingPoints),
+    redeemCount: presentedEntries.filter((entry) => entry.type === 'redeem').length,
+    earnCount: presentedEntries.filter((entry) => entry.type === 'earn').length,
     balances: presented,
-    entries: entries.map(presentLedger),
+    entries: presentedEntries,
+    history: presentedHistory,
+  };
+};
+
+export const readBranchRewards = async (actor, branchId) => {
+  requireStaff(actor);
+  const id = requireObjectId(branchId, 'branch id');
+  const scope = await loadScope(actor);
+  assertBranchInScope(scope, String(id));
+  const branch = await findBranchById(id);
+  if (!branch) throw new ApiError(404, 'NOT_FOUND', 'Branch was not found.');
+  const accounts = await listRewardAccounts({ branchId: id });
+  const presented = accounts.map((account) => presentAccount(account, branch));
+  const entries = await enrichEntries(await listRewardLedger({ branchId: id }), {
+    branchName: branch.name || '',
+    customerNames: Object.fromEntries(accounts.map((account) => [account.customerPhone, account.customerName || ''])),
+  });
+  const issuedPoints = presented.reduce((sum, row) => sum + (row.issuedPoints || 0), 0);
+  const redeemedPoints = presented.reduce((sum, row) => sum + (row.redeemedPoints || 0), 0);
+  const outstandingPoints = presented.reduce((sum, row) => sum + (row.pointsBalance || 0), 0);
+  return {
+    branchId: String(branch.id),
+    branchName: branch.name || '',
+    issuedPoints,
+    redeemedPoints,
+    outstandingPoints,
+    issuedValuePaise: valuePaiseFromPoints(issuedPoints),
+    redeemedValuePaise: valuePaiseFromPoints(redeemedPoints),
+    outstandingValuePaise: valuePaiseFromPoints(outstandingPoints),
+    customerCount: presented.length,
+    redeemedCustomerCount: presented.filter((row) => (row.redeemedPoints || 0) > 0).length,
+    customers: presented,
+    entries,
+  };
+};
+
+export const listRecentRewardCustomers = async (actor, query = {}) => {
+  requireStaff(actor);
+  const scope = await loadScope(actor);
+  const page = Math.max(1, Number.parseInt(String(query.page ?? '1'), 10) || 1);
+  const limit = 40;
+  const match = {};
+  if (query.branchId) {
+    assertBranchInScope(scope, query.branchId);
+    match.branchId = requireObjectId(query.branchId, 'branch id');
+  } else if (!scope.all) {
+    match.branchId = { $in: scope.branchIds.map((id) => requireObjectId(id, 'branch id')) };
+  }
+  const [facet] = await aggregateRecentRewardCustomers(match, (page - 1) * limit, limit);
+  const total = facet?.total?.[0]?.count ?? 0;
+  const rows = facet?.items ?? [];
+  const customers = await listRewardCustomersByPhone(rows.map((row) => row._id));
+  const byPhone = Object.fromEntries(customers.map((row) => [row.phone, row]));
+  return {
+    page,
+    limit,
+    total,
+    items: rows.map((row) => ({
+      phone: row._id,
+      customerName: byPhone[row._id]?.name || row.customerName || '',
+      lastRewardedAt: row.lastRewardedAt,
+      outstandingPoints: row.outstandingPoints,
+      issuedPoints: row.issuedPoints,
+      redeemedPoints: row.redeemedPoints,
+      history: (byPhone[row._id]?.history || []).map(presentHistory),
+    })),
   };
 };
 
@@ -538,6 +716,17 @@ export const confirmRedemption = async (actor, id, body) => {
         actorId: actor.id,
         reason: 'redemption',
       }, session);
+      const branch = await findBranchById(current.branchId);
+      await recordCustomerHistory(account.customerPhone, account.customerName, {
+        type: 'redeem',
+        points: current.points,
+        valuePaise: current.discountPaise,
+        branchId: current.branchId,
+        invoiceNumber: current.invoiceNumber,
+        policyVersion: policy.version,
+        reason: 'redemption',
+        createdAt: now(),
+      }, branch, session);
       await createAuditEvent({
         actorId: actor.id,
         actorRole: actor.role,

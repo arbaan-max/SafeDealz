@@ -10,14 +10,15 @@ export function SettingsPage() {
   const [acceptanceMinutes, setAcceptanceMinutes] = useState(10);
   const [error, setError] = useState<string | null>(null);
   const canWrite = auth.account?.role === 'super_admin';
-  useEffect(() => {
+  const load = () => {
     void api.getSettings().then((settings) => {
       setBiddingMinutes(settings.biddingMinutes);
       setAcceptanceMinutes(settings.acceptanceMinutes);
     }).catch((caught: Error) => setError(caught.message));
-  }, [api]);
+  };
+  useEffect(() => { load(); }, [api]); // eslint-disable-line react-hooks/exhaustive-deps -- load auction timers once the API client is ready
   return (
-    <ResourcePage title="Settings" lede="These values apply when a new auction round starts.">
+    <ResourcePage title="Settings" lede="These values apply when a new auction round starts." onRefresh={load}>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       <form className="card form-card" style={{ maxWidth: 820 }} onSubmit={(event) => {
         event.preventDefault();

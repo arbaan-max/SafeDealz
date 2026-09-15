@@ -12,6 +12,7 @@ const branchSchema = new mongoose.Schema({
   accountNumber: { type: String, select: false, default: '' },
   ifsc: { type: String, uppercase: true, trim: true, default: '' },
   active: { type: Boolean, required: true, default: true, index: true },
+  isDeleted: { type: Boolean, required: true, default: false, index: true },
 }, { timestamps: true, versionKey: false });
 
 branchSchema.index({ chainId: 1, code: 1 }, { unique: true });

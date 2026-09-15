@@ -6,9 +6,9 @@ import { getCatalog } from '../controllers/catalog.controller.js';
 import { getMyWallet, getVendorWallet, getWallets, postWalletCredit, postWalletRelease, postWalletReserve } from '../controllers/wallet.controller.js';
 import { getAuction, getAuctionBids, getAuctions, getBid, getDeal, getDeals, getMyBids, getSettings, patchSettings, postAuctionAccept, postAuctionBid, postAuctionCancel, postAuctionDecline, postAuctionRebid, postAuctionTick, postDealOtp, postDealPickup, postDealVerify, postDeviceAuction } from '../controllers/auction.controller.js';
 import { getPayment, getPayments, postPaymentReconcile, postPaymentRetry } from '../controllers/payout.controller.js';
-import { getCustomerRewards, getRedemption, getRedemptions, getRewardOverview, getRewardPolicy, postRedemption, postRedemptionConfirm, postRedemptionOtp, postRewardPolicy } from '../controllers/reward.controller.js';
+import { getBranchRewards, getCustomerRewards, getRecentRewardCustomers, getRedemption, getRedemptions, getRewardOverview, getRewardPolicy, postRedemption, postRedemptionConfirm, postRedemptionOtp, postRewardPolicy } from '../controllers/reward.controller.js';
 import { getNotificationHistory, getNotifications, postBroadcast, postNotificationRead } from '../controllers/notification.controller.js';
-import { getTicket, getTickets, postTicket, postTicketAssign, postTicketAttachmentComplete, postTicketAttachmentDownload, postTicketAttachmentSign, postTicketNote, postTicketStatus } from '../controllers/support.controller.js';
+import { getTicket, getTickets, getTicketStatuses, postTicket, postTicketAssign, postTicketAttachmentComplete, postTicketAttachmentDownload, postTicketAttachmentSign, postTicketNote, postTicketStatus } from '../controllers/support.controller.js';
 import { getAudit, getOverview, getPerformance, getReports, postReportExport } from '../controllers/oversight.controller.js';
 import { getWalletRecharge, postWalletRecharge, postWalletRechargeAck } from '../controllers/recharge.controller.js';
 import { requireAuthentication } from '../middlewares/auth.middleware.js';
@@ -77,6 +77,8 @@ operationsRouter.post('/payments/:id/reconcile', ...guard('super_admin', 'admin'
 operationsRouter.get('/rewards/overview', ...guard('super_admin', 'admin', 'store_manager'), getRewardOverview);
 operationsRouter.get('/rewards/policy', ...guard('super_admin', 'admin', 'store_manager'), getRewardPolicy);
 operationsRouter.post('/rewards/policy', ...guard('super_admin'), postRewardPolicy);
+operationsRouter.get('/rewards/branches/:branchId', ...guard('super_admin', 'admin', 'store_manager'), getBranchRewards);
+operationsRouter.get('/rewards/customers', ...guard('super_admin', 'admin', 'store_manager'), getRecentRewardCustomers);
 operationsRouter.get('/rewards/customers/:phone', ...guard('super_admin', 'admin', 'store_manager'), getCustomerRewards);
 operationsRouter.get('/rewards/redemptions', ...guard('super_admin', 'admin', 'store_manager'), getRedemptions);
 operationsRouter.post('/rewards/redemptions', ...guard('store_manager', 'super_admin'), postRedemption);
@@ -89,6 +91,7 @@ operationsRouter.post('/notifications/broadcasts', ...guard('super_admin', 'admi
 operationsRouter.post('/notifications/:id/read', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), postNotificationRead);
 operationsRouter.get('/tickets', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), getTickets);
 operationsRouter.post('/tickets', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), postTicket);
+operationsRouter.get('/tickets/statuses', ...guard('super_admin', 'admin'), getTicketStatuses);
 operationsRouter.post('/tickets/:id/notes', ...guard('super_admin', 'admin', 'store_manager', 'vendor'), postTicketNote);
 operationsRouter.post('/tickets/:id/assign', ...guard('super_admin', 'admin'), postTicketAssign);
 operationsRouter.post('/tickets/:id/status', ...guard('super_admin', 'admin'), postTicketStatus);

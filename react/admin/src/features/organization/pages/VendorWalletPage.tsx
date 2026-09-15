@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { useOrganizationApi, type WalletDetail } from '../api/organizationApi';
-import { ResourcePage } from '../components/ResourceKit';
+import { useAdminQuery, queryMessage } from '../hooks/useAdminQuery';
+import { useOrganizationApi } from '../api/organizationApi';
+import { DataTable, ResourcePage } from '../components/ResourceKit';
 
 const rupees = (paise?: number) => (typeof paise === 'number' ? `₹${(paise / 100).toLocaleString('en-IN')}` : 'Hidden');
 const signed = (type?: string, paise?: number) => {
@@ -17,18 +17,16 @@ export function VendorWalletPage() {
   const api = useOrganizationApi();
   const { account } = useAuth();
   const superAdmin = account?.role === 'super_admin';
-  const [wallet, setWallet] = useState<WalletDetail | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  useEffect(() => {
-    if (!id) return;
-    void api.getVendorWallet(id).then(setWallet).catch((caught: Error) => setError(caught.message));
-  }, [api, id]);
+  const walletQuery = useAdminQuery(['admin', 'wallets', id], () => api.getVendorWallet(id!), { enabled: Boolean(id) });
+  const wallet = walletQuery.data;
+  const error = queryMessage(walletQuery.error);
   return (
     <ResourcePage
       title="Vendor wallet"
       lede={superAdmin ? 'Balances are derived from recorded money movements. No arbitrary balance-edit control is provided.' : 'Admin can confirm the vendor exists. Global balances stay Super Admin-only.'}
       backTo="/vendors"
       backLabel="Back to vendors"
+      onRefresh={() => walletQuery.refetch()}
     >
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       {wallet ? (
@@ -47,21 +45,16 @@ export function VendorWalletPage() {
             </ul>
           ) : <p className="empty-state" role="status">No active holds.</p>}
           {(wallet.ledger ?? []).length ? (
-            <div className="table-wrap">
-              <table>
-                <thead><tr><th>Type</th><th>Movement</th><th>Available after</th><th>Reserved after</th></tr></thead>
-                <tbody>
-                  {(wallet.ledger ?? []).map((entry) => (
-                    <tr key={entry.id}>
-                      <td>{label(entry.type)}</td>
-                      <td>{signed(entry.type, entry.amountPaise)}</td>
-                      <td>{rupees(entry.availableAfterPaise)}</td>
-                      <td>{rupees(entry.reservedAfterPaise)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <DataTable
+              headers={['Type', 'Movement', 'Available after', 'Reserved after']}
+              empty="Ledger is hidden for this role."
+              rows={(wallet.ledger ?? []).map((entry) => [
+                label(entry.type),
+                signed(entry.type, entry.amountPaise),
+                rupees(entry.availableAfterPaise),
+                rupees(entry.reservedAfterPaise),
+              ])}
+            />
           ) : <p className="empty-state" role="status">Ledger is hidden for this role.</p>}
         </>
       ) : null}

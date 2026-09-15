@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { useOrganizationApi, type OverviewMetrics } from '../api/organizationApi';
-import { StatusBadge } from '../components/ResourceKit';
+import { useAdminQuery, queryMessage } from '../hooks/useAdminQuery';
+import { useOrganizationApi } from '../api/organizationApi';
+import { DataTable, RefreshButton, StatusBadge } from '../components/ResourceKit';
 
 const rupees = (paise?: number) => (typeof paise === 'number' ? `₹${(paise / 100).toLocaleString('en-IN')}` : '—');
 const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
@@ -11,19 +12,10 @@ export function OverviewPage() {
   const auth = useAuth();
   const api = useOrganizationApi();
   const navigate = useNavigate();
-  const [metrics, setMetrics] = useState<OverviewMetrics | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      await auth.refresh({ optional: true });
-      if (cancelled) return;
-      try { setMetrics(await api.getOverview()); } catch (caught) {
-        if (!cancelled) setError(caught instanceof Error ? caught.message : 'Unable to load overview.');
-      }
-    })();
-    return () => { cancelled = true; };
-  }, [api, auth.refresh]); // eslint-disable-line react-hooks/exhaustive-deps -- optional refresh on first overview load
+  const overviewQuery = useAdminQuery(['admin', 'overview'], api.getOverview);
+  const metrics = overviewQuery.data;
+  const error = queryMessage(overviewQuery.error);
+  useEffect(() => { void auth.refresh({ optional: true }); }, [auth.refresh]); // eslint-disable-line react-hooks/exhaustive-deps -- optional session refresh when Overview opens
   const scoped = auth.account?.role === 'admin';
   const attention = metrics?.needsAttention ?? [];
   const series = metrics?.weeklyPaidPaise ?? [0, 0, 0, 0, 0, 0, 0];
@@ -34,6 +26,9 @@ export function OverviewPage() {
         <div>
           <h1 id="page-title">Overview</h1>
           <p>{scoped ? 'Assigned-store operational totals. Needs Attention lists payment and branch-setup issues only.' : 'Manage your exchange network with confidence.'}</p>
+        </div>
+        <div className="admin-title-actions">
+          <RefreshButton onRefresh={() => overviewQuery.refetch()} />
         </div>
       </div>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
@@ -80,23 +75,17 @@ export function OverviewPage() {
           <h3>Recent auctions</h3>
           <Link className="textlink" to="/auctions">All auctions</Link>
         </div>
-        {(metrics?.recentAuctions ?? []).length ? (
-          <div className="table-wrap">
-            <table>
-              <thead><tr><th>Device</th><th>Branch</th><th>Status</th><th>Highest</th></tr></thead>
-              <tbody>
-                {(metrics?.recentAuctions ?? []).map((row) => (
-                  <tr key={row.id} className="clickable-row" onClick={() => navigate(`/auctions/${row.id}`)}>
-                    <td><strong>{row.device}</strong><small>{row.storage} / Round {row.roundNumber}</small></td>
-                    <td>{row.branch || '—'}</td>
-                    <td><StatusBadge tone={row.status === 'live' ? 'sky' : row.status === 'accepted' ? 'green' : 'amber'}>{row.status?.replaceAll('_', ' ')}</StatusBadge></td>
-                    <td>{rupees(row.highestAmountPaise)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : <p className="empty-state" role="status">No recent auctions.</p>}
+        <DataTable
+          headers={['Device', 'Branch', 'Status', 'Highest']}
+          empty="No recent auctions."
+          onRowClick={(index) => navigate(`/auctions/${(metrics?.recentAuctions ?? [])[index].id}`)}
+          rows={(metrics?.recentAuctions ?? []).map((row) => [
+            <span key={`${row.id}-device`}><strong>{row.device}</strong><small>{row.storage} / Round {row.roundNumber}</small></span>,
+            row.branch || '—',
+            <StatusBadge key={`${row.id}-status`} tone={row.status === 'live' ? 'sky' : row.status === 'accepted' ? 'green' : 'amber'}>{row.status?.replaceAll('_', ' ')}</StatusBadge>,
+            rupees(row.highestAmountPaise),
+          ])}
+        />
       </section>
     </section>
   );

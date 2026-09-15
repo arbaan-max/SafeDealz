@@ -39,6 +39,9 @@ test('A18 assigns and resolves without a financial shortcut', async () => {
     if (url.includes('/tickets/t1/status') && init?.method === 'POST') {
       return new Response(JSON.stringify({ success: true, data: { ...ticket, status: 'resolved' } }), { status: 200 });
     }
+    if (url.includes('/tickets/statuses')) {
+      return new Response(JSON.stringify({ success: true, data: { statuses: [{ value: 'investigation', label: 'Investigation' }, { value: 'resolved', label: 'Resolved' }] } }), { status: 200 });
+    }
     if (url.includes('/tickets/t1')) {
       return new Response(JSON.stringify({ success: true, data: ticket }), { status: 200 });
     }
@@ -52,7 +55,8 @@ test('A18 assigns and resolves without a financial shortcut', async () => {
   render(<AppProviders><RouterProvider router={router} /></AppProviders>);
   expect(await screen.findByRole('heading', { name: 'Support case' })).toBeInTheDocument();
   expect(await screen.findByText(/Store hours are unclear/)).toBeInTheDocument();
-  expect(screen.queryByRole('button', { name: /refund|approve payout/i })).not.toBeInTheDocument();
-  await user.click(screen.getByRole('button', { name: 'Resolve' }));
+  expect(screen.queryByRole('button', { name: /refund|approve payout|assign to me/i })).not.toBeInTheDocument();
+  await user.selectOptions(screen.getByLabelText('Ticket status'), 'resolved');
+  await user.click(screen.getByRole('button', { name: 'Save' }));
   expect(await screen.findByText('resolved')).toBeInTheDocument();
 });
