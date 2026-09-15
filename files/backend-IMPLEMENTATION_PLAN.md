@@ -52,7 +52,7 @@ Completed: [TASK-026 — P24 end-to-end and resilience](tasks/TASK-026-end-to-en
 
 Completed: [TASK-027 — P25 Admin HTML visual match](tasks/TASK-027-admin-html-visual-match.md). React admin restyled to design.html; OpenAPI unchanged.
 
-Completed: [TASK-028 — P26 Store Manager HTML visual match](tasks/TASK-028-store-manager-html-visual-match.md). Store Manager restyled to design.html; session restore added in the P26–P28 range.
+Completed: [TASK-028 — P26 Store Manager HTML visual match](tasks/TASK-028-store-manager-html-visual-match.md). Store Manager restyled to design.html; session restore added in the P26–P28 range; `GET /branches` allows store_manager with masked account; OpenAPI unchanged.
 
 Completed: [TASK-029 — P27 Vendor HTML visual match](tasks/TASK-029-vendor-html-visual-match.md). Vendor restyled to design.html; session restore; OpenAPI unchanged.
 

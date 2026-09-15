@@ -311,6 +311,8 @@ class _OfferPageState extends State<OfferPage> {
                           SdDetailRow('Cosmetic deduction', '−${formatPaise(round.winnerBid!.cosmeticDeductionPaise)}'),
                         if (round.winnerBid?.batteryDeductionPaise != null)
                           SdDetailRow('Battery deduction', '−${formatPaise(round.winnerBid!.batteryDeductionPaise)}'),
+                        if (round.winnerBid?.feePaise != null)
+                          SdDetailRow('Platform fee', formatPaise(round.winnerBid!.feePaise)),
                         SdDetailRow('Final offer', formatPaise(round.winnerBid?.amountPaise ?? round.highestAmountPaise)),
                       ],
                     ),

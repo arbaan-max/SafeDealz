@@ -25,7 +25,7 @@ Client theme amendment on 2026-09-14: Sky Blue is now the confirmed primary them
 
 Provider planning amendment on 2026-09-14: Cloudflare R2 is confirmed for private evidence/KYC object storage, beginning with the reusable signed-media integration in P07. Razorpay is confirmed for vendor wallet recharge in P11 using backend-created orders, verified webhooks and idempotent ledger credit.
 
-Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live screen to design.html. P25 Admin, P26 Store Manager, P27 Vendor and P28 Diagnostics are complete. Former handover P25 is now P29. Do not start P29 until the owner authorizes it.
+Visual-match amendment on 2026-09-14 (DEC-025): after P24, compare every live screen to design.html. P25 Admin, P26 Store Manager, P27 Vendor and P28 Diagnostics are complete. Former handover P25 is now P29. Do not start P29 until the owner authorizes it. Mark each screen Same or restyle it and mark Updated in screen-match.md.
 
 ## P03 delivered
 
@@ -549,7 +549,6 @@ Owner follow-up in the P26–P28 range: persist Store Manager session (refresh o
 | Flutter Store Manager tests | Passed, 42/42, analyze clean (sequential, one app at a time) |
 | Screen-match register | All P28 rows marked Updated |
 | Emulator pixel walkthrough | Deferred (low RAM; one-app rule) |
-
 ## Known follow-ups
 
 - P01 creates the React admin foundation; it was intentionally excluded from P00.
