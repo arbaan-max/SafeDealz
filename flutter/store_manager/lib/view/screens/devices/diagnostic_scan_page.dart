@@ -8,6 +8,7 @@ import 'package:safedealz_store_manager/data/repositories/device_repository.dart
 import 'package:safedealz_store_manager/data/services/diagnostic_qr_scan_adapter.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class DiagnosticScanPage extends StatefulWidget {
   const DiagnosticScanPage({super.key, required this.deviceId, this.adapter});
@@ -95,7 +96,7 @@ class _DiagnosticScanPageState extends State<DiagnosticScanPage> {
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.qr_code_scanner, size: 36, color: AppTheme.skyBlue),
+                  Icon(SdIcons.qrCode, size: 36, color: AppTheme.skyBlue),
                   SizedBox(height: 12),
                   Text('Point at the Diagnostics QR', style: TextStyle(fontWeight: FontWeight.w800)),
                   SizedBox(height: 8),

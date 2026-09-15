@@ -78,7 +78,8 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(tester.widget<Scaffold>(find.byType(Scaffold)).backgroundColor, token);
-    expect(find.text('Step 1 of 7'), findsOneWidget);
+    expect(find.textContaining('2 of 9'), findsOneWidget);
+    expect(find.text('Basic & SIM'), findsWidgets);
     expect(find.text('SIM 1 working?'), findsOneWidget);
     expect(find.textContaining('RGB'), findsNothing);
     expect(find.textContaining('white screen'), findsNothing);

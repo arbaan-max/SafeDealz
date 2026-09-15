@@ -8,6 +8,7 @@ import 'package:safedealz_store_manager/data/repositories/reward_repository.dart
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class RewardCustomerPage extends StatefulWidget {
   const RewardCustomerPage({super.key, required this.phone});
@@ -67,7 +68,7 @@ class _RewardCustomerPageState extends State<RewardCustomerPage> {
             Text(balance.branchName ?? 'This branch'),
           ],
           SdListRow(
-            icon: Icons.receipt_long_outlined,
+            icon: SdIcons.receipt,
             title: 'All redemptions',
             subtitle: 'Return to the branch list',
             onTap: () => context.goNamed(redemptionsRoute),

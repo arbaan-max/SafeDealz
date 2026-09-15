@@ -91,3 +91,7 @@ tags:
 - Owner authorized P26. Completed P26: Store Manager restyled to design.html (S01, S04, M01–M24). `GET /branches` allowed for store_manager with masked account. All P26 rows marked Updated.
 - Owner authorized inclusive P26–P28. Session restore: Store Manager and Vendor refresh once on open and log out if inactive. M11 matched HTML. Vendor and Diagnostics restyled to design.html. Stopped after P28.
 - P27 verification: Vendor 33/33. P28 verification: Diagnostics 15/15. QR payload unchanged. Emulator walkthrough deferred (low RAM; one app at a time).
+
+## 2026-09-15
+
+- Synced live Store Manager Home / trade-in / capture / Highest Offer UX into design.md and design.html: branch/user app bar, tinted New trade-in card, double-back toast, platform-first 15-digit GSMA IMEI, merged 9-step progress, capture grid with preview/clear, M11 app-top Back.

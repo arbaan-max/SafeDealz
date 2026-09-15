@@ -12,14 +12,13 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc(this._accounts, this._devices, {this._stores})
-      : super(const HomeLoading()) {
+  HomeBloc(this._accounts, this._devices, {this.stores}) : super(const HomeLoading()) {
     on<HomeStarted>(_load);
   }
 
   final AccountRepository _accounts;
   final DeviceRepository _devices;
-  final StoreRepository? _stores;
+  final StoreRepository? stores;
 
   Future<void> _load(HomeStarted event, Emitter<HomeState> emit) async {
     emit(const HomeLoading());
@@ -28,7 +27,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final devices = await _devices.listDevices();
       Branch? branch;
       try {
-        final branches = await _stores?.listAssignedBranches() ?? const <Branch>[];
+        final branches = await stores?.listAssignedBranches() ?? const <Branch>[];
         if (branches.isNotEmpty) {
           final assigned = account.assignedBranchIds ?? const <String>[];
           branch = branches.firstWhere(

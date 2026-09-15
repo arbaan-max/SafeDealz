@@ -4,9 +4,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:safedealz_store_manager/core/route/app_router.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
 import 'package:safedealz_store_manager/core/utils/theme.dart';
+import 'package:safedealz_store_manager/data/api/models/account_role.dart';
+import 'package:safedealz_store_manager/data/api/models/account_summary.dart';
+import 'package:safedealz_store_manager/data/api/models/device.dart';
+import 'package:safedealz_store_manager/data/api/models/device_create.dart';
+import 'package:safedealz_store_manager/data/api/models/device_update.dart';
 import 'package:safedealz_store_manager/data/repositories/account_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/device_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/profile_repository.dart';
+import 'package:safedealz_store_manager/data/repositories/store_repository.dart';
+import 'package:safedealz_store_manager/data/services/evidence_capture_adapter.dart';
 import 'package:safedealz_store_manager/view/screens/account/account_page.dart';
+import 'package:safedealz_store_manager/view/screens/home/home_page.dart';
 
 void main() {
   test('P23 catalogued Store Manager routes resolve', () {
@@ -58,4 +67,52 @@ void main() {
     expect(find.byTooltip('Back'), findsNothing);
     expect(tester.widget<Scaffold>(find.byType(Scaffold)).backgroundColor, AppTheme.appBackground);
   });
+
+  testWidgets('Home app bar uses live branch and user name with notifications', (tester) async {
+    await tester.pumpWidget(
+      MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<AccountRepository>.value(
+            value: MemoryAccountRepository(
+              const AccountSummary(
+                id: '1',
+                email: 'kavya@test.dev',
+                role: AccountRole.storeManager,
+                displayName: 'Kavya Rao With A Very Long Name',
+                assignedBranchIds: ['b1'],
+              ),
+            ),
+          ),
+          RepositoryProvider<DeviceRepository>.value(value: _EmptyDevices()),
+          RepositoryProvider<StoreRepository>.value(value: MemoryStoreRepository()),
+        ],
+        child: MaterialApp(theme: AppTheme.lightTheme, home: const HomePage()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('SafeDealz'), findsNothing);
+    expect(find.text('Hello, Kavya Rao With A Very Long Name'), findsNothing);
+    expect(find.text('PAI / Indiranagar'), findsOneWidget);
+    expect(find.text('Kavya Rao With A Very Long Name'), findsOneWidget);
+    expect(find.byTooltip('Notifications'), findsOneWidget);
+    expect(find.text('New trade-in'), findsOneWidget);
+  });
+}
+
+class _EmptyDevices implements DeviceRepository {
+  @override
+  Future<List<Device>> listDevices({String? status}) async => const [];
+  @override
+  Future<Device> createDevice(DeviceCreate body) async => throw UnimplementedError();
+  @override
+  Future<Device> getDevice(String id) async => throw UnimplementedError();
+  @override
+  Future<Device> updateDevice(String id, DeviceUpdate body) async => throw UnimplementedError();
+  @override
+  Future<Device> saveInspection(String id, Map<String, String> answers, {bool complete = false}) async =>
+      throw UnimplementedError();
+  @override
+  Future<void> uploadEvidence(String deviceId, CapturedEvidence evidence) async {}
+  @override
+  Future<void> importDiagnostic(String deviceId, Map<String, dynamic> payload, String signature) async {}
 }

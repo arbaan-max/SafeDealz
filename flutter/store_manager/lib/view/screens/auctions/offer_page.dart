@@ -242,6 +242,14 @@ class _OfferPageState extends State<OfferPage> {
     return AppPageScaffold(
       title: 'Highest offer',
       showBell: false,
+      onBack: () {
+        final router = GoRouter.maybeOf(context);
+        if (router != null && router.canPop()) {
+          router.pop();
+        } else {
+          router?.goNamed(homeRoute);
+        }
+      },
       actionBar: round == null
           ? null
           : Column(

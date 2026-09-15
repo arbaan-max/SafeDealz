@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class TicketReceiptPage extends StatelessWidget {
   const TicketReceiptPage({super.key, required this.ticketId, this.returnTo});
@@ -25,7 +26,7 @@ class TicketReceiptPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          const SdStatusOrb(icon: Icons.check_circle_outline, tone: 'green'),
+          const SdStatusOrb(icon: SdIcons.check, tone: 'green'),
           const Text('Issue received', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
           const SizedBox(height: 12),
           SdCard(

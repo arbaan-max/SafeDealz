@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safedealz_store_manager/core/utils/theme.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class SdNotice extends StatelessWidget {
   const SdNotice(this.text, {super.key});
@@ -30,6 +31,9 @@ class SdCard extends StatelessWidget {
         color: tint ? AppTheme.selected : AppTheme.surface,
         border: Border.all(color: tint ? const Color(0xFFB9E0F7) : AppTheme.border),
         borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(color: Color(0x140369A1), blurRadius: 18, offset: Offset(0, 8)),
+        ],
       ),
       child: child,
     );
@@ -127,7 +131,7 @@ class SdPersonRow extends StatelessWidget {
             ],
           ),
         ),
-        const Icon(Icons.verified_outlined, color: AppTheme.skyBlue),
+        const Icon(SdIcons.verified, color: AppTheme.skyBlue),
       ],
     );
   }
@@ -177,7 +181,7 @@ class SdListRow extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8),
                 child: Text(badge!, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppTheme.skyHover)),
               ),
-            const Icon(Icons.chevron_right, color: AppTheme.muted),
+            const Icon(SdIcons.caretRight, color: AppTheme.muted),
           ],
         ),
       ),
@@ -201,7 +205,7 @@ class SdSearchField extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, size: 18, color: AppTheme.muted),
+          const Icon(SdIcons.search, size: 18, color: AppTheme.muted),
           const SizedBox(width: 9),
           Expanded(
             child: TextField(
@@ -282,7 +286,7 @@ class SdDeviceCard extends StatelessWidget {
                   width: 52,
                   height: 52,
                   decoration: BoxDecoration(color: AppTheme.selected, borderRadius: BorderRadius.circular(14)),
-                  child: const Icon(Icons.phone_iphone, color: AppTheme.skyBlue),
+                  child: const Icon(SdIcons.devices, color: AppTheme.skyBlue),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -306,7 +310,7 @@ class SdDeviceCard extends StatelessWidget {
               children: [
                 Expanded(child: Text(footerLabel, style: const TextStyle(fontSize: 11, color: AppTheme.muted))),
                 Text(footerValue, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, letterSpacing: -0.4)),
-                const Icon(Icons.chevron_right, color: AppTheme.muted),
+                const Icon(SdIcons.caretRight, color: AppTheme.muted),
               ],
             ),
           ],
@@ -435,6 +439,124 @@ class SdSteps extends StatelessWidget {
   }
 }
 
+class SdFlowProgress extends StatelessWidget {
+  const SdFlowProgress({
+    super.key,
+    required this.current,
+    required this.total,
+    required this.label,
+  });
+  final int current;
+  final int total;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final value = total == 0 ? 0.0 : current / total;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Text(
+                '$current of $total',
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppTheme.muted),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(99),
+            child: LinearProgressIndicator(
+              value: value,
+              minHeight: 6,
+              backgroundColor: const Color(0xFFD7E8F2),
+              color: AppTheme.skyBlue,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SdOptionTiles extends StatelessWidget {
+  const SdOptionTiles({
+    super.key,
+    required this.options,
+    required this.selected,
+    required this.onSelected,
+  });
+  final List<String> options;
+  final String? selected;
+  final ValueChanged<String> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        for (final option in options)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () => onSelected(option),
+                borderRadius: BorderRadius.circular(14),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 180),
+                  curve: Curves.easeOut,
+                  constraints: const BoxConstraints(minHeight: 48),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: selected == option ? AppTheme.selected : AppTheme.surface,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: selected == option ? AppTheme.skyBlue : AppTheme.border,
+                      width: selected == option ? 1.5 : 1,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: selected == option ? AppTheme.skyBlue : Colors.transparent,
+                          border: Border.all(
+                            color: selected == option ? AppTheme.skyBlue : AppTheme.muted,
+                          ),
+                        ),
+                        child: selected == option
+                            ? const Icon(SdIcons.check, size: 12, color: Colors.white)
+                            : null,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(option, style: const TextStyle(fontWeight: FontWeight.w700)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
 class SdMediaSlot extends StatelessWidget {
   const SdMediaSlot({
     super.key,
@@ -464,10 +586,10 @@ class SdMediaSlot extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(wide ? Icons.videocam_outlined : Icons.photo_camera_outlined, color: AppTheme.skyBlue),
+            Icon(wide ? SdIcons.video : SdIcons.camera, color: AppTheme.skyBlue),
             const SizedBox(height: 8),
             Text(label, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
-            Text(ready ? 'Demo capture ready' : 'Tap to capture', style: const TextStyle(fontSize: 11, color: AppTheme.muted)),
+            Text(ready ? 'Captured' : 'Tap to capture', style: const TextStyle(fontSize: 11, color: AppTheme.muted)),
           ],
         ),
       ),
@@ -476,12 +598,14 @@ class SdMediaSlot extends StatelessWidget {
 }
 
 class SdScrollBody extends StatelessWidget {
-  const SdScrollBody({super.key, required this.children});
+  const SdScrollBody({super.key, required this.children, this.controller});
   final List<Widget> children;
+  final ScrollController? controller;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: controller,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: children,
@@ -540,7 +664,7 @@ class SdChoiceRow<T> extends StatelessWidget {
                   onTap: () => onSelected(options[i].$1),
                   borderRadius: BorderRadius.circular(11),
                   child: Container(
-                    height: 44,
+                    height: 48,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: selected == options[i].$1 ? AppTheme.selected : AppTheme.surface,

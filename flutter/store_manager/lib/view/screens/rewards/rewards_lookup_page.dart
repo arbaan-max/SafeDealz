@@ -9,6 +9,7 @@ import 'package:safedealz_store_manager/data/repositories/store_repository.dart'
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class RewardsLookupPage extends StatefulWidget {
   const RewardsLookupPage({super.key});
@@ -65,7 +66,7 @@ class _RewardsLookupPageState extends State<RewardsLookupPage> {
       bottomNavigationBar: const ManagerBottomNav(index: 2),
       actionBar: FilledButton.icon(
         onPressed: _find,
-        icon: const Icon(Icons.search),
+        icon: const Icon(SdIcons.search),
         label: const Text('Find customer'),
       ),
       body: ListView(
@@ -75,7 +76,7 @@ class _RewardsLookupPageState extends State<RewardsLookupPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(children: [Icon(Icons.card_giftcard), SizedBox(width: 8), Text('Customer rewards', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800))]),
+                const Row(children: [Icon(SdIcons.gift), SizedBox(width: 8), Text('Customer rewards', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800))]),
                 const SizedBox(height: 9),
                 const Text('Find and redeem points earned at your branch.', style: TextStyle(color: Color(0xFF526079))),
               ],
@@ -93,7 +94,7 @@ class _RewardsLookupPageState extends State<RewardsLookupPage> {
           const SizedBox(height: 12),
           SdNotice('Only points earned at $_branch can be redeemed here. Points cannot be redeemed elsewhere.'),
           SdListRow(
-            icon: Icons.receipt_long_outlined,
+            icon: SdIcons.receipt,
             title: 'All redemptions',
             subtitle: 'View every redemption at this branch',
             onTap: () => context.goNamed(redemptionsRoute),

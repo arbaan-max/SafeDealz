@@ -54,6 +54,7 @@ void main() {
     await tester.pump();
     await tester.pump();
     expect(find.text('Highest offer'), findsWidgets);
+    expect(find.byTooltip('Back'), findsOneWidget);
     expect(find.textContaining('Accept within'), findsWidgets);
     expect(find.text('₹15000'), findsNWidgets(2));
     expect(find.text('Uday Mobiles'), findsOneWidget);

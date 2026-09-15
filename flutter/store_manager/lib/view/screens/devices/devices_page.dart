@@ -8,6 +8,7 @@ import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/device_flow.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class DevicesPage extends StatelessWidget {
   const DevicesPage({super.key, this.initialFilter = 'all'});
@@ -36,7 +37,7 @@ class DevicesPage extends StatelessWidget {
         bottomNavigationBar: const ManagerBottomNav(index: 1),
         actionBar: FilledButton.icon(
           onPressed: () => context.goNamed(deviceNewRoute),
-          icon: const Icon(Icons.add),
+          icon: const Icon(SdIcons.plus),
           label: const Text('New trade-in'),
         ),
         body: BlocBuilder<DevicesBloc, DevicesState>(

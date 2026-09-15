@@ -1,0 +1,41 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
+abstract final class SdIcons {
+  static const IconData back = TablerIcons.arrow_left;
+  static const IconData bell = TablerIcons.bell;
+  static const IconData house = TablerIcons.home;
+  static const IconData houseFill = TablerIcons.home_filled;
+  static const IconData devices = TablerIcons.device_mobile;
+  static const IconData devicesFill = TablerIcons.device_mobile_filled;
+  static const IconData gift = TablerIcons.gift;
+  static const IconData giftFill = TablerIcons.gift_filled;
+  static const IconData user = TablerIcons.user;
+  static const IconData userFill = TablerIcons.user_filled;
+  static const IconData plus = TablerIcons.plus;
+  static const IconData camera = TablerIcons.camera;
+  static const IconData video = TablerIcons.video;
+  static const IconData play = TablerIcons.player_play;
+  static const IconData barcode = TablerIcons.barcode;
+  static const IconData qrCode = TablerIcons.qrcode;
+  static const IconData search = TablerIcons.search;
+  static const IconData check = TablerIcons.circle_check;
+  static const IconData warning = TablerIcons.alert_circle;
+  static const IconData storefront = TablerIcons.building_store;
+  static const IconData clock = TablerIcons.clock;
+  static const IconData signOut = TablerIcons.logout;
+  static const IconData lock = TablerIcons.lock;
+  static const IconData headset = TablerIcons.headset;
+  static const IconData verified = TablerIcons.rosette_discount_check;
+  static const IconData refresh = TablerIcons.refresh;
+  static const IconData bank = TablerIcons.building_bank;
+  static const IconData receipt = TablerIcons.receipt;
+  static const IconData eye = TablerIcons.eye;
+  static const IconData eyeSlash = TablerIcons.eye_off;
+  static const IconData lightning = TablerIcons.bolt;
+  static const IconData caretRight = TablerIcons.chevron_right;
+  static const IconData apple = TablerIcons.brand_apple;
+  static const IconData android = TablerIcons.brand_android;
+  static const IconData trash = TablerIcons.trash;
+  static const IconData close = TablerIcons.x;
+}

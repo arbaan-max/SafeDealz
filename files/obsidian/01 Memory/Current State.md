@@ -4,7 +4,7 @@ tags:
   - safedealz
   - memory/current
 status: active
-updated: 2026-09-14
+updated: 2026-09-15
 ---
 
 # Current state
@@ -78,6 +78,7 @@ safeDealz/
 - P24 end-to-end/resilience is complete; `make -f files/Makefile check-p24` is the P24 regression command. Sequential Android debug APKs passed 2026-09-14.
 - P25 Admin HTML visual match is complete; `make -f files/Makefile check-p25` is the P25 regression command. All Admin rows in screen-match.md are Updated.
 - P26 Store Manager HTML visual match is complete; session restore and M11 HTML follow-up completed in the P26–P28 range.
+- 2026-09-15: Store Manager Home/trade-in/capture/Highest Offer Flutter UX synced into design.md and design.html (branch/user app bar, platform-first 15-digit IMEI, merged 9-step bar, capture grid).
 - P27 Vendor HTML visual match is complete; `flutter test` 33/33. All Vendor rows in screen-match.md are Updated.
 - P28 Diagnostics HTML visual match is complete; `flutter test` 15/15. All Diagnostics rows in screen-match.md are Updated.
 

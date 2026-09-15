@@ -8,6 +8,7 @@ import 'package:safedealz_store_manager/data/repositories/auction_repository.dar
 import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class ReauctionPage extends StatefulWidget {
   const ReauctionPage({super.key, required this.auctionId});
@@ -94,7 +95,7 @@ class _ReauctionPageState extends State<ReauctionPage> {
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               children: [
-                const SdStatusOrb(icon: Icons.autorenew, tone: 'amber'),
+                const SdStatusOrb(icon: SdIcons.refresh, tone: 'amber'),
                 const Text('Ready for another round', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 8),
                 if (_error != null)

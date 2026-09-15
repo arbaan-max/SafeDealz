@@ -7,6 +7,7 @@ import 'package:safedealz_store_manager/data/api/models/notification.dart' as ap
 import 'package:safedealz_store_manager/data/repositories/notification_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -56,10 +57,10 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 
   IconData _icon(String? category) => switch (category) {
-        'payment' => Icons.account_balance_outlined,
-        'pickup' => Icons.storefront_outlined,
-        'reward' => Icons.card_giftcard_outlined,
-        _ => Icons.schedule,
+        'payment' => SdIcons.bank,
+        'pickup' => SdIcons.storefront,
+        'reward' => SdIcons.gift,
+        _ => SdIcons.clock,
       };
 
   @override

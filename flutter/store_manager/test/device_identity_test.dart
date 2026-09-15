@@ -7,7 +7,9 @@ import 'package:safedealz_store_manager/data/api/models/account_role.dart';
 import 'package:safedealz_store_manager/data/api/models/account_summary.dart';
 import 'package:safedealz_store_manager/data/api/models/device.dart';
 import 'package:safedealz_store_manager/data/api/models/device_create.dart';
+import 'package:safedealz_store_manager/data/api/models/device_create_platform.dart';
 import 'package:safedealz_store_manager/data/api/models/device_update.dart';
+import 'package:safedealz_store_manager/data/imei.dart';
 import 'package:safedealz_store_manager/data/repositories/account_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/auth_repository.dart';
 import 'package:safedealz_store_manager/data/repositories/catalog_repository.dart';
@@ -66,6 +68,13 @@ class _FakeScan implements ImeiScanAdapter {
 }
 
 void main() {
+  test('GSMA IMEI length is 15 for Apple and Android', () {
+    expect(imeiDigitCount(DeviceCreatePlatform.apple), 15);
+    expect(imeiDigitCount(DeviceCreatePlatform.android), 15);
+    expect(isImei('012345678901234', DeviceCreatePlatform.apple), isTrue);
+    expect(isImei('01234567890123', DeviceCreatePlatform.android), isFalse);
+  });
+
   testWidgets('AppPageScaffold uses the ThemeData app-background extension', (
     tester,
   ) async {
@@ -143,6 +152,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Scan IMEIs'));
     await tester.tap(find.text('Scan IMEIs'));
     await tester.pumpAndSettle();
     expect(find.widgetWithText(TextFormField, '012345678901234'), findsOneWidget);
@@ -150,5 +160,27 @@ void main() {
     await tester.pump();
     expect(find.widgetWithText(TextFormField, '353456789012345'), findsOneWidget);
     expect(find.widgetWithText(TextFormField, '012345678901235'), findsOneWidget);
+  });
+
+  testWidgets('M03 IMEI fields stop at 15 digits', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.lightTheme,
+        home: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider<AccountRepository>.value(value: _AssignedAccount()),
+            RepositoryProvider<DeviceRepository>.value(value: _EmptyDevices()),
+            RepositoryProvider<CatalogRepository>.value(value: MemoryCatalogRepository()),
+            RepositoryProvider<ImeiScanAdapter>.value(value: _FakeScan()),
+          ],
+          child: const DeviceIdentityPage(),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const ValueKey('imei1')), '12345678901234567890');
+    await tester.pump();
+    expect(find.widgetWithText(TextFormField, '123456789012345'), findsOneWidget);
+    expect(find.text('12345678901234567890'), findsNothing);
   });
 }

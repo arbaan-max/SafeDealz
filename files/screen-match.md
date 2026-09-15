@@ -51,17 +51,17 @@ Compare Admin in the desktop browser against HTML desktop frames. Compare Store 
 | --- | --- | --- | --- |
 | S01 | Login | Updated | Welcome back, Email address, password eye, admin-created notice |
 | S04 | Notifications | Updated | Inbox list, Mark all read, Today/Earlier |
-| M01 | Home | Updated | Brand header, Hello, New trade-in, stats, 4-tab nav |
+| M01 | Home | Updated | Branch/user app bar (60% ellipsis), tinted New trade-in card, stats, 4-tab nav; no Hello/KR/SafeDealz wordmark |
 | M02 | Devices | Updated | Search, HTML chips, New trade-in action |
-| M03 | Device identity | Updated | Steps, Apple/Android radios, RAM/battery rules |
-| M04 | Physical inspection | Updated | Step copy, Back/Continue action bar |
-| M05 | Capture device | Updated | Media slots, Continue action |
-| M06 | Camera and preview | Updated | Capture surface, demo ready |
+| M03 | Device identity | Updated | Platform cards first, 15-digit GSMA IMEI, Scan IMEIs, merged 1 of 9 bar |
+| M04 | Physical inspection | Updated | Merged 2–8 of 9 bar, app-top Back only, option tiles, Continue scrolls up |
+| M05 | Capture device | Updated | Video + 2-col grid, empty tap camera, filled tap preview, Continue until 7/7 |
+| M06 | Camera and preview | Updated | Live capture, Preview ready, Retake, Use capture after shutter |
 | M07 | Scan diagnostic result | Updated | QR import card |
 | M08 | Customer verification | Updated | KYC + purchased device identity |
 | M09 | Device summary | Updated | Specs, inspection, diagnostics cards |
 | M10 | Live auction | Updated | Countdown, Cancel auction |
-| M11 | Highest offer | Updated | Timer, Accept/Rebid/Decline |
+| M11 | Highest offer | Updated | App-top Back, timer, Accept/Rebid/Decline |
 | M12 | Accept confirmation | Updated | Payout instruction copy |
 | M13 | Payment status | Updated | Processing/Refresh, no approve |
 | M14 | Deal detail | Updated | Amount card, pickup path |

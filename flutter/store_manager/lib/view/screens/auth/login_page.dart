@@ -5,6 +5,7 @@ import 'package:safedealz_store_manager/bloc/auth/auth_bloc.dart';
 import 'package:safedealz_store_manager/core/route/routes.dart';
 import 'package:safedealz_store_manager/core/utils/theme.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, this.initialMessage});
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SdStatusOrb(icon: Icons.bolt),
+                        const SdStatusOrb(icon: SdIcons.lightning),
                         const Text(
                           'Welcome back',
                           textAlign: TextAlign.center,
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                             suffixIcon: IconButton(
                               onPressed: () => setState(() => _visible = !_visible),
                               icon: Icon(
-                                _visible ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                _visible ? SdIcons.eyeSlash : SdIcons.eye,
                               ),
                               tooltip: _visible ? 'Hide password' : 'Show password',
                             ),

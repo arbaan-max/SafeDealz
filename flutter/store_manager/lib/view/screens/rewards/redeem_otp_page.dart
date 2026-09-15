@@ -7,6 +7,7 @@ import 'package:safedealz_store_manager/data/api/models/redemption.dart';
 import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class RedeemOtpPage extends StatefulWidget {
   const RedeemOtpPage({super.key, required this.id});
@@ -70,7 +71,7 @@ class _RedeemOtpPageState extends State<RedeemOtpPage> {
       actionBar: FilledButton(onPressed: _busy ? null : _verify, child: Text(_busy ? 'Verifying…' : 'Verify & redeem')),
       body: SdScrollBody(
         children: [
-          const SdStatusOrb(icon: Icons.verified_user_outlined),
+          const SdStatusOrb(icon: SdIcons.verified),
           const Text('Confirm with the customer', textAlign: TextAlign.center, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
           const Text('Enter the OTP sent to the registered mobile number.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF526079))),

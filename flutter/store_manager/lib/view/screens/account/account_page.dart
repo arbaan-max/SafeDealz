@@ -14,6 +14,7 @@ import 'package:safedealz_store_manager/data/repositories/store_repository.dart'
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
 import 'package:safedealz_store_manager/view/widgets/manager_bottom_nav.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -89,7 +90,7 @@ class _AccountPageState extends State<AccountPage> {
           context.read<AuthBloc>().add(const AuthLogoutRequested());
           context.goNamed(loginRoute);
         },
-        icon: const Icon(Icons.logout),
+        icon: const Icon(SdIcons.signOut),
         label: const Text('Logout'),
       ),
       body: _loading
@@ -132,18 +133,18 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: _changing ? null : _changePassword,
-                  icon: const Icon(Icons.lock_outline),
+                  icon: const Icon(SdIcons.lock),
                   label: Text(_changing ? 'Saving…' : 'Change password'),
                 ),
                 const SizedBox(height: 8),
                 SdListRow(
-                  icon: Icons.notifications_outlined,
+                  icon: SdIcons.bell,
                   title: 'Notifications',
                   subtitle: 'Auction and payment updates',
                   onTap: () => context.goNamed(notificationsRoute),
                 ),
                 SdListRow(
-                  icon: Icons.headset_mic_outlined,
+                  icon: SdIcons.headset,
                   title: 'Contact support',
                   subtitle: 'Get help with a transaction',
                   onTap: () => context.goNamed(reportIssueRoute),

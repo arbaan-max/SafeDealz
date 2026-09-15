@@ -21,6 +21,7 @@ class InspectionPage extends StatefulWidget {
 }
 
 class _InspectionPageState extends State<InspectionPage> {
+  final _scroll = ScrollController();
   Device? _device;
   Catalog? _catalog;
   final Map<String, String> _answers = {};
@@ -35,6 +36,12 @@ class _InspectionPageState extends State<InspectionPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _load());
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
   }
 
   Future<void> _load() async {
@@ -66,6 +73,7 @@ class _InspectionPageState extends State<InspectionPage> {
       : fieldsForStep(_catalog!, _step, apple: _apple);
 
   int get inspectionStepCount => _catalog?.inspectionSteps.length ?? 0;
+  int get _totalSteps => _catalog == null ? 9 : tradeInFormTotalSteps(_catalog!);
   String get _stepTitle =>
       _catalog == null ? '' : _catalog!.inspectionSteps[_step].title;
   String get _exemptAge =>
@@ -88,6 +96,14 @@ class _InspectionPageState extends State<InspectionPage> {
     await context.read<DeviceRepository>().saveInspection(widget.deviceId, Map.of(_answers));
   }
 
+  void _scrollToTop() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scroll.hasClients) {
+        _scroll.jumpTo(0);
+      }
+    });
+  }
+
   Future<void> _back() async {
     setState(() => _saving = true);
     try {
@@ -105,12 +121,14 @@ class _InspectionPageState extends State<InspectionPage> {
         _error = null;
         _saving = false;
       });
+      _scrollToTop();
     } catch (error) {
       if (!mounted) return;
       setState(() {
         _error = apiErrorMessage(error);
         _saving = false;
       });
+      _scrollToTop();
     }
   }
 
@@ -118,6 +136,7 @@ class _InspectionPageState extends State<InspectionPage> {
     final issue = _stepError();
     if (issue != null) {
       setState(() => _error = issue);
+      _scrollToTop();
       return;
     }
     setState(() => _saving = true);
@@ -136,12 +155,14 @@ class _InspectionPageState extends State<InspectionPage> {
         _error = null;
         _saving = false;
       });
+      _scrollToTop();
     } catch (error) {
       if (!mounted) return;
       setState(() {
         _error = apiErrorMessage(error);
         _saving = false;
       });
+      _scrollToTop();
     }
   }
 
@@ -151,37 +172,33 @@ class _InspectionPageState extends State<InspectionPage> {
       title: 'Physical inspection',
       showBell: false,
       onBack: _saving ? null : _back,
-      actionBar: Row(
-        children: [
-          Expanded(
-            child: OutlinedButton(
-              onPressed: _saving ? null : _back,
-              child: const Text('Back'),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: FilledButton(
-              onPressed: _saving ? null : _continue,
-              child: Text(_step == inspectionStepCount - 1 ? 'Continue to evidence' : 'Continue'),
-            ),
-          ),
-        ],
+      actionBar: FilledButton(
+        onPressed: _saving ? null : _continue,
+        child: Text(_step == inspectionStepCount - 1 ? 'Continue to evidence' : 'Continue'),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
+              controller: _scroll,
               children: [
-                const SdSteps(current: 2),
-                Text('Step ${_step + 1} of $inspectionStepCount'),
-                const SizedBox(height: 8),
-                LinearProgressIndicator(value: inspectionStepCount == 0 ? 0 : (_step + 1) / inspectionStepCount),
-                const SizedBox(height: 16),
+                SdFlowProgress(
+                  current: tradeInInspectionStep(_step),
+                  total: _totalSteps,
+                  label: _stepTitle,
+                ),
                 Text(_stepTitle, style: Theme.of(context).textTheme.headlineSmall),
                 if (_step == 3 && _apple) ...[
                   const SizedBox(height: 12),
-                  Text('Entered battery health: ${_device?.batteryHealth ?? 'Not entered'}%'),
-                  Text('Condition band: ${batteryBand(_device?.batteryHealth)}'),
+                  SdCard(
+                    tint: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Entered battery health: ${_device?.batteryHealth ?? 'Not entered'}%'),
+                        Text('Condition band: ${batteryBand(_device?.batteryHealth)}'),
+                      ],
+                    ),
+                  ),
                 ],
                 if (_error != null) ...[
                   const SizedBox(height: 12),
@@ -190,30 +207,22 @@ class _InspectionPageState extends State<InspectionPage> {
                 for (final field in _fields) ...[
                   const SizedBox(height: 16),
                   Text(field.label, style: Theme.of(context).textTheme.titleSmall),
-                  RadioGroup<String>(
-                    groupValue: _answers[field.key],
-                    onChanged: (value) {
-                      if (value == null) return;
-                      setState(() => _answers[field.key] = value);
-                    },
-                    child: Column(
-                      children: [
-                        for (final option in field.options)
-                          RadioListTile<String>(
-                            title: Text(option),
-                            value: option,
-                          ),
-                      ],
-                    ),
+                  SdOptionTiles(
+                    options: field.options,
+                    selected: _answers[field.key],
+                    onSelected: (value) => setState(() => _answers[field.key] = value),
                   ),
                 ],
                 if (_step == 4 && _answers['deviceAge'] != null && _answers['deviceAge'] != _exemptAge)
-                  TextButton(
-                    onPressed: () => GoRouter.maybeOf(context)?.goNamed(
-                      cameraRoute,
-                      pathParameters: {'id': widget.deviceId, 'purpose': 'bill'},
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: OutlinedButton(
+                      onPressed: () => GoRouter.maybeOf(context)?.goNamed(
+                        cameraRoute,
+                        pathParameters: {'id': widget.deviceId, 'purpose': 'bill'},
+                      ),
+                      child: const Text('Capture bill'),
                     ),
-                    child: const Text('Capture bill'),
                   ),
               ],
             ),

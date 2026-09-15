@@ -92,6 +92,7 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => CameraPage(
         deviceId: state.pathParameters['id']!,
         purpose: state.pathParameters['purpose']!,
+        autoStart: true,
       ),
     ),
     GoRoute(

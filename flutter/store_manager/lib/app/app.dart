@@ -92,7 +92,7 @@ class SafeDealzApp extends StatelessWidget {
           value: const DemoImeiScanAdapter(),
         ),
         RepositoryProvider<EvidenceCaptureAdapter>.value(
-          value: const DemoEvidenceCaptureAdapter(),
+          value: CameraEvidenceCaptureAdapter(),
         ),
         RepositoryProvider<DiagnosticQrScanAdapter>.value(
           value: const DemoDiagnosticQrScanAdapter(),

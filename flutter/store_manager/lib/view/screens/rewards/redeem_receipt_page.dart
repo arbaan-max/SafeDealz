@@ -7,6 +7,7 @@ import 'package:safedealz_store_manager/data/api/models/redemption.dart';
 import 'package:safedealz_store_manager/data/repositories/reward_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class RedeemReceiptPage extends StatefulWidget {
   const RedeemReceiptPage({super.key, required this.id});
@@ -60,7 +61,7 @@ class _RedeemReceiptPageState extends State<RedeemReceiptPage> {
       body: SdScrollBody(
         children: [
           const SdNotice('Apply this discount in the store billing software. SafeDealz does not change the bill.'),
-          const SdStatusOrb(icon: Icons.check_circle_outline, tone: 'green'),
+          const SdStatusOrb(icon: SdIcons.check, tone: 'green'),
           const Text('Rewards redeemed', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
           const Text('Apply the recorded discount on the customer’s bill.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF526079))),

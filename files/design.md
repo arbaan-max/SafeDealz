@@ -249,7 +249,7 @@ Each round snapshots device evidence and the linked diagnostic report where appl
 
 | Group | Fields and rules |
 |---|---|
-| Device identity | Device name/model first; IMEI 1 and IMEI 2 typed manually or detected together from a live camera scan; Apple/Android radio selection immediately after the identifiers |
+| Device identity | Apple/Android platform cards first; then device name/model; IMEI 1 and IMEI 2 typed manually or detected together from a live camera scan (hard 15-digit GSMA maxLength) |
 | Specifications | Brand/model confirmation and storage; Apple requires battery health and has no RAM field; Android requires RAM from 4/6/8/12/24 GB only; include device age and box/bill/charger answers |
 | Condition | Body damage, screen/touch status, cameras, charging, speaker/microphone, repair history and notes; show structured summaries to vendor |
 | Apple additions | Battery health percentage, Face ID/Touch ID working/not working/not applicable, display issues, replaced/unknown parts, repair history, Activation Lock/Find My status |
@@ -262,7 +262,7 @@ Front photo shows screen on where functional. If it cannot power on, capture its
 
 Battery health is a percentage from 1 to 100 when available. An unavailable value must be explicitly marked and explained rather than fabricated. Proposed blocking checks: unresolved device account lock, duplicate active IMEI, incomplete customer verification, missing required bill or missing media. An ownership declaration is not an automated stolen-device clearance.
 
-IMEI inputs preserve leading zeros. Validate each as 15 digits, require distinct IMEI 1 and IMEI 2 values, and check duplicates against active device records. The scanner reads both lines from the manager's live camera and allows manual correction after OCR. No gallery upload is offered.
+IMEI inputs preserve leading zeros. Both Apple and Android use the GSMA 15-digit IMEI. The field hard-limits input at 15 digits (`maxLength` / digits-only). Validate each as 15 digits, require distinct IMEI 1 and IMEI 2 values, and check duplicates against active device records. The scanner reads both lines from the manager's live camera and allows manual correction after OCR. No gallery upload is offered.
 
 ### Android Diagnostics app behavior
 
@@ -276,7 +276,7 @@ All diagnostic results remain encrypted locally on the traded phone throughout D
 
 ### Capture screen behavior
 
-Show a video tile followed by a 2-column six-photo grid. Each slot has a label and Empty/Captured/Uploading/Ready/Failed status. Tap an empty slot to open camera; tap an existing slot for preview and Retake. Never offer Upload from gallery. Camera permission denial explains how to allow it and returns to the draft.
+Show a full-width rotation-video tile followed by a 2-column six-photo grid. Each slot holds exactly one capture. Empty slots show Tap to capture; filled slots show the local preview and Captured. Tap an empty slot to open the camera immediately. Tap a filled slot to preview, Clear, or Capture again. Continue stays disabled until every required slot is filled. Never offer Upload from gallery. Camera permission denial explains how to allow it and returns to the draft. Media is kept locally on the manager device for preview even before server upload completes.
 
 Save draft progress and retry failed transfers per media item. Start auction remains disabled until server-side upload completion. Production camera-only enforcement is a native-capture requirement; the future browser prototype demonstrates that flow but must not claim a browser file-input attribute alone enforces it.
 
@@ -301,17 +301,17 @@ Every screen below is required in the later All Screens gallery. Variants named 
 
 | ID | Screen and content hierarchy | Main actions and links | Required states |
 |---|---|---|---|
-| M01 | Home: branch/name header, New trade-in, Offers ready action panel, live auctions, Awaiting pickup, recent devices | New -> M03; counters -> M02 filtered; ready offer -> M11; bell -> S04 | First use, no pending work, offline snapshot |
+| M01 | Home: app bar shows the logged-in branch as title and the manager name as subtitle (about 60% width, ellipsis), notification bell, no SafeDealz wordmark or KR avatar; tinted New trade-in card; offers, live auctions, Awaiting pickup, recent devices | New trade-in card -> M03; counters -> M02 filtered; ready offer -> M11; bell -> S04; Android/system back toasts `Double tap back to close the app` and exits on a second tap within 2 seconds | First use, no pending work, offline snapshot, double-back toast |
 | M02 | Devices: search and chips Drafts/Live/Offers ready/Needs re-auction/Awaiting pickup/Picked up; round and status on each card | Draft -> capture step; live -> M10; ready -> M11; retry -> M15; paid -> M13/M14 | Empty per filter, loading, pagination, unavailable record |
-| M03 | Device identity: model, separate IMEI 1 and IMEI 2 inputs, live-camera OCR for both, Apple/Android, storage, Android-only RAM 4/6/8/12/24 GB, Apple battery health and no Apple RAM | Scan/correct IMEIs; Continue -> M04 | Duplicate/matching IMEIs, missing RAM, OCR correction, invalid identifier, invalid RAM |
-| M04 | Seven-step physical phone form: Basic/SIM, Screen, Body, platform-specific parts/security, Accessories/origin/age, Functional, then Camera; saved progress; no colour-screen test | Back/Continue within M04; finish -> M05; first Back -> M03 | Required answer missing, Apple manual flow, Android manual checks plus separate diagnostic report, security lock, device below 11 months missing bill |
-| M05 | Capture device: one video + six photo checklist, progress, Retake/Preview | Open camera -> M06; Continue -> M09 when ready | Empty, partial, uploading, complete, transfer error |
-| M06 | Camera and preview: guided angle/video label, shutter/record, preview and Retake | Use capture -> M05; cancel -> M05 | Permission denied, interrupted recording, retry, file transferring |
+| M03 | Device identity: Apple/Android platform cards first, then model, separate 15-digit GSMA IMEI 1 and IMEI 2, Scan IMEIs, storage, Android-only RAM 4/6/8/12/24 GB, Apple battery health and no Apple RAM; one merged flow-progress bar (`Device identity 1 of 9`) | Scan/correct IMEIs; Continue validates, scrolls to top on error, then -> M04 | Duplicate/matching IMEIs, missing RAM, OCR correction, invalid identifier, invalid RAM |
+| M04 | Seven-step physical phone form on the same 9-step bar (steps 2–8): Basic/SIM, Screen, Body, platform-specific parts/security, Accessories/origin/age, Functional, then Camera; option tiles; saved progress; no colour-screen test | App-top Back only (saves; previous M04 step or M03); Continue in the action bar; finish -> M05; Continue/Back scroll the form to the top | Required answer missing, Apple manual flow, Android manual checks plus separate diagnostic report, security lock, device below 11 months missing bill |
+| M05 | Capture device: `Capture device 9 of 9` on the same bar; rotation video plus 2-column photo grid; one media item per slot | Empty slot opens camera -> M06; filled slot previews with Clear / Capture again; Continue disabled until every slot is filled, then -> M09 | Empty, partial, uploading, complete, transfer error |
+| M06 | Camera and preview: live camera, angle/video label, Capture, Preview ready, Retake; Use capture enabled only after a capture | Use capture -> M05; Back -> M05 | Permission denied, interrupted recording, retry, file transferring |
 | M07 | Scan diagnostic result: completed-result scanner and imported-report state; no app launcher or pairing code | Scan completed result QR -> validate/import; imported Start auction -> M10; Back -> M09 | Waiting, mismatched IMEI, expired QR, invalid signature, imported |
 | M08 | Customer verification after acceptance: name, phone OTP, identity camera, portrait, purchased device Apple/Android, model, storage, Android-only RAM and editable scanned/manual IMEI 1/2 and acknowledgement | Verify OTP; release existing payout instruction -> M13 | Phone unverified/verified, OTP error, evidence missing, permission denied |
 | M09 | Price-free device summary: identity, both IMEIs, all condition answers, 7/7 media, diagnostic status, branch and eligible vendors; KYC deferred until acceptance | Apple Review and start auction -> M10; Android Continue to diagnostics -> M07; imported Android Start auction -> M10 | Validating, diagnostic required/imported, no active assigned vendors, start failed |
 | M10 | Live auction: device hero, 03:00 countdown, round number, bid count and highest current offer | View device/media; open round history -> M16; cancel with reason -> M15 | No bids yet, bids received, reconnecting, closed transition |
-| M11 | Highest offer: 10:00 acceptance countdown, final amount, vendor, breakdown, payout branch, reward preview | Accept -> M12; Rebid expectation dialog -> fresh M10 round; Decline with reason -> M15; details -> M16 | Ready, expired, already accepted by colleague, canceled |
+| M11 | Highest offer: 10:00 acceptance countdown, final amount, vendor, breakdown, payout branch, reward preview; app-top Back (previous screen or Home) | Accept -> M12; Rebid expectation dialog -> fresh M10 round; Decline with reason -> M15; details -> M16; Back -> previous or M01 | Ready, expired, already accepted by colleague, canceled |
 | M12 | Accept confirmation sheet: amount, vendor, masked store bank account, automatic payment explanation | Confirm -> M08; Back -> M11 | Submitting; deadline crossed; duplicate confirmation returns existing deal |
 | M13 | Payment status: accepted amount, branch beneficiary, payment reference and timeline; reward/SMS status secondary | View deal -> M14 after Paid; Refresh status; report issue -> M23 | Processing, Paid, Needs attention; no premature success |
 | M14 | Deal detail: device and vendor, Paid status, Awaiting pickup, branch, transaction and auction history | Mark picked up -> M17; payment -> M13; history -> M16 | Awaiting pickup, payment unresolved blocks pickup, Picked up |
@@ -408,11 +408,12 @@ These layouts establish visual hierarchy for the later HTML rather than pixel-pe
 ### Manager Home / M01
 
 ```text
-[SafeDealz]                       [Notifications]
-PAI / Indiranagar
-Hello, Kavya
+[PAI / Indiranagar          ] [Notifications]
+ Kavya Rao                     (title ~60%, ellipsis)
+                               (no SafeDealz wordmark, no KR avatar)
 
-[ New trade-in                              + ]
+[ +  New trade-in                               > ]
+     Capture a device and start bidding
 
 Offers ready                          View all
 [iPhone 14   ₹15,000   Accept within 08:42     ]
@@ -426,7 +427,7 @@ Recent devices
 [Home]       [Devices]       [Rewards]   [Account]
 ```
 
-An expiring actionable offer outranks routine statistics. No incentive card or customer payout number. Sky-blue informational panels support the darker sky-blue New trade-in action without competing with the offer's urgency.
+The app bar uses the logged-in branch as the title and the signed-in manager name as the subtitle. Android/system back on Home shows `Double tap back to close the app` and exits only on a second tap within two seconds. An expiring actionable offer outranks routine statistics. No incentive card or customer payout number. Sky-blue informational panels support the darker sky-blue New trade-in card without competing with the offer's urgency.
 
 ### Vendor Bid / V04
 
@@ -451,7 +452,7 @@ Use one prominent computed amount, not several equally large numbers. The confir
 
 ### Manager Offer / M11
 
-Device header, then a fixed-position-in-layout acceptance countdown, final offer in the largest type, vendor identity, deduction breakdown, masked branch bank destination, reward preview, and bottom Accept offer action. Decline is a lower-emphasis text action with a reason sheet. No carousel of competing offers.
+Device header, then a fixed-position-in-layout acceptance countdown, final offer in the largest type, vendor identity, deduction breakdown, masked branch bank destination, reward preview, and bottom Accept offer action. App-top Back returns to the previous screen when one exists, otherwise Home. Decline is a lower-emphasis text action with a reason sheet. No carousel of competing offers.
 
 ### Vendor Wallet / V07
 
@@ -724,7 +725,7 @@ CRUD dialogs and form modes are variants of the existing screen IDs. There are 7
 
 ### Navigation, notifications and timing refinement
 
-M04 shows an in-screen Back control to M03 and hides its notification icon so the manager can focus on the condition form. The account-lock dropdown is removed. Admin child screens show a visible Back control to their parent list or overview: A03→A02, A05→A04, A24→A23, A07→A06, A09→A08, A11→A10, A13→A12, A14→A08, A16/A17→A15, A22→A01 and S04→A01.
+M04 uses a single merged flow-progress bar (`Basic & SIM 2 of 9` through `Camera 8 of 9`) and an app-top Back control. There is no second in-screen Back in the action bar. The first inspection Back returns to M03; later backs save and return to the previous inspection step. The notification icon stays hidden on M03–M06 so the manager can focus on the form. The account-lock dropdown is removed. Admin child screens show a visible Back control to their parent list or overview: A03→A02, A05→A04, A24→A23, A07→A06, A09→A08, A11→A10, A13→A12, A14→A08, A16/A17→A15, A22→A01 and S04→A01.
 
 Vendor notifications contain only eligible offer alerts, winning-offer decisions and pickup confirmation for the corresponding won device. Admin S04 contains all system, store, vendor and administrator notification events, with sender, audience, category, delivery-state and search filters. Super Admin can compose a notification for all users, all stores, all vendors, a specific store or a specific vendor. Each sent notification is added to the delivery history.
 
@@ -736,7 +737,7 @@ The client-approved production theme is Sky Blue across Store Manager, Vendor, D
 
 ### Login and device entry refinement
 
-S01 has no notification icon; notifications are available after Login. M03 requires storage for both device types. Apple selection reveals a required battery-health field accepting whole percentages from 1 to 100. Android selection hides battery health and reveals a required RAM dropdown, initially prompting a selection. Continue validates the visible required fields and retains input on validation errors or device-type changes. M04 displays the saved Apple battery health as read-only condition information.
+S01 has no notification icon; notifications are available after Login. M03 starts with Apple/Android platform cards, then model, then both 15-digit GSMA IMEIs. Storage is required for both device types. Apple selection reveals a required battery-health field accepting whole percentages from 1 to 100. Android selection hides battery health and reveals a required RAM dropdown, initially prompting a selection. Continue validates the visible required fields, scrolls to the top of the form, and retains input on validation errors or device-type changes. M04 displays the saved Apple battery health as read-only condition information.
 
 
 ## September 13 approved flow and commercial rules
@@ -747,11 +748,11 @@ This revision replaces earlier pre-auction customer-verification and bid-only wa
 
 M03 identity → M04 required physical checks → M05 evidence (M06 camera) → M09 review → Android M07 diagnostics/result import or Apple direct auction → M10 live auction → M11 offer → M12 acceptance → M08 customer verification → M13 payout → M14 pickup.
 
-Apple intake: model, both IMEIs, storage, battery health; no RAM. Android intake: model, both IMEIs, storage and RAM 4/6/8/12/24 GB only. Neither offers 2 GB, 3 GB or custom RAM. The separate purchased-device section in M08 uses Apple/Android selection, required model name/number, required storage (64/128/256/512 GB or 1 TB), and Android-only RAM (4/6/8/12/24 GB). Apple has no RAM or battery-health field here. Both purchased-device IMEIs are required, distinct 15-digit values; live-camera OCR fills editable text fields, and manual entry/correction is supported. M03 and M08 reuse the same storage, RAM and IMEI controls. It never replaces or overwrites traded-device identity.
+Apple intake: platform, model, both 15-digit GSMA IMEIs, storage, battery health; no RAM. Android intake: platform, model, both 15-digit GSMA IMEIs, storage and RAM 4/6/8/12/24 GB only. Neither offers 2 GB, 3 GB or custom RAM. The separate purchased-device section in M08 uses Apple/Android selection, required model name/number, required storage (64/128/256/512 GB or 1 TB), and Android-only RAM (4/6/8/12/24 GB). Apple has no RAM or battery-health field here. Both purchased-device IMEIs are required, distinct 15-digit values; live-camera OCR fills editable text fields, and manual entry/correction is supported. M03 and M08 reuse the same storage, RAM and IMEI controls. It never replaces or overwrites traded-device identity.
 
 ### M04 complete physical checks
 
-M04 is one saved seven-step journey with a visible `Step n of 7` indicator and progress bar. Back saves partial selections; Continue validates the current step and focuses the error. No successful answer is preselected.
+M04 is one saved seven-step journey on the shared trade-in progress bar (`2 of 9` through `8 of 9`, after Device identity and before Capture device). Do not show a separate `Step n of 7` indicator plus the six-dot intake stepper. Back saves partial selections from the app top; Continue validates the current step, scrolls to the top, and focuses the error. No successful answer is preselected. Answers use tappable option tiles, not a stacked radio list.
 
 1. Basic & SIM: both platforms ask SIM 1/2 working and supported SIM configuration, including Not applicable/Not available where appropriate.
 2. Screen: both platforms ask touch, replacement/copy screen, spots, lines, discoloration/fading, scratches/chips/cracks, paint/bubbles and flicker.
@@ -806,3 +807,16 @@ This amendment supersedes earlier references that treat all administrative users
 New screens: A23 — Admin list (Super Admin only); A24 — Admin create/edit, active status and assigned-store selection (Super Admin only). A00 login routes both administrative roles into their permitted React experience. Existing A-series screens use scoped views for Admin where allowed; platform-wide settings, global wallet data and administrative-role controls remain Super Admin-only.
 
 Prototype synchronization: design.html includes A23/A24 navigation, forms and Super Admin-only assignment copy.
+
+## Latest amendment — Store Manager Home and trade-in UX (2026-09-15)
+
+This amendment records the live Store Manager Flutter UX in design.md and design.html. Sky-blue tokens and existing auction/payment rules are unchanged.
+
+- **M01 Home:** App bar title is the logged-in branch; subtitle is the signed-in manager name; both occupy about 60% width with ellipsis. Notification bell remains. Remove the SafeDealz wordmark, Hello greeting and KR avatar from Home. New trade-in is a tinted card CTA (`Capture a device and start bidding`). Android/system back shows `Double tap back to close the app` and exits on a second tap within two seconds. In the HTML prototype, press Escape on Home (Interactive flow) to demonstrate the same toast.
+- **M03 identity:** Choose Apple or Android first (platform cards), then model, then IMEI 1 / IMEI 2. Both platforms use a hard 15-digit GSMA IMEI. Scan IMEIs is a secondary control under the fields. One merged flow-progress bar: Device identity `1 of 9`. App-top Back to Home; no notification bell.
+- **M04 inspection:** Same 9-step bar (`2 of 9`–`8 of 9`). App-top Back only; Continue only in the action bar. Continue and Back scroll to the top. Option tiles for answers.
+- **M05 capture:** `9 of 9`. Full-width rotation video, then a 2-column photo grid. One capture per slot. Empty tap opens the camera; filled tap previews with Clear / Capture again. Continue is disabled until every slot is filled. Local preview is shown when a file exists.
+- **M06 camera:** Live capture copy. After shutter, show Preview ready. Capture becomes Retake. Use capture stays disabled until a capture exists. No “SIMULATED CAMERA / CLIENT DEMO” production copy.
+- **M11 Highest offer:** App-top Back returns to the previous screen when the stack allows it, otherwise Home. Notification bell is hidden.
+
+design.html Interactive flow is the visual reference for these screens. Open Home, New trade-in, inspection, capture and Highest offer to review the HTML change.

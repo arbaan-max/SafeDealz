@@ -7,6 +7,7 @@ import 'package:safedealz_store_manager/data/api/models/deal.dart';
 import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class PickupPage extends StatefulWidget {
   const PickupPage({super.key, required this.dealId});
@@ -69,7 +70,7 @@ class _PickupPageState extends State<PickupPage> {
       ),
       body: ListView(
         children: [
-          const SdStatusOrb(icon: Icons.storefront_outlined),
+          const SdStatusOrb(icon: SdIcons.storefront),
           const Text('Confirm pickup', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
           const Text('Has the device been handed to the vendor?', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF526079))),

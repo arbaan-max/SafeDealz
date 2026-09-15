@@ -9,6 +9,7 @@ import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class AcceptConfirmPage extends StatefulWidget {
   const AcceptConfirmPage({super.key, required this.auctionId});
@@ -84,7 +85,7 @@ class _AcceptConfirmPageState extends State<AcceptConfirmPage> {
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               children: [
-                const SdStatusOrb(icon: Icons.account_balance_outlined),
+                const SdStatusOrb(icon: SdIcons.bank),
                 const Text('Accept this offer?', textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 8),
                 const Text('Confirm the amount and store account.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF526079))),

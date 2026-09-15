@@ -9,6 +9,7 @@ import 'package:safedealz_store_manager/data/repositories/deal_repository.dart';
 import 'package:safedealz_store_manager/view/screens/auctions/money.dart';
 import 'package:safedealz_store_manager/view/widgets/app_page_scaffold.dart';
 import 'package:safedealz_store_manager/view/widgets/html_kit.dart';
+import 'package:safedealz_store_manager/view/widgets/sd_icons.dart';
 
 class PaymentStatusPage extends StatefulWidget {
   const PaymentStatusPage({super.key, required this.dealId});
@@ -99,10 +100,10 @@ class _PaymentStatusPageState extends State<PaymentStatusPage> {
                   Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 SdStatusOrb(
                   icon: payment?.status == PaymentInstructionStatus.paid
-                      ? Icons.check_circle_outline
+                      ? SdIcons.check
                       : payment?.status == PaymentInstructionStatus.needsAttention
-                          ? Icons.warning_amber_outlined
-                          : Icons.account_balance_outlined,
+                          ? SdIcons.warning
+                          : SdIcons.bank,
                   tone: payment?.status == PaymentInstructionStatus.paid
                       ? 'green'
                       : payment?.status == PaymentInstructionStatus.needsAttention

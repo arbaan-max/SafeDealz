@@ -25,6 +25,14 @@ List<InspectionField> fieldsForStep(Catalog catalog, int step, {required bool ap
   ];
 }
 
+int tradeInFormTotalSteps(Catalog catalog) => 1 + catalog.inspectionSteps.length + 1;
+
+int tradeInIdentityStep() => 1;
+
+int tradeInInspectionStep(int step) => 2 + step;
+
+int tradeInEvidenceStep(Catalog catalog) => tradeInFormTotalSteps(catalog);
+
 String batteryBand(int? health) {
   final value = health ?? 0;
   if (value > 85) return 'Above 85% / Good';
