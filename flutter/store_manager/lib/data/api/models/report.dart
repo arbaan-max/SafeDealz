@@ -11,7 +11,7 @@ part 'report.freezed.dart';
 part 'report.g.dart';
 
 @Freezed()
-class Report with _$Report {
+abstract class Report with _$Report {
   const factory Report({
     AuctionConversion? auctionConversion,
     int? acceptedValuePaise,

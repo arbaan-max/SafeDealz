@@ -10,7 +10,7 @@ part 'password_change_response.freezed.dart';
 part 'password_change_response.g.dart';
 
 @Freezed()
-class PasswordChangeResponse with _$PasswordChangeResponse {
+abstract class PasswordChangeResponse with _$PasswordChangeResponse {
   const factory PasswordChangeResponse({
     required bool success,
     required PasswordChange data,

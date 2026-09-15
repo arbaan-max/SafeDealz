@@ -8,7 +8,7 @@ part 'auction_rebid_write.freezed.dart';
 part 'auction_rebid_write.g.dart';
 
 @Freezed()
-class AuctionRebidWrite with _$AuctionRebidWrite {
+abstract class AuctionRebidWrite with _$AuctionRebidWrite {
   const factory AuctionRebidWrite({
     required int expectedAmountPaise,
   }) = _AuctionRebidWrite;

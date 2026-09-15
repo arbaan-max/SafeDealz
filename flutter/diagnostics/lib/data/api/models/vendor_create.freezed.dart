@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,291 +9,290 @@ part of 'vendor_create.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-VendorCreate _$VendorCreateFromJson(Map<String, dynamic> json) {
-  return _VendorCreate.fromJson(json);
-}
 
 /// @nodoc
 mixin _$VendorCreate {
-  String get displayName => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-  List<String> get assignedBranchIds => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
-  bool? get active => throw _privateConstructorUsedError;
+
+ String get displayName; String get email; String get password; List<String> get assignedBranchIds; String? get phone; bool? get active;
+/// Create a copy of VendorCreate
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VendorCreateCopyWith<VendorCreate> get copyWith => _$VendorCreateCopyWithImpl<VendorCreate>(this as VendorCreate, _$identity);
 
   /// Serializes this VendorCreate to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of VendorCreate
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $VendorCreateCopyWith<VendorCreate> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VendorCreate&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&const DeepCollectionEquality().equals(other.assignedBranchIds, assignedBranchIds)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.active, active) || other.active == active));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,displayName,email,password,const DeepCollectionEquality().hash(assignedBranchIds),phone,active);
+
+@override
+String toString() {
+  return 'VendorCreate(displayName: $displayName, email: $email, password: $password, assignedBranchIds: $assignedBranchIds, phone: $phone, active: $active)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $VendorCreateCopyWith<$Res> {
-  factory $VendorCreateCopyWith(
-    VendorCreate value,
-    $Res Function(VendorCreate) then,
-  ) = _$VendorCreateCopyWithImpl<$Res, VendorCreate>;
-  @useResult
-  $Res call({
-    String displayName,
-    String email,
-    String password,
-    List<String> assignedBranchIds,
-    String? phone,
-    bool? active,
-  });
-}
+abstract mixin class $VendorCreateCopyWith<$Res>  {
+  factory $VendorCreateCopyWith(VendorCreate value, $Res Function(VendorCreate) _then) = _$VendorCreateCopyWithImpl;
+@useResult
+$Res call({
+ String displayName, String email, String password, List<String> assignedBranchIds, String? phone, bool? active
+});
 
+
+
+
+}
 /// @nodoc
-class _$VendorCreateCopyWithImpl<$Res, $Val extends VendorCreate>
+class _$VendorCreateCopyWithImpl<$Res>
     implements $VendorCreateCopyWith<$Res> {
-  _$VendorCreateCopyWithImpl(this._value, this._then);
+  _$VendorCreateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final VendorCreate _self;
+  final $Res Function(VendorCreate) _then;
 
-  /// Create a copy of VendorCreate
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? displayName = null,
-    Object? email = null,
-    Object? password = null,
-    Object? assignedBranchIds = null,
-    Object? phone = freezed,
-    Object? active = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            displayName: null == displayName
-                ? _value.displayName
-                : displayName // ignore: cast_nullable_to_non_nullable
-                      as String,
-            email: null == email
-                ? _value.email
-                : email // ignore: cast_nullable_to_non_nullable
-                      as String,
-            password: null == password
-                ? _value.password
-                : password // ignore: cast_nullable_to_non_nullable
-                      as String,
-            assignedBranchIds: null == assignedBranchIds
-                ? _value.assignedBranchIds
-                : assignedBranchIds // ignore: cast_nullable_to_non_nullable
-                      as List<String>,
-            phone: freezed == phone
-                ? _value.phone
-                : phone // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            active: freezed == active
-                ? _value.active
-                : active // ignore: cast_nullable_to_non_nullable
-                      as bool?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of VendorCreate
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? displayName = null,Object? email = null,Object? password = null,Object? assignedBranchIds = null,Object? phone = freezed,Object? active = freezed,}) {
+  return _then(_self.copyWith(
+displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,assignedBranchIds: null == assignedBranchIds ? _self.assignedBranchIds : assignedBranchIds // ignore: cast_nullable_to_non_nullable
+as List<String>,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,active: freezed == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$VendorCreateImplCopyWith<$Res>
-    implements $VendorCreateCopyWith<$Res> {
-  factory _$$VendorCreateImplCopyWith(
-    _$VendorCreateImpl value,
-    $Res Function(_$VendorCreateImpl) then,
-  ) = __$$VendorCreateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String displayName,
-    String email,
-    String password,
-    List<String> assignedBranchIds,
-    String? phone,
-    bool? active,
-  });
 }
 
-/// @nodoc
-class __$$VendorCreateImplCopyWithImpl<$Res>
-    extends _$VendorCreateCopyWithImpl<$Res, _$VendorCreateImpl>
-    implements _$$VendorCreateImplCopyWith<$Res> {
-  __$$VendorCreateImplCopyWithImpl(
-    _$VendorCreateImpl _value,
-    $Res Function(_$VendorCreateImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of VendorCreate
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? displayName = null,
-    Object? email = null,
-    Object? password = null,
-    Object? assignedBranchIds = null,
-    Object? phone = freezed,
-    Object? active = freezed,
-  }) {
-    return _then(
-      _$VendorCreateImpl(
-        displayName: null == displayName
-            ? _value.displayName
-            : displayName // ignore: cast_nullable_to_non_nullable
-                  as String,
-        email: null == email
-            ? _value.email
-            : email // ignore: cast_nullable_to_non_nullable
-                  as String,
-        password: null == password
-            ? _value.password
-            : password // ignore: cast_nullable_to_non_nullable
-                  as String,
-        assignedBranchIds: null == assignedBranchIds
-            ? _value._assignedBranchIds
-            : assignedBranchIds // ignore: cast_nullable_to_non_nullable
-                  as List<String>,
-        phone: freezed == phone
-            ? _value.phone
-            : phone // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        active: freezed == active
-            ? _value.active
-            : active // ignore: cast_nullable_to_non_nullable
-                  as bool?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [VendorCreate].
+extension VendorCreatePatterns on VendorCreate {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _VendorCreate value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _VendorCreate() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _VendorCreate value)  $default,){
+final _that = this;
+switch (_that) {
+case _VendorCreate():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _VendorCreate value)?  $default,){
+final _that = this;
+switch (_that) {
+case _VendorCreate() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String displayName,  String email,  String password,  List<String> assignedBranchIds,  String? phone,  bool? active)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _VendorCreate() when $default != null:
+return $default(_that.displayName,_that.email,_that.password,_that.assignedBranchIds,_that.phone,_that.active);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String displayName,  String email,  String password,  List<String> assignedBranchIds,  String? phone,  bool? active)  $default,) {final _that = this;
+switch (_that) {
+case _VendorCreate():
+return $default(_that.displayName,_that.email,_that.password,_that.assignedBranchIds,_that.phone,_that.active);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String displayName,  String email,  String password,  List<String> assignedBranchIds,  String? phone,  bool? active)?  $default,) {final _that = this;
+switch (_that) {
+case _VendorCreate() when $default != null:
+return $default(_that.displayName,_that.email,_that.password,_that.assignedBranchIds,_that.phone,_that.active);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$VendorCreateImpl implements _VendorCreate {
-  const _$VendorCreateImpl({
-    required this.displayName,
-    required this.email,
-    required this.password,
-    required final List<String> assignedBranchIds,
-    this.phone,
-    this.active,
-  }) : _assignedBranchIds = assignedBranchIds;
 
-  factory _$VendorCreateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$VendorCreateImplFromJson(json);
+class _VendorCreate implements VendorCreate {
+  const _VendorCreate({required this.displayName, required this.email, required this.password, required final  List<String> assignedBranchIds, this.phone, this.active}): _assignedBranchIds = assignedBranchIds;
+  factory _VendorCreate.fromJson(Map<String, dynamic> json) => _$VendorCreateFromJson(json);
 
-  @override
-  final String displayName;
-  @override
-  final String email;
-  @override
-  final String password;
-  final List<String> _assignedBranchIds;
-  @override
-  List<String> get assignedBranchIds {
-    if (_assignedBranchIds is EqualUnmodifiableListView)
-      return _assignedBranchIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_assignedBranchIds);
-  }
-
-  @override
-  final String? phone;
-  @override
-  final bool? active;
-
-  @override
-  String toString() {
-    return 'VendorCreate(displayName: $displayName, email: $email, password: $password, assignedBranchIds: $assignedBranchIds, phone: $phone, active: $active)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$VendorCreateImpl &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            const DeepCollectionEquality().equals(
-              other._assignedBranchIds,
-              _assignedBranchIds,
-            ) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.active, active) || other.active == active));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    displayName,
-    email,
-    password,
-    const DeepCollectionEquality().hash(_assignedBranchIds),
-    phone,
-    active,
-  );
-
-  /// Create a copy of VendorCreate
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$VendorCreateImplCopyWith<_$VendorCreateImpl> get copyWith =>
-      __$$VendorCreateImplCopyWithImpl<_$VendorCreateImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$VendorCreateImplToJson(this);
-  }
+@override final  String displayName;
+@override final  String email;
+@override final  String password;
+ final  List<String> _assignedBranchIds;
+@override List<String> get assignedBranchIds {
+  if (_assignedBranchIds is EqualUnmodifiableListView) return _assignedBranchIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_assignedBranchIds);
 }
 
-abstract class _VendorCreate implements VendorCreate {
-  const factory _VendorCreate({
-    required final String displayName,
-    required final String email,
-    required final String password,
-    required final List<String> assignedBranchIds,
-    final String? phone,
-    final bool? active,
-  }) = _$VendorCreateImpl;
+@override final  String? phone;
+@override final  bool? active;
 
-  factory _VendorCreate.fromJson(Map<String, dynamic> json) =
-      _$VendorCreateImpl.fromJson;
+/// Create a copy of VendorCreate
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$VendorCreateCopyWith<_VendorCreate> get copyWith => __$VendorCreateCopyWithImpl<_VendorCreate>(this, _$identity);
 
-  @override
-  String get displayName;
-  @override
-  String get email;
-  @override
-  String get password;
-  @override
-  List<String> get assignedBranchIds;
-  @override
-  String? get phone;
-  @override
-  bool? get active;
-
-  /// Create a copy of VendorCreate
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$VendorCreateImplCopyWith<_$VendorCreateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$VendorCreateToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VendorCreate&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&const DeepCollectionEquality().equals(other._assignedBranchIds, _assignedBranchIds)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.active, active) || other.active == active));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,displayName,email,password,const DeepCollectionEquality().hash(_assignedBranchIds),phone,active);
+
+@override
+String toString() {
+  return 'VendorCreate(displayName: $displayName, email: $email, password: $password, assignedBranchIds: $assignedBranchIds, phone: $phone, active: $active)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$VendorCreateCopyWith<$Res> implements $VendorCreateCopyWith<$Res> {
+  factory _$VendorCreateCopyWith(_VendorCreate value, $Res Function(_VendorCreate) _then) = __$VendorCreateCopyWithImpl;
+@override @useResult
+$Res call({
+ String displayName, String email, String password, List<String> assignedBranchIds, String? phone, bool? active
+});
+
+
+
+
+}
+/// @nodoc
+class __$VendorCreateCopyWithImpl<$Res>
+    implements _$VendorCreateCopyWith<$Res> {
+  __$VendorCreateCopyWithImpl(this._self, this._then);
+
+  final _VendorCreate _self;
+  final $Res Function(_VendorCreate) _then;
+
+/// Create a copy of VendorCreate
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? displayName = null,Object? email = null,Object? password = null,Object? assignedBranchIds = null,Object? phone = freezed,Object? active = freezed,}) {
+  return _then(_VendorCreate(
+displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,assignedBranchIds: null == assignedBranchIds ? _self._assignedBranchIds : assignedBranchIds // ignore: cast_nullable_to_non_nullable
+as List<String>,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,active: freezed == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+
+
+}
+
+// dart format on

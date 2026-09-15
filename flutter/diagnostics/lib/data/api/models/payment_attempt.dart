@@ -8,7 +8,7 @@ part 'payment_attempt.freezed.dart';
 part 'payment_attempt.g.dart';
 
 @Freezed()
-class PaymentAttempt with _$PaymentAttempt {
+abstract class PaymentAttempt with _$PaymentAttempt {
   const factory PaymentAttempt({
     DateTime? at,
     String? event,

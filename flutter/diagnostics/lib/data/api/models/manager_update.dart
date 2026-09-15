@@ -8,7 +8,7 @@ part 'manager_update.freezed.dart';
 part 'manager_update.g.dart';
 
 @Freezed()
-class ManagerUpdate with _$ManagerUpdate {
+abstract class ManagerUpdate with _$ManagerUpdate {
   const factory ManagerUpdate({
     String? displayName,
     String? phone,

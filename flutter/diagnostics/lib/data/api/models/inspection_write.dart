@@ -8,7 +8,7 @@ part 'inspection_write.freezed.dart';
 part 'inspection_write.g.dart';
 
 @Freezed()
-class InspectionWrite with _$InspectionWrite {
+abstract class InspectionWrite with _$InspectionWrite {
   const factory InspectionWrite({
     Map<String, String>? answers,
     bool? complete,

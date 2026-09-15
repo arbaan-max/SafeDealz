@@ -10,7 +10,7 @@ part 'wallet_hold.freezed.dart';
 part 'wallet_hold.g.dart';
 
 @Freezed()
-class WalletHold with _$WalletHold {
+abstract class WalletHold with _$WalletHold {
   const factory WalletHold({
     String? id,
     int? amountPaise,

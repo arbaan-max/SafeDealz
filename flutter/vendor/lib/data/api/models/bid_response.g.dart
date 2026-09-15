@@ -6,11 +6,10 @@ part of 'bid_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BidResponseImpl _$$BidResponseImplFromJson(Map<String, dynamic> json) =>
-    _$BidResponseImpl(
-      success: json['success'] as bool,
-      data: Bid.fromJson(json['data'] as Map<String, dynamic>),
-    );
+_BidResponse _$BidResponseFromJson(Map<String, dynamic> json) => _BidResponse(
+  success: json['success'] as bool,
+  data: Bid.fromJson(json['data'] as Map<String, dynamic>),
+);
 
-Map<String, dynamic> _$$BidResponseImplToJson(_$BidResponseImpl instance) =>
+Map<String, dynamic> _$BidResponseToJson(_BidResponse instance) =>
     <String, dynamic>{'success': instance.success, 'data': instance.data};

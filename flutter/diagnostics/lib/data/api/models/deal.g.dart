@@ -6,7 +6,7 @@ part of 'deal.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DealImpl _$$DealImplFromJson(Map<String, dynamic> json) => _$DealImpl(
+_Deal _$DealFromJson(Map<String, dynamic> json) => _Deal(
   id: json['id'] as String,
   auctionRoundId: json['auctionRoundId'] as String,
   deviceId: json['deviceId'] as String,
@@ -38,25 +38,24 @@ _$DealImpl _$$DealImplFromJson(Map<String, dynamic> json) => _$DealImpl(
         ),
 );
 
-Map<String, dynamic> _$$DealImplToJson(_$DealImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'auctionRoundId': instance.auctionRoundId,
-      'deviceId': instance.deviceId,
-      'amountPaise': instance.amountPaise,
-      'status': instance.status,
-      'branchId': instance.branchId,
-      'vendorAccountId': instance.vendorAccountId,
-      'bidId': instance.bidId,
-      'feePaise': instance.feePaise,
-      'totalPaise': instance.totalPaise,
-      'paymentInstruction': instance.paymentInstruction,
-      'pickedUpAt': instance.pickedUpAt?.toIso8601String(),
-      'branch': instance.branch,
-      'customerName': instance.customerName,
-      'customerPhone': instance.customerPhone,
-      'otpVerified': instance.otpVerified,
-      'idCaptured': instance.idCaptured,
-      'portraitCaptured': instance.portraitCaptured,
-      'purchasedDevice': instance.purchasedDevice,
-    };
+Map<String, dynamic> _$DealToJson(_Deal instance) => <String, dynamic>{
+  'id': instance.id,
+  'auctionRoundId': instance.auctionRoundId,
+  'deviceId': instance.deviceId,
+  'amountPaise': instance.amountPaise,
+  'status': instance.status,
+  'branchId': instance.branchId,
+  'vendorAccountId': instance.vendorAccountId,
+  'bidId': instance.bidId,
+  'feePaise': instance.feePaise,
+  'totalPaise': instance.totalPaise,
+  'paymentInstruction': instance.paymentInstruction,
+  'pickedUpAt': instance.pickedUpAt?.toIso8601String(),
+  'branch': instance.branch,
+  'customerName': instance.customerName,
+  'customerPhone': instance.customerPhone,
+  'otpVerified': instance.otpVerified,
+  'idCaptured': instance.idCaptured,
+  'portraitCaptured': instance.portraitCaptured,
+  'purchasedDevice': instance.purchasedDevice,
+};

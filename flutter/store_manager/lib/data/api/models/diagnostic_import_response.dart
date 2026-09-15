@@ -10,7 +10,7 @@ part 'diagnostic_import_response.freezed.dart';
 part 'diagnostic_import_response.g.dart';
 
 @Freezed()
-class DiagnosticImportResponse with _$DiagnosticImportResponse {
+abstract class DiagnosticImportResponse with _$DiagnosticImportResponse {
   const factory DiagnosticImportResponse({
     required bool success,
     required Data10 data,

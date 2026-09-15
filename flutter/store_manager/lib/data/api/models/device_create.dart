@@ -10,7 +10,7 @@ part 'device_create.freezed.dart';
 part 'device_create.g.dart';
 
 @Freezed()
-class DeviceCreate with _$DeviceCreate {
+abstract class DeviceCreate with _$DeviceCreate {
   const factory DeviceCreate({
     required String branchId,
     required DeviceCreatePlatform platform,

@@ -8,7 +8,7 @@ part 'bid_write.freezed.dart';
 part 'bid_write.g.dart';
 
 @Freezed()
-class BidWrite with _$BidWrite {
+abstract class BidWrite with _$BidWrite {
   const factory BidWrite({
     required int amountPaise,
     required String idempotencyKey,

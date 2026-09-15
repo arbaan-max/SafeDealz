@@ -10,7 +10,7 @@ part 'media_complete_response.freezed.dart';
 part 'media_complete_response.g.dart';
 
 @Freezed()
-class MediaCompleteResponse with _$MediaCompleteResponse {
+abstract class MediaCompleteResponse with _$MediaCompleteResponse {
   const factory MediaCompleteResponse({
     required bool success,
     required Data8 data,

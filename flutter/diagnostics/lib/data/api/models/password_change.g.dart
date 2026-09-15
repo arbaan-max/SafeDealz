@@ -6,9 +6,8 @@ part of 'password_change.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PasswordChangeImpl _$$PasswordChangeImplFromJson(Map<String, dynamic> json) =>
-    _$PasswordChangeImpl(revokedSessions: json['revokedSessions'] as bool?);
+_PasswordChange _$PasswordChangeFromJson(Map<String, dynamic> json) =>
+    _PasswordChange(revokedSessions: json['revokedSessions'] as bool?);
 
-Map<String, dynamic> _$$PasswordChangeImplToJson(
-  _$PasswordChangeImpl instance,
-) => <String, dynamic>{'revokedSessions': instance.revokedSessions};
+Map<String, dynamic> _$PasswordChangeToJson(_PasswordChange instance) =>
+    <String, dynamic>{'revokedSessions': instance.revokedSessions};

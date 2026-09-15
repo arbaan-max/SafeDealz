@@ -10,7 +10,7 @@ part 'notification_broadcast.freezed.dart';
 part 'notification_broadcast.g.dart';
 
 @Freezed()
-class NotificationBroadcast with _$NotificationBroadcast {
+abstract class NotificationBroadcast with _$NotificationBroadcast {
   const factory NotificationBroadcast({
     String? campaignId,
     int? delivered,

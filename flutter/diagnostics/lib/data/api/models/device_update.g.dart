@@ -6,8 +6,8 @@ part of 'device_update.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DeviceUpdateImpl _$$DeviceUpdateImplFromJson(Map<String, dynamic> json) =>
-    _$DeviceUpdateImpl(
+_DeviceUpdate _$DeviceUpdateFromJson(Map<String, dynamic> json) =>
+    _DeviceUpdate(
       model: json['model'] as String?,
       imei1: json['imei1'] as String?,
       imei2: json['imei2'] as String?,
@@ -16,7 +16,7 @@ _$DeviceUpdateImpl _$$DeviceUpdateImplFromJson(Map<String, dynamic> json) =>
       batteryHealth: (json['batteryHealth'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$DeviceUpdateImplToJson(_$DeviceUpdateImpl instance) =>
+Map<String, dynamic> _$DeviceUpdateToJson(_DeviceUpdate instance) =>
     <String, dynamic>{
       'model': instance.model,
       'imei1': instance.imei1,

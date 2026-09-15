@@ -11,7 +11,7 @@ part 'support_ticket_write.freezed.dart';
 part 'support_ticket_write.g.dart';
 
 @Freezed()
-class SupportTicketWrite with _$SupportTicketWrite {
+abstract class SupportTicketWrite with _$SupportTicketWrite {
   const factory SupportTicketWrite({
     required SupportTicketWriteSubjectType subjectType,
     required String subjectId,

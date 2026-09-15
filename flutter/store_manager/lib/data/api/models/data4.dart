@@ -10,7 +10,7 @@ part 'data4.freezed.dart';
 part 'data4.g.dart';
 
 @Freezed()
-class Data4 with _$Data4 {
+abstract class Data4 with _$Data4 {
   const factory Data4({
     RewardPolicy? current,
     List<RewardPolicy>? versions,

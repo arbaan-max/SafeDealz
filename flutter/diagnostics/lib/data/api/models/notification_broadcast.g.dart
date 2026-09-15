@@ -6,9 +6,9 @@ part of 'notification_broadcast.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationBroadcastImpl _$$NotificationBroadcastImplFromJson(
+_NotificationBroadcast _$NotificationBroadcastFromJson(
   Map<String, dynamic> json,
-) => _$NotificationBroadcastImpl(
+) => _NotificationBroadcast(
   campaignId: json['campaignId'] as String?,
   delivered: (json['delivered'] as num?)?.toInt(),
   deliveries: (json['deliveries'] as List<dynamic>?)
@@ -16,8 +16,8 @@ _$NotificationBroadcastImpl _$$NotificationBroadcastImplFromJson(
       .toList(),
 );
 
-Map<String, dynamic> _$$NotificationBroadcastImplToJson(
-  _$NotificationBroadcastImpl instance,
+Map<String, dynamic> _$NotificationBroadcastToJson(
+  _NotificationBroadcast instance,
 ) => <String, dynamic>{
   'campaignId': instance.campaignId,
   'delivered': instance.delivered,

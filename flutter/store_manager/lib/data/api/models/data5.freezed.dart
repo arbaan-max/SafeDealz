@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,168 +9,272 @@ part of 'data5.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-Data5 _$Data5FromJson(Map<String, dynamic> json) {
-  return _Data5.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Data5 {
-  bool? get sent => throw _privateConstructorUsedError;
-  bool? get stub => throw _privateConstructorUsedError;
+
+ bool? get sent; bool? get stub;
+/// Create a copy of Data5
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Data5CopyWith<Data5> get copyWith => _$Data5CopyWithImpl<Data5>(this as Data5, _$identity);
 
   /// Serializes this Data5 to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Data5
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $Data5CopyWith<Data5> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Data5&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.stub, stub) || other.stub == stub));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,sent,stub);
+
+@override
+String toString() {
+  return 'Data5(sent: $sent, stub: $stub)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $Data5CopyWith<$Res> {
-  factory $Data5CopyWith(Data5 value, $Res Function(Data5) then) =
-      _$Data5CopyWithImpl<$Res, Data5>;
-  @useResult
-  $Res call({bool? sent, bool? stub});
-}
+abstract mixin class $Data5CopyWith<$Res>  {
+  factory $Data5CopyWith(Data5 value, $Res Function(Data5) _then) = _$Data5CopyWithImpl;
+@useResult
+$Res call({
+ bool? sent, bool? stub
+});
 
+
+
+
+}
 /// @nodoc
-class _$Data5CopyWithImpl<$Res, $Val extends Data5>
+class _$Data5CopyWithImpl<$Res>
     implements $Data5CopyWith<$Res> {
-  _$Data5CopyWithImpl(this._value, this._then);
+  _$Data5CopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Data5 _self;
+  final $Res Function(Data5) _then;
 
-  /// Create a copy of Data5
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? sent = freezed, Object? stub = freezed}) {
-    return _then(
-      _value.copyWith(
-            sent: freezed == sent
-                ? _value.sent
-                : sent // ignore: cast_nullable_to_non_nullable
-                      as bool?,
-            stub: freezed == stub
-                ? _value.stub
-                : stub // ignore: cast_nullable_to_non_nullable
-                      as bool?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of Data5
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? sent = freezed,Object? stub = freezed,}) {
+  return _then(_self.copyWith(
+sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
+as bool?,stub: freezed == stub ? _self.stub : stub // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$Data5ImplCopyWith<$Res> implements $Data5CopyWith<$Res> {
-  factory _$$Data5ImplCopyWith(
-    _$Data5Impl value,
-    $Res Function(_$Data5Impl) then,
-  ) = __$$Data5ImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool? sent, bool? stub});
 }
 
-/// @nodoc
-class __$$Data5ImplCopyWithImpl<$Res>
-    extends _$Data5CopyWithImpl<$Res, _$Data5Impl>
-    implements _$$Data5ImplCopyWith<$Res> {
-  __$$Data5ImplCopyWithImpl(
-    _$Data5Impl _value,
-    $Res Function(_$Data5Impl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of Data5
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? sent = freezed, Object? stub = freezed}) {
-    return _then(
-      _$Data5Impl(
-        sent: freezed == sent
-            ? _value.sent
-            : sent // ignore: cast_nullable_to_non_nullable
-                  as bool?,
-        stub: freezed == stub
-            ? _value.stub
-            : stub // ignore: cast_nullable_to_non_nullable
-                  as bool?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [Data5].
+extension Data5Patterns on Data5 {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Data5 value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Data5() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Data5 value)  $default,){
+final _that = this;
+switch (_that) {
+case _Data5():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Data5 value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Data5() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool? sent,  bool? stub)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Data5() when $default != null:
+return $default(_that.sent,_that.stub);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool? sent,  bool? stub)  $default,) {final _that = this;
+switch (_that) {
+case _Data5():
+return $default(_that.sent,_that.stub);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool? sent,  bool? stub)?  $default,) {final _that = this;
+switch (_that) {
+case _Data5() when $default != null:
+return $default(_that.sent,_that.stub);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$Data5Impl implements _Data5 {
-  const _$Data5Impl({this.sent, this.stub});
 
-  factory _$Data5Impl.fromJson(Map<String, dynamic> json) =>
-      _$$Data5ImplFromJson(json);
+class _Data5 implements Data5 {
+  const _Data5({this.sent, this.stub});
+  factory _Data5.fromJson(Map<String, dynamic> json) => _$Data5FromJson(json);
 
-  @override
-  final bool? sent;
-  @override
-  final bool? stub;
+@override final  bool? sent;
+@override final  bool? stub;
 
-  @override
-  String toString() {
-    return 'Data5(sent: $sent, stub: $stub)';
-  }
+/// Create a copy of Data5
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$Data5CopyWith<_Data5> get copyWith => __$Data5CopyWithImpl<_Data5>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Data5Impl &&
-            (identical(other.sent, sent) || other.sent == sent) &&
-            (identical(other.stub, stub) || other.stub == stub));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, sent, stub);
-
-  /// Create a copy of Data5
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Data5ImplCopyWith<_$Data5Impl> get copyWith =>
-      __$$Data5ImplCopyWithImpl<_$Data5Impl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$Data5ImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$Data5ToJson(this, );
 }
 
-abstract class _Data5 implements Data5 {
-  const factory _Data5({final bool? sent, final bool? stub}) = _$Data5Impl;
-
-  factory _Data5.fromJson(Map<String, dynamic> json) = _$Data5Impl.fromJson;
-
-  @override
-  bool? get sent;
-  @override
-  bool? get stub;
-
-  /// Create a copy of Data5
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$Data5ImplCopyWith<_$Data5Impl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Data5&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.stub, stub) || other.stub == stub));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,sent,stub);
+
+@override
+String toString() {
+  return 'Data5(sent: $sent, stub: $stub)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$Data5CopyWith<$Res> implements $Data5CopyWith<$Res> {
+  factory _$Data5CopyWith(_Data5 value, $Res Function(_Data5) _then) = __$Data5CopyWithImpl;
+@override @useResult
+$Res call({
+ bool? sent, bool? stub
+});
+
+
+
+
+}
+/// @nodoc
+class __$Data5CopyWithImpl<$Res>
+    implements _$Data5CopyWith<$Res> {
+  __$Data5CopyWithImpl(this._self, this._then);
+
+  final _Data5 _self;
+  final $Res Function(_Data5) _then;
+
+/// Create a copy of Data5
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? sent = freezed,Object? stub = freezed,}) {
+  return _then(_Data5(
+sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
+as bool?,stub: freezed == stub ? _self.stub : stub // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+
+
+}
+
+// dart format on

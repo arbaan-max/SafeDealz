@@ -11,7 +11,7 @@ part 'auction_round.freezed.dart';
 part 'auction_round.g.dart';
 
 @Freezed()
-class AuctionRound with _$AuctionRound {
+abstract class AuctionRound with _$AuctionRound {
   const factory AuctionRound({
     required String id,
     required String deviceId,

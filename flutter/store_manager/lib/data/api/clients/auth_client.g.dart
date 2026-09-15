@@ -2,11 +2,13 @@
 
 part of 'auth_client.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _AuthClient implements AuthClient {
   _AuthClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -22,7 +24,8 @@ class _AuthClient implements AuthClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<AuthResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -33,12 +36,12 @@ class _AuthClient implements AuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuthResponse _value;
     try {
       _value = AuthResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -49,7 +52,8 @@ class _AuthClient implements AuthClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<AuthResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -60,12 +64,12 @@ class _AuthClient implements AuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuthResponse _value;
     try {
       _value = AuthResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -106,12 +110,12 @@ class _AuthClient implements AuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AccountResponse _value;
     try {
       _value = AccountResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -133,12 +137,12 @@ class _AuthClient implements AuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SessionListResponse _value;
     try {
       _value = SessionListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -160,12 +164,12 @@ class _AuthClient implements AuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SessionRevokeResponse _value;
     try {
       _value = SessionRevokeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -178,7 +182,8 @@ class _AuthClient implements AuthClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<PasswordChangeResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -189,12 +194,12 @@ class _AuthClient implements AuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late PasswordChangeResponse _value;
     try {
       _value = PasswordChangeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -227,3 +232,5 @@ class _AuthClient implements AuthClient {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

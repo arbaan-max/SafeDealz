@@ -8,7 +8,7 @@ part 'auction_conversion.freezed.dart';
 part 'auction_conversion.g.dart';
 
 @Freezed()
-class AuctionConversion with _$AuctionConversion {
+abstract class AuctionConversion with _$AuctionConversion {
   const factory AuctionConversion({
     int? started,
     int? accepted,

@@ -10,7 +10,7 @@ part 'redemption.freezed.dart';
 part 'redemption.g.dart';
 
 @Freezed()
-class Redemption with _$Redemption {
+abstract class Redemption with _$Redemption {
   const factory Redemption({
     String? id,
     String? customerPhone,

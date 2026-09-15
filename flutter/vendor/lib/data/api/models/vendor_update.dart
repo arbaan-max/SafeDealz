@@ -8,7 +8,7 @@ part 'vendor_update.freezed.dart';
 part 'vendor_update.g.dart';
 
 @Freezed()
-class VendorUpdate with _$VendorUpdate {
+abstract class VendorUpdate with _$VendorUpdate {
   const factory VendorUpdate({
     String? displayName,
     String? phone,

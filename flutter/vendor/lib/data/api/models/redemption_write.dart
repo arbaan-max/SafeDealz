@@ -8,7 +8,7 @@ part 'redemption_write.freezed.dart';
 part 'redemption_write.g.dart';
 
 @Freezed()
-class RedemptionWrite with _$RedemptionWrite {
+abstract class RedemptionWrite with _$RedemptionWrite {
   const factory RedemptionWrite({
     required String customerPhone,
     required String invoiceNumber,

@@ -6,7 +6,7 @@ part of 'data6.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Data6Impl _$$Data6ImplFromJson(Map<String, dynamic> json) => _$Data6Impl(
+_Data6 _$Data6FromJson(Map<String, dynamic> json) => _Data6(
   closedCount: (json['closedCount'] as num?)?.toInt(),
   closed: (json['closed'] as List<dynamic>?)
       ?.map((e) => AuctionRound.fromJson(e as Map<String, dynamic>))
@@ -17,10 +17,9 @@ _$Data6Impl _$$Data6ImplFromJson(Map<String, dynamic> json) => _$Data6Impl(
       .toList(),
 );
 
-Map<String, dynamic> _$$Data6ImplToJson(_$Data6Impl instance) =>
-    <String, dynamic>{
-      'closedCount': instance.closedCount,
-      'closed': instance.closed,
-      'expiredCount': instance.expiredCount,
-      'expired': instance.expired,
-    };
+Map<String, dynamic> _$Data6ToJson(_Data6 instance) => <String, dynamic>{
+  'closedCount': instance.closedCount,
+  'closed': instance.closed,
+  'expiredCount': instance.expiredCount,
+  'expired': instance.expired,
+};

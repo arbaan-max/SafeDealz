@@ -8,7 +8,7 @@ part 'session_revoke.freezed.dart';
 part 'session_revoke.g.dart';
 
 @Freezed()
-class SessionRevoke with _$SessionRevoke {
+abstract class SessionRevoke with _$SessionRevoke {
   const factory SessionRevoke({
     String? id,
     bool? revoked,

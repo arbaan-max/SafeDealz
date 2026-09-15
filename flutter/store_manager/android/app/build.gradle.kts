@@ -44,3 +44,9 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+tasks.withType<Copy>().configureEach {
+    if (name.startsWith("copyFlutterAssets")) {
+        doNotTrackState("Flutter asset copy deletes merge output; Gradle 9 cannot track that.")
+    }
+}

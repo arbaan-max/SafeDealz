@@ -10,7 +10,7 @@ part 'deal_verify_write.freezed.dart';
 part 'deal_verify_write.g.dart';
 
 @Freezed()
-class DealVerifyWrite with _$DealVerifyWrite {
+abstract class DealVerifyWrite with _$DealVerifyWrite {
   const factory DealVerifyWrite({
     required String customerName,
     required String customerPhone,

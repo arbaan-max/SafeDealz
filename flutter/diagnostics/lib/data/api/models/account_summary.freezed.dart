@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,338 +9,298 @@ part of 'account_summary.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-AccountSummary _$AccountSummaryFromJson(Map<String, dynamic> json) {
-  return _AccountSummary.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AccountSummary {
-  String get id => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  AccountRole get role => throw _privateConstructorUsedError;
-  String? get displayName => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
-  bool? get active => throw _privateConstructorUsedError;
-  List<String>? get assignedBranchIds => throw _privateConstructorUsedError;
-  bool? get allStores => throw _privateConstructorUsedError;
+
+ String get id; String get email; AccountRole get role; String? get displayName; String? get phone; bool? get active; List<String>? get assignedBranchIds; bool? get allStores;
+/// Create a copy of AccountSummary
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AccountSummaryCopyWith<AccountSummary> get copyWith => _$AccountSummaryCopyWithImpl<AccountSummary>(this as AccountSummary, _$identity);
 
   /// Serializes this AccountSummary to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of AccountSummary
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AccountSummaryCopyWith<AccountSummary> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountSummary&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.assignedBranchIds, assignedBranchIds)&&(identical(other.allStores, allStores) || other.allStores == allStores));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,email,role,displayName,phone,active,const DeepCollectionEquality().hash(assignedBranchIds),allStores);
+
+@override
+String toString() {
+  return 'AccountSummary(id: $id, email: $email, role: $role, displayName: $displayName, phone: $phone, active: $active, assignedBranchIds: $assignedBranchIds, allStores: $allStores)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AccountSummaryCopyWith<$Res> {
-  factory $AccountSummaryCopyWith(
-    AccountSummary value,
-    $Res Function(AccountSummary) then,
-  ) = _$AccountSummaryCopyWithImpl<$Res, AccountSummary>;
-  @useResult
-  $Res call({
-    String id,
-    String email,
-    AccountRole role,
-    String? displayName,
-    String? phone,
-    bool? active,
-    List<String>? assignedBranchIds,
-    bool? allStores,
-  });
-}
+abstract mixin class $AccountSummaryCopyWith<$Res>  {
+  factory $AccountSummaryCopyWith(AccountSummary value, $Res Function(AccountSummary) _then) = _$AccountSummaryCopyWithImpl;
+@useResult
+$Res call({
+ String id, String email, AccountRole role, String? displayName, String? phone, bool? active, List<String>? assignedBranchIds, bool? allStores
+});
 
+
+
+
+}
 /// @nodoc
-class _$AccountSummaryCopyWithImpl<$Res, $Val extends AccountSummary>
+class _$AccountSummaryCopyWithImpl<$Res>
     implements $AccountSummaryCopyWith<$Res> {
-  _$AccountSummaryCopyWithImpl(this._value, this._then);
+  _$AccountSummaryCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AccountSummary _self;
+  final $Res Function(AccountSummary) _then;
 
-  /// Create a copy of AccountSummary
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? email = null,
-    Object? role = null,
-    Object? displayName = freezed,
-    Object? phone = freezed,
-    Object? active = freezed,
-    Object? assignedBranchIds = freezed,
-    Object? allStores = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            email: null == email
-                ? _value.email
-                : email // ignore: cast_nullable_to_non_nullable
-                      as String,
-            role: null == role
-                ? _value.role
-                : role // ignore: cast_nullable_to_non_nullable
-                      as AccountRole,
-            displayName: freezed == displayName
-                ? _value.displayName
-                : displayName // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            phone: freezed == phone
-                ? _value.phone
-                : phone // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            active: freezed == active
-                ? _value.active
-                : active // ignore: cast_nullable_to_non_nullable
-                      as bool?,
-            assignedBranchIds: freezed == assignedBranchIds
-                ? _value.assignedBranchIds
-                : assignedBranchIds // ignore: cast_nullable_to_non_nullable
-                      as List<String>?,
-            allStores: freezed == allStores
-                ? _value.allStores
-                : allStores // ignore: cast_nullable_to_non_nullable
-                      as bool?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of AccountSummary
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = null,Object? role = null,Object? displayName = freezed,Object? phone = freezed,Object? active = freezed,Object? assignedBranchIds = freezed,Object? allStores = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as AccountRole,displayName: freezed == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,active: freezed == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool?,assignedBranchIds: freezed == assignedBranchIds ? _self.assignedBranchIds : assignedBranchIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,allStores: freezed == allStores ? _self.allStores : allStores // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$AccountSummaryImplCopyWith<$Res>
-    implements $AccountSummaryCopyWith<$Res> {
-  factory _$$AccountSummaryImplCopyWith(
-    _$AccountSummaryImpl value,
-    $Res Function(_$AccountSummaryImpl) then,
-  ) = __$$AccountSummaryImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String id,
-    String email,
-    AccountRole role,
-    String? displayName,
-    String? phone,
-    bool? active,
-    List<String>? assignedBranchIds,
-    bool? allStores,
-  });
 }
 
-/// @nodoc
-class __$$AccountSummaryImplCopyWithImpl<$Res>
-    extends _$AccountSummaryCopyWithImpl<$Res, _$AccountSummaryImpl>
-    implements _$$AccountSummaryImplCopyWith<$Res> {
-  __$$AccountSummaryImplCopyWithImpl(
-    _$AccountSummaryImpl _value,
-    $Res Function(_$AccountSummaryImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AccountSummary
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? email = null,
-    Object? role = null,
-    Object? displayName = freezed,
-    Object? phone = freezed,
-    Object? active = freezed,
-    Object? assignedBranchIds = freezed,
-    Object? allStores = freezed,
-  }) {
-    return _then(
-      _$AccountSummaryImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        email: null == email
-            ? _value.email
-            : email // ignore: cast_nullable_to_non_nullable
-                  as String,
-        role: null == role
-            ? _value.role
-            : role // ignore: cast_nullable_to_non_nullable
-                  as AccountRole,
-        displayName: freezed == displayName
-            ? _value.displayName
-            : displayName // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        phone: freezed == phone
-            ? _value.phone
-            : phone // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        active: freezed == active
-            ? _value.active
-            : active // ignore: cast_nullable_to_non_nullable
-                  as bool?,
-        assignedBranchIds: freezed == assignedBranchIds
-            ? _value._assignedBranchIds
-            : assignedBranchIds // ignore: cast_nullable_to_non_nullable
-                  as List<String>?,
-        allStores: freezed == allStores
-            ? _value.allStores
-            : allStores // ignore: cast_nullable_to_non_nullable
-                  as bool?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [AccountSummary].
+extension AccountSummaryPatterns on AccountSummary {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AccountSummary value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AccountSummary() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AccountSummary value)  $default,){
+final _that = this;
+switch (_that) {
+case _AccountSummary():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AccountSummary value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AccountSummary() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String email,  AccountRole role,  String? displayName,  String? phone,  bool? active,  List<String>? assignedBranchIds,  bool? allStores)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AccountSummary() when $default != null:
+return $default(_that.id,_that.email,_that.role,_that.displayName,_that.phone,_that.active,_that.assignedBranchIds,_that.allStores);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String email,  AccountRole role,  String? displayName,  String? phone,  bool? active,  List<String>? assignedBranchIds,  bool? allStores)  $default,) {final _that = this;
+switch (_that) {
+case _AccountSummary():
+return $default(_that.id,_that.email,_that.role,_that.displayName,_that.phone,_that.active,_that.assignedBranchIds,_that.allStores);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String email,  AccountRole role,  String? displayName,  String? phone,  bool? active,  List<String>? assignedBranchIds,  bool? allStores)?  $default,) {final _that = this;
+switch (_that) {
+case _AccountSummary() when $default != null:
+return $default(_that.id,_that.email,_that.role,_that.displayName,_that.phone,_that.active,_that.assignedBranchIds,_that.allStores);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AccountSummaryImpl implements _AccountSummary {
-  const _$AccountSummaryImpl({
-    required this.id,
-    required this.email,
-    required this.role,
-    this.displayName,
-    this.phone,
-    this.active,
-    final List<String>? assignedBranchIds,
-    this.allStores,
-  }) : _assignedBranchIds = assignedBranchIds;
 
-  factory _$AccountSummaryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AccountSummaryImplFromJson(json);
+class _AccountSummary implements AccountSummary {
+  const _AccountSummary({required this.id, required this.email, required this.role, this.displayName, this.phone, this.active, final  List<String>? assignedBranchIds, this.allStores}): _assignedBranchIds = assignedBranchIds;
+  factory _AccountSummary.fromJson(Map<String, dynamic> json) => _$AccountSummaryFromJson(json);
 
-  @override
-  final String id;
-  @override
-  final String email;
-  @override
-  final AccountRole role;
-  @override
-  final String? displayName;
-  @override
-  final String? phone;
-  @override
-  final bool? active;
-  final List<String>? _assignedBranchIds;
-  @override
-  List<String>? get assignedBranchIds {
-    final value = _assignedBranchIds;
-    if (value == null) return null;
-    if (_assignedBranchIds is EqualUnmodifiableListView)
-      return _assignedBranchIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final bool? allStores;
-
-  @override
-  String toString() {
-    return 'AccountSummary(id: $id, email: $email, role: $role, displayName: $displayName, phone: $phone, active: $active, assignedBranchIds: $assignedBranchIds, allStores: $allStores)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AccountSummaryImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.role, role) || other.role == role) &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.active, active) || other.active == active) &&
-            const DeepCollectionEquality().equals(
-              other._assignedBranchIds,
-              _assignedBranchIds,
-            ) &&
-            (identical(other.allStores, allStores) ||
-                other.allStores == allStores));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    email,
-    role,
-    displayName,
-    phone,
-    active,
-    const DeepCollectionEquality().hash(_assignedBranchIds),
-    allStores,
-  );
-
-  /// Create a copy of AccountSummary
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AccountSummaryImplCopyWith<_$AccountSummaryImpl> get copyWith =>
-      __$$AccountSummaryImplCopyWithImpl<_$AccountSummaryImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AccountSummaryImplToJson(this);
-  }
+@override final  String id;
+@override final  String email;
+@override final  AccountRole role;
+@override final  String? displayName;
+@override final  String? phone;
+@override final  bool? active;
+ final  List<String>? _assignedBranchIds;
+@override List<String>? get assignedBranchIds {
+  final value = _assignedBranchIds;
+  if (value == null) return null;
+  if (_assignedBranchIds is EqualUnmodifiableListView) return _assignedBranchIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _AccountSummary implements AccountSummary {
-  const factory _AccountSummary({
-    required final String id,
-    required final String email,
-    required final AccountRole role,
-    final String? displayName,
-    final String? phone,
-    final bool? active,
-    final List<String>? assignedBranchIds,
-    final bool? allStores,
-  }) = _$AccountSummaryImpl;
+@override final  bool? allStores;
 
-  factory _AccountSummary.fromJson(Map<String, dynamic> json) =
-      _$AccountSummaryImpl.fromJson;
+/// Create a copy of AccountSummary
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AccountSummaryCopyWith<_AccountSummary> get copyWith => __$AccountSummaryCopyWithImpl<_AccountSummary>(this, _$identity);
 
-  @override
-  String get id;
-  @override
-  String get email;
-  @override
-  AccountRole get role;
-  @override
-  String? get displayName;
-  @override
-  String? get phone;
-  @override
-  bool? get active;
-  @override
-  List<String>? get assignedBranchIds;
-  @override
-  bool? get allStores;
-
-  /// Create a copy of AccountSummary
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AccountSummaryImplCopyWith<_$AccountSummaryImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$AccountSummaryToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountSummary&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._assignedBranchIds, _assignedBranchIds)&&(identical(other.allStores, allStores) || other.allStores == allStores));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,email,role,displayName,phone,active,const DeepCollectionEquality().hash(_assignedBranchIds),allStores);
+
+@override
+String toString() {
+  return 'AccountSummary(id: $id, email: $email, role: $role, displayName: $displayName, phone: $phone, active: $active, assignedBranchIds: $assignedBranchIds, allStores: $allStores)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AccountSummaryCopyWith<$Res> implements $AccountSummaryCopyWith<$Res> {
+  factory _$AccountSummaryCopyWith(_AccountSummary value, $Res Function(_AccountSummary) _then) = __$AccountSummaryCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String email, AccountRole role, String? displayName, String? phone, bool? active, List<String>? assignedBranchIds, bool? allStores
+});
+
+
+
+
+}
+/// @nodoc
+class __$AccountSummaryCopyWithImpl<$Res>
+    implements _$AccountSummaryCopyWith<$Res> {
+  __$AccountSummaryCopyWithImpl(this._self, this._then);
+
+  final _AccountSummary _self;
+  final $Res Function(_AccountSummary) _then;
+
+/// Create a copy of AccountSummary
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = null,Object? role = null,Object? displayName = freezed,Object? phone = freezed,Object? active = freezed,Object? assignedBranchIds = freezed,Object? allStores = freezed,}) {
+  return _then(_AccountSummary(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as AccountRole,displayName: freezed == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,active: freezed == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool?,assignedBranchIds: freezed == assignedBranchIds ? _self._assignedBranchIds : assignedBranchIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,allStores: freezed == allStores ? _self.allStores : allStores // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+
+
+}
+
+// dart format on

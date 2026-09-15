@@ -8,7 +8,7 @@ part 'error_body.freezed.dart';
 part 'error_body.g.dart';
 
 @Freezed()
-class ErrorBody with _$ErrorBody {
+abstract class ErrorBody with _$ErrorBody {
   const factory ErrorBody({
     required String code,
     required String message,

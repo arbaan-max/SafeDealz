@@ -10,7 +10,7 @@ part 'deal_list_response.freezed.dart';
 part 'deal_list_response.g.dart';
 
 @Freezed()
-class DealListResponse with _$DealListResponse {
+abstract class DealListResponse with _$DealListResponse {
   const factory DealListResponse({
     required bool success,
     required List<Deal> data,

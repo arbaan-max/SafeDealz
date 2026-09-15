@@ -6,18 +6,16 @@ part of 'auction_conversion.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuctionConversionImpl _$$AuctionConversionImplFromJson(
-  Map<String, dynamic> json,
-) => _$AuctionConversionImpl(
-  started: (json['started'] as num?)?.toInt(),
-  accepted: (json['accepted'] as num?)?.toInt(),
-  rate: json['rate'] as num?,
-);
+_AuctionConversion _$AuctionConversionFromJson(Map<String, dynamic> json) =>
+    _AuctionConversion(
+      started: (json['started'] as num?)?.toInt(),
+      accepted: (json['accepted'] as num?)?.toInt(),
+      rate: json['rate'] as num?,
+    );
 
-Map<String, dynamic> _$$AuctionConversionImplToJson(
-  _$AuctionConversionImpl instance,
-) => <String, dynamic>{
-  'started': instance.started,
-  'accepted': instance.accepted,
-  'rate': instance.rate,
-};
+Map<String, dynamic> _$AuctionConversionToJson(_AuctionConversion instance) =>
+    <String, dynamic>{
+      'started': instance.started,
+      'accepted': instance.accepted,
+      'rate': instance.rate,
+    };

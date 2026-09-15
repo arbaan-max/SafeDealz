@@ -6,13 +6,11 @@ part of 'auction_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuctionResponseImpl _$$AuctionResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$AuctionResponseImpl(
-  success: json['success'] as bool,
-  data: AuctionRound.fromJson(json['data'] as Map<String, dynamic>),
-);
+_AuctionResponse _$AuctionResponseFromJson(Map<String, dynamic> json) =>
+    _AuctionResponse(
+      success: json['success'] as bool,
+      data: AuctionRound.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$$AuctionResponseImplToJson(
-  _$AuctionResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$AuctionResponseToJson(_AuctionResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

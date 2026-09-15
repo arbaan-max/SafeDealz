@@ -6,15 +6,13 @@ part of 'deal_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DealListResponseImpl _$$DealListResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$DealListResponseImpl(
-  success: json['success'] as bool,
-  data: (json['data'] as List<dynamic>)
-      .map((e) => Deal.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+_DealListResponse _$DealListResponseFromJson(Map<String, dynamic> json) =>
+    _DealListResponse(
+      success: json['success'] as bool,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => Deal.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
-Map<String, dynamic> _$$DealListResponseImplToJson(
-  _$DealListResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$DealListResponseToJson(_DealListResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

@@ -202,7 +202,7 @@ final class _AuthAdapter implements HttpClientAdapter {
     expect(options.method, 'POST');
     expect(options.uri.path, '/v1/auth/login');
     expect(
-      (options.data as LoginRequest).toJson()['expectedRole'].toString(),
+      (options.data as Map)['expectedRole'].toString(),
       'store_manager',
     );
     return ResponseBody.fromString(
@@ -382,7 +382,7 @@ final class _DeclineAdapter implements HttpClientAdapter {
   ) async {
     expect(options.method, 'POST');
     expect(options.uri.path, '/v1/auctions/a1/decline');
-    expect((options.data as AuctionDeclineWrite).toJson()['reasonCode'].toString(), 'other');
+    expect((options.data as Map)['reasonCode'].toString(), 'other');
     return ResponseBody.fromString(
       '{"success":true,"data":{"id":"a1","deviceId":"d1","branchId":"b1","roundNumber":1,"status":"needs_reauction","opensAt":"2026-09-14T10:00:00.000Z","closesAt":"2026-09-14T10:03:00.000Z","declineReason":"Customer asked to wait"}}',
       200,

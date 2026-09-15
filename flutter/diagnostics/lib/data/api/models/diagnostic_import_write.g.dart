@@ -6,16 +6,16 @@ part of 'diagnostic_import_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DiagnosticImportWriteImpl _$$DiagnosticImportWriteImplFromJson(
+_DiagnosticImportWrite _$DiagnosticImportWriteFromJson(
   Map<String, dynamic> json,
-) => _$DiagnosticImportWriteImpl(
+) => _DiagnosticImportWrite(
   deviceId: json['deviceId'] as String,
   payload: json['payload'],
   signature: json['signature'] as String,
 );
 
-Map<String, dynamic> _$$DiagnosticImportWriteImplToJson(
-  _$DiagnosticImportWriteImpl instance,
+Map<String, dynamic> _$DiagnosticImportWriteToJson(
+  _DiagnosticImportWrite instance,
 ) => <String, dynamic>{
   'deviceId': instance.deviceId,
   'payload': instance.payload,

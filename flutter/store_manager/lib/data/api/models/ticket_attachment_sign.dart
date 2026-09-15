@@ -10,7 +10,7 @@ part 'ticket_attachment_sign.freezed.dart';
 part 'ticket_attachment_sign.g.dart';
 
 @Freezed()
-class TicketAttachmentSign with _$TicketAttachmentSign {
+abstract class TicketAttachmentSign with _$TicketAttachmentSign {
   const factory TicketAttachmentSign({
     String? attachmentId,
     String? objectKey,

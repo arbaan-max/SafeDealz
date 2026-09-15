@@ -8,7 +8,7 @@ part 'password_change.freezed.dart';
 part 'password_change.g.dart';
 
 @Freezed()
-class PasswordChange with _$PasswordChange {
+abstract class PasswordChange with _$PasswordChange {
   const factory PasswordChange({
     bool? revokedSessions,
   }) = _PasswordChange;

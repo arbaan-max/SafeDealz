@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,189 +9,272 @@ part of 'auction_settings_write.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-AuctionSettingsWrite _$AuctionSettingsWriteFromJson(Map<String, dynamic> json) {
-  return _AuctionSettingsWrite.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AuctionSettingsWrite {
-  int get biddingMinutes => throw _privateConstructorUsedError;
-  int get acceptanceMinutes => throw _privateConstructorUsedError;
+
+ int get biddingMinutes; int get acceptanceMinutes;
+/// Create a copy of AuctionSettingsWrite
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuctionSettingsWriteCopyWith<AuctionSettingsWrite> get copyWith => _$AuctionSettingsWriteCopyWithImpl<AuctionSettingsWrite>(this as AuctionSettingsWrite, _$identity);
 
   /// Serializes this AuctionSettingsWrite to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of AuctionSettingsWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AuctionSettingsWriteCopyWith<AuctionSettingsWrite> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionSettingsWrite&&(identical(other.biddingMinutes, biddingMinutes) || other.biddingMinutes == biddingMinutes)&&(identical(other.acceptanceMinutes, acceptanceMinutes) || other.acceptanceMinutes == acceptanceMinutes));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,biddingMinutes,acceptanceMinutes);
+
+@override
+String toString() {
+  return 'AuctionSettingsWrite(biddingMinutes: $biddingMinutes, acceptanceMinutes: $acceptanceMinutes)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AuctionSettingsWriteCopyWith<$Res> {
-  factory $AuctionSettingsWriteCopyWith(
-    AuctionSettingsWrite value,
-    $Res Function(AuctionSettingsWrite) then,
-  ) = _$AuctionSettingsWriteCopyWithImpl<$Res, AuctionSettingsWrite>;
-  @useResult
-  $Res call({int biddingMinutes, int acceptanceMinutes});
-}
+abstract mixin class $AuctionSettingsWriteCopyWith<$Res>  {
+  factory $AuctionSettingsWriteCopyWith(AuctionSettingsWrite value, $Res Function(AuctionSettingsWrite) _then) = _$AuctionSettingsWriteCopyWithImpl;
+@useResult
+$Res call({
+ int biddingMinutes, int acceptanceMinutes
+});
 
+
+
+
+}
 /// @nodoc
-class _$AuctionSettingsWriteCopyWithImpl<
-  $Res,
-  $Val extends AuctionSettingsWrite
->
+class _$AuctionSettingsWriteCopyWithImpl<$Res>
     implements $AuctionSettingsWriteCopyWith<$Res> {
-  _$AuctionSettingsWriteCopyWithImpl(this._value, this._then);
+  _$AuctionSettingsWriteCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AuctionSettingsWrite _self;
+  final $Res Function(AuctionSettingsWrite) _then;
 
-  /// Create a copy of AuctionSettingsWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? biddingMinutes = null, Object? acceptanceMinutes = null}) {
-    return _then(
-      _value.copyWith(
-            biddingMinutes: null == biddingMinutes
-                ? _value.biddingMinutes
-                : biddingMinutes // ignore: cast_nullable_to_non_nullable
-                      as int,
-            acceptanceMinutes: null == acceptanceMinutes
-                ? _value.acceptanceMinutes
-                : acceptanceMinutes // ignore: cast_nullable_to_non_nullable
-                      as int,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of AuctionSettingsWrite
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? biddingMinutes = null,Object? acceptanceMinutes = null,}) {
+  return _then(_self.copyWith(
+biddingMinutes: null == biddingMinutes ? _self.biddingMinutes : biddingMinutes // ignore: cast_nullable_to_non_nullable
+as int,acceptanceMinutes: null == acceptanceMinutes ? _self.acceptanceMinutes : acceptanceMinutes // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
-abstract class _$$AuctionSettingsWriteImplCopyWith<$Res>
-    implements $AuctionSettingsWriteCopyWith<$Res> {
-  factory _$$AuctionSettingsWriteImplCopyWith(
-    _$AuctionSettingsWriteImpl value,
-    $Res Function(_$AuctionSettingsWriteImpl) then,
-  ) = __$$AuctionSettingsWriteImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int biddingMinutes, int acceptanceMinutes});
 }
 
-/// @nodoc
-class __$$AuctionSettingsWriteImplCopyWithImpl<$Res>
-    extends _$AuctionSettingsWriteCopyWithImpl<$Res, _$AuctionSettingsWriteImpl>
-    implements _$$AuctionSettingsWriteImplCopyWith<$Res> {
-  __$$AuctionSettingsWriteImplCopyWithImpl(
-    _$AuctionSettingsWriteImpl _value,
-    $Res Function(_$AuctionSettingsWriteImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AuctionSettingsWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? biddingMinutes = null, Object? acceptanceMinutes = null}) {
-    return _then(
-      _$AuctionSettingsWriteImpl(
-        biddingMinutes: null == biddingMinutes
-            ? _value.biddingMinutes
-            : biddingMinutes // ignore: cast_nullable_to_non_nullable
-                  as int,
-        acceptanceMinutes: null == acceptanceMinutes
-            ? _value.acceptanceMinutes
-            : acceptanceMinutes // ignore: cast_nullable_to_non_nullable
-                  as int,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [AuctionSettingsWrite].
+extension AuctionSettingsWritePatterns on AuctionSettingsWrite {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AuctionSettingsWrite value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AuctionSettingsWrite() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AuctionSettingsWrite value)  $default,){
+final _that = this;
+switch (_that) {
+case _AuctionSettingsWrite():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AuctionSettingsWrite value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AuctionSettingsWrite() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int biddingMinutes,  int acceptanceMinutes)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AuctionSettingsWrite() when $default != null:
+return $default(_that.biddingMinutes,_that.acceptanceMinutes);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int biddingMinutes,  int acceptanceMinutes)  $default,) {final _that = this;
+switch (_that) {
+case _AuctionSettingsWrite():
+return $default(_that.biddingMinutes,_that.acceptanceMinutes);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int biddingMinutes,  int acceptanceMinutes)?  $default,) {final _that = this;
+switch (_that) {
+case _AuctionSettingsWrite() when $default != null:
+return $default(_that.biddingMinutes,_that.acceptanceMinutes);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AuctionSettingsWriteImpl implements _AuctionSettingsWrite {
-  const _$AuctionSettingsWriteImpl({
-    required this.biddingMinutes,
-    required this.acceptanceMinutes,
-  });
 
-  factory _$AuctionSettingsWriteImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AuctionSettingsWriteImplFromJson(json);
+class _AuctionSettingsWrite implements AuctionSettingsWrite {
+  const _AuctionSettingsWrite({required this.biddingMinutes, required this.acceptanceMinutes});
+  factory _AuctionSettingsWrite.fromJson(Map<String, dynamic> json) => _$AuctionSettingsWriteFromJson(json);
 
-  @override
-  final int biddingMinutes;
-  @override
-  final int acceptanceMinutes;
+@override final  int biddingMinutes;
+@override final  int acceptanceMinutes;
 
-  @override
-  String toString() {
-    return 'AuctionSettingsWrite(biddingMinutes: $biddingMinutes, acceptanceMinutes: $acceptanceMinutes)';
-  }
+/// Create a copy of AuctionSettingsWrite
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AuctionSettingsWriteCopyWith<_AuctionSettingsWrite> get copyWith => __$AuctionSettingsWriteCopyWithImpl<_AuctionSettingsWrite>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuctionSettingsWriteImpl &&
-            (identical(other.biddingMinutes, biddingMinutes) ||
-                other.biddingMinutes == biddingMinutes) &&
-            (identical(other.acceptanceMinutes, acceptanceMinutes) ||
-                other.acceptanceMinutes == acceptanceMinutes));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, biddingMinutes, acceptanceMinutes);
-
-  /// Create a copy of AuctionSettingsWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AuctionSettingsWriteImplCopyWith<_$AuctionSettingsWriteImpl>
-  get copyWith =>
-      __$$AuctionSettingsWriteImplCopyWithImpl<_$AuctionSettingsWriteImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AuctionSettingsWriteImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$AuctionSettingsWriteToJson(this, );
 }
 
-abstract class _AuctionSettingsWrite implements AuctionSettingsWrite {
-  const factory _AuctionSettingsWrite({
-    required final int biddingMinutes,
-    required final int acceptanceMinutes,
-  }) = _$AuctionSettingsWriteImpl;
-
-  factory _AuctionSettingsWrite.fromJson(Map<String, dynamic> json) =
-      _$AuctionSettingsWriteImpl.fromJson;
-
-  @override
-  int get biddingMinutes;
-  @override
-  int get acceptanceMinutes;
-
-  /// Create a copy of AuctionSettingsWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AuctionSettingsWriteImplCopyWith<_$AuctionSettingsWriteImpl>
-  get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuctionSettingsWrite&&(identical(other.biddingMinutes, biddingMinutes) || other.biddingMinutes == biddingMinutes)&&(identical(other.acceptanceMinutes, acceptanceMinutes) || other.acceptanceMinutes == acceptanceMinutes));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,biddingMinutes,acceptanceMinutes);
+
+@override
+String toString() {
+  return 'AuctionSettingsWrite(biddingMinutes: $biddingMinutes, acceptanceMinutes: $acceptanceMinutes)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AuctionSettingsWriteCopyWith<$Res> implements $AuctionSettingsWriteCopyWith<$Res> {
+  factory _$AuctionSettingsWriteCopyWith(_AuctionSettingsWrite value, $Res Function(_AuctionSettingsWrite) _then) = __$AuctionSettingsWriteCopyWithImpl;
+@override @useResult
+$Res call({
+ int biddingMinutes, int acceptanceMinutes
+});
+
+
+
+
+}
+/// @nodoc
+class __$AuctionSettingsWriteCopyWithImpl<$Res>
+    implements _$AuctionSettingsWriteCopyWith<$Res> {
+  __$AuctionSettingsWriteCopyWithImpl(this._self, this._then);
+
+  final _AuctionSettingsWrite _self;
+  final $Res Function(_AuctionSettingsWrite) _then;
+
+/// Create a copy of AuctionSettingsWrite
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? biddingMinutes = null,Object? acceptanceMinutes = null,}) {
+  return _then(_AuctionSettingsWrite(
+biddingMinutes: null == biddingMinutes ? _self.biddingMinutes : biddingMinutes // ignore: cast_nullable_to_non_nullable
+as int,acceptanceMinutes: null == acceptanceMinutes ? _self.acceptanceMinutes : acceptanceMinutes // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+// dart format on

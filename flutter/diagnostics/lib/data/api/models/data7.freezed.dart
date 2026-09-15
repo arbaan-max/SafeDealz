@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,214 +9,299 @@ part of 'data7.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-Data7 _$Data7FromJson(Map<String, dynamic> json) {
-  return _Data7.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Data7 {
-  String? get mediaId => throw _privateConstructorUsedError;
-  String? get objectKey => throw _privateConstructorUsedError;
-  SignedUrl? get upload => throw _privateConstructorUsedError;
+
+ String? get mediaId; String? get objectKey; SignedUrl? get upload;
+/// Create a copy of Data7
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Data7CopyWith<Data7> get copyWith => _$Data7CopyWithImpl<Data7>(this as Data7, _$identity);
 
   /// Serializes this Data7 to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Data7
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $Data7CopyWith<Data7> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Data7&&(identical(other.mediaId, mediaId) || other.mediaId == mediaId)&&(identical(other.objectKey, objectKey) || other.objectKey == objectKey)&&(identical(other.upload, upload) || other.upload == upload));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,mediaId,objectKey,upload);
+
+@override
+String toString() {
+  return 'Data7(mediaId: $mediaId, objectKey: $objectKey, upload: $upload)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $Data7CopyWith<$Res> {
-  factory $Data7CopyWith(Data7 value, $Res Function(Data7) then) =
-      _$Data7CopyWithImpl<$Res, Data7>;
-  @useResult
-  $Res call({String? mediaId, String? objectKey, SignedUrl? upload});
+abstract mixin class $Data7CopyWith<$Res>  {
+  factory $Data7CopyWith(Data7 value, $Res Function(Data7) _then) = _$Data7CopyWithImpl;
+@useResult
+$Res call({
+ String? mediaId, String? objectKey, SignedUrl? upload
+});
 
-  $SignedUrlCopyWith<$Res>? get upload;
+
+$SignedUrlCopyWith<$Res>? get upload;
+
 }
-
 /// @nodoc
-class _$Data7CopyWithImpl<$Res, $Val extends Data7>
+class _$Data7CopyWithImpl<$Res>
     implements $Data7CopyWith<$Res> {
-  _$Data7CopyWithImpl(this._value, this._then);
+  _$Data7CopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Data7 _self;
+  final $Res Function(Data7) _then;
 
-  /// Create a copy of Data7
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? mediaId = freezed,
-    Object? objectKey = freezed,
-    Object? upload = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            mediaId: freezed == mediaId
-                ? _value.mediaId
-                : mediaId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            objectKey: freezed == objectKey
-                ? _value.objectKey
-                : objectKey // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            upload: freezed == upload
-                ? _value.upload
-                : upload // ignore: cast_nullable_to_non_nullable
-                      as SignedUrl?,
-          )
-          as $Val,
-    );
+/// Create a copy of Data7
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? mediaId = freezed,Object? objectKey = freezed,Object? upload = freezed,}) {
+  return _then(_self.copyWith(
+mediaId: freezed == mediaId ? _self.mediaId : mediaId // ignore: cast_nullable_to_non_nullable
+as String?,objectKey: freezed == objectKey ? _self.objectKey : objectKey // ignore: cast_nullable_to_non_nullable
+as String?,upload: freezed == upload ? _self.upload : upload // ignore: cast_nullable_to_non_nullable
+as SignedUrl?,
+  ));
+}
+/// Create a copy of Data7
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SignedUrlCopyWith<$Res>? get upload {
+    if (_self.upload == null) {
+    return null;
   }
 
-  /// Create a copy of Data7
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SignedUrlCopyWith<$Res>? get upload {
-    if (_value.upload == null) {
-      return null;
-    }
-
-    return $SignedUrlCopyWith<$Res>(_value.upload!, (value) {
-      return _then(_value.copyWith(upload: value) as $Val);
-    });
-  }
+  return $SignedUrlCopyWith<$Res>(_self.upload!, (value) {
+    return _then(_self.copyWith(upload: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$Data7ImplCopyWith<$Res> implements $Data7CopyWith<$Res> {
-  factory _$$Data7ImplCopyWith(
-    _$Data7Impl value,
-    $Res Function(_$Data7Impl) then,
-  ) = __$$Data7ImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? mediaId, String? objectKey, SignedUrl? upload});
 
-  @override
-  $SignedUrlCopyWith<$Res>? get upload;
+/// Adds pattern-matching-related methods to [Data7].
+extension Data7Patterns on Data7 {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Data7 value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Data7() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Data7 value)  $default,){
+final _that = this;
+switch (_that) {
+case _Data7():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Data7 value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Data7() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? mediaId,  String? objectKey,  SignedUrl? upload)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Data7() when $default != null:
+return $default(_that.mediaId,_that.objectKey,_that.upload);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? mediaId,  String? objectKey,  SignedUrl? upload)  $default,) {final _that = this;
+switch (_that) {
+case _Data7():
+return $default(_that.mediaId,_that.objectKey,_that.upload);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? mediaId,  String? objectKey,  SignedUrl? upload)?  $default,) {final _that = this;
+switch (_that) {
+case _Data7() when $default != null:
+return $default(_that.mediaId,_that.objectKey,_that.upload);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$Data7ImplCopyWithImpl<$Res>
-    extends _$Data7CopyWithImpl<$Res, _$Data7Impl>
-    implements _$$Data7ImplCopyWith<$Res> {
-  __$$Data7ImplCopyWithImpl(
-    _$Data7Impl _value,
-    $Res Function(_$Data7Impl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of Data7
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? mediaId = freezed,
-    Object? objectKey = freezed,
-    Object? upload = freezed,
-  }) {
-    return _then(
-      _$Data7Impl(
-        mediaId: freezed == mediaId
-            ? _value.mediaId
-            : mediaId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        objectKey: freezed == objectKey
-            ? _value.objectKey
-            : objectKey // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        upload: freezed == upload
-            ? _value.upload
-            : upload // ignore: cast_nullable_to_non_nullable
-                  as SignedUrl?,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$Data7Impl implements _Data7 {
-  const _$Data7Impl({this.mediaId, this.objectKey, this.upload});
 
-  factory _$Data7Impl.fromJson(Map<String, dynamic> json) =>
-      _$$Data7ImplFromJson(json);
+class _Data7 implements Data7 {
+  const _Data7({this.mediaId, this.objectKey, this.upload});
+  factory _Data7.fromJson(Map<String, dynamic> json) => _$Data7FromJson(json);
 
-  @override
-  final String? mediaId;
-  @override
-  final String? objectKey;
-  @override
-  final SignedUrl? upload;
+@override final  String? mediaId;
+@override final  String? objectKey;
+@override final  SignedUrl? upload;
 
-  @override
-  String toString() {
-    return 'Data7(mediaId: $mediaId, objectKey: $objectKey, upload: $upload)';
-  }
+/// Create a copy of Data7
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$Data7CopyWith<_Data7> get copyWith => __$Data7CopyWithImpl<_Data7>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Data7Impl &&
-            (identical(other.mediaId, mediaId) || other.mediaId == mediaId) &&
-            (identical(other.objectKey, objectKey) ||
-                other.objectKey == objectKey) &&
-            (identical(other.upload, upload) || other.upload == upload));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, mediaId, objectKey, upload);
-
-  /// Create a copy of Data7
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Data7ImplCopyWith<_$Data7Impl> get copyWith =>
-      __$$Data7ImplCopyWithImpl<_$Data7Impl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$Data7ImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$Data7ToJson(this, );
 }
 
-abstract class _Data7 implements Data7 {
-  const factory _Data7({
-    final String? mediaId,
-    final String? objectKey,
-    final SignedUrl? upload,
-  }) = _$Data7Impl;
-
-  factory _Data7.fromJson(Map<String, dynamic> json) = _$Data7Impl.fromJson;
-
-  @override
-  String? get mediaId;
-  @override
-  String? get objectKey;
-  @override
-  SignedUrl? get upload;
-
-  /// Create a copy of Data7
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$Data7ImplCopyWith<_$Data7Impl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Data7&&(identical(other.mediaId, mediaId) || other.mediaId == mediaId)&&(identical(other.objectKey, objectKey) || other.objectKey == objectKey)&&(identical(other.upload, upload) || other.upload == upload));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,mediaId,objectKey,upload);
+
+@override
+String toString() {
+  return 'Data7(mediaId: $mediaId, objectKey: $objectKey, upload: $upload)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$Data7CopyWith<$Res> implements $Data7CopyWith<$Res> {
+  factory _$Data7CopyWith(_Data7 value, $Res Function(_Data7) _then) = __$Data7CopyWithImpl;
+@override @useResult
+$Res call({
+ String? mediaId, String? objectKey, SignedUrl? upload
+});
+
+
+@override $SignedUrlCopyWith<$Res>? get upload;
+
+}
+/// @nodoc
+class __$Data7CopyWithImpl<$Res>
+    implements _$Data7CopyWith<$Res> {
+  __$Data7CopyWithImpl(this._self, this._then);
+
+  final _Data7 _self;
+  final $Res Function(_Data7) _then;
+
+/// Create a copy of Data7
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? mediaId = freezed,Object? objectKey = freezed,Object? upload = freezed,}) {
+  return _then(_Data7(
+mediaId: freezed == mediaId ? _self.mediaId : mediaId // ignore: cast_nullable_to_non_nullable
+as String?,objectKey: freezed == objectKey ? _self.objectKey : objectKey // ignore: cast_nullable_to_non_nullable
+as String?,upload: freezed == upload ? _self.upload : upload // ignore: cast_nullable_to_non_nullable
+as SignedUrl?,
+  ));
+}
+
+/// Create a copy of Data7
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SignedUrlCopyWith<$Res>? get upload {
+    if (_self.upload == null) {
+    return null;
+  }
+
+  return $SignedUrlCopyWith<$Res>(_self.upload!, (value) {
+    return _then(_self.copyWith(upload: value));
+  });
+}
+}
+
+// dart format on

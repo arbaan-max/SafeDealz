@@ -6,8 +6,8 @@ part of 'manager_update.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ManagerUpdateImpl _$$ManagerUpdateImplFromJson(Map<String, dynamic> json) =>
-    _$ManagerUpdateImpl(
+_ManagerUpdate _$ManagerUpdateFromJson(Map<String, dynamic> json) =>
+    _ManagerUpdate(
       displayName: json['displayName'] as String?,
       phone: json['phone'] as String?,
       password: json['password'] as String?,
@@ -16,7 +16,7 @@ _$ManagerUpdateImpl _$$ManagerUpdateImplFromJson(Map<String, dynamic> json) =>
       revokeSessions: json['revokeSessions'] as bool?,
     );
 
-Map<String, dynamic> _$$ManagerUpdateImplToJson(_$ManagerUpdateImpl instance) =>
+Map<String, dynamic> _$ManagerUpdateToJson(_ManagerUpdate instance) =>
     <String, dynamic>{
       'displayName': instance.displayName,
       'phone': instance.phone,

@@ -6,8 +6,8 @@ part of 'wallet_recharge.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$WalletRechargeImpl _$$WalletRechargeImplFromJson(Map<String, dynamic> json) =>
-    _$WalletRechargeImpl(
+_WalletRecharge _$WalletRechargeFromJson(Map<String, dynamic> json) =>
+    _WalletRecharge(
       id: json['id'] as String,
       vendorAccountId: json['vendorAccountId'] as String,
       amountPaise: (json['amountPaise'] as num).toInt(),
@@ -18,15 +18,14 @@ _$WalletRechargeImpl _$$WalletRechargeImplFromJson(Map<String, dynamic> json) =>
       paymentId: json['paymentId'] as String?,
     );
 
-Map<String, dynamic> _$$WalletRechargeImplToJson(
-  _$WalletRechargeImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'vendorAccountId': instance.vendorAccountId,
-  'amountPaise': instance.amountPaise,
-  'orderId': instance.orderId,
-  'status': instance.status,
-  'keyId': instance.keyId,
-  'clientAcknowledged': instance.clientAcknowledged,
-  'paymentId': instance.paymentId,
-};
+Map<String, dynamic> _$WalletRechargeToJson(_WalletRecharge instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'vendorAccountId': instance.vendorAccountId,
+      'amountPaise': instance.amountPaise,
+      'orderId': instance.orderId,
+      'status': instance.status,
+      'keyId': instance.keyId,
+      'clientAcknowledged': instance.clientAcknowledged,
+      'paymentId': instance.paymentId,
+    };

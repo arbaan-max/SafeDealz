@@ -10,7 +10,7 @@ part 'ticket_attachment_sign_response.freezed.dart';
 part 'ticket_attachment_sign_response.g.dart';
 
 @Freezed()
-class TicketAttachmentSignResponse with _$TicketAttachmentSignResponse {
+abstract class TicketAttachmentSignResponse with _$TicketAttachmentSignResponse {
   const factory TicketAttachmentSignResponse({
     required bool success,
     required TicketAttachmentSign data,

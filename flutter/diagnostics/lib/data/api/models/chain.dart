@@ -8,7 +8,7 @@ part 'chain.freezed.dart';
 part 'chain.g.dart';
 
 @Freezed()
-class Chain with _$Chain {
+abstract class Chain with _$Chain {
   const factory Chain({
     required String id,
     required String name,

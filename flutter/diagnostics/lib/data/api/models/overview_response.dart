@@ -10,7 +10,7 @@ part 'overview_response.freezed.dart';
 part 'overview_response.g.dart';
 
 @Freezed()
-class OverviewResponse with _$OverviewResponse {
+abstract class OverviewResponse with _$OverviewResponse {
   const factory OverviewResponse({
     required bool success,
     required Overview data,

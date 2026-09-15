@@ -6,15 +6,13 @@ part of 'bid_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BidListResponseImpl _$$BidListResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$BidListResponseImpl(
-  success: json['success'] as bool,
-  data: (json['data'] as List<dynamic>)
-      .map((e) => Bid.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+_BidListResponse _$BidListResponseFromJson(Map<String, dynamic> json) =>
+    _BidListResponse(
+      success: json['success'] as bool,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => Bid.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
-Map<String, dynamic> _$$BidListResponseImplToJson(
-  _$BidListResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$BidListResponseToJson(_BidListResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

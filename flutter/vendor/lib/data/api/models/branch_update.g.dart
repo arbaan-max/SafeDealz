@@ -6,8 +6,8 @@ part of 'branch_update.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BranchUpdateImpl _$$BranchUpdateImplFromJson(Map<String, dynamic> json) =>
-    _$BranchUpdateImpl(
+_BranchUpdate _$BranchUpdateFromJson(Map<String, dynamic> json) =>
+    _BranchUpdate(
       name: json['name'] as String?,
       code: json['code'] as String?,
       address: json['address'] as String?,
@@ -21,7 +21,7 @@ _$BranchUpdateImpl _$$BranchUpdateImplFromJson(Map<String, dynamic> json) =>
       active: json['active'] as bool?,
     );
 
-Map<String, dynamic> _$$BranchUpdateImplToJson(_$BranchUpdateImpl instance) =>
+Map<String, dynamic> _$BranchUpdateToJson(_BranchUpdate instance) =>
     <String, dynamic>{
       'name': instance.name,
       'code': instance.code,

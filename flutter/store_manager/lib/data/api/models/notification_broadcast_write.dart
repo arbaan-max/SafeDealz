@@ -10,7 +10,7 @@ part 'notification_broadcast_write.freezed.dart';
 part 'notification_broadcast_write.g.dart';
 
 @Freezed()
-class NotificationBroadcastWrite with _$NotificationBroadcastWrite {
+abstract class NotificationBroadcastWrite with _$NotificationBroadcastWrite {
   const factory NotificationBroadcastWrite({
     required NotificationBroadcastWriteAudience audience,
     required String title,

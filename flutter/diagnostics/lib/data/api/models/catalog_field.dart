@@ -8,7 +8,7 @@ part 'catalog_field.freezed.dart';
 part 'catalog_field.g.dart';
 
 @Freezed()
-class CatalogField with _$CatalogField {
+abstract class CatalogField with _$CatalogField {
   const factory CatalogField({
     required String key,
     required String label,

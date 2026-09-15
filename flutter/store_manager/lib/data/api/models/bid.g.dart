@@ -6,7 +6,7 @@ part of 'bid.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BidImpl _$$BidImplFromJson(Map<String, dynamic> json) => _$BidImpl(
+_Bid _$BidFromJson(Map<String, dynamic> json) => _Bid(
   id: json['id'] as String,
   roundId: json['roundId'] as String,
   deviceId: json['deviceId'] as String,
@@ -24,7 +24,7 @@ _$BidImpl _$$BidImplFromJson(Map<String, dynamic> json) => _$BidImpl(
       : DateTime.parse(json['createdAt'] as String),
 );
 
-Map<String, dynamic> _$$BidImplToJson(_$BidImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$BidToJson(_Bid instance) => <String, dynamic>{
   'id': instance.id,
   'roundId': instance.roundId,
   'deviceId': instance.deviceId,

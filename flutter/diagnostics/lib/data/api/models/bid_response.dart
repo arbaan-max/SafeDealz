@@ -10,7 +10,7 @@ part 'bid_response.freezed.dart';
 part 'bid_response.g.dart';
 
 @Freezed()
-class BidResponse with _$BidResponse {
+abstract class BidResponse with _$BidResponse {
   const factory BidResponse({
     required bool success,
     required Bid data,

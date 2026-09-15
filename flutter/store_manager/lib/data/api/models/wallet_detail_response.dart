@@ -10,7 +10,7 @@ part 'wallet_detail_response.freezed.dart';
 part 'wallet_detail_response.g.dart';
 
 @Freezed()
-class WalletDetailResponse with _$WalletDetailResponse {
+abstract class WalletDetailResponse with _$WalletDetailResponse {
   const factory WalletDetailResponse({
     required bool success,
     required WalletDetail data,

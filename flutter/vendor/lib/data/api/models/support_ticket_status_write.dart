@@ -10,7 +10,7 @@ part 'support_ticket_status_write.freezed.dart';
 part 'support_ticket_status_write.g.dart';
 
 @Freezed()
-class SupportTicketStatusWrite with _$SupportTicketStatusWrite {
+abstract class SupportTicketStatusWrite with _$SupportTicketStatusWrite {
   const factory SupportTicketStatusWrite({
     required SupportTicketStatusWriteStatus status,
     String? note,

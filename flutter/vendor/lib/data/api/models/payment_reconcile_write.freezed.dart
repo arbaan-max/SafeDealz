@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,172 +9,269 @@ part of 'payment_reconcile_write.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-PaymentReconcileWrite _$PaymentReconcileWriteFromJson(
-  Map<String, dynamic> json,
-) {
-  return _PaymentReconcileWrite.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PaymentReconcileWrite {
-  PaymentReconcileWriteOutcome get outcome =>
-      throw _privateConstructorUsedError;
+
+ PaymentReconcileWriteOutcome get outcome;
+/// Create a copy of PaymentReconcileWrite
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaymentReconcileWriteCopyWith<PaymentReconcileWrite> get copyWith => _$PaymentReconcileWriteCopyWithImpl<PaymentReconcileWrite>(this as PaymentReconcileWrite, _$identity);
 
   /// Serializes this PaymentReconcileWrite to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PaymentReconcileWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PaymentReconcileWriteCopyWith<PaymentReconcileWrite> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentReconcileWrite&&(identical(other.outcome, outcome) || other.outcome == outcome));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,outcome);
+
+@override
+String toString() {
+  return 'PaymentReconcileWrite(outcome: $outcome)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PaymentReconcileWriteCopyWith<$Res> {
-  factory $PaymentReconcileWriteCopyWith(
-    PaymentReconcileWrite value,
-    $Res Function(PaymentReconcileWrite) then,
-  ) = _$PaymentReconcileWriteCopyWithImpl<$Res, PaymentReconcileWrite>;
-  @useResult
-  $Res call({PaymentReconcileWriteOutcome outcome});
-}
+abstract mixin class $PaymentReconcileWriteCopyWith<$Res>  {
+  factory $PaymentReconcileWriteCopyWith(PaymentReconcileWrite value, $Res Function(PaymentReconcileWrite) _then) = _$PaymentReconcileWriteCopyWithImpl;
+@useResult
+$Res call({
+ PaymentReconcileWriteOutcome outcome
+});
 
+
+
+
+}
 /// @nodoc
-class _$PaymentReconcileWriteCopyWithImpl<
-  $Res,
-  $Val extends PaymentReconcileWrite
->
+class _$PaymentReconcileWriteCopyWithImpl<$Res>
     implements $PaymentReconcileWriteCopyWith<$Res> {
-  _$PaymentReconcileWriteCopyWithImpl(this._value, this._then);
+  _$PaymentReconcileWriteCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PaymentReconcileWrite _self;
+  final $Res Function(PaymentReconcileWrite) _then;
 
-  /// Create a copy of PaymentReconcileWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? outcome = null}) {
-    return _then(
-      _value.copyWith(
-            outcome: null == outcome
-                ? _value.outcome
-                : outcome // ignore: cast_nullable_to_non_nullable
-                      as PaymentReconcileWriteOutcome,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of PaymentReconcileWrite
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? outcome = null,}) {
+  return _then(_self.copyWith(
+outcome: null == outcome ? _self.outcome : outcome // ignore: cast_nullable_to_non_nullable
+as PaymentReconcileWriteOutcome,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PaymentReconcileWriteImplCopyWith<$Res>
-    implements $PaymentReconcileWriteCopyWith<$Res> {
-  factory _$$PaymentReconcileWriteImplCopyWith(
-    _$PaymentReconcileWriteImpl value,
-    $Res Function(_$PaymentReconcileWriteImpl) then,
-  ) = __$$PaymentReconcileWriteImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({PaymentReconcileWriteOutcome outcome});
 }
 
-/// @nodoc
-class __$$PaymentReconcileWriteImplCopyWithImpl<$Res>
-    extends
-        _$PaymentReconcileWriteCopyWithImpl<$Res, _$PaymentReconcileWriteImpl>
-    implements _$$PaymentReconcileWriteImplCopyWith<$Res> {
-  __$$PaymentReconcileWriteImplCopyWithImpl(
-    _$PaymentReconcileWriteImpl _value,
-    $Res Function(_$PaymentReconcileWriteImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentReconcileWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? outcome = null}) {
-    return _then(
-      _$PaymentReconcileWriteImpl(
-        outcome: null == outcome
-            ? _value.outcome
-            : outcome // ignore: cast_nullable_to_non_nullable
-                  as PaymentReconcileWriteOutcome,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [PaymentReconcileWrite].
+extension PaymentReconcileWritePatterns on PaymentReconcileWrite {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PaymentReconcileWrite value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PaymentReconcileWrite() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PaymentReconcileWrite value)  $default,){
+final _that = this;
+switch (_that) {
+case _PaymentReconcileWrite():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PaymentReconcileWrite value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PaymentReconcileWrite() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PaymentReconcileWriteOutcome outcome)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PaymentReconcileWrite() when $default != null:
+return $default(_that.outcome);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PaymentReconcileWriteOutcome outcome)  $default,) {final _that = this;
+switch (_that) {
+case _PaymentReconcileWrite():
+return $default(_that.outcome);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PaymentReconcileWriteOutcome outcome)?  $default,) {final _that = this;
+switch (_that) {
+case _PaymentReconcileWrite() when $default != null:
+return $default(_that.outcome);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PaymentReconcileWriteImpl implements _PaymentReconcileWrite {
-  const _$PaymentReconcileWriteImpl({required this.outcome});
 
-  factory _$PaymentReconcileWriteImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PaymentReconcileWriteImplFromJson(json);
+class _PaymentReconcileWrite implements PaymentReconcileWrite {
+  const _PaymentReconcileWrite({required this.outcome});
+  factory _PaymentReconcileWrite.fromJson(Map<String, dynamic> json) => _$PaymentReconcileWriteFromJson(json);
 
-  @override
-  final PaymentReconcileWriteOutcome outcome;
+@override final  PaymentReconcileWriteOutcome outcome;
 
-  @override
-  String toString() {
-    return 'PaymentReconcileWrite(outcome: $outcome)';
-  }
+/// Create a copy of PaymentReconcileWrite
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PaymentReconcileWriteCopyWith<_PaymentReconcileWrite> get copyWith => __$PaymentReconcileWriteCopyWithImpl<_PaymentReconcileWrite>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentReconcileWriteImpl &&
-            (identical(other.outcome, outcome) || other.outcome == outcome));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, outcome);
-
-  /// Create a copy of PaymentReconcileWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaymentReconcileWriteImplCopyWith<_$PaymentReconcileWriteImpl>
-  get copyWith =>
-      __$$PaymentReconcileWriteImplCopyWithImpl<_$PaymentReconcileWriteImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PaymentReconcileWriteImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$PaymentReconcileWriteToJson(this, );
 }
 
-abstract class _PaymentReconcileWrite implements PaymentReconcileWrite {
-  const factory _PaymentReconcileWrite({
-    required final PaymentReconcileWriteOutcome outcome,
-  }) = _$PaymentReconcileWriteImpl;
-
-  factory _PaymentReconcileWrite.fromJson(Map<String, dynamic> json) =
-      _$PaymentReconcileWriteImpl.fromJson;
-
-  @override
-  PaymentReconcileWriteOutcome get outcome;
-
-  /// Create a copy of PaymentReconcileWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaymentReconcileWriteImplCopyWith<_$PaymentReconcileWriteImpl>
-  get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentReconcileWrite&&(identical(other.outcome, outcome) || other.outcome == outcome));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,outcome);
+
+@override
+String toString() {
+  return 'PaymentReconcileWrite(outcome: $outcome)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PaymentReconcileWriteCopyWith<$Res> implements $PaymentReconcileWriteCopyWith<$Res> {
+  factory _$PaymentReconcileWriteCopyWith(_PaymentReconcileWrite value, $Res Function(_PaymentReconcileWrite) _then) = __$PaymentReconcileWriteCopyWithImpl;
+@override @useResult
+$Res call({
+ PaymentReconcileWriteOutcome outcome
+});
+
+
+
+
+}
+/// @nodoc
+class __$PaymentReconcileWriteCopyWithImpl<$Res>
+    implements _$PaymentReconcileWriteCopyWith<$Res> {
+  __$PaymentReconcileWriteCopyWithImpl(this._self, this._then);
+
+  final _PaymentReconcileWrite _self;
+  final $Res Function(_PaymentReconcileWrite) _then;
+
+/// Create a copy of PaymentReconcileWrite
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? outcome = null,}) {
+  return _then(_PaymentReconcileWrite(
+outcome: null == outcome ? _self.outcome : outcome // ignore: cast_nullable_to_non_nullable
+as PaymentReconcileWriteOutcome,
+  ));
+}
+
+
+}
+
+// dart format on

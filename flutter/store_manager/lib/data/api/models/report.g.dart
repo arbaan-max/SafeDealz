@@ -6,7 +6,7 @@ part of 'report.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ReportImpl _$$ReportImplFromJson(Map<String, dynamic> json) => _$ReportImpl(
+_Report _$ReportFromJson(Map<String, dynamic> json) => _Report(
   auctionConversion: json['auctionConversion'] == null
       ? null
       : AuctionConversion.fromJson(
@@ -25,14 +25,13 @@ _$ReportImpl _$$ReportImplFromJson(Map<String, dynamic> json) => _$ReportImpl(
         ),
 );
 
-Map<String, dynamic> _$$ReportImplToJson(_$ReportImpl instance) =>
-    <String, dynamic>{
-      'auctionConversion': instance.auctionConversion,
-      'acceptedValuePaise': instance.acceptedValuePaise,
-      'paidValuePaise': instance.paidValuePaise,
-      'pickupCount': instance.pickupCount,
-      'walletMovementsPaise': instance.walletMovementsPaise,
-      'rewardIssuedPoints': instance.rewardIssuedPoints,
-      'rewardRedeemedPoints': instance.rewardRedeemedPoints,
-      'billingReconciliation': instance.billingReconciliation,
-    };
+Map<String, dynamic> _$ReportToJson(_Report instance) => <String, dynamic>{
+  'auctionConversion': instance.auctionConversion,
+  'acceptedValuePaise': instance.acceptedValuePaise,
+  'paidValuePaise': instance.paidValuePaise,
+  'pickupCount': instance.pickupCount,
+  'walletMovementsPaise': instance.walletMovementsPaise,
+  'rewardIssuedPoints': instance.rewardIssuedPoints,
+  'rewardRedeemedPoints': instance.rewardRedeemedPoints,
+  'billingReconciliation': instance.billingReconciliation,
+};

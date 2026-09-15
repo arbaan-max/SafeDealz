@@ -6,8 +6,8 @@ part of 'report_export.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ReportExportImpl _$$ReportExportImplFromJson(Map<String, dynamic> json) =>
-    _$ReportExportImpl(
+_ReportExport _$ReportExportFromJson(Map<String, dynamic> json) =>
+    _ReportExport(
       filename: json['filename'] as String?,
       csv: json['csv'] as String?,
       generatedAt: json['generatedAt'] == null
@@ -15,7 +15,7 @@ _$ReportExportImpl _$$ReportExportImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['generatedAt'] as String),
     );
 
-Map<String, dynamic> _$$ReportExportImplToJson(_$ReportExportImpl instance) =>
+Map<String, dynamic> _$ReportExportToJson(_ReportExport instance) =>
     <String, dynamic>{
       'filename': instance.filename,
       'csv': instance.csv,

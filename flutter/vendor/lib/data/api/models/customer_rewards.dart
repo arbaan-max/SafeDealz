@@ -11,7 +11,7 @@ part 'customer_rewards.freezed.dart';
 part 'customer_rewards.g.dart';
 
 @Freezed()
-class CustomerRewards with _$CustomerRewards {
+abstract class CustomerRewards with _$CustomerRewards {
   const factory CustomerRewards({
     String? phone,
     String? customerName,

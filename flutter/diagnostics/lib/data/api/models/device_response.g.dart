@@ -6,12 +6,11 @@ part of 'device_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DeviceResponseImpl _$$DeviceResponseImplFromJson(Map<String, dynamic> json) =>
-    _$DeviceResponseImpl(
+_DeviceResponse _$DeviceResponseFromJson(Map<String, dynamic> json) =>
+    _DeviceResponse(
       success: json['success'] as bool,
       data: Device.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$DeviceResponseImplToJson(
-  _$DeviceResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$DeviceResponseToJson(_DeviceResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

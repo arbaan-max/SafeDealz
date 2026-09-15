@@ -10,7 +10,7 @@ part 'admin_list_response.freezed.dart';
 part 'admin_list_response.g.dart';
 
 @Freezed()
-class AdminListResponse with _$AdminListResponse {
+abstract class AdminListResponse with _$AdminListResponse {
   const factory AdminListResponse({
     required bool success,
     required List<AdminAccount> data,

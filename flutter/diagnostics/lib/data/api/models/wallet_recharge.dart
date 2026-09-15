@@ -10,7 +10,7 @@ part 'wallet_recharge.freezed.dart';
 part 'wallet_recharge.g.dart';
 
 @Freezed()
-class WalletRecharge with _$WalletRecharge {
+abstract class WalletRecharge with _$WalletRecharge {
   const factory WalletRecharge({
     required String id,
     required String vendorAccountId,

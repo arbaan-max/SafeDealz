@@ -8,7 +8,7 @@ part 'support_ticket_note_write.freezed.dart';
 part 'support_ticket_note_write.g.dart';
 
 @Freezed()
-class SupportTicketNoteWrite with _$SupportTicketNoteWrite {
+abstract class SupportTicketNoteWrite with _$SupportTicketNoteWrite {
   const factory SupportTicketNoteWrite({
     required String body,
   }) = _SupportTicketNoteWrite;

@@ -10,7 +10,7 @@ part 'data6.freezed.dart';
 part 'data6.g.dart';
 
 @Freezed()
-class Data6 with _$Data6 {
+abstract class Data6 with _$Data6 {
   const factory Data6({
     int? closedCount,
     List<AuctionRound>? closed,

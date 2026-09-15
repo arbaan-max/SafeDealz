@@ -10,7 +10,7 @@ part 'overview.freezed.dart';
 part 'overview.g.dart';
 
 @Freezed()
-class Overview with _$Overview {
+abstract class Overview with _$Overview {
   const factory Overview({
     int? liveAuctions,
     int? awaitingAcceptance,

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,164 +9,269 @@ part of 'wallet_release_write.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-WalletReleaseWrite _$WalletReleaseWriteFromJson(Map<String, dynamic> json) {
-  return _WalletReleaseWrite.fromJson(json);
-}
 
 /// @nodoc
 mixin _$WalletReleaseWrite {
-  String get idempotencyKey => throw _privateConstructorUsedError;
+
+ String get idempotencyKey;
+/// Create a copy of WalletReleaseWrite
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WalletReleaseWriteCopyWith<WalletReleaseWrite> get copyWith => _$WalletReleaseWriteCopyWithImpl<WalletReleaseWrite>(this as WalletReleaseWrite, _$identity);
 
   /// Serializes this WalletReleaseWrite to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of WalletReleaseWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $WalletReleaseWriteCopyWith<WalletReleaseWrite> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WalletReleaseWrite&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,idempotencyKey);
+
+@override
+String toString() {
+  return 'WalletReleaseWrite(idempotencyKey: $idempotencyKey)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $WalletReleaseWriteCopyWith<$Res> {
-  factory $WalletReleaseWriteCopyWith(
-    WalletReleaseWrite value,
-    $Res Function(WalletReleaseWrite) then,
-  ) = _$WalletReleaseWriteCopyWithImpl<$Res, WalletReleaseWrite>;
-  @useResult
-  $Res call({String idempotencyKey});
-}
+abstract mixin class $WalletReleaseWriteCopyWith<$Res>  {
+  factory $WalletReleaseWriteCopyWith(WalletReleaseWrite value, $Res Function(WalletReleaseWrite) _then) = _$WalletReleaseWriteCopyWithImpl;
+@useResult
+$Res call({
+ String idempotencyKey
+});
 
+
+
+
+}
 /// @nodoc
-class _$WalletReleaseWriteCopyWithImpl<$Res, $Val extends WalletReleaseWrite>
+class _$WalletReleaseWriteCopyWithImpl<$Res>
     implements $WalletReleaseWriteCopyWith<$Res> {
-  _$WalletReleaseWriteCopyWithImpl(this._value, this._then);
+  _$WalletReleaseWriteCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final WalletReleaseWrite _self;
+  final $Res Function(WalletReleaseWrite) _then;
 
-  /// Create a copy of WalletReleaseWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? idempotencyKey = null}) {
-    return _then(
-      _value.copyWith(
-            idempotencyKey: null == idempotencyKey
-                ? _value.idempotencyKey
-                : idempotencyKey // ignore: cast_nullable_to_non_nullable
-                      as String,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of WalletReleaseWrite
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? idempotencyKey = null,}) {
+  return _then(_self.copyWith(
+idempotencyKey: null == idempotencyKey ? _self.idempotencyKey : idempotencyKey // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$WalletReleaseWriteImplCopyWith<$Res>
-    implements $WalletReleaseWriteCopyWith<$Res> {
-  factory _$$WalletReleaseWriteImplCopyWith(
-    _$WalletReleaseWriteImpl value,
-    $Res Function(_$WalletReleaseWriteImpl) then,
-  ) = __$$WalletReleaseWriteImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String idempotencyKey});
 }
 
-/// @nodoc
-class __$$WalletReleaseWriteImplCopyWithImpl<$Res>
-    extends _$WalletReleaseWriteCopyWithImpl<$Res, _$WalletReleaseWriteImpl>
-    implements _$$WalletReleaseWriteImplCopyWith<$Res> {
-  __$$WalletReleaseWriteImplCopyWithImpl(
-    _$WalletReleaseWriteImpl _value,
-    $Res Function(_$WalletReleaseWriteImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of WalletReleaseWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? idempotencyKey = null}) {
-    return _then(
-      _$WalletReleaseWriteImpl(
-        idempotencyKey: null == idempotencyKey
-            ? _value.idempotencyKey
-            : idempotencyKey // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [WalletReleaseWrite].
+extension WalletReleaseWritePatterns on WalletReleaseWrite {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WalletReleaseWrite value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WalletReleaseWrite() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WalletReleaseWrite value)  $default,){
+final _that = this;
+switch (_that) {
+case _WalletReleaseWrite():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WalletReleaseWrite value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WalletReleaseWrite() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String idempotencyKey)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WalletReleaseWrite() when $default != null:
+return $default(_that.idempotencyKey);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String idempotencyKey)  $default,) {final _that = this;
+switch (_that) {
+case _WalletReleaseWrite():
+return $default(_that.idempotencyKey);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String idempotencyKey)?  $default,) {final _that = this;
+switch (_that) {
+case _WalletReleaseWrite() when $default != null:
+return $default(_that.idempotencyKey);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WalletReleaseWriteImpl implements _WalletReleaseWrite {
-  const _$WalletReleaseWriteImpl({required this.idempotencyKey});
 
-  factory _$WalletReleaseWriteImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WalletReleaseWriteImplFromJson(json);
+class _WalletReleaseWrite implements WalletReleaseWrite {
+  const _WalletReleaseWrite({required this.idempotencyKey});
+  factory _WalletReleaseWrite.fromJson(Map<String, dynamic> json) => _$WalletReleaseWriteFromJson(json);
 
-  @override
-  final String idempotencyKey;
+@override final  String idempotencyKey;
 
-  @override
-  String toString() {
-    return 'WalletReleaseWrite(idempotencyKey: $idempotencyKey)';
-  }
+/// Create a copy of WalletReleaseWrite
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WalletReleaseWriteCopyWith<_WalletReleaseWrite> get copyWith => __$WalletReleaseWriteCopyWithImpl<_WalletReleaseWrite>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WalletReleaseWriteImpl &&
-            (identical(other.idempotencyKey, idempotencyKey) ||
-                other.idempotencyKey == idempotencyKey));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, idempotencyKey);
-
-  /// Create a copy of WalletReleaseWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WalletReleaseWriteImplCopyWith<_$WalletReleaseWriteImpl> get copyWith =>
-      __$$WalletReleaseWriteImplCopyWithImpl<_$WalletReleaseWriteImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WalletReleaseWriteImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$WalletReleaseWriteToJson(this, );
 }
 
-abstract class _WalletReleaseWrite implements WalletReleaseWrite {
-  const factory _WalletReleaseWrite({required final String idempotencyKey}) =
-      _$WalletReleaseWriteImpl;
-
-  factory _WalletReleaseWrite.fromJson(Map<String, dynamic> json) =
-      _$WalletReleaseWriteImpl.fromJson;
-
-  @override
-  String get idempotencyKey;
-
-  /// Create a copy of WalletReleaseWrite
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WalletReleaseWriteImplCopyWith<_$WalletReleaseWriteImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WalletReleaseWrite&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,idempotencyKey);
+
+@override
+String toString() {
+  return 'WalletReleaseWrite(idempotencyKey: $idempotencyKey)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WalletReleaseWriteCopyWith<$Res> implements $WalletReleaseWriteCopyWith<$Res> {
+  factory _$WalletReleaseWriteCopyWith(_WalletReleaseWrite value, $Res Function(_WalletReleaseWrite) _then) = __$WalletReleaseWriteCopyWithImpl;
+@override @useResult
+$Res call({
+ String idempotencyKey
+});
+
+
+
+
+}
+/// @nodoc
+class __$WalletReleaseWriteCopyWithImpl<$Res>
+    implements _$WalletReleaseWriteCopyWith<$Res> {
+  __$WalletReleaseWriteCopyWithImpl(this._self, this._then);
+
+  final _WalletReleaseWrite _self;
+  final $Res Function(_WalletReleaseWrite) _then;
+
+/// Create a copy of WalletReleaseWrite
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? idempotencyKey = null,}) {
+  return _then(_WalletReleaseWrite(
+idempotencyKey: null == idempotencyKey ? _self.idempotencyKey : idempotencyKey // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

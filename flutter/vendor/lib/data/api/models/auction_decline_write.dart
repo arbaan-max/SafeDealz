@@ -10,7 +10,7 @@ part 'auction_decline_write.freezed.dart';
 part 'auction_decline_write.g.dart';
 
 @Freezed()
-class AuctionDeclineWrite with _$AuctionDeclineWrite {
+abstract class AuctionDeclineWrite with _$AuctionDeclineWrite {
   const factory AuctionDeclineWrite({
     required AuctionDeclineWriteReasonCode reasonCode,
     String? reason,

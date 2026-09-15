@@ -6,13 +6,13 @@ part of 'report_export_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ReportExportResponseImpl _$$ReportExportResponseImplFromJson(
+_ReportExportResponse _$ReportExportResponseFromJson(
   Map<String, dynamic> json,
-) => _$ReportExportResponseImpl(
+) => _ReportExportResponse(
   success: json['success'] as bool,
   data: ReportExport.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$$ReportExportResponseImplToJson(
-  _$ReportExportResponseImpl instance,
+Map<String, dynamic> _$ReportExportResponseToJson(
+  _ReportExportResponse instance,
 ) => <String, dynamic>{'success': instance.success, 'data': instance.data};

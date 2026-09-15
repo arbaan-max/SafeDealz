@@ -6,11 +6,10 @@ part of 'catalog_step.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CatalogStepImpl _$$CatalogStepImplFromJson(Map<String, dynamic> json) =>
-    _$CatalogStepImpl(
-      title: json['title'] as String,
-      keys: (json['keys'] as List<dynamic>).map((e) => e as String).toList(),
-    );
+_CatalogStep _$CatalogStepFromJson(Map<String, dynamic> json) => _CatalogStep(
+  title: json['title'] as String,
+  keys: (json['keys'] as List<dynamic>).map((e) => e as String).toList(),
+);
 
-Map<String, dynamic> _$$CatalogStepImplToJson(_$CatalogStepImpl instance) =>
+Map<String, dynamic> _$CatalogStepToJson(_CatalogStep instance) =>
     <String, dynamic>{'title': instance.title, 'keys': instance.keys};

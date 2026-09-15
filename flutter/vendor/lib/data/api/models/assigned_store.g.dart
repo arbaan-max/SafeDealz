@@ -6,8 +6,8 @@ part of 'assigned_store.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AssignedStoreImpl _$$AssignedStoreImplFromJson(Map<String, dynamic> json) =>
-    _$AssignedStoreImpl(
+_AssignedStore _$AssignedStoreFromJson(Map<String, dynamic> json) =>
+    _AssignedStore(
       id: json['id'] as String,
       chainId: json['chainId'] as String,
       name: json['name'] as String,
@@ -21,7 +21,7 @@ _$AssignedStoreImpl _$$AssignedStoreImplFromJson(Map<String, dynamic> json) =>
       chainCode: json['chainCode'] as String?,
     );
 
-Map<String, dynamic> _$$AssignedStoreImplToJson(_$AssignedStoreImpl instance) =>
+Map<String, dynamic> _$AssignedStoreToJson(_AssignedStore instance) =>
     <String, dynamic>{
       'id': instance.id,
       'chainId': instance.chainId,

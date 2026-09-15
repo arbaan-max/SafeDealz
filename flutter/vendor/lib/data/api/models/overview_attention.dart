@@ -10,7 +10,7 @@ part 'overview_attention.freezed.dart';
 part 'overview_attention.g.dart';
 
 @Freezed()
-class OverviewAttention with _$OverviewAttention {
+abstract class OverviewAttention with _$OverviewAttention {
   const factory OverviewAttention({
     OverviewAttentionKind? kind,
     String? id,

@@ -10,7 +10,7 @@ part 'media_sign_response.freezed.dart';
 part 'media_sign_response.g.dart';
 
 @Freezed()
-class MediaSignResponse with _$MediaSignResponse {
+abstract class MediaSignResponse with _$MediaSignResponse {
   const factory MediaSignResponse({
     required bool success,
     required Data7 data,

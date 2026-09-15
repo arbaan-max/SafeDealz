@@ -6,8 +6,8 @@ part of 'auction_round.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuctionRoundImpl _$$AuctionRoundImplFromJson(Map<String, dynamic> json) =>
-    _$AuctionRoundImpl(
+_AuctionRound _$AuctionRoundFromJson(Map<String, dynamic> json) =>
+    _AuctionRound(
       id: json['id'] as String,
       deviceId: json['deviceId'] as String,
       branchId: json['branchId'] as String,
@@ -37,7 +37,7 @@ _$AuctionRoundImpl _$$AuctionRoundImplFromJson(Map<String, dynamic> json) =>
       winnerVendor: json['winnerVendor'],
     );
 
-Map<String, dynamic> _$$AuctionRoundImplToJson(_$AuctionRoundImpl instance) =>
+Map<String, dynamic> _$AuctionRoundToJson(_AuctionRound instance) =>
     <String, dynamic>{
       'id': instance.id,
       'deviceId': instance.deviceId,

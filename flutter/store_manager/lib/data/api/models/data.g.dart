@@ -6,8 +6,9 @@ part of 'data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DataImpl _$$DataImplFromJson(Map<String, dynamic> json) =>
-    _$DataImpl(status: json['status'] as String);
+_Data _$DataFromJson(Map<String, dynamic> json) =>
+    _Data(status: json['status'] as String);
 
-Map<String, dynamic> _$$DataImplToJson(_$DataImpl instance) =>
-    <String, dynamic>{'status': instance.status};
+Map<String, dynamic> _$DataToJson(_Data instance) => <String, dynamic>{
+  'status': instance.status,
+};

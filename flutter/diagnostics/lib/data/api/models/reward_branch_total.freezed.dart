@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,332 +9,290 @@ part of 'reward_branch_total.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-RewardBranchTotal _$RewardBranchTotalFromJson(Map<String, dynamic> json) {
-  return _RewardBranchTotal.fromJson(json);
-}
 
 /// @nodoc
 mixin _$RewardBranchTotal {
-  String? get branchId => throw _privateConstructorUsedError;
-  String? get branchName => throw _privateConstructorUsedError;
-  int? get issuedPoints => throw _privateConstructorUsedError;
-  int? get redeemedPoints => throw _privateConstructorUsedError;
-  int? get outstandingPoints => throw _privateConstructorUsedError;
-  int? get issuedValuePaise => throw _privateConstructorUsedError;
-  int? get redeemedValuePaise => throw _privateConstructorUsedError;
-  int? get outstandingValuePaise => throw _privateConstructorUsedError;
+
+ String? get branchId; String? get branchName; int? get issuedPoints; int? get redeemedPoints; int? get outstandingPoints; int? get issuedValuePaise; int? get redeemedValuePaise; int? get outstandingValuePaise;
+/// Create a copy of RewardBranchTotal
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RewardBranchTotalCopyWith<RewardBranchTotal> get copyWith => _$RewardBranchTotalCopyWithImpl<RewardBranchTotal>(this as RewardBranchTotal, _$identity);
 
   /// Serializes this RewardBranchTotal to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of RewardBranchTotal
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $RewardBranchTotalCopyWith<RewardBranchTotal> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardBranchTotal&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.branchName, branchName) || other.branchName == branchName)&&(identical(other.issuedPoints, issuedPoints) || other.issuedPoints == issuedPoints)&&(identical(other.redeemedPoints, redeemedPoints) || other.redeemedPoints == redeemedPoints)&&(identical(other.outstandingPoints, outstandingPoints) || other.outstandingPoints == outstandingPoints)&&(identical(other.issuedValuePaise, issuedValuePaise) || other.issuedValuePaise == issuedValuePaise)&&(identical(other.redeemedValuePaise, redeemedValuePaise) || other.redeemedValuePaise == redeemedValuePaise)&&(identical(other.outstandingValuePaise, outstandingValuePaise) || other.outstandingValuePaise == outstandingValuePaise));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,branchId,branchName,issuedPoints,redeemedPoints,outstandingPoints,issuedValuePaise,redeemedValuePaise,outstandingValuePaise);
+
+@override
+String toString() {
+  return 'RewardBranchTotal(branchId: $branchId, branchName: $branchName, issuedPoints: $issuedPoints, redeemedPoints: $redeemedPoints, outstandingPoints: $outstandingPoints, issuedValuePaise: $issuedValuePaise, redeemedValuePaise: $redeemedValuePaise, outstandingValuePaise: $outstandingValuePaise)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $RewardBranchTotalCopyWith<$Res> {
-  factory $RewardBranchTotalCopyWith(
-    RewardBranchTotal value,
-    $Res Function(RewardBranchTotal) then,
-  ) = _$RewardBranchTotalCopyWithImpl<$Res, RewardBranchTotal>;
-  @useResult
-  $Res call({
-    String? branchId,
-    String? branchName,
-    int? issuedPoints,
-    int? redeemedPoints,
-    int? outstandingPoints,
-    int? issuedValuePaise,
-    int? redeemedValuePaise,
-    int? outstandingValuePaise,
-  });
-}
+abstract mixin class $RewardBranchTotalCopyWith<$Res>  {
+  factory $RewardBranchTotalCopyWith(RewardBranchTotal value, $Res Function(RewardBranchTotal) _then) = _$RewardBranchTotalCopyWithImpl;
+@useResult
+$Res call({
+ String? branchId, String? branchName, int? issuedPoints, int? redeemedPoints, int? outstandingPoints, int? issuedValuePaise, int? redeemedValuePaise, int? outstandingValuePaise
+});
 
+
+
+
+}
 /// @nodoc
-class _$RewardBranchTotalCopyWithImpl<$Res, $Val extends RewardBranchTotal>
+class _$RewardBranchTotalCopyWithImpl<$Res>
     implements $RewardBranchTotalCopyWith<$Res> {
-  _$RewardBranchTotalCopyWithImpl(this._value, this._then);
+  _$RewardBranchTotalCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final RewardBranchTotal _self;
+  final $Res Function(RewardBranchTotal) _then;
 
-  /// Create a copy of RewardBranchTotal
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? branchId = freezed,
-    Object? branchName = freezed,
-    Object? issuedPoints = freezed,
-    Object? redeemedPoints = freezed,
-    Object? outstandingPoints = freezed,
-    Object? issuedValuePaise = freezed,
-    Object? redeemedValuePaise = freezed,
-    Object? outstandingValuePaise = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            branchId: freezed == branchId
-                ? _value.branchId
-                : branchId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            branchName: freezed == branchName
-                ? _value.branchName
-                : branchName // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            issuedPoints: freezed == issuedPoints
-                ? _value.issuedPoints
-                : issuedPoints // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            redeemedPoints: freezed == redeemedPoints
-                ? _value.redeemedPoints
-                : redeemedPoints // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            outstandingPoints: freezed == outstandingPoints
-                ? _value.outstandingPoints
-                : outstandingPoints // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            issuedValuePaise: freezed == issuedValuePaise
-                ? _value.issuedValuePaise
-                : issuedValuePaise // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            redeemedValuePaise: freezed == redeemedValuePaise
-                ? _value.redeemedValuePaise
-                : redeemedValuePaise // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            outstandingValuePaise: freezed == outstandingValuePaise
-                ? _value.outstandingValuePaise
-                : outstandingValuePaise // ignore: cast_nullable_to_non_nullable
-                      as int?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of RewardBranchTotal
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? branchId = freezed,Object? branchName = freezed,Object? issuedPoints = freezed,Object? redeemedPoints = freezed,Object? outstandingPoints = freezed,Object? issuedValuePaise = freezed,Object? redeemedValuePaise = freezed,Object? outstandingValuePaise = freezed,}) {
+  return _then(_self.copyWith(
+branchId: freezed == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
+as String?,branchName: freezed == branchName ? _self.branchName : branchName // ignore: cast_nullable_to_non_nullable
+as String?,issuedPoints: freezed == issuedPoints ? _self.issuedPoints : issuedPoints // ignore: cast_nullable_to_non_nullable
+as int?,redeemedPoints: freezed == redeemedPoints ? _self.redeemedPoints : redeemedPoints // ignore: cast_nullable_to_non_nullable
+as int?,outstandingPoints: freezed == outstandingPoints ? _self.outstandingPoints : outstandingPoints // ignore: cast_nullable_to_non_nullable
+as int?,issuedValuePaise: freezed == issuedValuePaise ? _self.issuedValuePaise : issuedValuePaise // ignore: cast_nullable_to_non_nullable
+as int?,redeemedValuePaise: freezed == redeemedValuePaise ? _self.redeemedValuePaise : redeemedValuePaise // ignore: cast_nullable_to_non_nullable
+as int?,outstandingValuePaise: freezed == outstandingValuePaise ? _self.outstandingValuePaise : outstandingValuePaise // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$RewardBranchTotalImplCopyWith<$Res>
-    implements $RewardBranchTotalCopyWith<$Res> {
-  factory _$$RewardBranchTotalImplCopyWith(
-    _$RewardBranchTotalImpl value,
-    $Res Function(_$RewardBranchTotalImpl) then,
-  ) = __$$RewardBranchTotalImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String? branchId,
-    String? branchName,
-    int? issuedPoints,
-    int? redeemedPoints,
-    int? outstandingPoints,
-    int? issuedValuePaise,
-    int? redeemedValuePaise,
-    int? outstandingValuePaise,
-  });
 }
 
-/// @nodoc
-class __$$RewardBranchTotalImplCopyWithImpl<$Res>
-    extends _$RewardBranchTotalCopyWithImpl<$Res, _$RewardBranchTotalImpl>
-    implements _$$RewardBranchTotalImplCopyWith<$Res> {
-  __$$RewardBranchTotalImplCopyWithImpl(
-    _$RewardBranchTotalImpl _value,
-    $Res Function(_$RewardBranchTotalImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of RewardBranchTotal
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? branchId = freezed,
-    Object? branchName = freezed,
-    Object? issuedPoints = freezed,
-    Object? redeemedPoints = freezed,
-    Object? outstandingPoints = freezed,
-    Object? issuedValuePaise = freezed,
-    Object? redeemedValuePaise = freezed,
-    Object? outstandingValuePaise = freezed,
-  }) {
-    return _then(
-      _$RewardBranchTotalImpl(
-        branchId: freezed == branchId
-            ? _value.branchId
-            : branchId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        branchName: freezed == branchName
-            ? _value.branchName
-            : branchName // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        issuedPoints: freezed == issuedPoints
-            ? _value.issuedPoints
-            : issuedPoints // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        redeemedPoints: freezed == redeemedPoints
-            ? _value.redeemedPoints
-            : redeemedPoints // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        outstandingPoints: freezed == outstandingPoints
-            ? _value.outstandingPoints
-            : outstandingPoints // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        issuedValuePaise: freezed == issuedValuePaise
-            ? _value.issuedValuePaise
-            : issuedValuePaise // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        redeemedValuePaise: freezed == redeemedValuePaise
-            ? _value.redeemedValuePaise
-            : redeemedValuePaise // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        outstandingValuePaise: freezed == outstandingValuePaise
-            ? _value.outstandingValuePaise
-            : outstandingValuePaise // ignore: cast_nullable_to_non_nullable
-                  as int?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [RewardBranchTotal].
+extension RewardBranchTotalPatterns on RewardBranchTotal {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RewardBranchTotal value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RewardBranchTotal() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RewardBranchTotal value)  $default,){
+final _that = this;
+switch (_that) {
+case _RewardBranchTotal():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RewardBranchTotal value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RewardBranchTotal() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? branchId,  String? branchName,  int? issuedPoints,  int? redeemedPoints,  int? outstandingPoints,  int? issuedValuePaise,  int? redeemedValuePaise,  int? outstandingValuePaise)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RewardBranchTotal() when $default != null:
+return $default(_that.branchId,_that.branchName,_that.issuedPoints,_that.redeemedPoints,_that.outstandingPoints,_that.issuedValuePaise,_that.redeemedValuePaise,_that.outstandingValuePaise);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? branchId,  String? branchName,  int? issuedPoints,  int? redeemedPoints,  int? outstandingPoints,  int? issuedValuePaise,  int? redeemedValuePaise,  int? outstandingValuePaise)  $default,) {final _that = this;
+switch (_that) {
+case _RewardBranchTotal():
+return $default(_that.branchId,_that.branchName,_that.issuedPoints,_that.redeemedPoints,_that.outstandingPoints,_that.issuedValuePaise,_that.redeemedValuePaise,_that.outstandingValuePaise);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? branchId,  String? branchName,  int? issuedPoints,  int? redeemedPoints,  int? outstandingPoints,  int? issuedValuePaise,  int? redeemedValuePaise,  int? outstandingValuePaise)?  $default,) {final _that = this;
+switch (_that) {
+case _RewardBranchTotal() when $default != null:
+return $default(_that.branchId,_that.branchName,_that.issuedPoints,_that.redeemedPoints,_that.outstandingPoints,_that.issuedValuePaise,_that.redeemedValuePaise,_that.outstandingValuePaise);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$RewardBranchTotalImpl implements _RewardBranchTotal {
-  const _$RewardBranchTotalImpl({
-    this.branchId,
-    this.branchName,
-    this.issuedPoints,
-    this.redeemedPoints,
-    this.outstandingPoints,
-    this.issuedValuePaise,
-    this.redeemedValuePaise,
-    this.outstandingValuePaise,
-  });
 
-  factory _$RewardBranchTotalImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RewardBranchTotalImplFromJson(json);
+class _RewardBranchTotal implements RewardBranchTotal {
+  const _RewardBranchTotal({this.branchId, this.branchName, this.issuedPoints, this.redeemedPoints, this.outstandingPoints, this.issuedValuePaise, this.redeemedValuePaise, this.outstandingValuePaise});
+  factory _RewardBranchTotal.fromJson(Map<String, dynamic> json) => _$RewardBranchTotalFromJson(json);
 
-  @override
-  final String? branchId;
-  @override
-  final String? branchName;
-  @override
-  final int? issuedPoints;
-  @override
-  final int? redeemedPoints;
-  @override
-  final int? outstandingPoints;
-  @override
-  final int? issuedValuePaise;
-  @override
-  final int? redeemedValuePaise;
-  @override
-  final int? outstandingValuePaise;
+@override final  String? branchId;
+@override final  String? branchName;
+@override final  int? issuedPoints;
+@override final  int? redeemedPoints;
+@override final  int? outstandingPoints;
+@override final  int? issuedValuePaise;
+@override final  int? redeemedValuePaise;
+@override final  int? outstandingValuePaise;
 
-  @override
-  String toString() {
-    return 'RewardBranchTotal(branchId: $branchId, branchName: $branchName, issuedPoints: $issuedPoints, redeemedPoints: $redeemedPoints, outstandingPoints: $outstandingPoints, issuedValuePaise: $issuedValuePaise, redeemedValuePaise: $redeemedValuePaise, outstandingValuePaise: $outstandingValuePaise)';
-  }
+/// Create a copy of RewardBranchTotal
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RewardBranchTotalCopyWith<_RewardBranchTotal> get copyWith => __$RewardBranchTotalCopyWithImpl<_RewardBranchTotal>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RewardBranchTotalImpl &&
-            (identical(other.branchId, branchId) ||
-                other.branchId == branchId) &&
-            (identical(other.branchName, branchName) ||
-                other.branchName == branchName) &&
-            (identical(other.issuedPoints, issuedPoints) ||
-                other.issuedPoints == issuedPoints) &&
-            (identical(other.redeemedPoints, redeemedPoints) ||
-                other.redeemedPoints == redeemedPoints) &&
-            (identical(other.outstandingPoints, outstandingPoints) ||
-                other.outstandingPoints == outstandingPoints) &&
-            (identical(other.issuedValuePaise, issuedValuePaise) ||
-                other.issuedValuePaise == issuedValuePaise) &&
-            (identical(other.redeemedValuePaise, redeemedValuePaise) ||
-                other.redeemedValuePaise == redeemedValuePaise) &&
-            (identical(other.outstandingValuePaise, outstandingValuePaise) ||
-                other.outstandingValuePaise == outstandingValuePaise));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    branchId,
-    branchName,
-    issuedPoints,
-    redeemedPoints,
-    outstandingPoints,
-    issuedValuePaise,
-    redeemedValuePaise,
-    outstandingValuePaise,
-  );
-
-  /// Create a copy of RewardBranchTotal
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RewardBranchTotalImplCopyWith<_$RewardBranchTotalImpl> get copyWith =>
-      __$$RewardBranchTotalImplCopyWithImpl<_$RewardBranchTotalImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RewardBranchTotalImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$RewardBranchTotalToJson(this, );
 }
 
-abstract class _RewardBranchTotal implements RewardBranchTotal {
-  const factory _RewardBranchTotal({
-    final String? branchId,
-    final String? branchName,
-    final int? issuedPoints,
-    final int? redeemedPoints,
-    final int? outstandingPoints,
-    final int? issuedValuePaise,
-    final int? redeemedValuePaise,
-    final int? outstandingValuePaise,
-  }) = _$RewardBranchTotalImpl;
-
-  factory _RewardBranchTotal.fromJson(Map<String, dynamic> json) =
-      _$RewardBranchTotalImpl.fromJson;
-
-  @override
-  String? get branchId;
-  @override
-  String? get branchName;
-  @override
-  int? get issuedPoints;
-  @override
-  int? get redeemedPoints;
-  @override
-  int? get outstandingPoints;
-  @override
-  int? get issuedValuePaise;
-  @override
-  int? get redeemedValuePaise;
-  @override
-  int? get outstandingValuePaise;
-
-  /// Create a copy of RewardBranchTotal
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RewardBranchTotalImplCopyWith<_$RewardBranchTotalImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardBranchTotal&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.branchName, branchName) || other.branchName == branchName)&&(identical(other.issuedPoints, issuedPoints) || other.issuedPoints == issuedPoints)&&(identical(other.redeemedPoints, redeemedPoints) || other.redeemedPoints == redeemedPoints)&&(identical(other.outstandingPoints, outstandingPoints) || other.outstandingPoints == outstandingPoints)&&(identical(other.issuedValuePaise, issuedValuePaise) || other.issuedValuePaise == issuedValuePaise)&&(identical(other.redeemedValuePaise, redeemedValuePaise) || other.redeemedValuePaise == redeemedValuePaise)&&(identical(other.outstandingValuePaise, outstandingValuePaise) || other.outstandingValuePaise == outstandingValuePaise));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,branchId,branchName,issuedPoints,redeemedPoints,outstandingPoints,issuedValuePaise,redeemedValuePaise,outstandingValuePaise);
+
+@override
+String toString() {
+  return 'RewardBranchTotal(branchId: $branchId, branchName: $branchName, issuedPoints: $issuedPoints, redeemedPoints: $redeemedPoints, outstandingPoints: $outstandingPoints, issuedValuePaise: $issuedValuePaise, redeemedValuePaise: $redeemedValuePaise, outstandingValuePaise: $outstandingValuePaise)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RewardBranchTotalCopyWith<$Res> implements $RewardBranchTotalCopyWith<$Res> {
+  factory _$RewardBranchTotalCopyWith(_RewardBranchTotal value, $Res Function(_RewardBranchTotal) _then) = __$RewardBranchTotalCopyWithImpl;
+@override @useResult
+$Res call({
+ String? branchId, String? branchName, int? issuedPoints, int? redeemedPoints, int? outstandingPoints, int? issuedValuePaise, int? redeemedValuePaise, int? outstandingValuePaise
+});
+
+
+
+
+}
+/// @nodoc
+class __$RewardBranchTotalCopyWithImpl<$Res>
+    implements _$RewardBranchTotalCopyWith<$Res> {
+  __$RewardBranchTotalCopyWithImpl(this._self, this._then);
+
+  final _RewardBranchTotal _self;
+  final $Res Function(_RewardBranchTotal) _then;
+
+/// Create a copy of RewardBranchTotal
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? branchId = freezed,Object? branchName = freezed,Object? issuedPoints = freezed,Object? redeemedPoints = freezed,Object? outstandingPoints = freezed,Object? issuedValuePaise = freezed,Object? redeemedValuePaise = freezed,Object? outstandingValuePaise = freezed,}) {
+  return _then(_RewardBranchTotal(
+branchId: freezed == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
+as String?,branchName: freezed == branchName ? _self.branchName : branchName // ignore: cast_nullable_to_non_nullable
+as String?,issuedPoints: freezed == issuedPoints ? _self.issuedPoints : issuedPoints // ignore: cast_nullable_to_non_nullable
+as int?,redeemedPoints: freezed == redeemedPoints ? _self.redeemedPoints : redeemedPoints // ignore: cast_nullable_to_non_nullable
+as int?,outstandingPoints: freezed == outstandingPoints ? _self.outstandingPoints : outstandingPoints // ignore: cast_nullable_to_non_nullable
+as int?,issuedValuePaise: freezed == issuedValuePaise ? _self.issuedValuePaise : issuedValuePaise // ignore: cast_nullable_to_non_nullable
+as int?,redeemedValuePaise: freezed == redeemedValuePaise ? _self.redeemedValuePaise : redeemedValuePaise // ignore: cast_nullable_to_non_nullable
+as int?,outstandingValuePaise: freezed == outstandingValuePaise ? _self.outstandingValuePaise : outstandingValuePaise // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -6,13 +6,11 @@ part of 'wallet_move_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$WalletMoveResponseImpl _$$WalletMoveResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$WalletMoveResponseImpl(
-  success: json['success'] as bool,
-  data: Data2.fromJson(json['data'] as Map<String, dynamic>),
-);
+_WalletMoveResponse _$WalletMoveResponseFromJson(Map<String, dynamic> json) =>
+    _WalletMoveResponse(
+      success: json['success'] as bool,
+      data: Data2.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$$WalletMoveResponseImplToJson(
-  _$WalletMoveResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$WalletMoveResponseToJson(_WalletMoveResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

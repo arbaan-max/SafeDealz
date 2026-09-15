@@ -10,7 +10,7 @@ part 'notification.freezed.dart';
 part 'notification.g.dart';
 
 @Freezed()
-class Notification with _$Notification {
+abstract class Notification with _$Notification {
   const factory Notification({
     String? id,
     String? title,

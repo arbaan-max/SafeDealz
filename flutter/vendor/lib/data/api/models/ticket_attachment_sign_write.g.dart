@@ -6,16 +6,16 @@ part of 'ticket_attachment_sign_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TicketAttachmentSignWriteImpl _$$TicketAttachmentSignWriteImplFromJson(
+_TicketAttachmentSignWrite _$TicketAttachmentSignWriteFromJson(
   Map<String, dynamic> json,
-) => _$TicketAttachmentSignWriteImpl(
+) => _TicketAttachmentSignWrite(
   contentType: json['contentType'] as String,
   sizeBytes: (json['sizeBytes'] as num).toInt(),
   checksumSha256: json['checksumSha256'] as String,
 );
 
-Map<String, dynamic> _$$TicketAttachmentSignWriteImplToJson(
-  _$TicketAttachmentSignWriteImpl instance,
+Map<String, dynamic> _$TicketAttachmentSignWriteToJson(
+  _TicketAttachmentSignWrite instance,
 ) => <String, dynamic>{
   'contentType': instance.contentType,
   'sizeBytes': instance.sizeBytes,

@@ -10,7 +10,7 @@ part 'wallet_move_response.freezed.dart';
 part 'wallet_move_response.g.dart';
 
 @Freezed()
-class WalletMoveResponse with _$WalletMoveResponse {
+abstract class WalletMoveResponse with _$WalletMoveResponse {
   const factory WalletMoveResponse({
     required bool success,
     required Data2 data,

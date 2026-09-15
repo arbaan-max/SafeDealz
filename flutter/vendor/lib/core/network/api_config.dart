@@ -15,7 +15,7 @@ abstract final class ApiConfig {
     final String apiVersion = dotenv.env['API_VERSION'] ?? '/v1';
 
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      host = host.replaceFirst('localhost', '10.0.2.2');
+      host = host.replaceFirst(RegExp(r'^(localhost|127\.0\.0\.1)'), '10.0.2.2');
     }
 
     return '$scheme://$host$apiPath$apiVersion';

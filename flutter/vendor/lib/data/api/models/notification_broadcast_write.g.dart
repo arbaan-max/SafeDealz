@@ -6,9 +6,9 @@ part of 'notification_broadcast_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationBroadcastWriteImpl _$$NotificationBroadcastWriteImplFromJson(
+_NotificationBroadcastWrite _$NotificationBroadcastWriteFromJson(
   Map<String, dynamic> json,
-) => _$NotificationBroadcastWriteImpl(
+) => _NotificationBroadcastWrite(
   audience: NotificationBroadcastWriteAudience.fromJson(
     json['audience'] as String,
   ),
@@ -19,8 +19,8 @@ _$NotificationBroadcastWriteImpl _$$NotificationBroadcastWriteImplFromJson(
   accountId: json['accountId'] as String?,
 );
 
-Map<String, dynamic> _$$NotificationBroadcastWriteImplToJson(
-  _$NotificationBroadcastWriteImpl instance,
+Map<String, dynamic> _$NotificationBroadcastWriteToJson(
+  _NotificationBroadcastWrite instance,
 ) => <String, dynamic>{
   'audience': instance.audience,
   'title': instance.title,

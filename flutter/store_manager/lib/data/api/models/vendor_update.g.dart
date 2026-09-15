@@ -6,8 +6,8 @@ part of 'vendor_update.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$VendorUpdateImpl _$$VendorUpdateImplFromJson(Map<String, dynamic> json) =>
-    _$VendorUpdateImpl(
+_VendorUpdate _$VendorUpdateFromJson(Map<String, dynamic> json) =>
+    _VendorUpdate(
       displayName: json['displayName'] as String?,
       phone: json['phone'] as String?,
       password: json['password'] as String?,
@@ -17,7 +17,7 @@ _$VendorUpdateImpl _$$VendorUpdateImplFromJson(Map<String, dynamic> json) =>
       active: json['active'] as bool?,
     );
 
-Map<String, dynamic> _$$VendorUpdateImplToJson(_$VendorUpdateImpl instance) =>
+Map<String, dynamic> _$VendorUpdateToJson(_VendorUpdate instance) =>
     <String, dynamic>{
       'displayName': instance.displayName,
       'phone': instance.phone,

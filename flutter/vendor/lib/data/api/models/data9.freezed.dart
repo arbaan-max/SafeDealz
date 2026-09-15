@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,190 +9,296 @@ part of 'data9.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-Data9 _$Data9FromJson(Map<String, dynamic> json) {
-  return _Data9.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Data9 {
-  String? get objectKey => throw _privateConstructorUsedError;
-  SignedUrl? get download => throw _privateConstructorUsedError;
+
+ String? get objectKey; SignedUrl? get download;
+/// Create a copy of Data9
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Data9CopyWith<Data9> get copyWith => _$Data9CopyWithImpl<Data9>(this as Data9, _$identity);
 
   /// Serializes this Data9 to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Data9
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $Data9CopyWith<Data9> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Data9&&(identical(other.objectKey, objectKey) || other.objectKey == objectKey)&&(identical(other.download, download) || other.download == download));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,objectKey,download);
+
+@override
+String toString() {
+  return 'Data9(objectKey: $objectKey, download: $download)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $Data9CopyWith<$Res> {
-  factory $Data9CopyWith(Data9 value, $Res Function(Data9) then) =
-      _$Data9CopyWithImpl<$Res, Data9>;
-  @useResult
-  $Res call({String? objectKey, SignedUrl? download});
+abstract mixin class $Data9CopyWith<$Res>  {
+  factory $Data9CopyWith(Data9 value, $Res Function(Data9) _then) = _$Data9CopyWithImpl;
+@useResult
+$Res call({
+ String? objectKey, SignedUrl? download
+});
 
-  $SignedUrlCopyWith<$Res>? get download;
+
+$SignedUrlCopyWith<$Res>? get download;
+
 }
-
 /// @nodoc
-class _$Data9CopyWithImpl<$Res, $Val extends Data9>
+class _$Data9CopyWithImpl<$Res>
     implements $Data9CopyWith<$Res> {
-  _$Data9CopyWithImpl(this._value, this._then);
+  _$Data9CopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Data9 _self;
+  final $Res Function(Data9) _then;
 
-  /// Create a copy of Data9
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? objectKey = freezed, Object? download = freezed}) {
-    return _then(
-      _value.copyWith(
-            objectKey: freezed == objectKey
-                ? _value.objectKey
-                : objectKey // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            download: freezed == download
-                ? _value.download
-                : download // ignore: cast_nullable_to_non_nullable
-                      as SignedUrl?,
-          )
-          as $Val,
-    );
+/// Create a copy of Data9
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? objectKey = freezed,Object? download = freezed,}) {
+  return _then(_self.copyWith(
+objectKey: freezed == objectKey ? _self.objectKey : objectKey // ignore: cast_nullable_to_non_nullable
+as String?,download: freezed == download ? _self.download : download // ignore: cast_nullable_to_non_nullable
+as SignedUrl?,
+  ));
+}
+/// Create a copy of Data9
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SignedUrlCopyWith<$Res>? get download {
+    if (_self.download == null) {
+    return null;
   }
 
-  /// Create a copy of Data9
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SignedUrlCopyWith<$Res>? get download {
-    if (_value.download == null) {
-      return null;
-    }
-
-    return $SignedUrlCopyWith<$Res>(_value.download!, (value) {
-      return _then(_value.copyWith(download: value) as $Val);
-    });
-  }
+  return $SignedUrlCopyWith<$Res>(_self.download!, (value) {
+    return _then(_self.copyWith(download: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$Data9ImplCopyWith<$Res> implements $Data9CopyWith<$Res> {
-  factory _$$Data9ImplCopyWith(
-    _$Data9Impl value,
-    $Res Function(_$Data9Impl) then,
-  ) = __$$Data9ImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? objectKey, SignedUrl? download});
 
-  @override
-  $SignedUrlCopyWith<$Res>? get download;
+/// Adds pattern-matching-related methods to [Data9].
+extension Data9Patterns on Data9 {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Data9 value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Data9() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Data9 value)  $default,){
+final _that = this;
+switch (_that) {
+case _Data9():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Data9 value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Data9() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? objectKey,  SignedUrl? download)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Data9() when $default != null:
+return $default(_that.objectKey,_that.download);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? objectKey,  SignedUrl? download)  $default,) {final _that = this;
+switch (_that) {
+case _Data9():
+return $default(_that.objectKey,_that.download);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? objectKey,  SignedUrl? download)?  $default,) {final _that = this;
+switch (_that) {
+case _Data9() when $default != null:
+return $default(_that.objectKey,_that.download);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$Data9ImplCopyWithImpl<$Res>
-    extends _$Data9CopyWithImpl<$Res, _$Data9Impl>
-    implements _$$Data9ImplCopyWith<$Res> {
-  __$$Data9ImplCopyWithImpl(
-    _$Data9Impl _value,
-    $Res Function(_$Data9Impl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of Data9
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? objectKey = freezed, Object? download = freezed}) {
-    return _then(
-      _$Data9Impl(
-        objectKey: freezed == objectKey
-            ? _value.objectKey
-            : objectKey // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        download: freezed == download
-            ? _value.download
-            : download // ignore: cast_nullable_to_non_nullable
-                  as SignedUrl?,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$Data9Impl implements _Data9 {
-  const _$Data9Impl({this.objectKey, this.download});
 
-  factory _$Data9Impl.fromJson(Map<String, dynamic> json) =>
-      _$$Data9ImplFromJson(json);
+class _Data9 implements Data9 {
+  const _Data9({this.objectKey, this.download});
+  factory _Data9.fromJson(Map<String, dynamic> json) => _$Data9FromJson(json);
 
-  @override
-  final String? objectKey;
-  @override
-  final SignedUrl? download;
+@override final  String? objectKey;
+@override final  SignedUrl? download;
 
-  @override
-  String toString() {
-    return 'Data9(objectKey: $objectKey, download: $download)';
-  }
+/// Create a copy of Data9
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$Data9CopyWith<_Data9> get copyWith => __$Data9CopyWithImpl<_Data9>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Data9Impl &&
-            (identical(other.objectKey, objectKey) ||
-                other.objectKey == objectKey) &&
-            (identical(other.download, download) ||
-                other.download == download));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, objectKey, download);
-
-  /// Create a copy of Data9
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Data9ImplCopyWith<_$Data9Impl> get copyWith =>
-      __$$Data9ImplCopyWithImpl<_$Data9Impl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$Data9ImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$Data9ToJson(this, );
 }
 
-abstract class _Data9 implements Data9 {
-  const factory _Data9({final String? objectKey, final SignedUrl? download}) =
-      _$Data9Impl;
-
-  factory _Data9.fromJson(Map<String, dynamic> json) = _$Data9Impl.fromJson;
-
-  @override
-  String? get objectKey;
-  @override
-  SignedUrl? get download;
-
-  /// Create a copy of Data9
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$Data9ImplCopyWith<_$Data9Impl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Data9&&(identical(other.objectKey, objectKey) || other.objectKey == objectKey)&&(identical(other.download, download) || other.download == download));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,objectKey,download);
+
+@override
+String toString() {
+  return 'Data9(objectKey: $objectKey, download: $download)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$Data9CopyWith<$Res> implements $Data9CopyWith<$Res> {
+  factory _$Data9CopyWith(_Data9 value, $Res Function(_Data9) _then) = __$Data9CopyWithImpl;
+@override @useResult
+$Res call({
+ String? objectKey, SignedUrl? download
+});
+
+
+@override $SignedUrlCopyWith<$Res>? get download;
+
+}
+/// @nodoc
+class __$Data9CopyWithImpl<$Res>
+    implements _$Data9CopyWith<$Res> {
+  __$Data9CopyWithImpl(this._self, this._then);
+
+  final _Data9 _self;
+  final $Res Function(_Data9) _then;
+
+/// Create a copy of Data9
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? objectKey = freezed,Object? download = freezed,}) {
+  return _then(_Data9(
+objectKey: freezed == objectKey ? _self.objectKey : objectKey // ignore: cast_nullable_to_non_nullable
+as String?,download: freezed == download ? _self.download : download // ignore: cast_nullable_to_non_nullable
+as SignedUrl?,
+  ));
+}
+
+/// Create a copy of Data9
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SignedUrlCopyWith<$Res>? get download {
+    if (_self.download == null) {
+    return null;
+  }
+
+  return $SignedUrlCopyWith<$Res>(_self.download!, (value) {
+    return _then(_self.copyWith(download: value));
+  });
+}
+}
+
+// dart format on

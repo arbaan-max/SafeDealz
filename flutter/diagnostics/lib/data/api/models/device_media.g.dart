@@ -6,16 +6,15 @@ part of 'device_media.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DeviceMediaImpl _$$DeviceMediaImplFromJson(Map<String, dynamic> json) =>
-    _$DeviceMediaImpl(
-      id: json['id'] as String?,
-      purpose: json['purpose'] as String?,
-      objectKey: json['objectKey'] as String?,
-      contentType: json['contentType'] as String?,
-      sizeBytes: (json['sizeBytes'] as num?)?.toInt(),
-    );
+_DeviceMedia _$DeviceMediaFromJson(Map<String, dynamic> json) => _DeviceMedia(
+  id: json['id'] as String?,
+  purpose: json['purpose'] as String?,
+  objectKey: json['objectKey'] as String?,
+  contentType: json['contentType'] as String?,
+  sizeBytes: (json['sizeBytes'] as num?)?.toInt(),
+);
 
-Map<String, dynamic> _$$DeviceMediaImplToJson(_$DeviceMediaImpl instance) =>
+Map<String, dynamic> _$DeviceMediaToJson(_DeviceMedia instance) =>
     <String, dynamic>{
       'id': instance.id,
       'purpose': instance.purpose,

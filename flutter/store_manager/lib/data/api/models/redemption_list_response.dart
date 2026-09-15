@@ -10,7 +10,7 @@ part 'redemption_list_response.freezed.dart';
 part 'redemption_list_response.g.dart';
 
 @Freezed()
-class RedemptionListResponse with _$RedemptionListResponse {
+abstract class RedemptionListResponse with _$RedemptionListResponse {
   const factory RedemptionListResponse({
     required bool success,
     required List<Redemption> data,

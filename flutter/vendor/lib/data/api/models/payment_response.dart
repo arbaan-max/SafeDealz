@@ -10,7 +10,7 @@ part 'payment_response.freezed.dart';
 part 'payment_response.g.dart';
 
 @Freezed()
-class PaymentResponse with _$PaymentResponse {
+abstract class PaymentResponse with _$PaymentResponse {
   const factory PaymentResponse({
     required bool success,
     required PaymentInstruction data,

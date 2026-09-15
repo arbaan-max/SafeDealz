@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,204 +9,290 @@ part of 'media_download_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-MediaDownloadResponse _$MediaDownloadResponseFromJson(
-  Map<String, dynamic> json,
-) {
-  return _MediaDownloadResponse.fromJson(json);
-}
 
 /// @nodoc
 mixin _$MediaDownloadResponse {
-  bool get success => throw _privateConstructorUsedError;
-  Data9 get data => throw _privateConstructorUsedError;
+
+ bool get success; Data9 get data;
+/// Create a copy of MediaDownloadResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MediaDownloadResponseCopyWith<MediaDownloadResponse> get copyWith => _$MediaDownloadResponseCopyWithImpl<MediaDownloadResponse>(this as MediaDownloadResponse, _$identity);
 
   /// Serializes this MediaDownloadResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of MediaDownloadResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $MediaDownloadResponseCopyWith<MediaDownloadResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MediaDownloadResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'MediaDownloadResponse(success: $success, data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $MediaDownloadResponseCopyWith<$Res> {
-  factory $MediaDownloadResponseCopyWith(
-    MediaDownloadResponse value,
-    $Res Function(MediaDownloadResponse) then,
-  ) = _$MediaDownloadResponseCopyWithImpl<$Res, MediaDownloadResponse>;
-  @useResult
-  $Res call({bool success, Data9 data});
+abstract mixin class $MediaDownloadResponseCopyWith<$Res>  {
+  factory $MediaDownloadResponseCopyWith(MediaDownloadResponse value, $Res Function(MediaDownloadResponse) _then) = _$MediaDownloadResponseCopyWithImpl;
+@useResult
+$Res call({
+ bool success, Data9 data
+});
 
-  $Data9CopyWith<$Res> get data;
+
+$Data9CopyWith<$Res> get data;
+
 }
-
 /// @nodoc
-class _$MediaDownloadResponseCopyWithImpl<
-  $Res,
-  $Val extends MediaDownloadResponse
->
+class _$MediaDownloadResponseCopyWithImpl<$Res>
     implements $MediaDownloadResponseCopyWith<$Res> {
-  _$MediaDownloadResponseCopyWithImpl(this._value, this._then);
+  _$MediaDownloadResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final MediaDownloadResponse _self;
+  final $Res Function(MediaDownloadResponse) _then;
 
-  /// Create a copy of MediaDownloadResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _value.copyWith(
-            success: null == success
-                ? _value.success
-                : success // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            data: null == data
-                ? _value.data
-                : data // ignore: cast_nullable_to_non_nullable
-                      as Data9,
-          )
-          as $Val,
-    );
-  }
-
-  /// Create a copy of MediaDownloadResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Data9CopyWith<$Res> get data {
-    return $Data9CopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
-  }
+/// Create a copy of MediaDownloadResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_self.copyWith(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data9,
+  ));
+}
+/// Create a copy of MediaDownloadResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$Data9CopyWith<$Res> get data {
+  
+  return $Data9CopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$MediaDownloadResponseImplCopyWith<$Res>
-    implements $MediaDownloadResponseCopyWith<$Res> {
-  factory _$$MediaDownloadResponseImplCopyWith(
-    _$MediaDownloadResponseImpl value,
-    $Res Function(_$MediaDownloadResponseImpl) then,
-  ) = __$$MediaDownloadResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool success, Data9 data});
 
-  @override
-  $Data9CopyWith<$Res> get data;
+/// Adds pattern-matching-related methods to [MediaDownloadResponse].
+extension MediaDownloadResponsePatterns on MediaDownloadResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MediaDownloadResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _MediaDownloadResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MediaDownloadResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _MediaDownloadResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MediaDownloadResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _MediaDownloadResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  Data9 data)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _MediaDownloadResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  Data9 data)  $default,) {final _that = this;
+switch (_that) {
+case _MediaDownloadResponse():
+return $default(_that.success,_that.data);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  Data9 data)?  $default,) {final _that = this;
+switch (_that) {
+case _MediaDownloadResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$MediaDownloadResponseImplCopyWithImpl<$Res>
-    extends
-        _$MediaDownloadResponseCopyWithImpl<$Res, _$MediaDownloadResponseImpl>
-    implements _$$MediaDownloadResponseImplCopyWith<$Res> {
-  __$$MediaDownloadResponseImplCopyWithImpl(
-    _$MediaDownloadResponseImpl _value,
-    $Res Function(_$MediaDownloadResponseImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of MediaDownloadResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _$MediaDownloadResponseImpl(
-        success: null == success
-            ? _value.success
-            : success // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        data: null == data
-            ? _value.data
-            : data // ignore: cast_nullable_to_non_nullable
-                  as Data9,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$MediaDownloadResponseImpl implements _MediaDownloadResponse {
-  const _$MediaDownloadResponseImpl({
-    required this.success,
-    required this.data,
+
+class _MediaDownloadResponse implements MediaDownloadResponse {
+  const _MediaDownloadResponse({required this.success, required this.data});
+  factory _MediaDownloadResponse.fromJson(Map<String, dynamic> json) => _$MediaDownloadResponseFromJson(json);
+
+@override final  bool success;
+@override final  Data9 data;
+
+/// Create a copy of MediaDownloadResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$MediaDownloadResponseCopyWith<_MediaDownloadResponse> get copyWith => __$MediaDownloadResponseCopyWithImpl<_MediaDownloadResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$MediaDownloadResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MediaDownloadResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'MediaDownloadResponse(success: $success, data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$MediaDownloadResponseCopyWith<$Res> implements $MediaDownloadResponseCopyWith<$Res> {
+  factory _$MediaDownloadResponseCopyWith(_MediaDownloadResponse value, $Res Function(_MediaDownloadResponse) _then) = __$MediaDownloadResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ bool success, Data9 data
+});
+
+
+@override $Data9CopyWith<$Res> get data;
+
+}
+/// @nodoc
+class __$MediaDownloadResponseCopyWithImpl<$Res>
+    implements _$MediaDownloadResponseCopyWith<$Res> {
+  __$MediaDownloadResponseCopyWithImpl(this._self, this._then);
+
+  final _MediaDownloadResponse _self;
+  final $Res Function(_MediaDownloadResponse) _then;
+
+/// Create a copy of MediaDownloadResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_MediaDownloadResponse(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data9,
+  ));
+}
+
+/// Create a copy of MediaDownloadResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$Data9CopyWith<$Res> get data {
+  
+  return $Data9CopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
   });
-
-  factory _$MediaDownloadResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MediaDownloadResponseImplFromJson(json);
-
-  @override
-  final bool success;
-  @override
-  final Data9 data;
-
-  @override
-  String toString() {
-    return 'MediaDownloadResponse(success: $success, data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MediaDownloadResponseImpl &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.data, data) || other.data == data));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, success, data);
-
-  /// Create a copy of MediaDownloadResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MediaDownloadResponseImplCopyWith<_$MediaDownloadResponseImpl>
-  get copyWith =>
-      __$$MediaDownloadResponseImplCopyWithImpl<_$MediaDownloadResponseImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MediaDownloadResponseImplToJson(this);
-  }
+}
 }
 
-abstract class _MediaDownloadResponse implements MediaDownloadResponse {
-  const factory _MediaDownloadResponse({
-    required final bool success,
-    required final Data9 data,
-  }) = _$MediaDownloadResponseImpl;
-
-  factory _MediaDownloadResponse.fromJson(Map<String, dynamic> json) =
-      _$MediaDownloadResponseImpl.fromJson;
-
-  @override
-  bool get success;
-  @override
-  Data9 get data;
-
-  /// Create a copy of MediaDownloadResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MediaDownloadResponseImplCopyWith<_$MediaDownloadResponseImpl>
-  get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

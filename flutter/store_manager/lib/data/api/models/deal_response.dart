@@ -10,7 +10,7 @@ part 'deal_response.freezed.dart';
 part 'deal_response.g.dart';
 
 @Freezed()
-class DealResponse with _$DealResponse {
+abstract class DealResponse with _$DealResponse {
   const factory DealResponse({
     required bool success,
     required Deal data,

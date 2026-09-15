@@ -8,7 +8,7 @@ part 'wallet_recharge_write.freezed.dart';
 part 'wallet_recharge_write.g.dart';
 
 @Freezed()
-class WalletRechargeWrite with _$WalletRechargeWrite {
+abstract class WalletRechargeWrite with _$WalletRechargeWrite {
   const factory WalletRechargeWrite({
     required int amountPaise,
     required String idempotencyKey,

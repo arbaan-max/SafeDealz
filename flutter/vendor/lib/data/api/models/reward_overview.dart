@@ -11,7 +11,7 @@ part 'reward_overview.freezed.dart';
 part 'reward_overview.g.dart';
 
 @Freezed()
-class RewardOverview with _$RewardOverview {
+abstract class RewardOverview with _$RewardOverview {
   const factory RewardOverview({
     List<RewardBranchTotal>? branches,
     RewardBranchTotal? totals,

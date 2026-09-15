@@ -8,7 +8,7 @@ part 'inspection_record.freezed.dart';
 part 'inspection_record.g.dart';
 
 @Freezed()
-class InspectionRecord with _$InspectionRecord {
+abstract class InspectionRecord with _$InspectionRecord {
   const factory InspectionRecord({
     Map<String, String>? answers,
     String? source,

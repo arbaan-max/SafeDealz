@@ -8,7 +8,7 @@ part 'auction_settings.freezed.dart';
 part 'auction_settings.g.dart';
 
 @Freezed()
-class AuctionSettings with _$AuctionSettings {
+abstract class AuctionSettings with _$AuctionSettings {
   const factory AuctionSettings({
     required int biddingMinutes,
     required int acceptanceMinutes,

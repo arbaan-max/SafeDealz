@@ -11,7 +11,7 @@ part 'vendor_account.freezed.dart';
 part 'vendor_account.g.dart';
 
 @Freezed()
-class VendorAccount with _$VendorAccount {
+abstract class VendorAccount with _$VendorAccount {
   const factory VendorAccount({
     required String id,
     required String email,

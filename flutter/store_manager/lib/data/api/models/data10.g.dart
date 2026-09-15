@@ -6,15 +6,14 @@ part of 'data10.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Data10Impl _$$Data10ImplFromJson(Map<String, dynamic> json) => _$Data10Impl(
+_Data10 _$Data10FromJson(Map<String, dynamic> json) => _Data10(
   id: json['id'] as String?,
   deviceId: json['deviceId'] as String?,
   status: json['status'] as String?,
 );
 
-Map<String, dynamic> _$$Data10ImplToJson(_$Data10Impl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'deviceId': instance.deviceId,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$Data10ToJson(_Data10 instance) => <String, dynamic>{
+  'id': instance.id,
+  'deviceId': instance.deviceId,
+  'status': instance.status,
+};

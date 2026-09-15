@@ -8,7 +8,7 @@ part 'diagnostic_import_write.freezed.dart';
 part 'diagnostic_import_write.g.dart';
 
 @Freezed()
-class DiagnosticImportWrite with _$DiagnosticImportWrite {
+abstract class DiagnosticImportWrite with _$DiagnosticImportWrite {
   const factory DiagnosticImportWrite({
     required String deviceId,
     required dynamic payload,

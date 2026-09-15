@@ -8,7 +8,7 @@ part 'account_session.freezed.dart';
 part 'account_session.g.dart';
 
 @Freezed()
-class AccountSession with _$AccountSession {
+abstract class AccountSession with _$AccountSession {
   const factory AccountSession({
     String? id,
     String? clientType,

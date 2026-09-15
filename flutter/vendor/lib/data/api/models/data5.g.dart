@@ -6,8 +6,10 @@ part of 'data5.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Data5Impl _$$Data5ImplFromJson(Map<String, dynamic> json) =>
-    _$Data5Impl(sent: json['sent'] as bool?, stub: json['stub'] as bool?);
+_Data5 _$Data5FromJson(Map<String, dynamic> json) =>
+    _Data5(sent: json['sent'] as bool?, stub: json['stub'] as bool?);
 
-Map<String, dynamic> _$$Data5ImplToJson(_$Data5Impl instance) =>
-    <String, dynamic>{'sent': instance.sent, 'stub': instance.stub};
+Map<String, dynamic> _$Data5ToJson(_Data5 instance) => <String, dynamic>{
+  'sent': instance.sent,
+  'stub': instance.stub,
+};

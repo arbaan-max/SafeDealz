@@ -6,10 +6,8 @@ part of 'wallet_release_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$WalletReleaseWriteImpl _$$WalletReleaseWriteImplFromJson(
-  Map<String, dynamic> json,
-) => _$WalletReleaseWriteImpl(idempotencyKey: json['idempotencyKey'] as String);
+_WalletReleaseWrite _$WalletReleaseWriteFromJson(Map<String, dynamic> json) =>
+    _WalletReleaseWrite(idempotencyKey: json['idempotencyKey'] as String);
 
-Map<String, dynamic> _$$WalletReleaseWriteImplToJson(
-  _$WalletReleaseWriteImpl instance,
-) => <String, dynamic>{'idempotencyKey': instance.idempotencyKey};
+Map<String, dynamic> _$WalletReleaseWriteToJson(_WalletReleaseWrite instance) =>
+    <String, dynamic>{'idempotencyKey': instance.idempotencyKey};

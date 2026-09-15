@@ -8,7 +8,7 @@ part 'wallet_release_write.freezed.dart';
 part 'wallet_release_write.g.dart';
 
 @Freezed()
-class WalletReleaseWrite with _$WalletReleaseWrite {
+abstract class WalletReleaseWrite with _$WalletReleaseWrite {
   const factory WalletReleaseWrite({
     required String idempotencyKey,
   }) = _WalletReleaseWrite;

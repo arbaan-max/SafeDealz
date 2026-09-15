@@ -6,17 +6,16 @@ part of 'auction_decline_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuctionDeclineWriteImpl _$$AuctionDeclineWriteImplFromJson(
-  Map<String, dynamic> json,
-) => _$AuctionDeclineWriteImpl(
-  reasonCode: AuctionDeclineWriteReasonCode.fromJson(
-    json['reasonCode'] as String,
-  ),
-  reason: json['reason'] as String?,
-);
+_AuctionDeclineWrite _$AuctionDeclineWriteFromJson(Map<String, dynamic> json) =>
+    _AuctionDeclineWrite(
+      reasonCode: AuctionDeclineWriteReasonCode.fromJson(
+        json['reasonCode'] as String,
+      ),
+      reason: json['reason'] as String?,
+    );
 
-Map<String, dynamic> _$$AuctionDeclineWriteImplToJson(
-  _$AuctionDeclineWriteImpl instance,
+Map<String, dynamic> _$AuctionDeclineWriteToJson(
+  _AuctionDeclineWrite instance,
 ) => <String, dynamic>{
   'reasonCode': instance.reasonCode,
   'reason': instance.reason,

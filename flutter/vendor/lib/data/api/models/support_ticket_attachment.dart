@@ -10,7 +10,7 @@ part 'support_ticket_attachment.freezed.dart';
 part 'support_ticket_attachment.g.dart';
 
 @Freezed()
-class SupportTicketAttachment with _$SupportTicketAttachment {
+abstract class SupportTicketAttachment with _$SupportTicketAttachment {
   const factory SupportTicketAttachment({
     String? id,
     String? objectKey,

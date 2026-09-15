@@ -6,8 +6,8 @@ part of 'device_create.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DeviceCreateImpl _$$DeviceCreateImplFromJson(Map<String, dynamic> json) =>
-    _$DeviceCreateImpl(
+_DeviceCreate _$DeviceCreateFromJson(Map<String, dynamic> json) =>
+    _DeviceCreate(
       branchId: json['branchId'] as String,
       platform: DeviceCreatePlatform.fromJson(json['platform'] as String),
       model: json['model'] as String,
@@ -18,7 +18,7 @@ _$DeviceCreateImpl _$$DeviceCreateImplFromJson(Map<String, dynamic> json) =>
       batteryHealth: (json['batteryHealth'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$DeviceCreateImplToJson(_$DeviceCreateImpl instance) =>
+Map<String, dynamic> _$DeviceCreateToJson(_DeviceCreate instance) =>
     <String, dynamic>{
       'branchId': instance.branchId,
       'platform': instance.platform,

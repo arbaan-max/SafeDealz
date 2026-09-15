@@ -6,8 +6,8 @@ part of 'account_session.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AccountSessionImpl _$$AccountSessionImplFromJson(Map<String, dynamic> json) =>
-    _$AccountSessionImpl(
+_AccountSession _$AccountSessionFromJson(Map<String, dynamic> json) =>
+    _AccountSession(
       id: json['id'] as String?,
       clientType: json['clientType'] as String?,
       createdAt: json['createdAt'] == null
@@ -22,13 +22,12 @@ _$AccountSessionImpl _$$AccountSessionImplFromJson(Map<String, dynamic> json) =>
       current: json['current'] as bool?,
     );
 
-Map<String, dynamic> _$$AccountSessionImplToJson(
-  _$AccountSessionImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'clientType': instance.clientType,
-  'createdAt': instance.createdAt?.toIso8601String(),
-  'expiresAt': instance.expiresAt?.toIso8601String(),
-  'revokedAt': instance.revokedAt?.toIso8601String(),
-  'current': instance.current,
-};
+Map<String, dynamic> _$AccountSessionToJson(_AccountSession instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'clientType': instance.clientType,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'expiresAt': instance.expiresAt?.toIso8601String(),
+      'revokedAt': instance.revokedAt?.toIso8601String(),
+      'current': instance.current,
+    };

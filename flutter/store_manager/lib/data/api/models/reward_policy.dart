@@ -10,7 +10,7 @@ part 'reward_policy.freezed.dart';
 part 'reward_policy.g.dart';
 
 @Freezed()
-class RewardPolicy with _$RewardPolicy {
+abstract class RewardPolicy with _$RewardPolicy {
   const factory RewardPolicy({
     String? id,
     int? version,

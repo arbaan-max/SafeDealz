@@ -10,7 +10,7 @@ part 'catalog_response.freezed.dart';
 part 'catalog_response.g.dart';
 
 @Freezed()
-class CatalogResponse with _$CatalogResponse {
+abstract class CatalogResponse with _$CatalogResponse {
   const factory CatalogResponse({
     required bool success,
     required Catalog data,

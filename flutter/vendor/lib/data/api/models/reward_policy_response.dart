@@ -10,7 +10,7 @@ part 'reward_policy_response.freezed.dart';
 part 'reward_policy_response.g.dart';
 
 @Freezed()
-class RewardPolicyResponse with _$RewardPolicyResponse {
+abstract class RewardPolicyResponse with _$RewardPolicyResponse {
   const factory RewardPolicyResponse({
     required bool success,
     required Data4 data,

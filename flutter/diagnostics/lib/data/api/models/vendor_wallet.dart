@@ -8,7 +8,7 @@ part 'vendor_wallet.freezed.dart';
 part 'vendor_wallet.g.dart';
 
 @Freezed()
-class VendorWallet with _$VendorWallet {
+abstract class VendorWallet with _$VendorWallet {
   const factory VendorWallet({
     String? id,
     String? vendorAccountId,

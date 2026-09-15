@@ -10,7 +10,7 @@ part 'data9.freezed.dart';
 part 'data9.g.dart';
 
 @Freezed()
-class Data9 with _$Data9 {
+abstract class Data9 with _$Data9 {
   const factory Data9({
     String? objectKey,
     SignedUrl? download,

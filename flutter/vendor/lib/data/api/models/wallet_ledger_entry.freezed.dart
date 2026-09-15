@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,329 +9,290 @@ part of 'wallet_ledger_entry.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-WalletLedgerEntry _$WalletLedgerEntryFromJson(Map<String, dynamic> json) {
-  return _WalletLedgerEntry.fromJson(json);
-}
 
 /// @nodoc
 mixin _$WalletLedgerEntry {
-  String? get id => throw _privateConstructorUsedError;
-  WalletLedgerEntryType? get type => throw _privateConstructorUsedError;
-  int? get amountPaise => throw _privateConstructorUsedError;
-  int? get availableAfterPaise => throw _privateConstructorUsedError;
-  int? get reservedAfterPaise => throw _privateConstructorUsedError;
-  String? get reason => throw _privateConstructorUsedError;
-  String? get referenceId => throw _privateConstructorUsedError;
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+
+ String? get id; WalletLedgerEntryType? get type; int? get amountPaise; int? get availableAfterPaise; int? get reservedAfterPaise; String? get reason; String? get referenceId; DateTime? get createdAt;
+/// Create a copy of WalletLedgerEntry
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WalletLedgerEntryCopyWith<WalletLedgerEntry> get copyWith => _$WalletLedgerEntryCopyWithImpl<WalletLedgerEntry>(this as WalletLedgerEntry, _$identity);
 
   /// Serializes this WalletLedgerEntry to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of WalletLedgerEntry
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $WalletLedgerEntryCopyWith<WalletLedgerEntry> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WalletLedgerEntry&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.amountPaise, amountPaise) || other.amountPaise == amountPaise)&&(identical(other.availableAfterPaise, availableAfterPaise) || other.availableAfterPaise == availableAfterPaise)&&(identical(other.reservedAfterPaise, reservedAfterPaise) || other.reservedAfterPaise == reservedAfterPaise)&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.referenceId, referenceId) || other.referenceId == referenceId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,type,amountPaise,availableAfterPaise,reservedAfterPaise,reason,referenceId,createdAt);
+
+@override
+String toString() {
+  return 'WalletLedgerEntry(id: $id, type: $type, amountPaise: $amountPaise, availableAfterPaise: $availableAfterPaise, reservedAfterPaise: $reservedAfterPaise, reason: $reason, referenceId: $referenceId, createdAt: $createdAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $WalletLedgerEntryCopyWith<$Res> {
-  factory $WalletLedgerEntryCopyWith(
-    WalletLedgerEntry value,
-    $Res Function(WalletLedgerEntry) then,
-  ) = _$WalletLedgerEntryCopyWithImpl<$Res, WalletLedgerEntry>;
-  @useResult
-  $Res call({
-    String? id,
-    WalletLedgerEntryType? type,
-    int? amountPaise,
-    int? availableAfterPaise,
-    int? reservedAfterPaise,
-    String? reason,
-    String? referenceId,
-    DateTime? createdAt,
-  });
-}
+abstract mixin class $WalletLedgerEntryCopyWith<$Res>  {
+  factory $WalletLedgerEntryCopyWith(WalletLedgerEntry value, $Res Function(WalletLedgerEntry) _then) = _$WalletLedgerEntryCopyWithImpl;
+@useResult
+$Res call({
+ String? id, WalletLedgerEntryType? type, int? amountPaise, int? availableAfterPaise, int? reservedAfterPaise, String? reason, String? referenceId, DateTime? createdAt
+});
 
+
+
+
+}
 /// @nodoc
-class _$WalletLedgerEntryCopyWithImpl<$Res, $Val extends WalletLedgerEntry>
+class _$WalletLedgerEntryCopyWithImpl<$Res>
     implements $WalletLedgerEntryCopyWith<$Res> {
-  _$WalletLedgerEntryCopyWithImpl(this._value, this._then);
+  _$WalletLedgerEntryCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final WalletLedgerEntry _self;
+  final $Res Function(WalletLedgerEntry) _then;
 
-  /// Create a copy of WalletLedgerEntry
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? type = freezed,
-    Object? amountPaise = freezed,
-    Object? availableAfterPaise = freezed,
-    Object? reservedAfterPaise = freezed,
-    Object? reason = freezed,
-    Object? referenceId = freezed,
-    Object? createdAt = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: freezed == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            type: freezed == type
-                ? _value.type
-                : type // ignore: cast_nullable_to_non_nullable
-                      as WalletLedgerEntryType?,
-            amountPaise: freezed == amountPaise
-                ? _value.amountPaise
-                : amountPaise // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            availableAfterPaise: freezed == availableAfterPaise
-                ? _value.availableAfterPaise
-                : availableAfterPaise // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            reservedAfterPaise: freezed == reservedAfterPaise
-                ? _value.reservedAfterPaise
-                : reservedAfterPaise // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            reason: freezed == reason
-                ? _value.reason
-                : reason // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            referenceId: freezed == referenceId
-                ? _value.referenceId
-                : referenceId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            createdAt: freezed == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of WalletLedgerEntry
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? type = freezed,Object? amountPaise = freezed,Object? availableAfterPaise = freezed,Object? reservedAfterPaise = freezed,Object? reason = freezed,Object? referenceId = freezed,Object? createdAt = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as WalletLedgerEntryType?,amountPaise: freezed == amountPaise ? _self.amountPaise : amountPaise // ignore: cast_nullable_to_non_nullable
+as int?,availableAfterPaise: freezed == availableAfterPaise ? _self.availableAfterPaise : availableAfterPaise // ignore: cast_nullable_to_non_nullable
+as int?,reservedAfterPaise: freezed == reservedAfterPaise ? _self.reservedAfterPaise : reservedAfterPaise // ignore: cast_nullable_to_non_nullable
+as int?,reason: freezed == reason ? _self.reason : reason // ignore: cast_nullable_to_non_nullable
+as String?,referenceId: freezed == referenceId ? _self.referenceId : referenceId // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$WalletLedgerEntryImplCopyWith<$Res>
-    implements $WalletLedgerEntryCopyWith<$Res> {
-  factory _$$WalletLedgerEntryImplCopyWith(
-    _$WalletLedgerEntryImpl value,
-    $Res Function(_$WalletLedgerEntryImpl) then,
-  ) = __$$WalletLedgerEntryImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String? id,
-    WalletLedgerEntryType? type,
-    int? amountPaise,
-    int? availableAfterPaise,
-    int? reservedAfterPaise,
-    String? reason,
-    String? referenceId,
-    DateTime? createdAt,
-  });
 }
 
-/// @nodoc
-class __$$WalletLedgerEntryImplCopyWithImpl<$Res>
-    extends _$WalletLedgerEntryCopyWithImpl<$Res, _$WalletLedgerEntryImpl>
-    implements _$$WalletLedgerEntryImplCopyWith<$Res> {
-  __$$WalletLedgerEntryImplCopyWithImpl(
-    _$WalletLedgerEntryImpl _value,
-    $Res Function(_$WalletLedgerEntryImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of WalletLedgerEntry
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? type = freezed,
-    Object? amountPaise = freezed,
-    Object? availableAfterPaise = freezed,
-    Object? reservedAfterPaise = freezed,
-    Object? reason = freezed,
-    Object? referenceId = freezed,
-    Object? createdAt = freezed,
-  }) {
-    return _then(
-      _$WalletLedgerEntryImpl(
-        id: freezed == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        type: freezed == type
-            ? _value.type
-            : type // ignore: cast_nullable_to_non_nullable
-                  as WalletLedgerEntryType?,
-        amountPaise: freezed == amountPaise
-            ? _value.amountPaise
-            : amountPaise // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        availableAfterPaise: freezed == availableAfterPaise
-            ? _value.availableAfterPaise
-            : availableAfterPaise // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        reservedAfterPaise: freezed == reservedAfterPaise
-            ? _value.reservedAfterPaise
-            : reservedAfterPaise // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        reason: freezed == reason
-            ? _value.reason
-            : reason // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        referenceId: freezed == referenceId
-            ? _value.referenceId
-            : referenceId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        createdAt: freezed == createdAt
-            ? _value.createdAt
-            : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [WalletLedgerEntry].
+extension WalletLedgerEntryPatterns on WalletLedgerEntry {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WalletLedgerEntry value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WalletLedgerEntry() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WalletLedgerEntry value)  $default,){
+final _that = this;
+switch (_that) {
+case _WalletLedgerEntry():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WalletLedgerEntry value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WalletLedgerEntry() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  WalletLedgerEntryType? type,  int? amountPaise,  int? availableAfterPaise,  int? reservedAfterPaise,  String? reason,  String? referenceId,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WalletLedgerEntry() when $default != null:
+return $default(_that.id,_that.type,_that.amountPaise,_that.availableAfterPaise,_that.reservedAfterPaise,_that.reason,_that.referenceId,_that.createdAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  WalletLedgerEntryType? type,  int? amountPaise,  int? availableAfterPaise,  int? reservedAfterPaise,  String? reason,  String? referenceId,  DateTime? createdAt)  $default,) {final _that = this;
+switch (_that) {
+case _WalletLedgerEntry():
+return $default(_that.id,_that.type,_that.amountPaise,_that.availableAfterPaise,_that.reservedAfterPaise,_that.reason,_that.referenceId,_that.createdAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  WalletLedgerEntryType? type,  int? amountPaise,  int? availableAfterPaise,  int? reservedAfterPaise,  String? reason,  String? referenceId,  DateTime? createdAt)?  $default,) {final _that = this;
+switch (_that) {
+case _WalletLedgerEntry() when $default != null:
+return $default(_that.id,_that.type,_that.amountPaise,_that.availableAfterPaise,_that.reservedAfterPaise,_that.reason,_that.referenceId,_that.createdAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WalletLedgerEntryImpl implements _WalletLedgerEntry {
-  const _$WalletLedgerEntryImpl({
-    this.id,
-    this.type,
-    this.amountPaise,
-    this.availableAfterPaise,
-    this.reservedAfterPaise,
-    this.reason,
-    this.referenceId,
-    this.createdAt,
-  });
 
-  factory _$WalletLedgerEntryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WalletLedgerEntryImplFromJson(json);
+class _WalletLedgerEntry implements WalletLedgerEntry {
+  const _WalletLedgerEntry({this.id, this.type, this.amountPaise, this.availableAfterPaise, this.reservedAfterPaise, this.reason, this.referenceId, this.createdAt});
+  factory _WalletLedgerEntry.fromJson(Map<String, dynamic> json) => _$WalletLedgerEntryFromJson(json);
 
-  @override
-  final String? id;
-  @override
-  final WalletLedgerEntryType? type;
-  @override
-  final int? amountPaise;
-  @override
-  final int? availableAfterPaise;
-  @override
-  final int? reservedAfterPaise;
-  @override
-  final String? reason;
-  @override
-  final String? referenceId;
-  @override
-  final DateTime? createdAt;
+@override final  String? id;
+@override final  WalletLedgerEntryType? type;
+@override final  int? amountPaise;
+@override final  int? availableAfterPaise;
+@override final  int? reservedAfterPaise;
+@override final  String? reason;
+@override final  String? referenceId;
+@override final  DateTime? createdAt;
 
-  @override
-  String toString() {
-    return 'WalletLedgerEntry(id: $id, type: $type, amountPaise: $amountPaise, availableAfterPaise: $availableAfterPaise, reservedAfterPaise: $reservedAfterPaise, reason: $reason, referenceId: $referenceId, createdAt: $createdAt)';
-  }
+/// Create a copy of WalletLedgerEntry
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WalletLedgerEntryCopyWith<_WalletLedgerEntry> get copyWith => __$WalletLedgerEntryCopyWithImpl<_WalletLedgerEntry>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WalletLedgerEntryImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.amountPaise, amountPaise) ||
-                other.amountPaise == amountPaise) &&
-            (identical(other.availableAfterPaise, availableAfterPaise) ||
-                other.availableAfterPaise == availableAfterPaise) &&
-            (identical(other.reservedAfterPaise, reservedAfterPaise) ||
-                other.reservedAfterPaise == reservedAfterPaise) &&
-            (identical(other.reason, reason) || other.reason == reason) &&
-            (identical(other.referenceId, referenceId) ||
-                other.referenceId == referenceId) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    type,
-    amountPaise,
-    availableAfterPaise,
-    reservedAfterPaise,
-    reason,
-    referenceId,
-    createdAt,
-  );
-
-  /// Create a copy of WalletLedgerEntry
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WalletLedgerEntryImplCopyWith<_$WalletLedgerEntryImpl> get copyWith =>
-      __$$WalletLedgerEntryImplCopyWithImpl<_$WalletLedgerEntryImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WalletLedgerEntryImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$WalletLedgerEntryToJson(this, );
 }
 
-abstract class _WalletLedgerEntry implements WalletLedgerEntry {
-  const factory _WalletLedgerEntry({
-    final String? id,
-    final WalletLedgerEntryType? type,
-    final int? amountPaise,
-    final int? availableAfterPaise,
-    final int? reservedAfterPaise,
-    final String? reason,
-    final String? referenceId,
-    final DateTime? createdAt,
-  }) = _$WalletLedgerEntryImpl;
-
-  factory _WalletLedgerEntry.fromJson(Map<String, dynamic> json) =
-      _$WalletLedgerEntryImpl.fromJson;
-
-  @override
-  String? get id;
-  @override
-  WalletLedgerEntryType? get type;
-  @override
-  int? get amountPaise;
-  @override
-  int? get availableAfterPaise;
-  @override
-  int? get reservedAfterPaise;
-  @override
-  String? get reason;
-  @override
-  String? get referenceId;
-  @override
-  DateTime? get createdAt;
-
-  /// Create a copy of WalletLedgerEntry
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WalletLedgerEntryImplCopyWith<_$WalletLedgerEntryImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WalletLedgerEntry&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.amountPaise, amountPaise) || other.amountPaise == amountPaise)&&(identical(other.availableAfterPaise, availableAfterPaise) || other.availableAfterPaise == availableAfterPaise)&&(identical(other.reservedAfterPaise, reservedAfterPaise) || other.reservedAfterPaise == reservedAfterPaise)&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.referenceId, referenceId) || other.referenceId == referenceId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,type,amountPaise,availableAfterPaise,reservedAfterPaise,reason,referenceId,createdAt);
+
+@override
+String toString() {
+  return 'WalletLedgerEntry(id: $id, type: $type, amountPaise: $amountPaise, availableAfterPaise: $availableAfterPaise, reservedAfterPaise: $reservedAfterPaise, reason: $reason, referenceId: $referenceId, createdAt: $createdAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WalletLedgerEntryCopyWith<$Res> implements $WalletLedgerEntryCopyWith<$Res> {
+  factory _$WalletLedgerEntryCopyWith(_WalletLedgerEntry value, $Res Function(_WalletLedgerEntry) _then) = __$WalletLedgerEntryCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, WalletLedgerEntryType? type, int? amountPaise, int? availableAfterPaise, int? reservedAfterPaise, String? reason, String? referenceId, DateTime? createdAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$WalletLedgerEntryCopyWithImpl<$Res>
+    implements _$WalletLedgerEntryCopyWith<$Res> {
+  __$WalletLedgerEntryCopyWithImpl(this._self, this._then);
+
+  final _WalletLedgerEntry _self;
+  final $Res Function(_WalletLedgerEntry) _then;
+
+/// Create a copy of WalletLedgerEntry
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? type = freezed,Object? amountPaise = freezed,Object? availableAfterPaise = freezed,Object? reservedAfterPaise = freezed,Object? reason = freezed,Object? referenceId = freezed,Object? createdAt = freezed,}) {
+  return _then(_WalletLedgerEntry(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as WalletLedgerEntryType?,amountPaise: freezed == amountPaise ? _self.amountPaise : amountPaise // ignore: cast_nullable_to_non_nullable
+as int?,availableAfterPaise: freezed == availableAfterPaise ? _self.availableAfterPaise : availableAfterPaise // ignore: cast_nullable_to_non_nullable
+as int?,reservedAfterPaise: freezed == reservedAfterPaise ? _self.reservedAfterPaise : reservedAfterPaise // ignore: cast_nullable_to_non_nullable
+as int?,reason: freezed == reason ? _self.reason : reason // ignore: cast_nullable_to_non_nullable
+as String?,referenceId: freezed == referenceId ? _self.referenceId : referenceId // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+// dart format on

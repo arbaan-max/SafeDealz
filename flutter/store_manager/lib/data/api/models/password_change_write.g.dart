@@ -6,15 +6,14 @@ part of 'password_change_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PasswordChangeWriteImpl _$$PasswordChangeWriteImplFromJson(
-  Map<String, dynamic> json,
-) => _$PasswordChangeWriteImpl(
-  currentPassword: json['currentPassword'] as String,
-  newPassword: json['newPassword'] as String,
-);
+_PasswordChangeWrite _$PasswordChangeWriteFromJson(Map<String, dynamic> json) =>
+    _PasswordChangeWrite(
+      currentPassword: json['currentPassword'] as String,
+      newPassword: json['newPassword'] as String,
+    );
 
-Map<String, dynamic> _$$PasswordChangeWriteImplToJson(
-  _$PasswordChangeWriteImpl instance,
+Map<String, dynamic> _$PasswordChangeWriteToJson(
+  _PasswordChangeWrite instance,
 ) => <String, dynamic>{
   'currentPassword': instance.currentPassword,
   'newPassword': instance.newPassword,

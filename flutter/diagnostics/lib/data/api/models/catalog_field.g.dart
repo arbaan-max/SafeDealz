@@ -6,8 +6,8 @@ part of 'catalog_field.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CatalogFieldImpl _$$CatalogFieldImplFromJson(Map<String, dynamic> json) =>
-    _$CatalogFieldImpl(
+_CatalogField _$CatalogFieldFromJson(Map<String, dynamic> json) =>
+    _CatalogField(
       key: json['key'] as String,
       label: json['label'] as String,
       options: (json['options'] as List<dynamic>)
@@ -16,7 +16,7 @@ _$CatalogFieldImpl _$$CatalogFieldImplFromJson(Map<String, dynamic> json) =>
       appleOnly: json['appleOnly'] as bool?,
     );
 
-Map<String, dynamic> _$$CatalogFieldImplToJson(_$CatalogFieldImpl instance) =>
+Map<String, dynamic> _$CatalogFieldToJson(_CatalogField instance) =>
     <String, dynamic>{
       'key': instance.key,
       'label': instance.label,

@@ -10,3 +10,4 @@ swagger_parser:
   put_clients_in_folder: true
   enums_to_json: true
   unknown_enum_value: true
+  use_freezed3: true

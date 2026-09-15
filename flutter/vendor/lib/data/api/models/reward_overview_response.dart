@@ -10,7 +10,7 @@ part 'reward_overview_response.freezed.dart';
 part 'reward_overview_response.g.dart';
 
 @Freezed()
-class RewardOverviewResponse with _$RewardOverviewResponse {
+abstract class RewardOverviewResponse with _$RewardOverviewResponse {
   const factory RewardOverviewResponse({
     required bool success,
     required RewardOverview data,

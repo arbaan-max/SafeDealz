@@ -11,7 +11,7 @@ part 'wallet_detail.freezed.dart';
 part 'wallet_detail.g.dart';
 
 @Freezed()
-class WalletDetail with _$WalletDetail {
+abstract class WalletDetail with _$WalletDetail {
   const factory WalletDetail({
     String? id,
     String? vendorAccountId,

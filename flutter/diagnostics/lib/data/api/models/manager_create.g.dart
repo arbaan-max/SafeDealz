@@ -6,8 +6,8 @@ part of 'manager_create.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ManagerCreateImpl _$$ManagerCreateImplFromJson(Map<String, dynamic> json) =>
-    _$ManagerCreateImpl(
+_ManagerCreate _$ManagerCreateFromJson(Map<String, dynamic> json) =>
+    _ManagerCreate(
       displayName: json['displayName'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
@@ -16,7 +16,7 @@ _$ManagerCreateImpl _$$ManagerCreateImplFromJson(Map<String, dynamic> json) =>
       active: json['active'] as bool?,
     );
 
-Map<String, dynamic> _$$ManagerCreateImplToJson(_$ManagerCreateImpl instance) =>
+Map<String, dynamic> _$ManagerCreateToJson(_ManagerCreate instance) =>
     <String, dynamic>{
       'displayName': instance.displayName,
       'email': instance.email,

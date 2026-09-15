@@ -8,7 +8,7 @@ part 'signed_url.freezed.dart';
 part 'signed_url.g.dart';
 
 @Freezed()
-class SignedUrl with _$SignedUrl {
+abstract class SignedUrl with _$SignedUrl {
   const factory SignedUrl({
     String? method,
     String? url,

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,204 +9,290 @@ part of 'reward_overview_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-RewardOverviewResponse _$RewardOverviewResponseFromJson(
-  Map<String, dynamic> json,
-) {
-  return _RewardOverviewResponse.fromJson(json);
-}
 
 /// @nodoc
 mixin _$RewardOverviewResponse {
-  bool get success => throw _privateConstructorUsedError;
-  RewardOverview get data => throw _privateConstructorUsedError;
+
+ bool get success; RewardOverview get data;
+/// Create a copy of RewardOverviewResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RewardOverviewResponseCopyWith<RewardOverviewResponse> get copyWith => _$RewardOverviewResponseCopyWithImpl<RewardOverviewResponse>(this as RewardOverviewResponse, _$identity);
 
   /// Serializes this RewardOverviewResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of RewardOverviewResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $RewardOverviewResponseCopyWith<RewardOverviewResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardOverviewResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'RewardOverviewResponse(success: $success, data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $RewardOverviewResponseCopyWith<$Res> {
-  factory $RewardOverviewResponseCopyWith(
-    RewardOverviewResponse value,
-    $Res Function(RewardOverviewResponse) then,
-  ) = _$RewardOverviewResponseCopyWithImpl<$Res, RewardOverviewResponse>;
-  @useResult
-  $Res call({bool success, RewardOverview data});
+abstract mixin class $RewardOverviewResponseCopyWith<$Res>  {
+  factory $RewardOverviewResponseCopyWith(RewardOverviewResponse value, $Res Function(RewardOverviewResponse) _then) = _$RewardOverviewResponseCopyWithImpl;
+@useResult
+$Res call({
+ bool success, RewardOverview data
+});
 
-  $RewardOverviewCopyWith<$Res> get data;
+
+$RewardOverviewCopyWith<$Res> get data;
+
 }
-
 /// @nodoc
-class _$RewardOverviewResponseCopyWithImpl<
-  $Res,
-  $Val extends RewardOverviewResponse
->
+class _$RewardOverviewResponseCopyWithImpl<$Res>
     implements $RewardOverviewResponseCopyWith<$Res> {
-  _$RewardOverviewResponseCopyWithImpl(this._value, this._then);
+  _$RewardOverviewResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final RewardOverviewResponse _self;
+  final $Res Function(RewardOverviewResponse) _then;
 
-  /// Create a copy of RewardOverviewResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _value.copyWith(
-            success: null == success
-                ? _value.success
-                : success // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            data: null == data
-                ? _value.data
-                : data // ignore: cast_nullable_to_non_nullable
-                      as RewardOverview,
-          )
-          as $Val,
-    );
-  }
-
-  /// Create a copy of RewardOverviewResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $RewardOverviewCopyWith<$Res> get data {
-    return $RewardOverviewCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
-  }
+/// Create a copy of RewardOverviewResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_self.copyWith(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as RewardOverview,
+  ));
+}
+/// Create a copy of RewardOverviewResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RewardOverviewCopyWith<$Res> get data {
+  
+  return $RewardOverviewCopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$RewardOverviewResponseImplCopyWith<$Res>
-    implements $RewardOverviewResponseCopyWith<$Res> {
-  factory _$$RewardOverviewResponseImplCopyWith(
-    _$RewardOverviewResponseImpl value,
-    $Res Function(_$RewardOverviewResponseImpl) then,
-  ) = __$$RewardOverviewResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool success, RewardOverview data});
 
-  @override
-  $RewardOverviewCopyWith<$Res> get data;
+/// Adds pattern-matching-related methods to [RewardOverviewResponse].
+extension RewardOverviewResponsePatterns on RewardOverviewResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RewardOverviewResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RewardOverviewResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RewardOverviewResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _RewardOverviewResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RewardOverviewResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RewardOverviewResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  RewardOverview data)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RewardOverviewResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  RewardOverview data)  $default,) {final _that = this;
+switch (_that) {
+case _RewardOverviewResponse():
+return $default(_that.success,_that.data);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  RewardOverview data)?  $default,) {final _that = this;
+switch (_that) {
+case _RewardOverviewResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$RewardOverviewResponseImplCopyWithImpl<$Res>
-    extends
-        _$RewardOverviewResponseCopyWithImpl<$Res, _$RewardOverviewResponseImpl>
-    implements _$$RewardOverviewResponseImplCopyWith<$Res> {
-  __$$RewardOverviewResponseImplCopyWithImpl(
-    _$RewardOverviewResponseImpl _value,
-    $Res Function(_$RewardOverviewResponseImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of RewardOverviewResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _$RewardOverviewResponseImpl(
-        success: null == success
-            ? _value.success
-            : success // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        data: null == data
-            ? _value.data
-            : data // ignore: cast_nullable_to_non_nullable
-                  as RewardOverview,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$RewardOverviewResponseImpl implements _RewardOverviewResponse {
-  const _$RewardOverviewResponseImpl({
-    required this.success,
-    required this.data,
+
+class _RewardOverviewResponse implements RewardOverviewResponse {
+  const _RewardOverviewResponse({required this.success, required this.data});
+  factory _RewardOverviewResponse.fromJson(Map<String, dynamic> json) => _$RewardOverviewResponseFromJson(json);
+
+@override final  bool success;
+@override final  RewardOverview data;
+
+/// Create a copy of RewardOverviewResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RewardOverviewResponseCopyWith<_RewardOverviewResponse> get copyWith => __$RewardOverviewResponseCopyWithImpl<_RewardOverviewResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$RewardOverviewResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardOverviewResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'RewardOverviewResponse(success: $success, data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RewardOverviewResponseCopyWith<$Res> implements $RewardOverviewResponseCopyWith<$Res> {
+  factory _$RewardOverviewResponseCopyWith(_RewardOverviewResponse value, $Res Function(_RewardOverviewResponse) _then) = __$RewardOverviewResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ bool success, RewardOverview data
+});
+
+
+@override $RewardOverviewCopyWith<$Res> get data;
+
+}
+/// @nodoc
+class __$RewardOverviewResponseCopyWithImpl<$Res>
+    implements _$RewardOverviewResponseCopyWith<$Res> {
+  __$RewardOverviewResponseCopyWithImpl(this._self, this._then);
+
+  final _RewardOverviewResponse _self;
+  final $Res Function(_RewardOverviewResponse) _then;
+
+/// Create a copy of RewardOverviewResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_RewardOverviewResponse(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as RewardOverview,
+  ));
+}
+
+/// Create a copy of RewardOverviewResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RewardOverviewCopyWith<$Res> get data {
+  
+  return $RewardOverviewCopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
   });
-
-  factory _$RewardOverviewResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RewardOverviewResponseImplFromJson(json);
-
-  @override
-  final bool success;
-  @override
-  final RewardOverview data;
-
-  @override
-  String toString() {
-    return 'RewardOverviewResponse(success: $success, data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RewardOverviewResponseImpl &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.data, data) || other.data == data));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, success, data);
-
-  /// Create a copy of RewardOverviewResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RewardOverviewResponseImplCopyWith<_$RewardOverviewResponseImpl>
-  get copyWith =>
-      __$$RewardOverviewResponseImplCopyWithImpl<_$RewardOverviewResponseImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RewardOverviewResponseImplToJson(this);
-  }
+}
 }
 
-abstract class _RewardOverviewResponse implements RewardOverviewResponse {
-  const factory _RewardOverviewResponse({
-    required final bool success,
-    required final RewardOverview data,
-  }) = _$RewardOverviewResponseImpl;
-
-  factory _RewardOverviewResponse.fromJson(Map<String, dynamic> json) =
-      _$RewardOverviewResponseImpl.fromJson;
-
-  @override
-  bool get success;
-  @override
-  RewardOverview get data;
-
-  /// Create a copy of RewardOverviewResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RewardOverviewResponseImplCopyWith<_$RewardOverviewResponseImpl>
-  get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

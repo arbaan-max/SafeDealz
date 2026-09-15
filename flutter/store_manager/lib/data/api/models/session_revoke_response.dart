@@ -10,7 +10,7 @@ part 'session_revoke_response.freezed.dart';
 part 'session_revoke_response.g.dart';
 
 @Freezed()
-class SessionRevokeResponse with _$SessionRevokeResponse {
+abstract class SessionRevokeResponse with _$SessionRevokeResponse {
   const factory SessionRevokeResponse({
     required bool success,
     required SessionRevoke data,

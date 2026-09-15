@@ -6,8 +6,8 @@ part of 'vendor_account.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$VendorAccountImpl _$$VendorAccountImplFromJson(Map<String, dynamic> json) =>
-    _$VendorAccountImpl(
+_VendorAccount _$VendorAccountFromJson(Map<String, dynamic> json) =>
+    _VendorAccount(
       id: json['id'] as String,
       email: json['email'] as String,
       role: AccountRole.fromJson(json['role'] as String),
@@ -22,7 +22,7 @@ _$VendorAccountImpl _$$VendorAccountImplFromJson(Map<String, dynamic> json) =>
           : VendorWallet.fromJson(json['wallet'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$VendorAccountImplToJson(_$VendorAccountImpl instance) =>
+Map<String, dynamic> _$VendorAccountToJson(_VendorAccount instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,

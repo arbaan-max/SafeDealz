@@ -6,7 +6,7 @@ part of 'data2.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Data2Impl _$$Data2ImplFromJson(Map<String, dynamic> json) => _$Data2Impl(
+_Data2 _$Data2FromJson(Map<String, dynamic> json) => _Data2(
   availablePaise: (json['availablePaise'] as num?)?.toInt(),
   reservedPaise: (json['reservedPaise'] as num?)?.toInt(),
   processingPaise: (json['processingPaise'] as num?)?.toInt(),
@@ -15,12 +15,11 @@ _$Data2Impl _$$Data2ImplFromJson(Map<String, dynamic> json) => _$Data2Impl(
   status: json['status'] as String?,
 );
 
-Map<String, dynamic> _$$Data2ImplToJson(_$Data2Impl instance) =>
-    <String, dynamic>{
-      'availablePaise': instance.availablePaise,
-      'reservedPaise': instance.reservedPaise,
-      'processingPaise': instance.processingPaise,
-      'replayed': instance.replayed,
-      'reservationId': instance.reservationId,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$Data2ToJson(_Data2 instance) => <String, dynamic>{
+  'availablePaise': instance.availablePaise,
+  'reservedPaise': instance.reservedPaise,
+  'processingPaise': instance.processingPaise,
+  'replayed': instance.replayed,
+  'reservationId': instance.reservationId,
+  'status': instance.status,
+};

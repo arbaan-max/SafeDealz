@@ -8,7 +8,7 @@ part 'media_download_request.freezed.dart';
 part 'media_download_request.g.dart';
 
 @Freezed()
-class MediaDownloadRequest with _$MediaDownloadRequest {
+abstract class MediaDownloadRequest with _$MediaDownloadRequest {
   const factory MediaDownloadRequest({
     required String objectKey,
   }) = _MediaDownloadRequest;

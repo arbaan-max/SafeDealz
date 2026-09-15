@@ -6,8 +6,8 @@ part of 'account_summary.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AccountSummaryImpl _$$AccountSummaryImplFromJson(Map<String, dynamic> json) =>
-    _$AccountSummaryImpl(
+_AccountSummary _$AccountSummaryFromJson(Map<String, dynamic> json) =>
+    _AccountSummary(
       id: json['id'] as String,
       email: json['email'] as String,
       role: AccountRole.fromJson(json['role'] as String),
@@ -20,15 +20,14 @@ _$AccountSummaryImpl _$$AccountSummaryImplFromJson(Map<String, dynamic> json) =>
       allStores: json['allStores'] as bool?,
     );
 
-Map<String, dynamic> _$$AccountSummaryImplToJson(
-  _$AccountSummaryImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'email': instance.email,
-  'role': instance.role,
-  'displayName': instance.displayName,
-  'phone': instance.phone,
-  'active': instance.active,
-  'assignedBranchIds': instance.assignedBranchIds,
-  'allStores': instance.allStores,
-};
+Map<String, dynamic> _$AccountSummaryToJson(_AccountSummary instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'email': instance.email,
+      'role': instance.role,
+      'displayName': instance.displayName,
+      'phone': instance.phone,
+      'active': instance.active,
+      'assignedBranchIds': instance.assignedBranchIds,
+      'allStores': instance.allStores,
+    };

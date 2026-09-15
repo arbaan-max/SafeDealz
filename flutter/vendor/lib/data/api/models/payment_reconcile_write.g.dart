@@ -6,12 +6,12 @@ part of 'payment_reconcile_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaymentReconcileWriteImpl _$$PaymentReconcileWriteImplFromJson(
+_PaymentReconcileWrite _$PaymentReconcileWriteFromJson(
   Map<String, dynamic> json,
-) => _$PaymentReconcileWriteImpl(
+) => _PaymentReconcileWrite(
   outcome: PaymentReconcileWriteOutcome.fromJson(json['outcome'] as String),
 );
 
-Map<String, dynamic> _$$PaymentReconcileWriteImplToJson(
-  _$PaymentReconcileWriteImpl instance,
+Map<String, dynamic> _$PaymentReconcileWriteToJson(
+  _PaymentReconcileWrite instance,
 ) => <String, dynamic>{'outcome': instance.outcome};

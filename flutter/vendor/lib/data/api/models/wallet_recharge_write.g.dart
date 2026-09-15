@@ -6,15 +6,14 @@ part of 'wallet_recharge_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$WalletRechargeWriteImpl _$$WalletRechargeWriteImplFromJson(
-  Map<String, dynamic> json,
-) => _$WalletRechargeWriteImpl(
-  amountPaise: (json['amountPaise'] as num).toInt(),
-  idempotencyKey: json['idempotencyKey'] as String,
-);
+_WalletRechargeWrite _$WalletRechargeWriteFromJson(Map<String, dynamic> json) =>
+    _WalletRechargeWrite(
+      amountPaise: (json['amountPaise'] as num).toInt(),
+      idempotencyKey: json['idempotencyKey'] as String,
+    );
 
-Map<String, dynamic> _$$WalletRechargeWriteImplToJson(
-  _$WalletRechargeWriteImpl instance,
+Map<String, dynamic> _$WalletRechargeWriteToJson(
+  _WalletRechargeWrite instance,
 ) => <String, dynamic>{
   'amountPaise': instance.amountPaise,
   'idempotencyKey': instance.idempotencyKey,

@@ -8,7 +8,7 @@ part 'branch_create.freezed.dart';
 part 'branch_create.g.dart';
 
 @Freezed()
-class BranchCreate with _$BranchCreate {
+abstract class BranchCreate with _$BranchCreate {
   const factory BranchCreate({
     required String chainId,
     required String name,

@@ -10,7 +10,7 @@ part 'auction_settings_response.freezed.dart';
 part 'auction_settings_response.g.dart';
 
 @Freezed()
-class AuctionSettingsResponse with _$AuctionSettingsResponse {
+abstract class AuctionSettingsResponse with _$AuctionSettingsResponse {
   const factory AuctionSettingsResponse({
     required bool success,
     required AuctionSettings data,

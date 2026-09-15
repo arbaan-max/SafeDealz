@@ -10,7 +10,7 @@ part 'refresh_request.freezed.dart';
 part 'refresh_request.g.dart';
 
 @Freezed()
-class RefreshRequest with _$RefreshRequest {
+abstract class RefreshRequest with _$RefreshRequest {
   const factory RefreshRequest({
     required ClientType clientType,
     String? refreshToken,

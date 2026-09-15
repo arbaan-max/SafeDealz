@@ -8,7 +8,7 @@ part 'chain_write.freezed.dart';
 part 'chain_write.g.dart';
 
 @Freezed()
-class ChainWrite with _$ChainWrite {
+abstract class ChainWrite with _$ChainWrite {
   const factory ChainWrite({
     String? name,
     String? code,

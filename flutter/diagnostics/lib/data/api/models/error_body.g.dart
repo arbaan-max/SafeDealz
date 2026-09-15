@@ -6,11 +6,10 @@ part of 'error_body.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ErrorBodyImpl _$$ErrorBodyImplFromJson(Map<String, dynamic> json) =>
-    _$ErrorBodyImpl(
-      code: json['code'] as String,
-      message: json['message'] as String,
-    );
+_ErrorBody _$ErrorBodyFromJson(Map<String, dynamic> json) => _ErrorBody(
+  code: json['code'] as String,
+  message: json['message'] as String,
+);
 
-Map<String, dynamic> _$$ErrorBodyImplToJson(_$ErrorBodyImpl instance) =>
+Map<String, dynamic> _$ErrorBodyToJson(_ErrorBody instance) =>
     <String, dynamic>{'code': instance.code, 'message': instance.message};

@@ -8,7 +8,7 @@ part 'redemption_confirm_write.freezed.dart';
 part 'redemption_confirm_write.g.dart';
 
 @Freezed()
-class RedemptionConfirmWrite with _$RedemptionConfirmWrite {
+abstract class RedemptionConfirmWrite with _$RedemptionConfirmWrite {
   const factory RedemptionConfirmWrite({
     required String otp,
   }) = _RedemptionConfirmWrite;

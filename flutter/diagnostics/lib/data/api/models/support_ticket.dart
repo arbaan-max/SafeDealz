@@ -15,7 +15,7 @@ part 'support_ticket.freezed.dart';
 part 'support_ticket.g.dart';
 
 @Freezed()
-class SupportTicket with _$SupportTicket {
+abstract class SupportTicket with _$SupportTicket {
   const factory SupportTicket({
     String? id,
     String? creatorAccountId,

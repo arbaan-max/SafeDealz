@@ -6,8 +6,8 @@ part of 'reward_overview.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RewardOverviewImpl _$$RewardOverviewImplFromJson(Map<String, dynamic> json) =>
-    _$RewardOverviewImpl(
+_RewardOverview _$RewardOverviewFromJson(Map<String, dynamic> json) =>
+    _RewardOverview(
       branches: (json['branches'] as List<dynamic>?)
           ?.map((e) => RewardBranchTotal.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -19,10 +19,9 @@ _$RewardOverviewImpl _$$RewardOverviewImplFromJson(Map<String, dynamic> json) =>
           : RewardPolicy.fromJson(json['policy'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$RewardOverviewImplToJson(
-  _$RewardOverviewImpl instance,
-) => <String, dynamic>{
-  'branches': instance.branches,
-  'totals': instance.totals,
-  'policy': instance.policy,
-};
+Map<String, dynamic> _$RewardOverviewToJson(_RewardOverview instance) =>
+    <String, dynamic>{
+      'branches': instance.branches,
+      'totals': instance.totals,
+      'policy': instance.policy,
+    };

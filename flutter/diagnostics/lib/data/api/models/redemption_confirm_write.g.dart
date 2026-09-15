@@ -6,10 +6,10 @@ part of 'redemption_confirm_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RedemptionConfirmWriteImpl _$$RedemptionConfirmWriteImplFromJson(
+_RedemptionConfirmWrite _$RedemptionConfirmWriteFromJson(
   Map<String, dynamic> json,
-) => _$RedemptionConfirmWriteImpl(otp: json['otp'] as String);
+) => _RedemptionConfirmWrite(otp: json['otp'] as String);
 
-Map<String, dynamic> _$$RedemptionConfirmWriteImplToJson(
-  _$RedemptionConfirmWriteImpl instance,
+Map<String, dynamic> _$RedemptionConfirmWriteToJson(
+  _RedemptionConfirmWrite instance,
 ) => <String, dynamic>{'otp': instance.otp};

@@ -8,7 +8,7 @@ part 'vendor_link.freezed.dart';
 part 'vendor_link.g.dart';
 
 @Freezed()
-class VendorLink with _$VendorLink {
+abstract class VendorLink with _$VendorLink {
   const factory VendorLink({
     required String email,
     required List<String> assignedBranchIds,

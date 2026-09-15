@@ -10,7 +10,7 @@ part 'error_response.freezed.dart';
 part 'error_response.g.dart';
 
 @Freezed()
-class ErrorResponse with _$ErrorResponse {
+abstract class ErrorResponse with _$ErrorResponse {
   const factory ErrorResponse({
     required bool success,
     required ErrorBody error,

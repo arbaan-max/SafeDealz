@@ -11,7 +11,7 @@ part 'payment_instruction.freezed.dart';
 part 'payment_instruction.g.dart';
 
 @Freezed()
-class PaymentInstruction with _$PaymentInstruction {
+abstract class PaymentInstruction with _$PaymentInstruction {
   const factory PaymentInstruction({
     String? id,
     String? dealId,

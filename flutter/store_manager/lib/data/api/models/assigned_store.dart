@@ -8,7 +8,7 @@ part 'assigned_store.freezed.dart';
 part 'assigned_store.g.dart';
 
 @Freezed()
-class AssignedStore with _$AssignedStore {
+abstract class AssignedStore with _$AssignedStore {
   const factory AssignedStore({
     required String id,
     required String chainId,

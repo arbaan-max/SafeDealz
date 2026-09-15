@@ -10,7 +10,7 @@ part 'otp_response.freezed.dart';
 part 'otp_response.g.dart';
 
 @Freezed()
-class OtpResponse with _$OtpResponse {
+abstract class OtpResponse with _$OtpResponse {
   const factory OtpResponse({
     required bool success,
     required Data5 data,

@@ -6,10 +6,8 @@ part of 'auction_cancel_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuctionCancelWriteImpl _$$AuctionCancelWriteImplFromJson(
-  Map<String, dynamic> json,
-) => _$AuctionCancelWriteImpl(reason: json['reason'] as String);
+_AuctionCancelWrite _$AuctionCancelWriteFromJson(Map<String, dynamic> json) =>
+    _AuctionCancelWrite(reason: json['reason'] as String);
 
-Map<String, dynamic> _$$AuctionCancelWriteImplToJson(
-  _$AuctionCancelWriteImpl instance,
-) => <String, dynamic>{'reason': instance.reason};
+Map<String, dynamic> _$AuctionCancelWriteToJson(_AuctionCancelWrite instance) =>
+    <String, dynamic>{'reason': instance.reason};

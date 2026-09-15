@@ -6,8 +6,8 @@ part of 'reward_balance.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RewardBalanceImpl _$$RewardBalanceImplFromJson(Map<String, dynamic> json) =>
-    _$RewardBalanceImpl(
+_RewardBalance _$RewardBalanceFromJson(Map<String, dynamic> json) =>
+    _RewardBalance(
       id: json['id'] as String?,
       customerPhone: json['customerPhone'] as String?,
       customerName: json['customerName'] as String?,
@@ -21,7 +21,7 @@ _$RewardBalanceImpl _$$RewardBalanceImplFromJson(Map<String, dynamic> json) =>
       redeemableAtThisBranch: json['redeemableAtThisBranch'] as bool?,
     );
 
-Map<String, dynamic> _$$RewardBalanceImplToJson(_$RewardBalanceImpl instance) =>
+Map<String, dynamic> _$RewardBalanceToJson(_RewardBalance instance) =>
     <String, dynamic>{
       'id': instance.id,
       'customerPhone': instance.customerPhone,

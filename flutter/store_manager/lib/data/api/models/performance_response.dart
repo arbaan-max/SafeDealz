@@ -10,7 +10,7 @@ part 'performance_response.freezed.dart';
 part 'performance_response.g.dart';
 
 @Freezed()
-class PerformanceResponse with _$PerformanceResponse {
+abstract class PerformanceResponse with _$PerformanceResponse {
   const factory PerformanceResponse({
     required bool success,
     required Performance data,

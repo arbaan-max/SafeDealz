@@ -8,7 +8,7 @@ part 'manager_create.freezed.dart';
 part 'manager_create.g.dart';
 
 @Freezed()
-class ManagerCreate with _$ManagerCreate {
+abstract class ManagerCreate with _$ManagerCreate {
   const factory ManagerCreate({
     required String displayName,
     required String email,

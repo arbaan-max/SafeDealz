@@ -6,9 +6,9 @@ part of 'reward_policy.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RewardPolicyImpl _$$RewardPolicyImplFromJson(
+_RewardPolicy _$RewardPolicyFromJson(
   Map<String, dynamic> json,
-) => _$RewardPolicyImpl(
+) => _RewardPolicy(
   id: json['id'] as String?,
   version: (json['version'] as num?)?.toInt(),
   earnPointsPerHundredRupees: (json['earnPointsPerHundredRupees'] as num?)
@@ -30,7 +30,7 @@ _$RewardPolicyImpl _$$RewardPolicyImplFromJson(
   note: json['note'] as String?,
 );
 
-Map<String, dynamic> _$$RewardPolicyImplToJson(_$RewardPolicyImpl instance) =>
+Map<String, dynamic> _$RewardPolicyToJson(_RewardPolicy instance) =>
     <String, dynamic>{
       'id': instance.id,
       'version': instance.version,

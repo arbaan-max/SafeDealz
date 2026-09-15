@@ -6,15 +6,14 @@ part of 'refresh_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RefreshRequestImpl _$$RefreshRequestImplFromJson(Map<String, dynamic> json) =>
-    _$RefreshRequestImpl(
+_RefreshRequest _$RefreshRequestFromJson(Map<String, dynamic> json) =>
+    _RefreshRequest(
       clientType: ClientType.fromJson(json['clientType'] as String),
       refreshToken: json['refreshToken'] as String?,
     );
 
-Map<String, dynamic> _$$RefreshRequestImplToJson(
-  _$RefreshRequestImpl instance,
-) => <String, dynamic>{
-  'clientType': instance.clientType,
-  'refreshToken': instance.refreshToken,
-};
+Map<String, dynamic> _$RefreshRequestToJson(_RefreshRequest instance) =>
+    <String, dynamic>{
+      'clientType': instance.clientType,
+      'refreshToken': instance.refreshToken,
+    };

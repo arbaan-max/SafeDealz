@@ -10,7 +10,7 @@ part 'account_summary.freezed.dart';
 part 'account_summary.g.dart';
 
 @Freezed()
-class AccountSummary with _$AccountSummary {
+abstract class AccountSummary with _$AccountSummary {
   const factory AccountSummary({
     required String id,
     required String email,

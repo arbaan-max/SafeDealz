@@ -6,7 +6,7 @@ part of 'data4.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Data4Impl _$$Data4ImplFromJson(Map<String, dynamic> json) => _$Data4Impl(
+_Data4 _$Data4FromJson(Map<String, dynamic> json) => _Data4(
   current: json['current'] == null
       ? null
       : RewardPolicy.fromJson(json['current'] as Map<String, dynamic>),
@@ -15,8 +15,7 @@ _$Data4Impl _$$Data4ImplFromJson(Map<String, dynamic> json) => _$Data4Impl(
       .toList(),
 );
 
-Map<String, dynamic> _$$Data4ImplToJson(_$Data4Impl instance) =>
-    <String, dynamic>{
-      'current': instance.current,
-      'versions': instance.versions,
-    };
+Map<String, dynamic> _$Data4ToJson(_Data4 instance) => <String, dynamic>{
+  'current': instance.current,
+  'versions': instance.versions,
+};

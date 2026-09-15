@@ -10,7 +10,7 @@ part 'support_ticket_response.freezed.dart';
 part 'support_ticket_response.g.dart';
 
 @Freezed()
-class SupportTicketResponse with _$SupportTicketResponse {
+abstract class SupportTicketResponse with _$SupportTicketResponse {
   const factory SupportTicketResponse({
     required bool success,
     required SupportTicket data,

@@ -6,13 +6,13 @@ part of 'diagnostic_import_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DiagnosticImportResponseImpl _$$DiagnosticImportResponseImplFromJson(
+_DiagnosticImportResponse _$DiagnosticImportResponseFromJson(
   Map<String, dynamic> json,
-) => _$DiagnosticImportResponseImpl(
+) => _DiagnosticImportResponse(
   success: json['success'] as bool,
   data: Data10.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$$DiagnosticImportResponseImplToJson(
-  _$DiagnosticImportResponseImpl instance,
+Map<String, dynamic> _$DiagnosticImportResponseToJson(
+  _DiagnosticImportResponse instance,
 ) => <String, dynamic>{'success': instance.success, 'data': instance.data};

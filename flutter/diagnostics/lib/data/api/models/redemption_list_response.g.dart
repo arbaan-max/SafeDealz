@@ -6,15 +6,15 @@ part of 'redemption_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RedemptionListResponseImpl _$$RedemptionListResponseImplFromJson(
+_RedemptionListResponse _$RedemptionListResponseFromJson(
   Map<String, dynamic> json,
-) => _$RedemptionListResponseImpl(
+) => _RedemptionListResponse(
   success: json['success'] as bool,
   data: (json['data'] as List<dynamic>)
       .map((e) => Redemption.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
-Map<String, dynamic> _$$RedemptionListResponseImplToJson(
-  _$RedemptionListResponseImpl instance,
+Map<String, dynamic> _$RedemptionListResponseToJson(
+  _RedemptionListResponse instance,
 ) => <String, dynamic>{'success': instance.success, 'data': instance.data};

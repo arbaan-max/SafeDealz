@@ -6,13 +6,13 @@ part of 'media_download_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MediaDownloadResponseImpl _$$MediaDownloadResponseImplFromJson(
+_MediaDownloadResponse _$MediaDownloadResponseFromJson(
   Map<String, dynamic> json,
-) => _$MediaDownloadResponseImpl(
+) => _MediaDownloadResponse(
   success: json['success'] as bool,
   data: Data9.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$$MediaDownloadResponseImplToJson(
-  _$MediaDownloadResponseImpl instance,
+Map<String, dynamic> _$MediaDownloadResponseToJson(
+  _MediaDownloadResponse instance,
 ) => <String, dynamic>{'success': instance.success, 'data': instance.data};

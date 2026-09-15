@@ -10,7 +10,7 @@ part 'wallet_ledger_entry.freezed.dart';
 part 'wallet_ledger_entry.g.dart';
 
 @Freezed()
-class WalletLedgerEntry with _$WalletLedgerEntry {
+abstract class WalletLedgerEntry with _$WalletLedgerEntry {
   const factory WalletLedgerEntry({
     String? id,
     WalletLedgerEntryType? type,

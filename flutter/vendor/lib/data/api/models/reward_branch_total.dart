@@ -8,7 +8,7 @@ part 'reward_branch_total.freezed.dart';
 part 'reward_branch_total.g.dart';
 
 @Freezed()
-class RewardBranchTotal with _$RewardBranchTotal {
+abstract class RewardBranchTotal with _$RewardBranchTotal {
   const factory RewardBranchTotal({
     String? branchId,
     String? branchName,

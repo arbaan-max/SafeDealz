@@ -8,7 +8,7 @@ part 'reward_balance.freezed.dart';
 part 'reward_balance.g.dart';
 
 @Freezed()
-class RewardBalance with _$RewardBalance {
+abstract class RewardBalance with _$RewardBalance {
   const factory RewardBalance({
     String? id,
     String? customerPhone,

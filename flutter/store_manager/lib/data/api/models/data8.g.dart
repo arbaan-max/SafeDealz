@@ -6,17 +6,16 @@ part of 'data8.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Data8Impl _$$Data8ImplFromJson(Map<String, dynamic> json) => _$Data8Impl(
+_Data8 _$Data8FromJson(Map<String, dynamic> json) => _Data8(
   id: json['id'] as String?,
   purpose: json['purpose'] as String?,
   objectKey: json['objectKey'] as String?,
   status: json['status'] as String?,
 );
 
-Map<String, dynamic> _$$Data8ImplToJson(_$Data8Impl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'purpose': instance.purpose,
-      'objectKey': instance.objectKey,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$Data8ToJson(_Data8 instance) => <String, dynamic>{
+  'id': instance.id,
+  'purpose': instance.purpose,
+  'objectKey': instance.objectKey,
+  'status': instance.status,
+};

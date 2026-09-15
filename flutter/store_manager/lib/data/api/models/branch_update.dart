@@ -8,7 +8,7 @@ part 'branch_update.freezed.dart';
 part 'branch_update.g.dart';
 
 @Freezed()
-class BranchUpdate with _$BranchUpdate {
+abstract class BranchUpdate with _$BranchUpdate {
   const factory BranchUpdate({
     String? name,
     String? code,

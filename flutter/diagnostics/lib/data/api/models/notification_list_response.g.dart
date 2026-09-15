@@ -6,15 +6,15 @@ part of 'notification_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationListResponseImpl _$$NotificationListResponseImplFromJson(
+_NotificationListResponse _$NotificationListResponseFromJson(
   Map<String, dynamic> json,
-) => _$NotificationListResponseImpl(
+) => _NotificationListResponse(
   success: json['success'] as bool,
   data: (json['data'] as List<dynamic>)
       .map((e) => Notification.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
-Map<String, dynamic> _$$NotificationListResponseImplToJson(
-  _$NotificationListResponseImpl instance,
+Map<String, dynamic> _$NotificationListResponseToJson(
+  _NotificationListResponse instance,
 ) => <String, dynamic>{'success': instance.success, 'data': instance.data};

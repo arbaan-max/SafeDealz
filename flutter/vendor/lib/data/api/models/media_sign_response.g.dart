@@ -6,13 +6,11 @@ part of 'media_sign_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MediaSignResponseImpl _$$MediaSignResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$MediaSignResponseImpl(
-  success: json['success'] as bool,
-  data: Data7.fromJson(json['data'] as Map<String, dynamic>),
-);
+_MediaSignResponse _$MediaSignResponseFromJson(Map<String, dynamic> json) =>
+    _MediaSignResponse(
+      success: json['success'] as bool,
+      data: Data7.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$$MediaSignResponseImplToJson(
-  _$MediaSignResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$MediaSignResponseToJson(_MediaSignResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

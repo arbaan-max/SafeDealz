@@ -10,7 +10,7 @@ part 'reward_ledger_entry.freezed.dart';
 part 'reward_ledger_entry.g.dart';
 
 @Freezed()
-class RewardLedgerEntry with _$RewardLedgerEntry {
+abstract class RewardLedgerEntry with _$RewardLedgerEntry {
   const factory RewardLedgerEntry({
     String? id,
     RewardLedgerEntryType? type,

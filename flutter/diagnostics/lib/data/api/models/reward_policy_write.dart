@@ -10,7 +10,7 @@ part 'reward_policy_write.freezed.dart';
 part 'reward_policy_write.g.dart';
 
 @Freezed()
-class RewardPolicyWrite with _$RewardPolicyWrite {
+abstract class RewardPolicyWrite with _$RewardPolicyWrite {
   const factory RewardPolicyWrite({
     int? earnPointsPerHundredRupees,
     int? pointValuePaise,

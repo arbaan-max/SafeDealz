@@ -6,9 +6,9 @@ part of 'ticket_attachment_sign.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TicketAttachmentSignImpl _$$TicketAttachmentSignImplFromJson(
+_TicketAttachmentSign _$TicketAttachmentSignFromJson(
   Map<String, dynamic> json,
-) => _$TicketAttachmentSignImpl(
+) => _TicketAttachmentSign(
   attachmentId: json['attachmentId'] as String?,
   objectKey: json['objectKey'] as String?,
   upload: json['upload'] == null
@@ -16,8 +16,8 @@ _$TicketAttachmentSignImpl _$$TicketAttachmentSignImplFromJson(
       : SignedUrl.fromJson(json['upload'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$$TicketAttachmentSignImplToJson(
-  _$TicketAttachmentSignImpl instance,
+Map<String, dynamic> _$TicketAttachmentSignToJson(
+  _TicketAttachmentSign instance,
 ) => <String, dynamic>{
   'attachmentId': instance.attachmentId,
   'objectKey': instance.objectKey,

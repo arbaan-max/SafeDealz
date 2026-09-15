@@ -10,7 +10,7 @@ part 'audit_list_response.freezed.dart';
 part 'audit_list_response.g.dart';
 
 @Freezed()
-class AuditListResponse with _$AuditListResponse {
+abstract class AuditListResponse with _$AuditListResponse {
   const factory AuditListResponse({
     required bool success,
     required List<AuditEvent> data,

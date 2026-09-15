@@ -115,7 +115,7 @@ final class _AuthAdapter implements HttpClientAdapter {
     expect(options.method, 'POST');
     expect(options.uri.path, '/v1/auth/login');
     expect(
-      (options.data as LoginRequest).toJson()['expectedRole'].toString(),
+      (options.data as Map)['expectedRole'].toString(),
       'vendor',
     );
     return ResponseBody.fromString(
@@ -273,7 +273,7 @@ final class _BidAdapter implements HttpClientAdapter {
   ) async {
     expect(options.method, 'POST');
     expect(options.uri.path, '/v1/auctions/a1/bids');
-    expect((options.data as BidWrite).toJson()['amountPaise'], 800000);
+    expect((options.data as Map)['amountPaise'], 800000);
     return ResponseBody.fromString(
       '{"success":true,"data":{"id":"b1","roundId":"a1","deviceId":"d1","vendorAccountId":"v1","amountPaise":800000,"feePaise":64000,"feeRate":0.08,"totalPaise":864000,"status":"submitted"}}',
       201,

@@ -10,7 +10,7 @@ part 'media_sign_request.freezed.dart';
 part 'media_sign_request.g.dart';
 
 @Freezed()
-class MediaSignRequest with _$MediaSignRequest {
+abstract class MediaSignRequest with _$MediaSignRequest {
   const factory MediaSignRequest({
     required MediaSignRequestPurpose purpose,
     required String contentType,

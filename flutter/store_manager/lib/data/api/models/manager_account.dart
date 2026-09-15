@@ -10,7 +10,7 @@ part 'manager_account.freezed.dart';
 part 'manager_account.g.dart';
 
 @Freezed()
-class ManagerAccount with _$ManagerAccount {
+abstract class ManagerAccount with _$ManagerAccount {
   const factory ManagerAccount({
     required String id,
     required String email,

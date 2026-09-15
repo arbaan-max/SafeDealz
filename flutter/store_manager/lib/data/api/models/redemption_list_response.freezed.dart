@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,198 +9,278 @@ part of 'redemption_list_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-RedemptionListResponse _$RedemptionListResponseFromJson(
-  Map<String, dynamic> json,
-) {
-  return _RedemptionListResponse.fromJson(json);
-}
 
 /// @nodoc
 mixin _$RedemptionListResponse {
-  bool get success => throw _privateConstructorUsedError;
-  List<Redemption> get data => throw _privateConstructorUsedError;
+
+ bool get success; List<Redemption> get data;
+/// Create a copy of RedemptionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RedemptionListResponseCopyWith<RedemptionListResponse> get copyWith => _$RedemptionListResponseCopyWithImpl<RedemptionListResponse>(this as RedemptionListResponse, _$identity);
 
   /// Serializes this RedemptionListResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of RedemptionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $RedemptionListResponseCopyWith<RedemptionListResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RedemptionListResponse&&(identical(other.success, success) || other.success == success)&&const DeepCollectionEquality().equals(other.data, data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,const DeepCollectionEquality().hash(data));
+
+@override
+String toString() {
+  return 'RedemptionListResponse(success: $success, data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $RedemptionListResponseCopyWith<$Res> {
-  factory $RedemptionListResponseCopyWith(
-    RedemptionListResponse value,
-    $Res Function(RedemptionListResponse) then,
-  ) = _$RedemptionListResponseCopyWithImpl<$Res, RedemptionListResponse>;
-  @useResult
-  $Res call({bool success, List<Redemption> data});
-}
+abstract mixin class $RedemptionListResponseCopyWith<$Res>  {
+  factory $RedemptionListResponseCopyWith(RedemptionListResponse value, $Res Function(RedemptionListResponse) _then) = _$RedemptionListResponseCopyWithImpl;
+@useResult
+$Res call({
+ bool success, List<Redemption> data
+});
 
+
+
+
+}
 /// @nodoc
-class _$RedemptionListResponseCopyWithImpl<
-  $Res,
-  $Val extends RedemptionListResponse
->
+class _$RedemptionListResponseCopyWithImpl<$Res>
     implements $RedemptionListResponseCopyWith<$Res> {
-  _$RedemptionListResponseCopyWithImpl(this._value, this._then);
+  _$RedemptionListResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final RedemptionListResponse _self;
+  final $Res Function(RedemptionListResponse) _then;
 
-  /// Create a copy of RedemptionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _value.copyWith(
-            success: null == success
-                ? _value.success
-                : success // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            data: null == data
-                ? _value.data
-                : data // ignore: cast_nullable_to_non_nullable
-                      as List<Redemption>,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of RedemptionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_self.copyWith(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as List<Redemption>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$RedemptionListResponseImplCopyWith<$Res>
-    implements $RedemptionListResponseCopyWith<$Res> {
-  factory _$$RedemptionListResponseImplCopyWith(
-    _$RedemptionListResponseImpl value,
-    $Res Function(_$RedemptionListResponseImpl) then,
-  ) = __$$RedemptionListResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool success, List<Redemption> data});
 }
 
-/// @nodoc
-class __$$RedemptionListResponseImplCopyWithImpl<$Res>
-    extends
-        _$RedemptionListResponseCopyWithImpl<$Res, _$RedemptionListResponseImpl>
-    implements _$$RedemptionListResponseImplCopyWith<$Res> {
-  __$$RedemptionListResponseImplCopyWithImpl(
-    _$RedemptionListResponseImpl _value,
-    $Res Function(_$RedemptionListResponseImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of RedemptionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _$RedemptionListResponseImpl(
-        success: null == success
-            ? _value.success
-            : success // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        data: null == data
-            ? _value._data
-            : data // ignore: cast_nullable_to_non_nullable
-                  as List<Redemption>,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [RedemptionListResponse].
+extension RedemptionListResponsePatterns on RedemptionListResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RedemptionListResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RedemptionListResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RedemptionListResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _RedemptionListResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RedemptionListResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RedemptionListResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  List<Redemption> data)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RedemptionListResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  List<Redemption> data)  $default,) {final _that = this;
+switch (_that) {
+case _RedemptionListResponse():
+return $default(_that.success,_that.data);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  List<Redemption> data)?  $default,) {final _that = this;
+switch (_that) {
+case _RedemptionListResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$RedemptionListResponseImpl implements _RedemptionListResponse {
-  const _$RedemptionListResponseImpl({
-    required this.success,
-    required final List<Redemption> data,
-  }) : _data = data;
 
-  factory _$RedemptionListResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RedemptionListResponseImplFromJson(json);
+class _RedemptionListResponse implements RedemptionListResponse {
+  const _RedemptionListResponse({required this.success, required final  List<Redemption> data}): _data = data;
+  factory _RedemptionListResponse.fromJson(Map<String, dynamic> json) => _$RedemptionListResponseFromJson(json);
 
-  @override
-  final bool success;
-  final List<Redemption> _data;
-  @override
-  List<Redemption> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString() {
-    return 'RedemptionListResponse(success: $success, data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RedemptionListResponseImpl &&
-            (identical(other.success, success) || other.success == success) &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    success,
-    const DeepCollectionEquality().hash(_data),
-  );
-
-  /// Create a copy of RedemptionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RedemptionListResponseImplCopyWith<_$RedemptionListResponseImpl>
-  get copyWith =>
-      __$$RedemptionListResponseImplCopyWithImpl<_$RedemptionListResponseImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RedemptionListResponseImplToJson(this);
-  }
+@override final  bool success;
+ final  List<Redemption> _data;
+@override List<Redemption> get data {
+  if (_data is EqualUnmodifiableListView) return _data;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_data);
 }
 
-abstract class _RedemptionListResponse implements RedemptionListResponse {
-  const factory _RedemptionListResponse({
-    required final bool success,
-    required final List<Redemption> data,
-  }) = _$RedemptionListResponseImpl;
 
-  factory _RedemptionListResponse.fromJson(Map<String, dynamic> json) =
-      _$RedemptionListResponseImpl.fromJson;
+/// Create a copy of RedemptionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RedemptionListResponseCopyWith<_RedemptionListResponse> get copyWith => __$RedemptionListResponseCopyWithImpl<_RedemptionListResponse>(this, _$identity);
 
-  @override
-  bool get success;
-  @override
-  List<Redemption> get data;
-
-  /// Create a copy of RedemptionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RedemptionListResponseImplCopyWith<_$RedemptionListResponseImpl>
-  get copyWith => throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$RedemptionListResponseToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RedemptionListResponse&&(identical(other.success, success) || other.success == success)&&const DeepCollectionEquality().equals(other._data, _data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,const DeepCollectionEquality().hash(_data));
+
+@override
+String toString() {
+  return 'RedemptionListResponse(success: $success, data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RedemptionListResponseCopyWith<$Res> implements $RedemptionListResponseCopyWith<$Res> {
+  factory _$RedemptionListResponseCopyWith(_RedemptionListResponse value, $Res Function(_RedemptionListResponse) _then) = __$RedemptionListResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ bool success, List<Redemption> data
+});
+
+
+
+
+}
+/// @nodoc
+class __$RedemptionListResponseCopyWithImpl<$Res>
+    implements _$RedemptionListResponseCopyWith<$Res> {
+  __$RedemptionListResponseCopyWithImpl(this._self, this._then);
+
+  final _RedemptionListResponse _self;
+  final $Res Function(_RedemptionListResponse) _then;
+
+/// Create a copy of RedemptionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_RedemptionListResponse(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self._data : data // ignore: cast_nullable_to_non_nullable
+as List<Redemption>,
+  ));
+}
+
+
+}
+
+// dart format on

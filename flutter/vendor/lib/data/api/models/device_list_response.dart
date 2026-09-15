@@ -10,7 +10,7 @@ part 'device_list_response.freezed.dart';
 part 'device_list_response.g.dart';
 
 @Freezed()
-class DeviceListResponse with _$DeviceListResponse {
+abstract class DeviceListResponse with _$DeviceListResponse {
   const factory DeviceListResponse({
     required bool success,
     required List<Device> data,

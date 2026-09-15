@@ -8,7 +8,7 @@ part 'catalog_diagnostic_check.freezed.dart';
 part 'catalog_diagnostic_check.g.dart';
 
 @Freezed()
-class CatalogDiagnosticCheck with _$CatalogDiagnosticCheck {
+abstract class CatalogDiagnosticCheck with _$CatalogDiagnosticCheck {
   const factory CatalogDiagnosticCheck({
     required String id,
     required String label,

@@ -6,7 +6,7 @@ part of 'device.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DeviceImpl _$$DeviceImplFromJson(Map<String, dynamic> json) => _$DeviceImpl(
+_Device _$DeviceFromJson(Map<String, dynamic> json) => _Device(
   id: json['id'] as String,
   branchId: json['branchId'] as String,
   platform: DevicePlatform.fromJson(json['platform'] as String),
@@ -25,18 +25,17 @@ _$DeviceImpl _$$DeviceImplFromJson(Map<String, dynamic> json) => _$DeviceImpl(
       .toList(),
 );
 
-Map<String, dynamic> _$$DeviceImplToJson(_$DeviceImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'branchId': instance.branchId,
-      'platform': instance.platform,
-      'model': instance.model,
-      'imei1': instance.imei1,
-      'imei2': instance.imei2,
-      'storage': instance.storage,
-      'status': instance.status,
-      'ram': instance.ram,
-      'batteryHealth': instance.batteryHealth,
-      'inspection': instance.inspection,
-      'media': instance.media,
-    };
+Map<String, dynamic> _$DeviceToJson(_Device instance) => <String, dynamic>{
+  'id': instance.id,
+  'branchId': instance.branchId,
+  'platform': instance.platform,
+  'model': instance.model,
+  'imei1': instance.imei1,
+  'imei2': instance.imei2,
+  'storage': instance.storage,
+  'status': instance.status,
+  'ram': instance.ram,
+  'batteryHealth': instance.batteryHealth,
+  'inspection': instance.inspection,
+  'media': instance.media,
+};

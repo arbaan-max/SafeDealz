@@ -6,8 +6,8 @@ part of 'support_ticket.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SupportTicketImpl _$$SupportTicketImplFromJson(Map<String, dynamic> json) =>
-    _$SupportTicketImpl(
+_SupportTicket _$SupportTicketFromJson(Map<String, dynamic> json) =>
+    _SupportTicket(
       id: json['id'] as String?,
       creatorAccountId: json['creatorAccountId'] as String?,
       creatorRole: json['creatorRole'] == null
@@ -41,7 +41,7 @@ _$SupportTicketImpl _$$SupportTicketImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$SupportTicketImplToJson(_$SupportTicketImpl instance) =>
+Map<String, dynamic> _$SupportTicketToJson(_SupportTicket instance) =>
     <String, dynamic>{
       'id': instance.id,
       'creatorAccountId': instance.creatorAccountId,

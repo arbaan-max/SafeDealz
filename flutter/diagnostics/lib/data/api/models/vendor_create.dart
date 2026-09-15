@@ -8,7 +8,7 @@ part 'vendor_create.freezed.dart';
 part 'vendor_create.g.dart';
 
 @Freezed()
-class VendorCreate with _$VendorCreate {
+abstract class VendorCreate with _$VendorCreate {
   const factory VendorCreate({
     required String displayName,
     required String email,

@@ -8,7 +8,7 @@ part 'device_update.freezed.dart';
 part 'device_update.g.dart';
 
 @Freezed()
-class DeviceUpdate with _$DeviceUpdate {
+abstract class DeviceUpdate with _$DeviceUpdate {
   const factory DeviceUpdate({
     String? model,
     String? imei1,

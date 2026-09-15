@@ -10,7 +10,7 @@ part 'media_download_response.freezed.dart';
 part 'media_download_response.g.dart';
 
 @Freezed()
-class MediaDownloadResponse with _$MediaDownloadResponse {
+abstract class MediaDownloadResponse with _$MediaDownloadResponse {
   const factory MediaDownloadResponse({
     required bool success,
     required Data9 data,

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,219 +9,278 @@ part of 'payment_attempt.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-PaymentAttempt _$PaymentAttemptFromJson(Map<String, dynamic> json) {
-  return _PaymentAttempt.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PaymentAttempt {
-  DateTime? get at => throw _privateConstructorUsedError;
-  String? get event => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
-  String? get note => throw _privateConstructorUsedError;
+
+ DateTime? get at; String? get event; String? get status; String? get note;
+/// Create a copy of PaymentAttempt
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaymentAttemptCopyWith<PaymentAttempt> get copyWith => _$PaymentAttemptCopyWithImpl<PaymentAttempt>(this as PaymentAttempt, _$identity);
 
   /// Serializes this PaymentAttempt to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PaymentAttempt
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PaymentAttemptCopyWith<PaymentAttempt> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentAttempt&&(identical(other.at, at) || other.at == at)&&(identical(other.event, event) || other.event == event)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,at,event,status,note);
+
+@override
+String toString() {
+  return 'PaymentAttempt(at: $at, event: $event, status: $status, note: $note)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PaymentAttemptCopyWith<$Res> {
-  factory $PaymentAttemptCopyWith(
-    PaymentAttempt value,
-    $Res Function(PaymentAttempt) then,
-  ) = _$PaymentAttemptCopyWithImpl<$Res, PaymentAttempt>;
-  @useResult
-  $Res call({DateTime? at, String? event, String? status, String? note});
-}
+abstract mixin class $PaymentAttemptCopyWith<$Res>  {
+  factory $PaymentAttemptCopyWith(PaymentAttempt value, $Res Function(PaymentAttempt) _then) = _$PaymentAttemptCopyWithImpl;
+@useResult
+$Res call({
+ DateTime? at, String? event, String? status, String? note
+});
 
+
+
+
+}
 /// @nodoc
-class _$PaymentAttemptCopyWithImpl<$Res, $Val extends PaymentAttempt>
+class _$PaymentAttemptCopyWithImpl<$Res>
     implements $PaymentAttemptCopyWith<$Res> {
-  _$PaymentAttemptCopyWithImpl(this._value, this._then);
+  _$PaymentAttemptCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PaymentAttempt _self;
+  final $Res Function(PaymentAttempt) _then;
 
-  /// Create a copy of PaymentAttempt
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? at = freezed,
-    Object? event = freezed,
-    Object? status = freezed,
-    Object? note = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            at: freezed == at
-                ? _value.at
-                : at // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            event: freezed == event
-                ? _value.event
-                : event // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            status: freezed == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            note: freezed == note
-                ? _value.note
-                : note // ignore: cast_nullable_to_non_nullable
-                      as String?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of PaymentAttempt
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? at = freezed,Object? event = freezed,Object? status = freezed,Object? note = freezed,}) {
+  return _then(_self.copyWith(
+at: freezed == at ? _self.at : at // ignore: cast_nullable_to_non_nullable
+as DateTime?,event: freezed == event ? _self.event : event // ignore: cast_nullable_to_non_nullable
+as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PaymentAttemptImplCopyWith<$Res>
-    implements $PaymentAttemptCopyWith<$Res> {
-  factory _$$PaymentAttemptImplCopyWith(
-    _$PaymentAttemptImpl value,
-    $Res Function(_$PaymentAttemptImpl) then,
-  ) = __$$PaymentAttemptImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({DateTime? at, String? event, String? status, String? note});
 }
 
-/// @nodoc
-class __$$PaymentAttemptImplCopyWithImpl<$Res>
-    extends _$PaymentAttemptCopyWithImpl<$Res, _$PaymentAttemptImpl>
-    implements _$$PaymentAttemptImplCopyWith<$Res> {
-  __$$PaymentAttemptImplCopyWithImpl(
-    _$PaymentAttemptImpl _value,
-    $Res Function(_$PaymentAttemptImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentAttempt
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? at = freezed,
-    Object? event = freezed,
-    Object? status = freezed,
-    Object? note = freezed,
-  }) {
-    return _then(
-      _$PaymentAttemptImpl(
-        at: freezed == at
-            ? _value.at
-            : at // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        event: freezed == event
-            ? _value.event
-            : event // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        status: freezed == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        note: freezed == note
-            ? _value.note
-            : note // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [PaymentAttempt].
+extension PaymentAttemptPatterns on PaymentAttempt {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PaymentAttempt value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PaymentAttempt() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PaymentAttempt value)  $default,){
+final _that = this;
+switch (_that) {
+case _PaymentAttempt():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PaymentAttempt value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PaymentAttempt() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime? at,  String? event,  String? status,  String? note)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PaymentAttempt() when $default != null:
+return $default(_that.at,_that.event,_that.status,_that.note);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime? at,  String? event,  String? status,  String? note)  $default,) {final _that = this;
+switch (_that) {
+case _PaymentAttempt():
+return $default(_that.at,_that.event,_that.status,_that.note);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime? at,  String? event,  String? status,  String? note)?  $default,) {final _that = this;
+switch (_that) {
+case _PaymentAttempt() when $default != null:
+return $default(_that.at,_that.event,_that.status,_that.note);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PaymentAttemptImpl implements _PaymentAttempt {
-  const _$PaymentAttemptImpl({this.at, this.event, this.status, this.note});
 
-  factory _$PaymentAttemptImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PaymentAttemptImplFromJson(json);
+class _PaymentAttempt implements PaymentAttempt {
+  const _PaymentAttempt({this.at, this.event, this.status, this.note});
+  factory _PaymentAttempt.fromJson(Map<String, dynamic> json) => _$PaymentAttemptFromJson(json);
 
-  @override
-  final DateTime? at;
-  @override
-  final String? event;
-  @override
-  final String? status;
-  @override
-  final String? note;
+@override final  DateTime? at;
+@override final  String? event;
+@override final  String? status;
+@override final  String? note;
 
-  @override
-  String toString() {
-    return 'PaymentAttempt(at: $at, event: $event, status: $status, note: $note)';
-  }
+/// Create a copy of PaymentAttempt
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PaymentAttemptCopyWith<_PaymentAttempt> get copyWith => __$PaymentAttemptCopyWithImpl<_PaymentAttempt>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentAttemptImpl &&
-            (identical(other.at, at) || other.at == at) &&
-            (identical(other.event, event) || other.event == event) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.note, note) || other.note == note));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, at, event, status, note);
-
-  /// Create a copy of PaymentAttempt
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaymentAttemptImplCopyWith<_$PaymentAttemptImpl> get copyWith =>
-      __$$PaymentAttemptImplCopyWithImpl<_$PaymentAttemptImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PaymentAttemptImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$PaymentAttemptToJson(this, );
 }
 
-abstract class _PaymentAttempt implements PaymentAttempt {
-  const factory _PaymentAttempt({
-    final DateTime? at,
-    final String? event,
-    final String? status,
-    final String? note,
-  }) = _$PaymentAttemptImpl;
-
-  factory _PaymentAttempt.fromJson(Map<String, dynamic> json) =
-      _$PaymentAttemptImpl.fromJson;
-
-  @override
-  DateTime? get at;
-  @override
-  String? get event;
-  @override
-  String? get status;
-  @override
-  String? get note;
-
-  /// Create a copy of PaymentAttempt
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaymentAttemptImplCopyWith<_$PaymentAttemptImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentAttempt&&(identical(other.at, at) || other.at == at)&&(identical(other.event, event) || other.event == event)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,at,event,status,note);
+
+@override
+String toString() {
+  return 'PaymentAttempt(at: $at, event: $event, status: $status, note: $note)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PaymentAttemptCopyWith<$Res> implements $PaymentAttemptCopyWith<$Res> {
+  factory _$PaymentAttemptCopyWith(_PaymentAttempt value, $Res Function(_PaymentAttempt) _then) = __$PaymentAttemptCopyWithImpl;
+@override @useResult
+$Res call({
+ DateTime? at, String? event, String? status, String? note
+});
+
+
+
+
+}
+/// @nodoc
+class __$PaymentAttemptCopyWithImpl<$Res>
+    implements _$PaymentAttemptCopyWith<$Res> {
+  __$PaymentAttemptCopyWithImpl(this._self, this._then);
+
+  final _PaymentAttempt _self;
+  final $Res Function(_PaymentAttempt) _then;
+
+/// Create a copy of PaymentAttempt
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? at = freezed,Object? event = freezed,Object? status = freezed,Object? note = freezed,}) {
+  return _then(_PaymentAttempt(
+at: freezed == at ? _self.at : at // ignore: cast_nullable_to_non_nullable
+as DateTime?,event: freezed == event ? _self.event : event // ignore: cast_nullable_to_non_nullable
+as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+// dart format on

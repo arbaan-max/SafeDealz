@@ -10,7 +10,7 @@ part 'assigned_store_list_response.freezed.dart';
 part 'assigned_store_list_response.g.dart';
 
 @Freezed()
-class AssignedStoreListResponse with _$AssignedStoreListResponse {
+abstract class AssignedStoreListResponse with _$AssignedStoreListResponse {
   const factory AssignedStoreListResponse({
     required bool success,
     required List<AssignedStore> data,

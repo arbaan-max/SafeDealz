@@ -6,13 +6,11 @@ part of 'redemption_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RedemptionResponseImpl _$$RedemptionResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$RedemptionResponseImpl(
-  success: json['success'] as bool,
-  data: Redemption.fromJson(json['data'] as Map<String, dynamic>),
-);
+_RedemptionResponse _$RedemptionResponseFromJson(Map<String, dynamic> json) =>
+    _RedemptionResponse(
+      success: json['success'] as bool,
+      data: Redemption.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$$RedemptionResponseImplToJson(
-  _$RedemptionResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$RedemptionResponseToJson(_RedemptionResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

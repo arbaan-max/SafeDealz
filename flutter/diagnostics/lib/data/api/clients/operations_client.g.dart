@@ -2,11 +2,13 @@
 
 part of 'operations_client.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _OperationsClient implements OperationsClient {
   _OperationsClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -33,12 +35,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late CatalogResponse _value;
     try {
       _value = CatalogResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -51,7 +53,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<DiagnosticImportResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -62,12 +65,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DiagnosticImportResponse _value;
     try {
       _value = DiagnosticImportResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -89,12 +92,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletDetailResponse _value;
     try {
       _value = WalletDetailResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -116,12 +119,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletListResponse _value;
     try {
       _value = WalletListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -145,12 +148,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletDetailResponse _value;
     try {
       _value = WalletDetailResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -164,7 +167,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<WalletMoveResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -175,12 +179,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletMoveResponse _value;
     try {
       _value = WalletMoveResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -193,7 +197,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<WalletMoveResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -204,12 +209,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletMoveResponse _value;
     try {
       _value = WalletMoveResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -222,7 +227,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<WalletMoveResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -233,12 +239,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletMoveResponse _value;
     try {
       _value = WalletMoveResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -251,7 +257,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<WalletRechargeResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -262,12 +269,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletRechargeResponse _value;
     try {
       _value = WalletRechargeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -289,12 +296,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletRechargeResponse _value;
     try {
       _value = WalletRechargeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -318,12 +325,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late WalletRechargeResponse _value;
     try {
       _value = WalletRechargeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -345,12 +352,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionSettingsResponse _value;
     try {
       _value = AuctionSettingsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -363,7 +370,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<AuctionSettingsResponse>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -374,12 +382,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionSettingsResponse _value;
     try {
       _value = AuctionSettingsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -408,12 +416,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionListResponse _value;
     try {
       _value = AuctionListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -435,12 +443,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionTickResponse _value;
     try {
       _value = AuctionTickResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -462,12 +470,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionResponse _value;
     try {
       _value = AuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -482,7 +490,8 @@ class _OperationsClient implements OperationsClient {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body?.toJson() ?? <String, dynamic>{});
     final _options = _setStreamType<AuctionResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -493,12 +502,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionResponse _value;
     try {
       _value = AuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -512,7 +521,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<AuctionResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -523,12 +533,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionResponse _value;
     try {
       _value = AuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -542,7 +552,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<AuctionRebidResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -553,12 +564,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionRebidResponse _value;
     try {
       _value = AuctionRebidResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -580,12 +591,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DealResponse _value;
     try {
       _value = DealResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -611,12 +622,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DealListResponse _value;
     try {
       _value = DealListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -638,12 +649,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DealResponse _value;
     try {
       _value = DealResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -665,12 +676,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late OtpResponse _value;
     try {
       _value = OtpResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -684,7 +695,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<DealResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -695,12 +707,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DealResponse _value;
     try {
       _value = DealResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -722,12 +734,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DealResponse _value;
     try {
       _value = DealResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -749,12 +761,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late PaymentListResponse _value;
     try {
       _value = PaymentListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -776,12 +788,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late PaymentResponse _value;
     try {
       _value = PaymentResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -803,12 +815,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late PaymentResponse _value;
     try {
       _value = PaymentResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -822,7 +834,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<PaymentResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -833,12 +846,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late PaymentResponse _value;
     try {
       _value = PaymentResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -861,12 +874,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RewardOverviewResponse _value;
     try {
       _value = RewardOverviewResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -888,12 +901,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RewardPolicyResponse _value;
     try {
       _value = RewardPolicyResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -906,7 +919,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<RewardPolicyResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -917,12 +931,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RewardPolicyResponse _value;
     try {
       _value = RewardPolicyResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -948,12 +962,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late CustomerRewardsResponse _value;
     try {
       _value = CustomerRewardsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -982,12 +996,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RedemptionListResponse _value;
     try {
       _value = RedemptionListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1000,7 +1014,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<RedemptionResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1011,12 +1026,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RedemptionResponse _value;
     try {
       _value = RedemptionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1038,12 +1053,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RedemptionResponse _value;
     try {
       _value = RedemptionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1065,12 +1080,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RedemptionResponse _value;
     try {
       _value = RedemptionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1084,7 +1099,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<RedemptionResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1095,12 +1111,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late RedemptionResponse _value;
     try {
       _value = RedemptionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1122,12 +1138,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late NotificationListResponse _value;
     try {
       _value = NotificationListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1160,12 +1176,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late NotificationListResponse _value;
     try {
       _value = NotificationListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1178,7 +1194,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<NotificationBroadcastResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1189,12 +1206,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late NotificationBroadcastResponse _value;
     try {
       _value = NotificationBroadcastResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1218,12 +1235,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late NotificationResponse _value;
     try {
       _value = NotificationResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1246,12 +1263,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SupportTicketListResponse _value;
     try {
       _value = SupportTicketListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1264,7 +1281,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<SupportTicketResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1275,12 +1293,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SupportTicketResponse _value;
     try {
       _value = SupportTicketResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1302,12 +1320,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SupportTicketResponse _value;
     try {
       _value = SupportTicketResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1321,7 +1339,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<SupportTicketResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1332,12 +1351,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SupportTicketResponse _value;
     try {
       _value = SupportTicketResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1351,7 +1370,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<SupportTicketResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1362,12 +1382,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SupportTicketResponse _value;
     try {
       _value = SupportTicketResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1381,7 +1401,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<SupportTicketResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1392,12 +1413,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SupportTicketResponse _value;
     try {
       _value = SupportTicketResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1411,7 +1432,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<TicketAttachmentSignResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1422,12 +1444,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late TicketAttachmentSignResponse _value;
     try {
       _value = TicketAttachmentSignResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1441,7 +1463,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<SupportTicketResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1452,12 +1475,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SupportTicketResponse _value;
     try {
       _value = SupportTicketResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1482,12 +1505,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late MediaDownloadResponse _value;
     try {
       _value = MediaDownloadResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1509,12 +1532,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late OverviewResponse _value;
     try {
       _value = OverviewResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1547,12 +1570,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ReportResponse _value;
     try {
       _value = ReportResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1574,12 +1597,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ReportExportResponse _value;
     try {
       _value = ReportExportResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1608,12 +1631,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuditListResponse _value;
     try {
       _value = AuditListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1636,12 +1659,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late PerformanceResponse _value;
     try {
       _value = PerformanceResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1663,12 +1686,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late BidListResponse _value;
     try {
       _value = BidListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1682,7 +1705,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<BidResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1693,12 +1717,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late BidResponse _value;
     try {
       _value = BidResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1720,12 +1744,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late BidListResponse _value;
     try {
       _value = BidListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1747,12 +1771,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late BidResponse _value;
     try {
       _value = BidResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1774,12 +1798,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AuctionResponse _value;
     try {
       _value = AuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1808,12 +1832,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DeviceListResponse _value;
     try {
       _value = DeviceListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1824,7 +1848,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<DeviceResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1835,12 +1860,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DeviceResponse _value;
     try {
       _value = DeviceResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1862,12 +1887,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DeviceResponse _value;
     try {
       _value = DeviceResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1881,7 +1906,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<DeviceResponse>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -1892,12 +1918,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DeviceResponse _value;
     try {
       _value = DeviceResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1911,7 +1937,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<DeviceResponse>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
@@ -1922,12 +1949,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late DeviceResponse _value;
     try {
       _value = DeviceResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1941,7 +1968,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<MediaSignResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1952,12 +1980,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late MediaSignResponse _value;
     try {
       _value = MediaSignResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1971,7 +1999,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<MediaCompleteResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1982,12 +2011,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late MediaCompleteResponse _value;
     try {
       _value = MediaCompleteResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -2001,7 +2030,8 @@ class _OperationsClient implements OperationsClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<MediaDownloadResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -2012,12 +2042,12 @@ class _OperationsClient implements OperationsClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late MediaDownloadResponse _value;
     try {
       _value = MediaDownloadResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -2050,3 +2080,5 @@ class _OperationsClient implements OperationsClient {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

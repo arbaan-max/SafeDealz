@@ -10,7 +10,7 @@ part 'report_response.freezed.dart';
 part 'report_response.g.dart';
 
 @Freezed()
-class ReportResponse with _$ReportResponse {
+abstract class ReportResponse with _$ReportResponse {
   const factory ReportResponse({
     required bool success,
     required Report data,

@@ -6,16 +6,16 @@ part of 'billing_reconciliation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BillingReconciliationImpl _$$BillingReconciliationImplFromJson(
+_BillingReconciliation _$BillingReconciliationFromJson(
   Map<String, dynamic> json,
-) => _$BillingReconciliationImpl(
+) => _BillingReconciliation(
   paidValuePaise: (json['paidValuePaise'] as num?)?.toInt(),
   rewardOutstandingValuePaise: (json['rewardOutstandingValuePaise'] as num?)
       ?.toInt(),
 );
 
-Map<String, dynamic> _$$BillingReconciliationImplToJson(
-  _$BillingReconciliationImpl instance,
+Map<String, dynamic> _$BillingReconciliationToJson(
+  _BillingReconciliation instance,
 ) => <String, dynamic>{
   'paidValuePaise': instance.paidValuePaise,
   'rewardOutstandingValuePaise': instance.rewardOutstandingValuePaise,

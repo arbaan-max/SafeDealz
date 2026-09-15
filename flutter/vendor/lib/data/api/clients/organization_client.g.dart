@@ -2,11 +2,13 @@
 
 part of 'organization_client.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _OrganizationClient implements OrganizationClient {
   _OrganizationClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -33,12 +35,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ChainListResponse _value;
     try {
       _value = ChainListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -49,7 +51,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<ChainResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -60,12 +63,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ChainResponse _value;
     try {
       _value = ChainResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -79,7 +82,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<ChainResponse>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -90,12 +94,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ChainResponse _value;
     try {
       _value = ChainResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -117,12 +121,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late BranchListResponse _value;
     try {
       _value = BranchListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -133,7 +137,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<BranchResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -144,12 +149,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late BranchResponse _value;
     try {
       _value = BranchResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -163,7 +168,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<BranchResponse>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -174,12 +180,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late BranchResponse _value;
     try {
       _value = BranchResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -201,12 +207,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AdminListResponse _value;
     try {
       _value = AdminListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -217,7 +223,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<AdminResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -228,12 +235,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AdminResponse _value;
     try {
       _value = AdminResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -247,7 +254,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<AdminResponse>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -258,12 +266,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AdminResponse _value;
     try {
       _value = AdminResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -285,12 +293,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ManagerListResponse _value;
     try {
       _value = ManagerListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -301,7 +309,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<ManagerResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -312,12 +321,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ManagerResponse _value;
     try {
       _value = ManagerResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -331,7 +340,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<ManagerResponse>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -342,12 +352,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late ManagerResponse _value;
     try {
       _value = ManagerResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -369,12 +379,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late VendorListResponse _value;
     try {
       _value = VendorListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -385,7 +395,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<VendorResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -396,12 +407,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late VendorResponse _value;
     try {
       _value = VendorResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -412,7 +423,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<VendorResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -423,12 +435,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late VendorResponse _value;
     try {
       _value = VendorResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -442,7 +454,8 @@ class _OrganizationClient implements OrganizationClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<VendorResponse>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -453,12 +466,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late VendorResponse _value;
     try {
       _value = VendorResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -480,12 +493,12 @@ class _OrganizationClient implements OrganizationClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late AssignedStoreListResponse _value;
     try {
       _value = AssignedStoreListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -518,3 +531,5 @@ class _OrganizationClient implements OrganizationClient {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

@@ -8,7 +8,7 @@ part 'catalog_step.freezed.dart';
 part 'catalog_step.g.dart';
 
 @Freezed()
-class CatalogStep with _$CatalogStep {
+abstract class CatalogStep with _$CatalogStep {
   const factory CatalogStep({
     required String title,
     required List<String> keys,

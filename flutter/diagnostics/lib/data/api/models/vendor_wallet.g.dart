@@ -6,8 +6,8 @@ part of 'vendor_wallet.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$VendorWalletImpl _$$VendorWalletImplFromJson(Map<String, dynamic> json) =>
-    _$VendorWalletImpl(
+_VendorWallet _$VendorWalletFromJson(Map<String, dynamic> json) =>
+    _VendorWallet(
       id: json['id'] as String?,
       vendorAccountId: json['vendorAccountId'] as String?,
       availablePaise: (json['availablePaise'] as num?)?.toInt(),
@@ -18,7 +18,7 @@ _$VendorWalletImpl _$$VendorWalletImplFromJson(Map<String, dynamic> json) =>
       currency: json['currency'] as String?,
     );
 
-Map<String, dynamic> _$$VendorWalletImplToJson(_$VendorWalletImpl instance) =>
+Map<String, dynamic> _$VendorWalletToJson(_VendorWallet instance) =>
     <String, dynamic>{
       'id': instance.id,
       'vendorAccountId': instance.vendorAccountId,

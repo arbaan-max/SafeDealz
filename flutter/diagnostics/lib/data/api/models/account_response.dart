@@ -10,7 +10,7 @@ part 'account_response.freezed.dart';
 part 'account_response.g.dart';
 
 @Freezed()
-class AccountResponse with _$AccountResponse {
+abstract class AccountResponse with _$AccountResponse {
   const factory AccountResponse({
     required bool success,
     required AccountSummary data,

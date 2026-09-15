@@ -8,7 +8,7 @@ part 'data5.freezed.dart';
 part 'data5.g.dart';
 
 @Freezed()
-class Data5 with _$Data5 {
+abstract class Data5 with _$Data5 {
   const factory Data5({
     bool? sent,
     bool? stub,

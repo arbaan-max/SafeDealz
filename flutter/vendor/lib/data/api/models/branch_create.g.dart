@@ -6,8 +6,8 @@ part of 'branch_create.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BranchCreateImpl _$$BranchCreateImplFromJson(Map<String, dynamic> json) =>
-    _$BranchCreateImpl(
+_BranchCreate _$BranchCreateFromJson(Map<String, dynamic> json) =>
+    _BranchCreate(
       chainId: json['chainId'] as String,
       name: json['name'] as String,
       code: json['code'] as String,
@@ -21,7 +21,7 @@ _$BranchCreateImpl _$$BranchCreateImplFromJson(Map<String, dynamic> json) =>
       active: json['active'] as bool?,
     );
 
-Map<String, dynamic> _$$BranchCreateImplToJson(_$BranchCreateImpl instance) =>
+Map<String, dynamic> _$BranchCreateToJson(_BranchCreate instance) =>
     <String, dynamic>{
       'chainId': instance.chainId,
       'name': instance.name,

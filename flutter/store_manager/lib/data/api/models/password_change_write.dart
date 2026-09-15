@@ -8,7 +8,7 @@ part 'password_change_write.freezed.dart';
 part 'password_change_write.g.dart';
 
 @Freezed()
-class PasswordChangeWrite with _$PasswordChangeWrite {
+abstract class PasswordChangeWrite with _$PasswordChangeWrite {
   const factory PasswordChangeWrite({
     required String currentPassword,
     required String newPassword,

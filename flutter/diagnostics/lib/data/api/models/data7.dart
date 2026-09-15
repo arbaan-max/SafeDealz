@@ -10,7 +10,7 @@ part 'data7.freezed.dart';
 part 'data7.g.dart';
 
 @Freezed()
-class Data7 with _$Data7 {
+abstract class Data7 with _$Data7 {
   const factory Data7({
     String? mediaId,
     String? objectKey,

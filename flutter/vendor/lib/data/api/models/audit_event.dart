@@ -8,7 +8,7 @@ part 'audit_event.freezed.dart';
 part 'audit_event.g.dart';
 
 @Freezed()
-class AuditEvent with _$AuditEvent {
+abstract class AuditEvent with _$AuditEvent {
   const factory AuditEvent({
     String? id,
     String? actorId,

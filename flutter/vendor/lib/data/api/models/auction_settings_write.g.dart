@@ -6,15 +6,15 @@ part of 'auction_settings_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuctionSettingsWriteImpl _$$AuctionSettingsWriteImplFromJson(
+_AuctionSettingsWrite _$AuctionSettingsWriteFromJson(
   Map<String, dynamic> json,
-) => _$AuctionSettingsWriteImpl(
+) => _AuctionSettingsWrite(
   biddingMinutes: (json['biddingMinutes'] as num).toInt(),
   acceptanceMinutes: (json['acceptanceMinutes'] as num).toInt(),
 );
 
-Map<String, dynamic> _$$AuctionSettingsWriteImplToJson(
-  _$AuctionSettingsWriteImpl instance,
+Map<String, dynamic> _$AuctionSettingsWriteToJson(
+  _AuctionSettingsWrite instance,
 ) => <String, dynamic>{
   'biddingMinutes': instance.biddingMinutes,
   'acceptanceMinutes': instance.acceptanceMinutes,

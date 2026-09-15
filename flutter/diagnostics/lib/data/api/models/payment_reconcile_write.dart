@@ -10,7 +10,7 @@ part 'payment_reconcile_write.freezed.dart';
 part 'payment_reconcile_write.g.dart';
 
 @Freezed()
-class PaymentReconcileWrite with _$PaymentReconcileWrite {
+abstract class PaymentReconcileWrite with _$PaymentReconcileWrite {
   const factory PaymentReconcileWrite({
     required PaymentReconcileWriteOutcome outcome,
   }) = _PaymentReconcileWrite;

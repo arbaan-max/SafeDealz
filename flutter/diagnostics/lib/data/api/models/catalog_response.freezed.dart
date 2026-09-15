@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,194 +9,290 @@ part of 'catalog_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-CatalogResponse _$CatalogResponseFromJson(Map<String, dynamic> json) {
-  return _CatalogResponse.fromJson(json);
-}
 
 /// @nodoc
 mixin _$CatalogResponse {
-  bool get success => throw _privateConstructorUsedError;
-  Catalog get data => throw _privateConstructorUsedError;
+
+ bool get success; Catalog get data;
+/// Create a copy of CatalogResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CatalogResponseCopyWith<CatalogResponse> get copyWith => _$CatalogResponseCopyWithImpl<CatalogResponse>(this as CatalogResponse, _$identity);
 
   /// Serializes this CatalogResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of CatalogResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $CatalogResponseCopyWith<CatalogResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CatalogResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'CatalogResponse(success: $success, data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $CatalogResponseCopyWith<$Res> {
-  factory $CatalogResponseCopyWith(
-    CatalogResponse value,
-    $Res Function(CatalogResponse) then,
-  ) = _$CatalogResponseCopyWithImpl<$Res, CatalogResponse>;
-  @useResult
-  $Res call({bool success, Catalog data});
+abstract mixin class $CatalogResponseCopyWith<$Res>  {
+  factory $CatalogResponseCopyWith(CatalogResponse value, $Res Function(CatalogResponse) _then) = _$CatalogResponseCopyWithImpl;
+@useResult
+$Res call({
+ bool success, Catalog data
+});
 
-  $CatalogCopyWith<$Res> get data;
+
+$CatalogCopyWith<$Res> get data;
+
 }
-
 /// @nodoc
-class _$CatalogResponseCopyWithImpl<$Res, $Val extends CatalogResponse>
+class _$CatalogResponseCopyWithImpl<$Res>
     implements $CatalogResponseCopyWith<$Res> {
-  _$CatalogResponseCopyWithImpl(this._value, this._then);
+  _$CatalogResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CatalogResponse _self;
+  final $Res Function(CatalogResponse) _then;
 
-  /// Create a copy of CatalogResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _value.copyWith(
-            success: null == success
-                ? _value.success
-                : success // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            data: null == data
-                ? _value.data
-                : data // ignore: cast_nullable_to_non_nullable
-                      as Catalog,
-          )
-          as $Val,
-    );
-  }
-
-  /// Create a copy of CatalogResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $CatalogCopyWith<$Res> get data {
-    return $CatalogCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
-  }
+/// Create a copy of CatalogResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_self.copyWith(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Catalog,
+  ));
+}
+/// Create a copy of CatalogResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CatalogCopyWith<$Res> get data {
+  
+  return $CatalogCopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$CatalogResponseImplCopyWith<$Res>
-    implements $CatalogResponseCopyWith<$Res> {
-  factory _$$CatalogResponseImplCopyWith(
-    _$CatalogResponseImpl value,
-    $Res Function(_$CatalogResponseImpl) then,
-  ) = __$$CatalogResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool success, Catalog data});
 
-  @override
-  $CatalogCopyWith<$Res> get data;
+/// Adds pattern-matching-related methods to [CatalogResponse].
+extension CatalogResponsePatterns on CatalogResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CatalogResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CatalogResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CatalogResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _CatalogResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CatalogResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CatalogResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  Catalog data)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CatalogResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  Catalog data)  $default,) {final _that = this;
+switch (_that) {
+case _CatalogResponse():
+return $default(_that.success,_that.data);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  Catalog data)?  $default,) {final _that = this;
+switch (_that) {
+case _CatalogResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$CatalogResponseImplCopyWithImpl<$Res>
-    extends _$CatalogResponseCopyWithImpl<$Res, _$CatalogResponseImpl>
-    implements _$$CatalogResponseImplCopyWith<$Res> {
-  __$$CatalogResponseImplCopyWithImpl(
-    _$CatalogResponseImpl _value,
-    $Res Function(_$CatalogResponseImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of CatalogResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _$CatalogResponseImpl(
-        success: null == success
-            ? _value.success
-            : success // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        data: null == data
-            ? _value.data
-            : data // ignore: cast_nullable_to_non_nullable
-                  as Catalog,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CatalogResponseImpl implements _CatalogResponse {
-  const _$CatalogResponseImpl({required this.success, required this.data});
 
-  factory _$CatalogResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CatalogResponseImplFromJson(json);
+class _CatalogResponse implements CatalogResponse {
+  const _CatalogResponse({required this.success, required this.data});
+  factory _CatalogResponse.fromJson(Map<String, dynamic> json) => _$CatalogResponseFromJson(json);
 
-  @override
-  final bool success;
-  @override
-  final Catalog data;
+@override final  bool success;
+@override final  Catalog data;
 
-  @override
-  String toString() {
-    return 'CatalogResponse(success: $success, data: $data)';
-  }
+/// Create a copy of CatalogResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CatalogResponseCopyWith<_CatalogResponse> get copyWith => __$CatalogResponseCopyWithImpl<_CatalogResponse>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CatalogResponseImpl &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.data, data) || other.data == data));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, success, data);
-
-  /// Create a copy of CatalogResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CatalogResponseImplCopyWith<_$CatalogResponseImpl> get copyWith =>
-      __$$CatalogResponseImplCopyWithImpl<_$CatalogResponseImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CatalogResponseImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$CatalogResponseToJson(this, );
 }
 
-abstract class _CatalogResponse implements CatalogResponse {
-  const factory _CatalogResponse({
-    required final bool success,
-    required final Catalog data,
-  }) = _$CatalogResponseImpl;
-
-  factory _CatalogResponse.fromJson(Map<String, dynamic> json) =
-      _$CatalogResponseImpl.fromJson;
-
-  @override
-  bool get success;
-  @override
-  Catalog get data;
-
-  /// Create a copy of CatalogResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CatalogResponseImplCopyWith<_$CatalogResponseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CatalogResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'CatalogResponse(success: $success, data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CatalogResponseCopyWith<$Res> implements $CatalogResponseCopyWith<$Res> {
+  factory _$CatalogResponseCopyWith(_CatalogResponse value, $Res Function(_CatalogResponse) _then) = __$CatalogResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ bool success, Catalog data
+});
+
+
+@override $CatalogCopyWith<$Res> get data;
+
+}
+/// @nodoc
+class __$CatalogResponseCopyWithImpl<$Res>
+    implements _$CatalogResponseCopyWith<$Res> {
+  __$CatalogResponseCopyWithImpl(this._self, this._then);
+
+  final _CatalogResponse _self;
+  final $Res Function(_CatalogResponse) _then;
+
+/// Create a copy of CatalogResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_CatalogResponse(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Catalog,
+  ));
+}
+
+/// Create a copy of CatalogResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CatalogCopyWith<$Res> get data {
+  
+  return $CatalogCopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
+}
+
+// dart format on

@@ -8,7 +8,7 @@ part 'media_complete_request.freezed.dart';
 part 'media_complete_request.g.dart';
 
 @Freezed()
-class MediaCompleteRequest with _$MediaCompleteRequest {
+abstract class MediaCompleteRequest with _$MediaCompleteRequest {
   const factory MediaCompleteRequest({
     required String objectKey,
     required String checksumSha256,

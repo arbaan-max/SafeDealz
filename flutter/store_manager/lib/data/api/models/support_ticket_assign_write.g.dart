@@ -6,12 +6,11 @@ part of 'support_ticket_assign_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SupportTicketAssignWriteImpl _$$SupportTicketAssignWriteImplFromJson(
+_SupportTicketAssignWrite _$SupportTicketAssignWriteFromJson(
   Map<String, dynamic> json,
-) => _$SupportTicketAssignWriteImpl(
-  ownerAccountId: json['ownerAccountId'] as String,
-);
+) =>
+    _SupportTicketAssignWrite(ownerAccountId: json['ownerAccountId'] as String);
 
-Map<String, dynamic> _$$SupportTicketAssignWriteImplToJson(
-  _$SupportTicketAssignWriteImpl instance,
+Map<String, dynamic> _$SupportTicketAssignWriteToJson(
+  _SupportTicketAssignWrite instance,
 ) => <String, dynamic>{'ownerAccountId': instance.ownerAccountId};

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,191 +9,278 @@ part of 'auction_list_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-AuctionListResponse _$AuctionListResponseFromJson(Map<String, dynamic> json) {
-  return _AuctionListResponse.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AuctionListResponse {
-  bool get success => throw _privateConstructorUsedError;
-  List<AuctionRound> get data => throw _privateConstructorUsedError;
+
+ bool get success; List<AuctionRound> get data;
+/// Create a copy of AuctionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuctionListResponseCopyWith<AuctionListResponse> get copyWith => _$AuctionListResponseCopyWithImpl<AuctionListResponse>(this as AuctionListResponse, _$identity);
 
   /// Serializes this AuctionListResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of AuctionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AuctionListResponseCopyWith<AuctionListResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionListResponse&&(identical(other.success, success) || other.success == success)&&const DeepCollectionEquality().equals(other.data, data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,const DeepCollectionEquality().hash(data));
+
+@override
+String toString() {
+  return 'AuctionListResponse(success: $success, data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AuctionListResponseCopyWith<$Res> {
-  factory $AuctionListResponseCopyWith(
-    AuctionListResponse value,
-    $Res Function(AuctionListResponse) then,
-  ) = _$AuctionListResponseCopyWithImpl<$Res, AuctionListResponse>;
-  @useResult
-  $Res call({bool success, List<AuctionRound> data});
-}
+abstract mixin class $AuctionListResponseCopyWith<$Res>  {
+  factory $AuctionListResponseCopyWith(AuctionListResponse value, $Res Function(AuctionListResponse) _then) = _$AuctionListResponseCopyWithImpl;
+@useResult
+$Res call({
+ bool success, List<AuctionRound> data
+});
 
+
+
+
+}
 /// @nodoc
-class _$AuctionListResponseCopyWithImpl<$Res, $Val extends AuctionListResponse>
+class _$AuctionListResponseCopyWithImpl<$Res>
     implements $AuctionListResponseCopyWith<$Res> {
-  _$AuctionListResponseCopyWithImpl(this._value, this._then);
+  _$AuctionListResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AuctionListResponse _self;
+  final $Res Function(AuctionListResponse) _then;
 
-  /// Create a copy of AuctionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _value.copyWith(
-            success: null == success
-                ? _value.success
-                : success // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            data: null == data
-                ? _value.data
-                : data // ignore: cast_nullable_to_non_nullable
-                      as List<AuctionRound>,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of AuctionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_self.copyWith(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as List<AuctionRound>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$AuctionListResponseImplCopyWith<$Res>
-    implements $AuctionListResponseCopyWith<$Res> {
-  factory _$$AuctionListResponseImplCopyWith(
-    _$AuctionListResponseImpl value,
-    $Res Function(_$AuctionListResponseImpl) then,
-  ) = __$$AuctionListResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool success, List<AuctionRound> data});
 }
 
-/// @nodoc
-class __$$AuctionListResponseImplCopyWithImpl<$Res>
-    extends _$AuctionListResponseCopyWithImpl<$Res, _$AuctionListResponseImpl>
-    implements _$$AuctionListResponseImplCopyWith<$Res> {
-  __$$AuctionListResponseImplCopyWithImpl(
-    _$AuctionListResponseImpl _value,
-    $Res Function(_$AuctionListResponseImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AuctionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _$AuctionListResponseImpl(
-        success: null == success
-            ? _value.success
-            : success // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        data: null == data
-            ? _value._data
-            : data // ignore: cast_nullable_to_non_nullable
-                  as List<AuctionRound>,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [AuctionListResponse].
+extension AuctionListResponsePatterns on AuctionListResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AuctionListResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AuctionListResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AuctionListResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _AuctionListResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AuctionListResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AuctionListResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  List<AuctionRound> data)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AuctionListResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  List<AuctionRound> data)  $default,) {final _that = this;
+switch (_that) {
+case _AuctionListResponse():
+return $default(_that.success,_that.data);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  List<AuctionRound> data)?  $default,) {final _that = this;
+switch (_that) {
+case _AuctionListResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AuctionListResponseImpl implements _AuctionListResponse {
-  const _$AuctionListResponseImpl({
-    required this.success,
-    required final List<AuctionRound> data,
-  }) : _data = data;
 
-  factory _$AuctionListResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AuctionListResponseImplFromJson(json);
+class _AuctionListResponse implements AuctionListResponse {
+  const _AuctionListResponse({required this.success, required final  List<AuctionRound> data}): _data = data;
+  factory _AuctionListResponse.fromJson(Map<String, dynamic> json) => _$AuctionListResponseFromJson(json);
 
-  @override
-  final bool success;
-  final List<AuctionRound> _data;
-  @override
-  List<AuctionRound> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString() {
-    return 'AuctionListResponse(success: $success, data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuctionListResponseImpl &&
-            (identical(other.success, success) || other.success == success) &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    success,
-    const DeepCollectionEquality().hash(_data),
-  );
-
-  /// Create a copy of AuctionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AuctionListResponseImplCopyWith<_$AuctionListResponseImpl> get copyWith =>
-      __$$AuctionListResponseImplCopyWithImpl<_$AuctionListResponseImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AuctionListResponseImplToJson(this);
-  }
+@override final  bool success;
+ final  List<AuctionRound> _data;
+@override List<AuctionRound> get data {
+  if (_data is EqualUnmodifiableListView) return _data;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_data);
 }
 
-abstract class _AuctionListResponse implements AuctionListResponse {
-  const factory _AuctionListResponse({
-    required final bool success,
-    required final List<AuctionRound> data,
-  }) = _$AuctionListResponseImpl;
 
-  factory _AuctionListResponse.fromJson(Map<String, dynamic> json) =
-      _$AuctionListResponseImpl.fromJson;
+/// Create a copy of AuctionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AuctionListResponseCopyWith<_AuctionListResponse> get copyWith => __$AuctionListResponseCopyWithImpl<_AuctionListResponse>(this, _$identity);
 
-  @override
-  bool get success;
-  @override
-  List<AuctionRound> get data;
-
-  /// Create a copy of AuctionListResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AuctionListResponseImplCopyWith<_$AuctionListResponseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$AuctionListResponseToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuctionListResponse&&(identical(other.success, success) || other.success == success)&&const DeepCollectionEquality().equals(other._data, _data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,const DeepCollectionEquality().hash(_data));
+
+@override
+String toString() {
+  return 'AuctionListResponse(success: $success, data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AuctionListResponseCopyWith<$Res> implements $AuctionListResponseCopyWith<$Res> {
+  factory _$AuctionListResponseCopyWith(_AuctionListResponse value, $Res Function(_AuctionListResponse) _then) = __$AuctionListResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ bool success, List<AuctionRound> data
+});
+
+
+
+
+}
+/// @nodoc
+class __$AuctionListResponseCopyWithImpl<$Res>
+    implements _$AuctionListResponseCopyWith<$Res> {
+  __$AuctionListResponseCopyWithImpl(this._self, this._then);
+
+  final _AuctionListResponse _self;
+  final $Res Function(_AuctionListResponse) _then;
+
+/// Create a copy of AuctionListResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_AuctionListResponse(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self._data : data // ignore: cast_nullable_to_non_nullable
+as List<AuctionRound>,
+  ));
+}
+
+
+}
+
+// dart format on

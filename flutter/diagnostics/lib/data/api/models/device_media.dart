@@ -8,7 +8,7 @@ part 'device_media.freezed.dart';
 part 'device_media.g.dart';
 
 @Freezed()
-class DeviceMedia with _$DeviceMedia {
+abstract class DeviceMedia with _$DeviceMedia {
   const factory DeviceMedia({
     String? id,
     String? purpose,

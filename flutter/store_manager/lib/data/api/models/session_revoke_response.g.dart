@@ -6,13 +6,13 @@ part of 'session_revoke_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SessionRevokeResponseImpl _$$SessionRevokeResponseImplFromJson(
+_SessionRevokeResponse _$SessionRevokeResponseFromJson(
   Map<String, dynamic> json,
-) => _$SessionRevokeResponseImpl(
+) => _SessionRevokeResponse(
   success: json['success'] as bool,
   data: SessionRevoke.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$$SessionRevokeResponseImplToJson(
-  _$SessionRevokeResponseImpl instance,
+Map<String, dynamic> _$SessionRevokeResponseToJson(
+  _SessionRevokeResponse instance,
 ) => <String, dynamic>{'success': instance.success, 'data': instance.data};

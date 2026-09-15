@@ -8,7 +8,7 @@ part 'data2.freezed.dart';
 part 'data2.g.dart';
 
 @Freezed()
-class Data2 with _$Data2 {
+abstract class Data2 with _$Data2 {
   const factory Data2({
     int? availablePaise,
     int? reservedPaise,

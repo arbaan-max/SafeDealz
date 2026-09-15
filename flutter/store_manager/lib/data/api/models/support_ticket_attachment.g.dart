@@ -6,9 +6,9 @@ part of 'support_ticket_attachment.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SupportTicketAttachmentImpl _$$SupportTicketAttachmentImplFromJson(
+_SupportTicketAttachment _$SupportTicketAttachmentFromJson(
   Map<String, dynamic> json,
-) => _$SupportTicketAttachmentImpl(
+) => _SupportTicketAttachment(
   id: json['id'] as String?,
   objectKey: json['objectKey'] as String?,
   contentType: json['contentType'] as String?,
@@ -18,8 +18,8 @@ _$SupportTicketAttachmentImpl _$$SupportTicketAttachmentImplFromJson(
       : SupportTicketAttachmentStatus.fromJson(json['status'] as String),
 );
 
-Map<String, dynamic> _$$SupportTicketAttachmentImplToJson(
-  _$SupportTicketAttachmentImpl instance,
+Map<String, dynamic> _$SupportTicketAttachmentToJson(
+  _SupportTicketAttachment instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'objectKey': instance.objectKey,

@@ -6,7 +6,7 @@ part of 'chain.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ChainImpl _$$ChainImplFromJson(Map<String, dynamic> json) => _$ChainImpl(
+_Chain _$ChainFromJson(Map<String, dynamic> json) => _Chain(
   id: json['id'] as String,
   name: json['name'] as String,
   code: json['code'] as String,
@@ -17,14 +17,13 @@ _$ChainImpl _$$ChainImplFromJson(Map<String, dynamic> json) => _$ChainImpl(
   branchCount: (json['branchCount'] as num?)?.toInt(),
 );
 
-Map<String, dynamic> _$$ChainImplToJson(_$ChainImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'code': instance.code,
-      'active': instance.active,
-      'contactName': instance.contactName,
-      'contactEmail': instance.contactEmail,
-      'contactPhone': instance.contactPhone,
-      'branchCount': instance.branchCount,
-    };
+Map<String, dynamic> _$ChainToJson(_Chain instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'code': instance.code,
+  'active': instance.active,
+  'contactName': instance.contactName,
+  'contactEmail': instance.contactEmail,
+  'contactPhone': instance.contactPhone,
+  'branchCount': instance.branchCount,
+};

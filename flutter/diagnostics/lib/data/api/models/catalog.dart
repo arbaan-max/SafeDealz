@@ -13,7 +13,7 @@ part 'catalog.freezed.dart';
 part 'catalog.g.dart';
 
 @Freezed()
-class Catalog with _$Catalog {
+abstract class Catalog with _$Catalog {
   const factory Catalog({
     required String version,
     required List<String> storages,

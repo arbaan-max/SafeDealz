@@ -10,7 +10,7 @@ part 'bid.freezed.dart';
 part 'bid.g.dart';
 
 @Freezed()
-class Bid with _$Bid {
+abstract class Bid with _$Bid {
   const factory Bid({
     required String id,
     required String roundId,

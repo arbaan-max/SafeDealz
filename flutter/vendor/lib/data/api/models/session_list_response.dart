@@ -10,7 +10,7 @@ part 'session_list_response.freezed.dart';
 part 'session_list_response.g.dart';
 
 @Freezed()
-class SessionListResponse with _$SessionListResponse {
+abstract class SessionListResponse with _$SessionListResponse {
   const factory SessionListResponse({
     required bool success,
     required List<AccountSession> data,

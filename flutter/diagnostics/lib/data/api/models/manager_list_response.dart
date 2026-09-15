@@ -10,7 +10,7 @@ part 'manager_list_response.freezed.dart';
 part 'manager_list_response.g.dart';
 
 @Freezed()
-class ManagerListResponse with _$ManagerListResponse {
+abstract class ManagerListResponse with _$ManagerListResponse {
   const factory ManagerListResponse({
     required bool success,
     required List<ManagerAccount> data,

@@ -8,7 +8,7 @@ part 'admin_update.freezed.dart';
 part 'admin_update.g.dart';
 
 @Freezed()
-class AdminUpdate with _$AdminUpdate {
+abstract class AdminUpdate with _$AdminUpdate {
   const factory AdminUpdate({
     String? displayName,
     String? phone,

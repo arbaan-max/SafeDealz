@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,191 +9,290 @@ part of 'otp_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-OtpResponse _$OtpResponseFromJson(Map<String, dynamic> json) {
-  return _OtpResponse.fromJson(json);
-}
 
 /// @nodoc
 mixin _$OtpResponse {
-  bool get success => throw _privateConstructorUsedError;
-  Data5 get data => throw _privateConstructorUsedError;
+
+ bool get success; Data5 get data;
+/// Create a copy of OtpResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OtpResponseCopyWith<OtpResponse> get copyWith => _$OtpResponseCopyWithImpl<OtpResponse>(this as OtpResponse, _$identity);
 
   /// Serializes this OtpResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of OtpResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $OtpResponseCopyWith<OtpResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OtpResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'OtpResponse(success: $success, data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $OtpResponseCopyWith<$Res> {
-  factory $OtpResponseCopyWith(
-    OtpResponse value,
-    $Res Function(OtpResponse) then,
-  ) = _$OtpResponseCopyWithImpl<$Res, OtpResponse>;
-  @useResult
-  $Res call({bool success, Data5 data});
+abstract mixin class $OtpResponseCopyWith<$Res>  {
+  factory $OtpResponseCopyWith(OtpResponse value, $Res Function(OtpResponse) _then) = _$OtpResponseCopyWithImpl;
+@useResult
+$Res call({
+ bool success, Data5 data
+});
 
-  $Data5CopyWith<$Res> get data;
+
+$Data5CopyWith<$Res> get data;
+
 }
-
 /// @nodoc
-class _$OtpResponseCopyWithImpl<$Res, $Val extends OtpResponse>
+class _$OtpResponseCopyWithImpl<$Res>
     implements $OtpResponseCopyWith<$Res> {
-  _$OtpResponseCopyWithImpl(this._value, this._then);
+  _$OtpResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final OtpResponse _self;
+  final $Res Function(OtpResponse) _then;
 
-  /// Create a copy of OtpResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _value.copyWith(
-            success: null == success
-                ? _value.success
-                : success // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            data: null == data
-                ? _value.data
-                : data // ignore: cast_nullable_to_non_nullable
-                      as Data5,
-          )
-          as $Val,
-    );
-  }
-
-  /// Create a copy of OtpResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Data5CopyWith<$Res> get data {
-    return $Data5CopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
-  }
+/// Create a copy of OtpResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_self.copyWith(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data5,
+  ));
+}
+/// Create a copy of OtpResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$Data5CopyWith<$Res> get data {
+  
+  return $Data5CopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$OtpResponseImplCopyWith<$Res>
-    implements $OtpResponseCopyWith<$Res> {
-  factory _$$OtpResponseImplCopyWith(
-    _$OtpResponseImpl value,
-    $Res Function(_$OtpResponseImpl) then,
-  ) = __$$OtpResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool success, Data5 data});
 
-  @override
-  $Data5CopyWith<$Res> get data;
+/// Adds pattern-matching-related methods to [OtpResponse].
+extension OtpResponsePatterns on OtpResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _OtpResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _OtpResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _OtpResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _OtpResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _OtpResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _OtpResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  Data5 data)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _OtpResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  Data5 data)  $default,) {final _that = this;
+switch (_that) {
+case _OtpResponse():
+return $default(_that.success,_that.data);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  Data5 data)?  $default,) {final _that = this;
+switch (_that) {
+case _OtpResponse() when $default != null:
+return $default(_that.success,_that.data);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$OtpResponseImplCopyWithImpl<$Res>
-    extends _$OtpResponseCopyWithImpl<$Res, _$OtpResponseImpl>
-    implements _$$OtpResponseImplCopyWith<$Res> {
-  __$$OtpResponseImplCopyWithImpl(
-    _$OtpResponseImpl _value,
-    $Res Function(_$OtpResponseImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of OtpResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? success = null, Object? data = null}) {
-    return _then(
-      _$OtpResponseImpl(
-        success: null == success
-            ? _value.success
-            : success // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        data: null == data
-            ? _value.data
-            : data // ignore: cast_nullable_to_non_nullable
-                  as Data5,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$OtpResponseImpl implements _OtpResponse {
-  const _$OtpResponseImpl({required this.success, required this.data});
 
-  factory _$OtpResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$OtpResponseImplFromJson(json);
+class _OtpResponse implements OtpResponse {
+  const _OtpResponse({required this.success, required this.data});
+  factory _OtpResponse.fromJson(Map<String, dynamic> json) => _$OtpResponseFromJson(json);
 
-  @override
-  final bool success;
-  @override
-  final Data5 data;
+@override final  bool success;
+@override final  Data5 data;
 
-  @override
-  String toString() {
-    return 'OtpResponse(success: $success, data: $data)';
-  }
+/// Create a copy of OtpResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OtpResponseCopyWith<_OtpResponse> get copyWith => __$OtpResponseCopyWithImpl<_OtpResponse>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$OtpResponseImpl &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.data, data) || other.data == data));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, success, data);
-
-  /// Create a copy of OtpResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$OtpResponseImplCopyWith<_$OtpResponseImpl> get copyWith =>
-      __$$OtpResponseImplCopyWithImpl<_$OtpResponseImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$OtpResponseImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$OtpResponseToJson(this, );
 }
 
-abstract class _OtpResponse implements OtpResponse {
-  const factory _OtpResponse({
-    required final bool success,
-    required final Data5 data,
-  }) = _$OtpResponseImpl;
-
-  factory _OtpResponse.fromJson(Map<String, dynamic> json) =
-      _$OtpResponseImpl.fromJson;
-
-  @override
-  bool get success;
-  @override
-  Data5 get data;
-
-  /// Create a copy of OtpResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$OtpResponseImplCopyWith<_$OtpResponseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OtpResponse&&(identical(other.success, success) || other.success == success)&&(identical(other.data, data) || other.data == data));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,success,data);
+
+@override
+String toString() {
+  return 'OtpResponse(success: $success, data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OtpResponseCopyWith<$Res> implements $OtpResponseCopyWith<$Res> {
+  factory _$OtpResponseCopyWith(_OtpResponse value, $Res Function(_OtpResponse) _then) = __$OtpResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ bool success, Data5 data
+});
+
+
+@override $Data5CopyWith<$Res> get data;
+
+}
+/// @nodoc
+class __$OtpResponseCopyWithImpl<$Res>
+    implements _$OtpResponseCopyWith<$Res> {
+  __$OtpResponseCopyWithImpl(this._self, this._then);
+
+  final _OtpResponse _self;
+  final $Res Function(_OtpResponse) _then;
+
+/// Create a copy of OtpResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? data = null,}) {
+  return _then(_OtpResponse(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data5,
+  ));
+}
+
+/// Create a copy of OtpResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$Data5CopyWith<$Res> get data {
+  
+  return $Data5CopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
+}
+
+// dart format on

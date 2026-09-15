@@ -8,7 +8,7 @@ part 'report_export.freezed.dart';
 part 'report_export.g.dart';
 
 @Freezed()
-class ReportExport with _$ReportExport {
+abstract class ReportExport with _$ReportExport {
   const factory ReportExport({
     String? filename,
     String? csv,

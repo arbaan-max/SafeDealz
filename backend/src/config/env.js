@@ -24,6 +24,7 @@ const secret = (name, developmentDefault) => {
 export const env = Object.freeze({
   nodeEnv,
   port: parsePort(process.env.PORT),
+  bindHost: process.env.BIND_HOST || '0.0.0.0',
   mongoUri:
     process.env.MONGODB_URI ?? 'mongodb://127.0.0.1:27017/safedealz',
   jwtSecret: secret('JWT_SECRET', 'local-development-only-secret-change-me-32'),

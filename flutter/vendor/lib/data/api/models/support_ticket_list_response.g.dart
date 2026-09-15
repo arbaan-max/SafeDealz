@@ -6,15 +6,15 @@ part of 'support_ticket_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SupportTicketListResponseImpl _$$SupportTicketListResponseImplFromJson(
+_SupportTicketListResponse _$SupportTicketListResponseFromJson(
   Map<String, dynamic> json,
-) => _$SupportTicketListResponseImpl(
+) => _SupportTicketListResponse(
   success: json['success'] as bool,
   data: (json['data'] as List<dynamic>)
       .map((e) => SupportTicket.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
-Map<String, dynamic> _$$SupportTicketListResponseImplToJson(
-  _$SupportTicketListResponseImpl instance,
+Map<String, dynamic> _$SupportTicketListResponseToJson(
+  _SupportTicketListResponse instance,
 ) => <String, dynamic>{'success': instance.success, 'data': instance.data};

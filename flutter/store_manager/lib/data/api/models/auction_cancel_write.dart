@@ -8,7 +8,7 @@ part 'auction_cancel_write.freezed.dart';
 part 'auction_cancel_write.g.dart';
 
 @Freezed()
-class AuctionCancelWrite with _$AuctionCancelWrite {
+abstract class AuctionCancelWrite with _$AuctionCancelWrite {
   const factory AuctionCancelWrite({
     required String reason,
   }) = _AuctionCancelWrite;

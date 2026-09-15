@@ -10,7 +10,7 @@ part 'report_export_response.freezed.dart';
 part 'report_export_response.g.dart';
 
 @Freezed()
-class ReportExportResponse with _$ReportExportResponse {
+abstract class ReportExportResponse with _$ReportExportResponse {
   const factory ReportExportResponse({
     required bool success,
     required ReportExport data,

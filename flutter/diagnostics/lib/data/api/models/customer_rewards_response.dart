@@ -10,7 +10,7 @@ part 'customer_rewards_response.freezed.dart';
 part 'customer_rewards_response.g.dart';
 
 @Freezed()
-class CustomerRewardsResponse with _$CustomerRewardsResponse {
+abstract class CustomerRewardsResponse with _$CustomerRewardsResponse {
   const factory CustomerRewardsResponse({
     required bool success,
     required CustomerRewards data,

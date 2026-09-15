@@ -10,7 +10,7 @@ part 'notification_response.freezed.dart';
 part 'notification_response.g.dart';
 
 @Freezed()
-class NotificationResponse with _$NotificationResponse {
+abstract class NotificationResponse with _$NotificationResponse {
   const factory NotificationResponse({
     required bool success,
     required Notification data,

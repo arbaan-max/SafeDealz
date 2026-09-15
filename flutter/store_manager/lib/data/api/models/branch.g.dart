@@ -6,7 +6,7 @@ part of 'branch.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BranchImpl _$$BranchImplFromJson(Map<String, dynamic> json) => _$BranchImpl(
+_Branch _$BranchFromJson(Map<String, dynamic> json) => _Branch(
   id: json['id'] as String,
   chainId: json['chainId'] as String,
   name: json['name'] as String,
@@ -23,20 +23,19 @@ _$BranchImpl _$$BranchImplFromJson(Map<String, dynamic> json) => _$BranchImpl(
   payoutReady: json['payoutReady'] as bool?,
 );
 
-Map<String, dynamic> _$$BranchImplToJson(_$BranchImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'chainId': instance.chainId,
-      'name': instance.name,
-      'code': instance.code,
-      'active': instance.active,
-      'address': instance.address,
-      'city': instance.city,
-      'contactName': instance.contactName,
-      'contactPhone': instance.contactPhone,
-      'beneficiaryName': instance.beneficiaryName,
-      'ifsc': instance.ifsc,
-      'accountNumberMasked': instance.accountNumberMasked,
-      'accountNumber': instance.accountNumber,
-      'payoutReady': instance.payoutReady,
-    };
+Map<String, dynamic> _$BranchToJson(_Branch instance) => <String, dynamic>{
+  'id': instance.id,
+  'chainId': instance.chainId,
+  'name': instance.name,
+  'code': instance.code,
+  'active': instance.active,
+  'address': instance.address,
+  'city': instance.city,
+  'contactName': instance.contactName,
+  'contactPhone': instance.contactPhone,
+  'beneficiaryName': instance.beneficiaryName,
+  'ifsc': instance.ifsc,
+  'accountNumberMasked': instance.accountNumberMasked,
+  'accountNumber': instance.accountNumber,
+  'payoutReady': instance.payoutReady,
+};

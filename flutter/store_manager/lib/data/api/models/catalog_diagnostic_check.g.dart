@@ -6,16 +6,16 @@ part of 'catalog_diagnostic_check.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CatalogDiagnosticCheckImpl _$$CatalogDiagnosticCheckImplFromJson(
+_CatalogDiagnosticCheck _$CatalogDiagnosticCheckFromJson(
   Map<String, dynamic> json,
-) => _$CatalogDiagnosticCheckImpl(
+) => _CatalogDiagnosticCheck(
   id: json['id'] as String,
   label: json['label'] as String,
   group: json['group'] as String,
 );
 
-Map<String, dynamic> _$$CatalogDiagnosticCheckImplToJson(
-  _$CatalogDiagnosticCheckImpl instance,
+Map<String, dynamic> _$CatalogDiagnosticCheckToJson(
+  _CatalogDiagnosticCheck instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'label': instance.label,

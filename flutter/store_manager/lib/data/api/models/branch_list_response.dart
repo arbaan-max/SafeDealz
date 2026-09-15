@@ -10,7 +10,7 @@ part 'branch_list_response.freezed.dart';
 part 'branch_list_response.g.dart';
 
 @Freezed()
-class BranchListResponse with _$BranchListResponse {
+abstract class BranchListResponse with _$BranchListResponse {
   const factory BranchListResponse({
     required bool success,
     required List<Branch> data,

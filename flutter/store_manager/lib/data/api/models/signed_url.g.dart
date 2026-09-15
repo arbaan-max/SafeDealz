@@ -6,15 +6,14 @@ part of 'signed_url.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SignedUrlImpl _$$SignedUrlImplFromJson(Map<String, dynamic> json) =>
-    _$SignedUrlImpl(
-      method: json['method'] as String?,
-      url: json['url'] as String?,
-      expiresAt: json['expiresAt'] as String?,
-      live: json['live'] as bool?,
-    );
+_SignedUrl _$SignedUrlFromJson(Map<String, dynamic> json) => _SignedUrl(
+  method: json['method'] as String?,
+  url: json['url'] as String?,
+  expiresAt: json['expiresAt'] as String?,
+  live: json['live'] as bool?,
+);
 
-Map<String, dynamic> _$$SignedUrlImplToJson(_$SignedUrlImpl instance) =>
+Map<String, dynamic> _$SignedUrlToJson(_SignedUrl instance) =>
     <String, dynamic>{
       'method': instance.method,
       'url': instance.url,

@@ -10,7 +10,7 @@ part 'notification_broadcast_response.freezed.dart';
 part 'notification_broadcast_response.g.dart';
 
 @Freezed()
-class NotificationBroadcastResponse with _$NotificationBroadcastResponse {
+abstract class NotificationBroadcastResponse with _$NotificationBroadcastResponse {
   const factory NotificationBroadcastResponse({
     required bool success,
     required NotificationBroadcast data,

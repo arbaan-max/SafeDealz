@@ -8,7 +8,7 @@ part 'wallet_credit_write.freezed.dart';
 part 'wallet_credit_write.g.dart';
 
 @Freezed()
-class WalletCreditWrite with _$WalletCreditWrite {
+abstract class WalletCreditWrite with _$WalletCreditWrite {
   const factory WalletCreditWrite({
     required int amountPaise,
     required String idempotencyKey,

@@ -6,13 +6,11 @@ part of 'payment_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaymentResponseImpl _$$PaymentResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$PaymentResponseImpl(
-  success: json['success'] as bool,
-  data: PaymentInstruction.fromJson(json['data'] as Map<String, dynamic>),
-);
+_PaymentResponse _$PaymentResponseFromJson(Map<String, dynamic> json) =>
+    _PaymentResponse(
+      success: json['success'] as bool,
+      data: PaymentInstruction.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$$PaymentResponseImplToJson(
-  _$PaymentResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$PaymentResponseToJson(_PaymentResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};

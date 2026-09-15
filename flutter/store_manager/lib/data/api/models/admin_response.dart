@@ -10,7 +10,7 @@ part 'admin_response.freezed.dart';
 part 'admin_response.g.dart';
 
 @Freezed()
-class AdminResponse with _$AdminResponse {
+abstract class AdminResponse with _$AdminResponse {
   const factory AdminResponse({
     required bool success,
     required AdminAccount data,

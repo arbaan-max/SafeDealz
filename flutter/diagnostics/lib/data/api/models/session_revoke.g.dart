@@ -6,11 +6,11 @@ part of 'session_revoke.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SessionRevokeImpl _$$SessionRevokeImplFromJson(Map<String, dynamic> json) =>
-    _$SessionRevokeImpl(
+_SessionRevoke _$SessionRevokeFromJson(Map<String, dynamic> json) =>
+    _SessionRevoke(
       id: json['id'] as String?,
       revoked: json['revoked'] as bool?,
     );
 
-Map<String, dynamic> _$$SessionRevokeImplToJson(_$SessionRevokeImpl instance) =>
+Map<String, dynamic> _$SessionRevokeToJson(_SessionRevoke instance) =>
     <String, dynamic>{'id': instance.id, 'revoked': instance.revoked};

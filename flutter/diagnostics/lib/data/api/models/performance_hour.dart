@@ -8,7 +8,7 @@ part 'performance_hour.freezed.dart';
 part 'performance_hour.g.dart';
 
 @Freezed()
-class PerformanceHour with _$PerformanceHour {
+abstract class PerformanceHour with _$PerformanceHour {
   const factory PerformanceHour({
     int? hour,
     int? bids,

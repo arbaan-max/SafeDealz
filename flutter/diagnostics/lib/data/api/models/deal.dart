@@ -12,7 +12,7 @@ part 'deal.freezed.dart';
 part 'deal.g.dart';
 
 @Freezed()
-class Deal with _$Deal {
+abstract class Deal with _$Deal {
   const factory Deal({
     required String id,
     required String auctionRoundId,

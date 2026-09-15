@@ -10,7 +10,7 @@ part 'purchased_device.freezed.dart';
 part 'purchased_device.g.dart';
 
 @Freezed()
-class PurchasedDevice with _$PurchasedDevice {
+abstract class PurchasedDevice with _$PurchasedDevice {
   const factory PurchasedDevice({
     PurchasedDevicePlatform? platform,
     String? model,

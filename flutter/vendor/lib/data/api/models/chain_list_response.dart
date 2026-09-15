@@ -10,7 +10,7 @@ part 'chain_list_response.freezed.dart';
 part 'chain_list_response.g.dart';
 
 @Freezed()
-class ChainListResponse with _$ChainListResponse {
+abstract class ChainListResponse with _$ChainListResponse {
   const factory ChainListResponse({
     required bool success,
     required List<Chain> data,

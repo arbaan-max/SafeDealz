@@ -10,7 +10,7 @@ part 'vendor_response.freezed.dart';
 part 'vendor_response.g.dart';
 
 @Freezed()
-class VendorResponse with _$VendorResponse {
+abstract class VendorResponse with _$VendorResponse {
   const factory VendorResponse({
     required bool success,
     required VendorAccount data,

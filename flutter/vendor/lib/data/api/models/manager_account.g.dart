@@ -6,8 +6,8 @@ part of 'manager_account.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ManagerAccountImpl _$$ManagerAccountImplFromJson(Map<String, dynamic> json) =>
-    _$ManagerAccountImpl(
+_ManagerAccount _$ManagerAccountFromJson(Map<String, dynamic> json) =>
+    _ManagerAccount(
       id: json['id'] as String,
       email: json['email'] as String,
       role: AccountRole.fromJson(json['role'] as String),
@@ -21,16 +21,15 @@ _$ManagerAccountImpl _$$ManagerAccountImplFromJson(Map<String, dynamic> json) =>
       activeSessionCount: (json['activeSessionCount'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$ManagerAccountImplToJson(
-  _$ManagerAccountImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'email': instance.email,
-  'role': instance.role,
-  'branchId': instance.branchId,
-  'displayName': instance.displayName,
-  'phone': instance.phone,
-  'active': instance.active,
-  'assignedBranchIds': instance.assignedBranchIds,
-  'activeSessionCount': instance.activeSessionCount,
-};
+Map<String, dynamic> _$ManagerAccountToJson(_ManagerAccount instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'email': instance.email,
+      'role': instance.role,
+      'branchId': instance.branchId,
+      'displayName': instance.displayName,
+      'phone': instance.phone,
+      'active': instance.active,
+      'assignedBranchIds': instance.assignedBranchIds,
+      'activeSessionCount': instance.activeSessionCount,
+    };

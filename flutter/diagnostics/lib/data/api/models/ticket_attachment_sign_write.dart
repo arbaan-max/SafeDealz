@@ -8,7 +8,7 @@ part 'ticket_attachment_sign_write.freezed.dart';
 part 'ticket_attachment_sign_write.g.dart';
 
 @Freezed()
-class TicketAttachmentSignWrite with _$TicketAttachmentSignWrite {
+abstract class TicketAttachmentSignWrite with _$TicketAttachmentSignWrite {
   const factory TicketAttachmentSignWrite({
     required String contentType,
     required int sizeBytes,

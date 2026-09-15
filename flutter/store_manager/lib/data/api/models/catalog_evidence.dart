@@ -8,7 +8,7 @@ part 'catalog_evidence.freezed.dart';
 part 'catalog_evidence.g.dart';
 
 @Freezed()
-class CatalogEvidence with _$CatalogEvidence {
+abstract class CatalogEvidence with _$CatalogEvidence {
   const factory CatalogEvidence({
     required String purpose,
     required String label,

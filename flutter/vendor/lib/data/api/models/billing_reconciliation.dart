@@ -8,7 +8,7 @@ part 'billing_reconciliation.freezed.dart';
 part 'billing_reconciliation.g.dart';
 
 @Freezed()
-class BillingReconciliation with _$BillingReconciliation {
+abstract class BillingReconciliation with _$BillingReconciliation {
   const factory BillingReconciliation({
     int? paidValuePaise,
     int? rewardOutstandingValuePaise,

@@ -8,7 +8,7 @@ part 'support_ticket_note.freezed.dart';
 part 'support_ticket_note.g.dart';
 
 @Freezed()
-class SupportTicketNote with _$SupportTicketNote {
+abstract class SupportTicketNote with _$SupportTicketNote {
   const factory SupportTicketNote({
     String? id,
     String? authorAccountId,

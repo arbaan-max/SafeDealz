@@ -10,7 +10,7 @@ part 'performance.freezed.dart';
 part 'performance.g.dart';
 
 @Freezed()
-class Performance with _$Performance {
+abstract class Performance with _$Performance {
   const factory Performance({
     int? bids,
     int? wins,

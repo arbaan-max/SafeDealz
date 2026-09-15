@@ -10,7 +10,7 @@ part 'auth_data.freezed.dart';
 part 'auth_data.g.dart';
 
 @Freezed()
-class AuthData with _$AuthData {
+abstract class AuthData with _$AuthData {
   const factory AuthData({
     required String accessToken,
     required int expiresIn,

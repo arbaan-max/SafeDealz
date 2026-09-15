@@ -6,15 +6,13 @@ part of 'audit_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuditListResponseImpl _$$AuditListResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$AuditListResponseImpl(
-  success: json['success'] as bool,
-  data: (json['data'] as List<dynamic>)
-      .map((e) => AuditEvent.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+_AuditListResponse _$AuditListResponseFromJson(Map<String, dynamic> json) =>
+    _AuditListResponse(
+      success: json['success'] as bool,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => AuditEvent.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
-Map<String, dynamic> _$$AuditListResponseImplToJson(
-  _$AuditListResponseImpl instance,
-) => <String, dynamic>{'success': instance.success, 'data': instance.data};
+Map<String, dynamic> _$AuditListResponseToJson(_AuditListResponse instance) =>
+    <String, dynamic>{'success': instance.success, 'data': instance.data};
